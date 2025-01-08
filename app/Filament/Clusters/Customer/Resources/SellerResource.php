@@ -3,13 +3,16 @@
 namespace App\Filament\Clusters\Customer\Resources;
 
 use Filament\Forms;
+use App\Models\User;
 use Filament\Tables;
 use App\Models\Seller;
 use Filament\Forms\Form;
+use Filament\Pages\Page;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use App\Filament\Clusters\Customer;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
@@ -18,13 +21,13 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Resources\Pages\CreateRecord;
 use App\Filament\Resources\SellerResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\SellerResource\RelationManagers;
 use App\Filament\Clusters\Customer\Resources\SellerResource\Pages\EditSeller;
 use App\Filament\Clusters\Customer\Resources\SellerResource\Pages\ListSellers;
 use App\Filament\Clusters\Customer\Resources\SellerResource\Pages\CreateSeller;
-use App\Models\User;
 
 class SellerResource extends Resource
 {
@@ -89,6 +92,22 @@ class SellerResource extends Resource
                             ->required()
                             ->label('Nom de la boutique'),
                     ]),
+                Section::make()
+                    ->schema([
+                        TextInput::make('password')
+                            ->password()
+                            ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord)
+                            ->minLength(8)
+                            ->same('password_confirmation')
+                            ->dehydrated(fn($state) => filled($state))
+                            ->dehydrateStateUsing(fn($state) => Hash::make($state)),
+                        TextInput::make('password_confirmation')
+                            ->label('Password confirmation')
+                            ->password()
+                            ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord)
+                            ->minLength(8)
+                            ->dehydrated(false)
+                    ])
             ]);
     }
 

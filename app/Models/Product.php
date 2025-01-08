@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $slug
  * @property string $description
  * @property string $image
+ * @property bool $available
  * @property float $price
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -35,6 +36,7 @@ class Product extends Model
 	protected $casts = [
 		'user_id' => 'int',
 		'category_id' => 'int',
+		'available' => 'bool',
 		'price' => 'float'
 	];
 
@@ -45,6 +47,7 @@ class Product extends Model
 		'slug',
 		'description',
 		'image',
+		'available',
 		'price'
 	];
 

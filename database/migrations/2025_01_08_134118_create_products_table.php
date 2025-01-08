@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('slug', 255)->unique();
             $table->text('description');
             $table->string('image');
+            $table->boolean('available')->default(true);
             $table->decimal('price', 10, 2);
             $table->timestamps();
         });

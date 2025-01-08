@@ -9,6 +9,7 @@ use Filament\Resources\Pages\EditRecord;
 class EditShop extends EditRecord
 {
     protected static string $resource = ShopResource::class;
+    protected static ?string $title = 'Editer la boutique';
 
     protected function getHeaderActions(): array
     {

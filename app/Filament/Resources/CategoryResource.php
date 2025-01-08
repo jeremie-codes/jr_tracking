@@ -35,7 +35,8 @@ class CategoryResource extends Resource
             ->schema([
                 Section::make()
                     ->schema([
-                        TextInput::make('name'),
+                        TextInput::make('name')
+                            ->required(),
                         Toggle::make('is_visible')
                             ->label('Visible au public.')
                             ->default(true),
