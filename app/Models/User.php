@@ -20,7 +20,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $name
  * @property string $email
  * @property Carbon|null $email_verified_at
- * @property string $password
+ * @property string|null $password
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -32,7 +32,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string|null $avatar
  * @property bool $is_active
  * 
- * @property Collection|Seller[] $sellers
+ * @property Collection|Product[] $products
+ * @property Collection|Shop[] $shops
  *
  * @package App\Models
  */
@@ -40,7 +41,6 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
-
     protected $table = 'users';
 
     protected $casts = [
@@ -69,8 +69,13 @@ class User extends Authenticatable
         'is_active'
     ];
 
-    public function sellers()
+    public function products()
     {
-        return $this->hasMany(Seller::class);
+        return $this->hasMany(Product::class);
+    }
+
+    public function shop()
+    {
+        return $this->hasOne(Shop::class);
     }
 }

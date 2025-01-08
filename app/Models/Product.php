@@ -13,9 +13,10 @@ use Illuminate\Database\Eloquent\Model;
  * Class Product
  * 
  * @property int $id
- * @property int $seller_id
+ * @property int $user_id
  * @property int $category_id
  * @property string $name
+ * @property string $slug
  * @property string $description
  * @property string $image
  * @property float $price
@@ -23,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $updated_at
  * 
  * @property Category $category
- * @property Seller $seller
+ * @property User $user
  *
  * @package App\Models
  */
@@ -32,15 +33,16 @@ class Product extends Model
 	protected $table = 'products';
 
 	protected $casts = [
-		'seller_id' => 'int',
+		'user_id' => 'int',
 		'category_id' => 'int',
 		'price' => 'float'
 	];
 
 	protected $fillable = [
-		'seller_id',
+		'user_id',
 		'category_id',
 		'name',
+		'slug',
 		'description',
 		'image',
 		'price'
@@ -51,8 +53,8 @@ class Product extends Model
 		return $this->belongsTo(Category::class);
 	}
 
-	public function seller()
+	public function user()
 	{
-		return $this->belongsTo(Seller::class);
+		return $this->belongsTo(User::class);
 	}
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Resources\SellerResource\Pages;
+namespace App\Filament\Clusters\Customer\Resources\SellerResource\Pages;
 
-use App\Filament\Resources\SellerResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use App\Filament\Clusters\Customer\Resources\SellerResource;
 
 class EditSeller extends EditRecord
 {
