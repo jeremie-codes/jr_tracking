@@ -5,18 +5,23 @@ namespace App\Filament\Clusters\Customer\Resources;
 use Filament\Forms;
 use App\Models\Shop;
 use Filament\Tables;
+use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use App\Filament\Clusters\Customer;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Repeater;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Clusters\Customer\Resources\ShopResource\Pages;
 use App\Filament\Clusters\Customer\Resources\ShopResource\RelationManagers;
+use Filament\Forms\Components\Group;
 
 class ShopResource extends Resource
 {
@@ -38,6 +43,42 @@ class ShopResource extends Resource
                         Select::make('user_id')
                             ->relationship('user', 'name')
                     ]),
+                // Section::make()
+                //     ->schema([
+                //         Repeater::make('products')
+                //             ->label('Produits de la boutique')
+                //             ->relationship()
+                //             ->schema([
+                //                 Group::make()
+                //                     ->schema([
+                //                         FileUpload::make('image')
+                //                             ->required(),
+                //                     ]),
+                //                 Forms\Components\TextInput::make('name')
+                //                     ->autofocus()
+                //                     ->required()
+                //                     ->debounce()
+                //                     ->columnSpanFull()
+                //                     ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                //                 Forms\Components\TextInput::make('slug')
+                //                     ->readOnly()
+                //                     ->required(),
+
+                //                 TextInput::make('price')
+                //                     ->required(),
+                //                 Forms\Components\RichEditor::make('description')
+                //                     ->required()
+                //                     ->fileAttachmentsDisk('public')
+                //                     ->fileAttachmentsDirectory('posts')
+                //                     ->columnSpan(2),
+                //             ])
+                //             ->defaultItems(1)
+                //             ->hiddenLabel()
+                //             // ->columns([
+                //             //     'md' => 10,
+                //             // ])
+                //             ->required()
+                //     ])
             ]);
     }
 

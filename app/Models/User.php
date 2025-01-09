@@ -7,7 +7,6 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,8 +16,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * Class User
  * 
  * @property int $id
- * @property string $name
- * @property string $email
+ * @property string|null $name
+ * @property string|null $email
  * @property Carbon|null $email_verified_at
  * @property string|null $password
  * @property string|null $remember_token
@@ -32,7 +31,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string|null $avatar
  * @property bool $is_active
  * 
- * @property Collection|Product[] $products
  * @property Collection|Shop[] $shops
  *
  * @package App\Models
@@ -68,11 +66,6 @@ class User extends Authenticatable
         'avatar',
         'is_active'
     ];
-
-    public function products()
-    {
-        return $this->hasMany(Product::class);
-    }
 
     public function shop()
     {

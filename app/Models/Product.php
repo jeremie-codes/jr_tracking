@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Product
  * 
  * @property int $id
- * @property int $user_id
+ * @property int $shop_id
  * @property int $category_id
  * @property string $name
  * @property string $slug
@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $updated_at
  * 
  * @property Category $category
- * @property User $user
+ * @property Shop $shop
  *
  * @package App\Models
  */
@@ -34,14 +34,14 @@ class Product extends Model
 	protected $table = 'products';
 
 	protected $casts = [
-		'user_id' => 'int',
+		'shop_id' => 'int',
 		'category_id' => 'int',
 		'available' => 'bool',
 		'price' => 'float'
 	];
 
 	protected $fillable = [
-		'user_id',
+		'shop_id',
 		'category_id',
 		'name',
 		'slug',
@@ -56,8 +56,8 @@ class Product extends Model
 		return $this->belongsTo(Category::class);
 	}
 
-	public function user()
+	public function shop()
 	{
-		return $this->belongsTo(User::class);
+		return $this->belongsTo(Shop::class);
 	}
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Clusters\Products;
 
+use App\Filament\Clusters\Products;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Category;
@@ -17,6 +18,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\MarkdownEditor;
 use App\Filament\Resources\CategoryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Clusters\Products\Pages\EditCategory;
+use App\Filament\Clusters\Products\Pages\CreateCategory;
+use App\Filament\Clusters\Products\Pages\ListCategories;
 use App\Filament\Resources\CategoryResource\RelationManagers;
 
 class CategoryResource extends Resource
@@ -24,9 +28,9 @@ class CategoryResource extends Resource
     protected static ?string $model = Category::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-archive-box';
-    protected static ?string $navigationGroup = 'E-commerce';
     protected static ?string $label = 'Catégories';
     protected static ?int $navigationSort = 2;
+    protected static ?string $cluster = Products::class;
 
 
     public static function form(Form $form): Form
@@ -100,9 +104,9 @@ class CategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCategories::route('/'),
-            'create' => Pages\CreateCategory::route('/create'),
-            'edit' => Pages\EditCategory::route('/{record}/edit'),
+            'index' => ListCategories::route('/'),
+            'create' => CreateCategory::route('/create'),
+            'edit' => EditCategory::route('/{record}/edit'),
         ];
     }
 }

@@ -38,7 +38,7 @@ class SellerResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return static::getModel()::query()->where('role', 'seller');
+        return static::getModel()::query()->where('role', 'seller')->with('shop');
     }
 
     public static function form(Form $form): Form

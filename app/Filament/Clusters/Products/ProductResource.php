@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Clusters\Products;
 
 use Filament\Forms;
 use Filament\Tables;
@@ -10,8 +10,10 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
+use App\Filament\Clusters\Products;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
@@ -21,16 +23,18 @@ use Filament\Tables\Columns\BooleanColumn;
 use App\Filament\Resources\ProductResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ProductResource\RelationManagers;
-use Filament\Tables\Columns\IconColumn;
+use App\Filament\Clusters\Products\ProductResource\Pages\EditProduct;
+use App\Filament\Clusters\Products\ProductResource\Pages\ListProducts;
+use App\Filament\Clusters\Products\ProductResource\Pages\CreateProduct;
 
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
-    protected static ?string $navigationGroup = 'E-commerce';
     protected static ?string $label = 'Produits';
     protected static ?int $navigationSort = 3;
+    protected static ?string $cluster = Products::class;
 
 
     public static function form(Form $form): Form
@@ -44,10 +48,10 @@ class ProductResource extends Resource
                     ]),
                 Section::make()
                     ->schema([
-                        Select::make('user_id')
-                            ->label('Utilisateur')
+                        Select::make('shop_id')
+                            ->label('Boutique')
                             ->required()
-                            ->relationship('user', 'name'),
+                            ->relationship('shop', 'name'),
                         Select::make('category_id')
                             ->label('Catégorie')
                             ->required()
@@ -91,7 +95,7 @@ class ProductResource extends Resource
             ->columns([
                 ImageColumn::make('image')->label('Image'),
                 TextColumn::make('name')->label('Nom du produit')->searchable()->sortable(),
-                TextColumn::make('user.name')->label('Utilisateur')->sortable(),
+                TextColumn::make('shop.user.name')->label('Utilisateur')->sortable(),
                 TextColumn::make('category.name')->label('Catégorie')->sortable(),
                 TextColumn::make('price')->label('Prix')->sortable(),
                 IconColumn::make('available')->label('Disponible')->sortable(),
@@ -119,9 +123,9 @@ class ProductResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProducts::route('/'),
-            'create' => Pages\CreateProduct::route('/create'),
-            'edit' => Pages\EditProduct::route('/{record}/edit'),
+            'index' => ListProducts::route('/'),
+            'create' => CreateProduct::route('/create'),
+            'edit' => EditProduct::route('/{record}/edit'),
         ];
     }
 }
