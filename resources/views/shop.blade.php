@@ -89,7 +89,7 @@
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="axil-product product-style-one has-color-pick mt--40">
                             <div class="thumbnail">
-                                <a href="single-product.html">
+                                <a href="{{ route('detail_product') }}">
                                     <img src="assets/images/product/electric/product-01.png" alt="Product Images">
                                 </a>
                                 <div class="label-block label-right">
@@ -106,7 +106,7 @@
                             </div>
                             <div class="product-content">
                                 <div class="inner">
-                                    <h5 class="title"><a href="single-product.html">3D™ wireless headset</a></h5>
+                                    <h5 class="title"><a href="{{ route('detail_product') }}">3D™ wireless headset</a></h5>
                                     <div class="product-price-variant">
                                         <span class="price current-price">$30</span>
                                         <span class="price old-price">$30</span>
@@ -129,7 +129,7 @@
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="axil-product product-style-one has-color-pick mt--40">
                             <div class="thumbnail">
-                                <a href="single-product.html">
+                                <a href="{{ route('detail_product') }}">
                                     <img src="assets/images/product/electric/product-02.png" alt="Product Images">
                                 </a>
                                 <div class="product-hover-action">
@@ -143,7 +143,7 @@
                             </div>
                             <div class="product-content">
                                 <div class="inner">
-                                    <h5 class="title"><a href="single-product.html">Media remote</a></h5>
+                                    <h5 class="title"><a href="{{ route('detail_product') }}">Media remote</a></h5>
                                     <div class="product-price-variant">
                                         <span class="price current-price">$40</span>
                                         <span class="price old-price">$50</span>
@@ -166,7 +166,7 @@
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="axil-product product-style-one has-color-pick mt--40">
                             <div class="thumbnail">
-                                <a href="single-product.html">
+                                <a href="{{ route('detail_product') }}">
                                     <img src="assets/images/product/electric/product-03.png" alt="Product Images">
                                 </a>
                                 <div class="label-block label-right">
@@ -184,7 +184,7 @@
                             </div>
                             <div class="product-content">
                                 <div class="inner">
-                                    <h5 class="title"><a href="single-product.html">HD camera</a></h5>
+                                    <h5 class="title"><a href="{{ route('detail_product') }}">HD camera</a></h5>
                                     <div class="product-price-variant">
                                         <span class="price current-price">$45</span>
                                         <span class="price old-price">$60</span>
@@ -207,7 +207,7 @@
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="axil-product product-style-one has-color-pick mt--40">
                             <div class="thumbnail">
-                                <a href="single-product.html">
+                                <a href="{{ route('detail_product') }}">
                                     <img src="assets/images/product/electric/product-04.png" alt="Product Images">
                                 </a>
                                 <div class="product-hover-action">
@@ -222,7 +222,7 @@
                             </div>
                             <div class="product-content">
                                 <div class="inner">
-                                    <h5 class="title"><a href="single-product.html">Guys Bomber Jacket</a></h5>
+                                    <h5 class="title"><a href="{{ route('detail_product') }}">Guys Bomber Jacket</a></h5>
                                     <div class="product-price-variant">
                                         <span class="price current-price">$70</span>
                                         <span class="price old-price">$100</span>
@@ -245,7 +245,7 @@
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="axil-product product-style-one has-color-pick mt--40">
                             <div class="thumbnail">
-                                <a href="single-product.html">
+                                <a href="{{ route('detail_product') }}">
                                     <img src="assets/images/product/electric/product-05.png" alt="Product Images">
                                 </a>
                                 <div class="label-block label-right">
@@ -263,7 +263,8 @@
                             </div>
                             <div class="product-content">
                                 <div class="inner">
-                                    <h5 class="title"><a href="single-product.html">Level 20 RGB Cherry</a></h5>
+                                    <h5 class="title"><a href="{{ route('detail_product') }}">Level 20 RGB Cherry</a>
+                                    </h5>
                                     <div class="product-price-variant">
                                         <span class="price current-price">$38</span>
                                         <span class="price old-price">$50</span>
@@ -286,7 +287,7 @@
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="axil-product product-style-one has-color-pick mt--40">
                             <div class="thumbnail">
-                                <a href="single-product.html">
+                                <a href="{{ route('detail_product') }}">
                                     <img src="assets/images/product/electric/product-06.png" alt="Product Images">
                                 </a>
                                 <div class="product-hover-action">
@@ -301,7 +302,8 @@
                             </div>
                             <div class="product-content">
                                 <div class="inner">
-                                    <h5 class="title"><a href="single-product.html">Level 20 RGB Cherry</a></h5>
+                                    <h5 class="title"><a href="{{ route('detail_product') }}">Level 20 RGB Cherry</a>
+                                    </h5>
                                     <div class="product-price-variant">
                                         <span class="price current-price">$25</span>
                                         <span class="price old-price">$40</span>
@@ -324,7 +326,7 @@
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="axil-product product-style-one has-color-pick mt--40">
                             <div class="thumbnail">
-                                <a href="single-product.html">
+                                <a href="{{ route('detail_product') }}">
                                     <img src="assets/images/product/electric/product-07.png" alt="Product Images">
                                 </a>
                                 <div class="label-block label-right">
@@ -342,7 +344,8 @@
                             </div>
                             <div class="product-content">
                                 <div class="inner">
-                                    <h5 class="title"><a href="single-product.html">Logitech Streamcam</a></h5>
+                                    <h5 class="title"><a href="{{ route('detail_product') }}">Logitech Streamcam</a>
+                                    </h5>
                                     <div class="product-price-variant">
                                         <span class="price current-price">$15</span>
                                         <span class="price old-price">$20</span>
@@ -365,7 +368,7 @@
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="axil-product product-style-one has-color-pick mt--40">
                             <div class="thumbnail">
-                                <a href="single-product.html">
+                                <a href="{{ route('detail_product') }}">
                                     <img src="assets/images/product/electric/product-08.png" alt="Product Images">
                                 </a>
                                 <div class="product-hover-action">
@@ -380,7 +383,8 @@
                             </div>
                             <div class="product-content">
                                 <div class="inner">
-                                    <h5 class="title"><a href="single-product.html">Bass Meets Clarity</a></h5>
+                                    <h5 class="title"><a href="{{ route('detail_product') }}">Bass Meets Clarity</a>
+                                    </h5>
                                     <div class="product-price-variant">
                                         <span class="price current-price">$60</span>
                                         <span class="price old-price">$80</span>
@@ -403,7 +407,7 @@
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="axil-product product-style-one has-color-pick mt--40">
                             <div class="thumbnail">
-                                <a href="single-product.html">
+                                <a href="{{ route('detail_product') }}">
                                     <img src="assets/images/product/fashion/product-9.png" alt="Product Images">
                                 </a>
                                 <div class="label-block label-right">
@@ -421,7 +425,7 @@
                             </div>
                             <div class="product-content">
                                 <div class="inner">
-                                    <h5 class="title"><a href="single-product.html">Wall Mount</a></h5>
+                                    <h5 class="title"><a href="{{ route('detail_product') }}">Wall Mount</a></h5>
                                     <div class="product-price-variant">
                                         <span class="price current-price">$30</span>
                                         <span class="price old-price">$30</span>
@@ -444,7 +448,7 @@
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="axil-product product-style-one has-color-pick mt--40">
                             <div class="thumbnail">
-                                <a href="single-product.html">
+                                <a href="{{ route('detail_product') }}">
                                     <img src="assets/images/product/fashion/product-10.png" alt="Product Images">
                                 </a>
                                 <div class="product-hover-action">
@@ -459,7 +463,7 @@
                             </div>
                             <div class="product-content">
                                 <div class="inner">
-                                    <h5 class="title"><a href="single-product.html">MX Master 3</a></h5>
+                                    <h5 class="title"><a href="{{ route('detail_product') }}">MX Master 3</a></h5>
                                     <div class="product-price-variant">
                                         <span class="price current-price">$40</span>
                                         <span class="price old-price">$50</span>
@@ -482,7 +486,7 @@
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="axil-product product-style-one has-color-pick mt--40">
                             <div class="thumbnail">
-                                <a href="single-product.html">
+                                <a href="{{ route('detail_product') }}">
                                     <img src="assets/images/product/fashion/product-11.png" alt="Product Images">
                                 </a>
                                 <div class="label-block label-right">
@@ -500,7 +504,7 @@
                             </div>
                             <div class="product-content">
                                 <div class="inner">
-                                    <h5 class="title"><a href="single-product.html">Zone Headphone</a></h5>
+                                    <h5 class="title"><a href="{{ route('detail_product') }}">Zone Headphone</a></h5>
                                     <div class="product-price-variant">
                                         <span class="price current-price">$45</span>
                                         <span class="price old-price">$60</span>
@@ -523,7 +527,7 @@
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="axil-product product-style-one has-color-pick mt--40">
                             <div class="thumbnail">
-                                <a href="single-product.html">
+                                <a href="{{ route('detail_product') }}">
                                     <img src="assets/images/product/fashion/product-12.png" alt="Product Images">
                                 </a>
                                 <div class="product-hover-action">
@@ -538,7 +542,7 @@
                             </div>
                             <div class="product-content">
                                 <div class="inner">
-                                    <h5 class="title"><a href="single-product.html">Mice Logitech</a></h5>
+                                    <h5 class="title"><a href="{{ route('detail_product') }}">Mice Logitech</a></h5>
                                     <div class="product-price-variant">
                                         <span class="price current-price">$70</span>
                                         <span class="price old-price">$100</span>

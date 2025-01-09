@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Filament\Clusters\Products;
+namespace App\Filament\Clusters\Products\Resources\ShopResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Tables;
-use App\Models\Product;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
-use Filament\Resources\Resource;
-use App\Filament\Clusters\Products;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\IconColumn;
@@ -19,25 +16,15 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Tables\Columns\BooleanColumn;
-use App\Filament\Resources\ProductResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\ProductResource\RelationManagers;
-use App\Filament\Clusters\Products\ProductResource\Pages\EditProduct;
-use App\Filament\Clusters\Products\ProductResource\Pages\ListProducts;
-use App\Filament\Clusters\Products\ProductResource\Pages\CreateProduct;
+use Filament\Resources\RelationManagers\RelationManager;
 
-class ProductResource extends Resource
+class ProductsRelationManager extends RelationManager
 {
-    protected static ?string $model = Product::class;
+    protected static string $relationship = 'products';
+    protected static ?string $title = 'Les produits de la boutique';
 
-    protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
-    protected static ?string $label = 'Produits';
-    protected static ?int $navigationSort = 3;
-    protected static ?string $cluster = Products::class;
-
-
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -48,10 +35,6 @@ class ProductResource extends Resource
                     ]),
                 Section::make()
                     ->schema([
-                        Select::make('shop_id')
-                            ->label('Boutique')
-                            ->required()
-                            ->relationship('shop', 'name'),
                         Select::make('category_id')
                             ->label('Catégorie')
                             ->required()
@@ -89,13 +72,14 @@ class ProductResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
+            ->recordTitleAttribute('name')
             ->columns([
                 ImageColumn::make('image')->label('Image'),
                 TextColumn::make('name')->label('Nom du produit')->searchable()->sortable(),
-                TextColumn::make('user.name')->label('Utilisateur')->sortable(),
+                TextColumn::make('shop.user.name')->label('Utilisateur')->sortable(),
                 TextColumn::make('category.name')->label('Catégorie')->sortable(),
                 TextColumn::make('price')->label('Prix')->sortable(),
                 IconColumn::make('available')->label('Disponible')->sortable(),
@@ -103,29 +87,17 @@ class ProductResource extends Resource
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => ListProducts::route('/'),
-            'create' => CreateProduct::route('/create'),
-            'edit' => EditProduct::route('/{record}/edit'),
-        ];
     }
 }

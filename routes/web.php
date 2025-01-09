@@ -19,6 +19,8 @@ Route::view('/my-account', 'my-account')->name('my_account');
 Route::view('/privacy-policy', 'privacy-policy')->name('privacy_policy');
 Route::view('/reset-password', 'reset-password')->name('reset_password');
 Route::view('/shop', 'shop')->name('shop');
+Route::view('/detail-product', 'detail-product')->name('detail_product');
+Route::view('/create-product', 'create-product')->name('create_product');
 Route::view('/sign-in', 'sign-in')->name('sign_in');
 Route::view('/sign-up', 'sign-up')->name('sign_up');
 Route::view('/terms-of-service', 'terms-of-service')->name('terms_of_service');

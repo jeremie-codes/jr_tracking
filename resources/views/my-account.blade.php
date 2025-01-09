@@ -48,17 +48,18 @@
                               <aside class="axil-dashboard-aside">
                                   <nav class="axil-dashboard-nav">
                                       <div class="nav nav-tabs" role="tablist">
-                                          <a class="nav-item nav-link active" data-bs-toggle="tab" href="#nav-dashboard"
+                                          {{-- <a class="nav-item nav-link active" data-bs-toggle="tab" href="#nav-dashboard"
                                               role="tab" aria-selected="true"><i
-                                                  class="fas fa-th-large"></i>Dashboard</a>
+                                                  class="fas fa-th-large"></i>Dashboard</a> --}}
+                                          <a class="nav-item nav-link active" data-bs-toggle="tab" href="#nav-downloads"
+                                              role="tab" aria-selected="false"><i
+                                                  class="fas fa-shopping-bag"></i>Boutique</a>
                                           <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-orders"
                                               role="tab" aria-selected="false"><i
-                                                  class="fas fa-shopping-basket"></i>Orders</a>
-                                          <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-downloads"
+                                                  class="fas fa-shopping-basket"></i>Commandes</a>
+                                          {{-- <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-address"
                                               role="tab" aria-selected="false"><i
-                                                  class="fas fa-file-download"></i>Downloads</a>
-                                          <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-address"
-                                              role="tab" aria-selected="false"><i class="fas fa-home"></i>Addresses</a>
+                                                  class="fas fa-bags-shopping"></i>Produits</a> --}}
                                           <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-account"
                                               role="tab" aria-selected="false"><i class="fas fa-user"></i>Account
                                               Details</a>
@@ -70,7 +71,7 @@
                           </div>
                           <div class="col-xl-9 col-md-8">
                               <div class="tab-content">
-                                  <div class="tab-pane fade show active" id="nav-dashboard" role="tabpanel">
+                                  {{-- <div class="tab-pane fade show active" id="nav-dashboard" role="tabpanel">
                                       <div class="axil-dashboard-overview">
                                           <div class="welcome-text">Hello Annie (not <span>Annie?</span> <a
                                                   href="sign-in.html">Log Out</a>)</div>
@@ -78,7 +79,7 @@
                                               shipping and billing addresses, and edit your password and account details.
                                           </p>
                                       </div>
-                                  </div>
+                                  </div> --}}
                                   <div class="tab-pane fade" id="nav-orders" role="tabpanel">
                                       <div class="axil-dashboard-order">
                                           <div class="table-responsive">
@@ -133,12 +134,175 @@
                                           </div>
                                       </div>
                                   </div>
-                                  <div class="tab-pane fade" id="nav-downloads" role="tabpanel">
-                                      <div class="axil-dashboard-order">
-                                          <p>You don't have any download</p>
+                                  <div class="tab-pane fade show active" id="nav-downloads" role="tabpanel">
+                                      <div class="axil-dashboard-overview">
+                                          <div class=""
+                                              style="display: flex; flex-direction:row; justify-content:space-between;">
+                                              <div class="welcome-text">Votre Boutique</div>
+                                              <div class="">
+                                                  <a href="{{ route('create_product') }}"
+                                                      class="bg-primary px-4 py-2 rounded text-white">Ajouter</a>
+                                              </div>
+                                          </div>
+                                          <p>From your account dashboard you can view your recent orders, manage your
+                                              shipping and billing addresses, and edit your password and account details.
+                                          </p>
+                                      </div>
+                                      <div class="row row--15">
+                                          <div class="col-lg-4 col-sm-6">
+                                              <div class="axil-product product-style-one has-color-pick mt--40">
+                                                  <div class="thumbnail">
+                                                      <a href="{{ route('detail_product') }}">
+                                                          <img src="assets/images/product/electric/product-02.png"
+                                                              alt="Product Images">
+                                                      </a>
+                                                      <div class="product-hover-action">
+                                                          <ul class="cart-action">
+                                                              {{-- <li class="wishlist"><a href="wishlist.html"><i
+                                                                          class="far fa-heart"></i></a></li> --}}
+                                                              <li class="quickview"><a href="#"
+                                                                      data-bs-toggle="modal"
+                                                                      data-bs-target="#quick-view-modal"><i
+                                                                          class="far fa-eye"></i></a></li>
+                                                          </ul>
+                                                      </div>
+                                                  </div>
+                                                  <div class="product-content">
+                                                      <div class="inner">
+                                                          <h5 class="title"><a href="{{ route('detail_product') }}">Media
+                                                                  remote</a></h5>
+                                                          <div class="product-price-variant">
+                                                              <span class="price current-price">$40</span>
+                                                              <span class="price old-price">$50</span>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-lg-4 col-sm-6">
+                                              <div class="axil-product product-style-one has-color-pick mt--40">
+                                                  <div class="thumbnail">
+                                                      <a href="{{ route('detail_product') }}">
+                                                          <img src="assets/images/product/electric/product-02.png"
+                                                              alt="Product Images">
+                                                      </a>
+                                                      <div class="product-hover-action">
+                                                          <ul class="cart-action">
+                                                              {{-- <li class="wishlist"><a href="wishlist.html"><i
+                                                                          class="far fa-heart"></i></a></li> --}}
+                                                              <li class="quickview"><a href="#"
+                                                                      data-bs-toggle="modal"
+                                                                      data-bs-target="#quick-view-modal"><i
+                                                                          class="far fa-eye"></i></a></li>
+                                                          </ul>
+                                                      </div>
+                                                  </div>
+                                                  <div class="product-content">
+                                                      <div class="inner">
+                                                          <h5 class="title"><a href="{{ route('detail_product') }}">Media
+                                                                  remote</a></h5>
+                                                          <div class="product-price-variant">
+                                                              <span class="price current-price">$40</span>
+                                                              <span class="price old-price">$50</span>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-lg-4 col-sm-6">
+                                              <div class="axil-product product-style-one has-color-pick mt--40">
+                                                  <div class="thumbnail">
+                                                      <a href="{{ route('detail_product') }}">
+                                                          <img src="assets/images/product/electric/product-02.png"
+                                                              alt="Product Images">
+                                                      </a>
+                                                      <div class="product-hover-action">
+                                                          <ul class="cart-action">
+                                                              {{-- <li class="wishlist"><a href="wishlist.html"><i
+                                                                          class="far fa-heart"></i></a></li> --}}
+                                                              <li class="quickview"><a href="#"
+                                                                      data-bs-toggle="modal"
+                                                                      data-bs-target="#quick-view-modal"><i
+                                                                          class="far fa-eye"></i></a></li>
+                                                          </ul>
+                                                      </div>
+                                                  </div>
+                                                  <div class="product-content">
+                                                      <div class="inner">
+                                                          <h5 class="title"><a href="{{ route('detail_product') }}">Media
+                                                                  remote</a></h5>
+                                                          <div class="product-price-variant">
+                                                              <span class="price current-price">$40</span>
+                                                              <span class="price old-price">$50</span>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-lg-4 col-sm-6">
+                                              <div class="axil-product product-style-one has-color-pick mt--40">
+                                                  <div class="thumbnail">
+                                                      <a href="{{ route('detail_product') }}">
+                                                          <img src="assets/images/product/electric/product-02.png"
+                                                              alt="Product Images">
+                                                      </a>
+                                                      <div class="product-hover-action">
+                                                          <ul class="cart-action">
+                                                              {{-- <li class="wishlist"><a href="wishlist.html"><i
+                                                                          class="far fa-heart"></i></a></li> --}}
+                                                              <li class="quickview"><a href="#"
+                                                                      data-bs-toggle="modal"
+                                                                      data-bs-target="#quick-view-modal"><i
+                                                                          class="far fa-eye"></i></a></li>
+                                                          </ul>
+                                                      </div>
+                                                  </div>
+                                                  <div class="product-content">
+                                                      <div class="inner">
+                                                          <h5 class="title"><a href="{{ route('detail_product') }}">Media
+                                                                  remote</a></h5>
+                                                          <div class="product-price-variant">
+                                                              <span class="price current-price">$40</span>
+                                                              <span class="price old-price">$50</span>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-lg-4 col-sm-6">
+                                              <div class="axil-product product-style-one has-color-pick mt--40">
+                                                  <div class="thumbnail">
+                                                      <a href="{{ route('detail_product') }}">
+                                                          <img src="assets/images/product/electric/product-02.png"
+                                                              alt="Product Images">
+                                                      </a>
+                                                      <div class="product-hover-action">
+                                                          <ul class="cart-action">
+                                                              {{-- <li class="wishlist"><a href="wishlist.html"><i
+                                                                          class="far fa-heart"></i></a></li> --}}
+                                                              <li class="quickview"><a href="#"
+                                                                      data-bs-toggle="modal"
+                                                                      data-bs-target="#quick-view-modal"><i
+                                                                          class="far fa-eye"></i></a></li>
+                                                          </ul>
+                                                      </div>
+                                                  </div>
+                                                  <div class="product-content">
+                                                      <div class="inner">
+                                                          <h5 class="title"><a
+                                                                  href="{{ route('detail_product') }}">Media
+                                                                  remote</a></h5>
+                                                          <div class="product-price-variant">
+                                                              <span class="price current-price">$40</span>
+                                                              <span class="price old-price">$50</span>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
                                       </div>
                                   </div>
-                                  <div class="tab-pane fade" id="nav-address" role="tabpanel">
+                                  {{-- <div class="tab-pane fade" id="nav-address" role="tabpanel">
                                       <div class="axil-dashboard-address">
                                           <p class="notice-text">The following addresses will be used on the checkout page
                                               by default.</p>
@@ -179,7 +343,7 @@
                                               </div>
                                           </div>
                                       </div>
-                                  </div>
+                                  </div> --}}
                                   <div class="tab-pane fade" id="nav-account" role="tabpanel">
                                       <div class="col-lg-9">
                                           <div class="axil-dashboard-account">
@@ -187,14 +351,61 @@
                                                   <div class="row">
                                                       <div class="col-lg-6">
                                                           <div class="form-group">
-                                                              <label>First Name</label>
-                                                              <input type="text" class="form-control" value="Annie">
+                                                              <label>Nom</label>
+                                                              <input type="text" name="name" class="form-control"
+                                                                  placeholder="Entrez votre nom" value="">
                                                           </div>
                                                       </div>
+
                                                       <div class="col-lg-6">
                                                           <div class="form-group">
-                                                              <label>Last Name</label>
-                                                              <input type="text" class="form-control" value="Mario">
+                                                              <label>Email</label>
+                                                              <input type="email" name="email" class="form-control"
+                                                                  placeholder="Entrez votre email" value="">
+                                                          </div>
+                                                      </div>
+
+                                                      <div class="col-lg-6">
+                                                          <div class="form-group">
+                                                              <label>Numéro de téléphone</label>
+                                                              <input type="text" name="phone_number"
+                                                                  class="form-control"
+                                                                  placeholder="Entrez votre numéro de téléphone"
+                                                                  value="">
+                                                          </div>
+                                                      </div>
+
+                                                      <div class="col-lg-6">
+                                                          <div class="form-group">
+                                                              <label>Adresse</label>
+                                                              <input type="text" name="address" class="form-control"
+                                                                  placeholder="Entrez votre adresse" value="">
+                                                          </div>
+                                                      </div>
+
+                                                      <div class="col-lg-6">
+                                                          <div class="form-group">
+                                                              <label>Genre</label>
+                                                              <select name="gender" class="form-control">
+                                                                  <option value="">Sélectionnez votre genre</option>
+                                                                  <option value="male">Homme</option>
+                                                                  <option value="female">Femme</option>
+                                                              </select>
+                                                          </div>
+                                                      </div>
+
+                                                      <div class="col-lg-6">
+                                                          <div class="form-group">
+                                                              <label>Date de naissance</label>
+                                                              <input type="date" name="date_of_birth"
+                                                                  class="form-control" value="">
+                                                          </div>
+                                                      </div>
+
+                                                      <div class="col-lg-12">
+                                                          <div class="form-group">
+                                                              <label>Avatar</label>
+                                                              <input type="file" name="avatar" class="form-control">
                                                           </div>
                                                       </div>
                                                       <div class="col-12">

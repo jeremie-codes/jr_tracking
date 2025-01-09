@@ -11,6 +11,7 @@ use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use App\Filament\Clusters\Customer;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Repeater;
@@ -21,7 +22,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Clusters\Customer\Resources\ShopResource\Pages;
 use App\Filament\Clusters\Customer\Resources\ShopResource\RelationManagers;
-use Filament\Forms\Components\Group;
+use App\Filament\Clusters\Products\Resources\ShopResource\RelationManagers\ProductsRelationManager;
 
 class ShopResource extends Resource
 {
@@ -105,7 +106,7 @@ class ShopResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ProductsRelationManager::class,
         ];
     }
 
