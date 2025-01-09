@@ -5,10 +5,10 @@
             <div class="header-navbar">
                 <div class="header-brand">
                     <a href="{{ route('home') }}" class="logo logo-dark">
-                        <img src="assets/images/logo/logo.png" alt="Logo du site">
+                        <img src="assets/images/logo/logo.png" alt="Logo du site" width="70px">
                     </a>
                     <a href="{{ route('home') }}" class="logo logo-light">
-                        <img src="assets/images/logo/logo-light.png" alt="Logo du site">
+                        <img src="assets/images/logo/logo-light.png" alt="Logo du site" width="70px">
                     </a>
                 </div>
                 <div class="header-main-nav">
@@ -17,7 +17,7 @@
                         <button class="mobile-close-btn mobile-nav-toggler"><i class="fas fa-times"></i></button>
                         <div class="mobile-nav-brand">
                             <a href="{{ route('home') }}" class="logo">
-                                <img src="assets/images/logo/logo.png" alt="Logo du site">
+                                <img src="assets/images/logo/logo.png" alt="Logo du site" width="70px">
                             </a>
                         </div>
                         <ul class="mainmenu">
@@ -31,7 +31,7 @@
                                     <li><a href="{{ route('checkout') }}">Paiement</a></li>
                                     <li><a href="{{ route('my_account') }}">Mon compte</a></li>
                                     <li><a href="{{ route('sign_up') }}">Créer un compte</a></li>
-                                    <li><a href="{{ route('sign_in') }}">Se connecter</a></li>
+                                    <li><a href="Se connecter">Se connecter</a></li>
                                     <li><a href="{{ route('forgot_password') }}">Mot de passe oublié</a></li>
                                     <li><a href="{{ route('reset_password') }}">Réinitialiser le mot de passe</a></li>
                                     <li><a href="{{ route('privacy_policy') }}">Politique de confidentialité</a></li>
@@ -86,7 +86,7 @@
                                     </li>
                                 </ul>
                                 <div class="login-btn">
-                                    <a href="{{ route('sign_in') }}" class="axil-btn btn-bg-primary">Connexion</a>
+                                    <a href="Se connecter" class="axil-btn btn-bg-primary">Connexion</a>
                                 </div>
                                 <div class="reg-footer text-center">Pas encore de compte ?
                                     <a href="{{ route('sign_up') }}" class="btn-link">INSCRIVEZ-VOUS ICI.</a>

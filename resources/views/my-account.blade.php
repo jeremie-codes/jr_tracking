@@ -9,7 +9,7 @@
                       <div class="col-lg-6 col-md-8">
                           <div class="inner">
                               <ul class="axil-breadcrumb">
-                                  <li class="axil-breadcrumb-item"><a href="index.html">Home</a></li>
+                                  <li class="axil-breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                                   <li class="separator"></li>
                                   <li class="axil-breadcrumb-item active" aria-current="page">My Account</li>
                               </ul>
@@ -63,7 +63,7 @@
                                           <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-account"
                                               role="tab" aria-selected="false"><i class="fas fa-user"></i>Account
                                               Details</a>
-                                          <a class="nav-item nav-link" href="sign-in.html"><i
+                                          <a class="nav-item nav-link" href="{{ route('sign_in') }}"><i
                                                   class="fal fa-sign-out"></i>Logout</a>
                                       </div>
                                   </nav>
@@ -74,7 +74,7 @@
                                   {{-- <div class="tab-pane fade show active" id="nav-dashboard" role="tabpanel">
                                       <div class="axil-dashboard-overview">
                                           <div class="welcome-text">Hello Annie (not <span>Annie?</span> <a
-                                                  href="sign-in.html">Log Out</a>)</div>
+                                                  href="{{ route('sign_in') }}">Log Out</a>)</div>
                                           <p>From your account dashboard you can view your recent orders, manage your
                                               shipping and billing addresses, and edit your password and account details.
                                           </p>
@@ -259,7 +259,8 @@
                                                   </div>
                                                   <div class="product-content">
                                                       <div class="inner">
-                                                          <h5 class="title"><a href="{{ route('detail_product') }}">Media
+                                                          <h5 class="title"><a
+                                                                  href="{{ route('detail_product') }}">Media
                                                                   remote</a></h5>
                                                           <div class="product-price-variant">
                                                               <span class="price current-price">$40</span>

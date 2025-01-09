@@ -44,7 +44,7 @@
         <div class="axil-header-top">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-6 col-sm-6 col-12">
+                    <div class="col-lg-3 col-sm-6 col-12">
                         <div class="header-top-dropdown">
                             <div class="dropdown">
                                 <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -70,12 +70,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-sm-6 col-12">
+                    <div class="col-lg-9 col-sm-6 col-12">
                         <div class="header-top-link">
                             <ul class="quick-link">
                                 <li><a href="#">Help</a></li>
-                                <li><a href="sign-up.html">Join Us</a></li>
-                                <li><a href="sign-in.html">Sign In</a></li>
+                                <li><a href="{{ route('sign_up') }}">Join Us</a></li>
+                                <li><a href="{{ route('sign_in') }}">Se connecter</a></li>
                             </ul>
                         </div>
                     </div>
@@ -88,10 +88,10 @@
             <div class="container">
                 <div class="header-navbar">
                     <div class="header-brand">
-                        <a href="index.html" class="logo logo-dark">
+                        <a href="{{ route('home') }}" class="logo logo-dark">
                             <img src="assets/images/logo/logo.png" alt="Site Logo">
                         </a>
-                        <a href="index.html" class="logo logo-light">
+                        <a href="{{ route('home') }}" class="logo logo-light">
                             <img src="assets/images/logo/logo-light.png" alt="Site Logo">
                         </a>
                     </div>
@@ -100,7 +100,7 @@
                         <nav class="mainmenu-nav">
                             <button class="mobile-close-btn mobile-nav-toggler"><i class="fas fa-times"></i></button>
                             <div class="mobile-nav-brand">
-                                <a href="index.html" class="logo">
+                                <a href="{{ route('home') }}" class="logo">
                                     <img src="assets/images/logo/logo.png" alt="Site Logo">
                                 </a>
                             </div>
@@ -139,8 +139,8 @@
                                         <li><a href="cart.html">Cart</a></li>
                                         <li><a href="checkout.html">Checkout</a></li>
                                         <li><a href="my-account.html">Account</a></li>
-                                        <li><a href="sign-up.html">Sign Up</a></li>
-                                        <li><a href="sign-in.html">Sign In</a></li>
+                                        <li><a href="{{ route('sign_up') }}">Sign Up</a></li>
+                                        <li><a href="{{ route('sign_in') }}">Se connecter</a></li>
                                         <li><a href="forgot-password.html">Forgot Password</a></li>
                                         <li><a href="reset-password.html">Reset Password</a></li>
                                         <li><a href="privacy-policy.html">Privacy Policy</a></li>
@@ -213,9 +213,9 @@
                                             <a href="#">Language</a>
                                         </li>
                                     </ul>
-                                    <a href="sign-in.html" class="axil-btn btn-bg-primary">Login</a>
-                                    <div class="reg-footer text-center">No account yet? <a href="sign-up.html"
-                                            class="btn-link">REGISTER HERE.</a></div>
+                                    <a href="{{ route('sign_in') }}" class="axil-btn btn-bg-primary">Login</a>
+                                    <div class="reg-footer text-center">No account yet? <a
+                                            href="{{ route('sign_up') }}" class="btn-link">REGISTER HERE.</a></div>
                                 </div>
                             </li>
                             <li class="axil-mobile-toggle">
@@ -262,7 +262,7 @@
                         <h1 class="title">Page not found</h1>
                         <p>It seems like we dont find what you searched. The page you were looking for doesn't exist,
                             isn't available loading incorrectly.</p>
-                        <a href="index.html" class="axil-btn btn-bg-secondary right-icon">Back To Home <i
+                        <a href="{{ route('home') }}" class="axil-btn btn-bg-secondary right-icon">Back To Home <i
                                 class="fal fa-long-arrow-right"></i></a>
                     </div>
                 </div>
@@ -337,7 +337,7 @@
                         <div class="axil-footer-widget">
                             <h5 class="widget-title">Support</h5>
                             <!-- <div class="logo mb--30">
-                            <a href="index.html">
+                            <a href="{{ route('home') }}">
                                 <img class="light-logo" src="assets/images/logo/logo.png" alt="Logo Images">
                             </a>
                         </div> -->
@@ -364,7 +364,7 @@
                             <div class="inner">
                                 <ul>
                                     <li><a href="my-account.html">My Account</a></li>
-                                    <li><a href="sign-up.html">Login / Register</a></li>
+                                    <li><a href="{{ route('sign_up') }}">Login / Register</a></li>
                                     <li><a href="cart.html">Cart</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
                                     <li><a href="{{ route('shop') }}">Shop</a></li>

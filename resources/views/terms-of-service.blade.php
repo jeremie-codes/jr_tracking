@@ -42,7 +42,8 @@
                     <div class="col-lg-6 col-sm-6 col-12">
                         <div class="header-top-dropdown">
                             <div class="dropdown">
-                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
                                     English
                                 </button>
                                 <ul class="dropdown-menu">
@@ -52,7 +53,8 @@
                                 </ul>
                             </div>
                             <div class="dropdown">
-                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
                                     USD
                                 </button>
                                 <ul class="dropdown-menu">
@@ -67,8 +69,8 @@
                         <div class="header-top-link">
                             <ul class="quick-link">
                                 <li><a href="#">Help</a></li>
-                                <li><a href="sign-up.html">Join Us</a></li>
-                                <li><a href="sign-in.html">Sign In</a></li>
+                                <li><a href="{{ route('sign_up') }}">Join Us</a></li>
+                                <li><a href="{{ route('sign_in') }}">Se connecter</a></li>
                             </ul>
                         </div>
                     </div>
@@ -81,10 +83,10 @@
             <div class="container">
                 <div class="header-navbar">
                     <div class="header-brand">
-                        <a href="index.html" class="logo logo-dark">
+                        <a href="{{ route('home') }}" class="logo logo-dark">
                             <img src="assets/images/logo/logo.png" alt="Site Logo">
                         </a>
-                        <a href="index.html" class="logo logo-light">
+                        <a href="{{ route('home') }}" class="logo logo-light">
                             <img src="assets/images/logo/logo-light.png" alt="Site Logo">
                         </a>
                     </div>
@@ -93,7 +95,7 @@
                         <nav class="mainmenu-nav">
                             <button class="mobile-close-btn mobile-nav-toggler"><i class="fas fa-times"></i></button>
                             <div class="mobile-nav-brand">
-                                <a href="index.html" class="logo">
+                                <a href="{{ route('home') }}" class="logo">
                                     <img src="assets/images/logo/logo.png" alt="Site Logo">
                                 </a>
                             </div>
@@ -107,7 +109,8 @@
                                         <li><a href="index-4.html">Home - Jewellery</a></li>
                                         <li><a href="index-5.html">Home - Furniture</a></li>
                                         <li><a href="index-7.html">Home - Multipurpose</a></li>
-                                        <li><a href="https://new.axilthemes.com/demo/template/etrade-rtl/">RTL Version</a></li>
+                                        <li><a href="https://new.axilthemes.com/demo/template/etrade-rtl/">RTL
+                                                Version</a></li>
                                     </ul>
                                 </li>
                                 <li class="menu-item-has-children">
@@ -131,8 +134,8 @@
                                         <li><a href="cart.html">Cart</a></li>
                                         <li><a href="checkout.html">Checkout</a></li>
                                         <li><a href="my-account.html">Account</a></li>
-                                        <li><a href="sign-up.html">Sign Up</a></li>
-                                        <li><a href="sign-in.html">Sign In</a></li>
+                                        <li><a href="{{ route('sign_up') }}">Sign Up</a></li>
+                                        <li><a href="{{ route('sign_in') }}">Se connecter</a></li>
                                         <li><a href="forgot-password.html">Forgot Password</a></li>
                                         <li><a href="reset-password.html">Reset Password</a></li>
                                         <li><a href="privacy-policy.html">Privacy Policy</a></li>
@@ -162,7 +165,9 @@
                     <div class="header-action">
                         <ul class="action-list">
                             <li class="axil-search d-xl-block d-none">
-                                <input type="search" class="placeholder product-search-input" name="search2" id="search2" value="" maxlength="128" placeholder="What are you looking for?" autocomplete="off">
+                                <input type="search" class="placeholder product-search-input" name="search2"
+                                    id="search2" value="" maxlength="128"
+                                    placeholder="What are you looking for?" autocomplete="off">
                                 <button type="submit" class="icon wooc-btn-search">
                                     <i class="flaticon-magnifying-glass"></i>
                                 </button>
@@ -203,8 +208,9 @@
                                             <a href="#">Language</a>
                                         </li>
                                     </ul>
-                                    <a href="sign-in.html" class="axil-btn btn-bg-primary">Login</a>
-                                    <div class="reg-footer text-center">No account yet? <a href="sign-up.html" class="btn-link">REGISTER HERE.</a></div>
+                                    <a href="{{ route('sign_in') }}" class="axil-btn btn-bg-primary">Login</a>
+                                    <div class="reg-footer text-center">No account yet? <a
+                                            href="{{ route('sign_up') }}" class="btn-link">REGISTER HERE.</a></div>
                                 </div>
                             </li>
                             <li class="axil-mobile-toggle">
@@ -249,7 +255,7 @@
                     <div class="col-lg-6 col-md-8">
                         <div class="inner">
                             <ul class="axil-breadcrumb">
-                                <li class="axil-breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="axil-breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                                 <li class="separator"></li>
                                 <li class="axil-breadcrumb-item active" aria-current="page">Pages</li>
                             </ul>
@@ -275,9 +281,18 @@
                     <div class="col-lg-10">
                         <div class="axil-privacy-policy">
                             <h4 class="title">GDPR compliance</h4>
-                            <p>Sed nec ex vitae justo molestie maximus. Sed ut neque sit amet libero rhoncus tempor. Fusce tempor quam libero, varius congue magna tempus vitae. Donec a justo nec elit sagittis sagittis eu a ante. Vivamus rutrum elit odio. Donec gravida id ligula ut faucibus. Aenean convallis ligula orci, ut congue nunc sodales ut. In ultrices elit malesuada velit ornare, eget dictum velit hendrerit. Praesent bibendum blandit lectus, eu congue neque mollis in. Pellentesque metus diam, hendrerit in purus fringilla, accumsan bibendum sapien. Nunc non facilisis sem.</p>
+                            <p>Sed nec ex vitae justo molestie maximus. Sed ut neque sit amet libero rhoncus tempor.
+                                Fusce tempor quam libero, varius congue magna tempus vitae. Donec a justo nec elit
+                                sagittis sagittis eu a ante. Vivamus rutrum elit odio. Donec gravida id ligula ut
+                                faucibus. Aenean convallis ligula orci, ut congue nunc sodales ut. In ultrices elit
+                                malesuada velit ornare, eget dictum velit hendrerit. Praesent bibendum blandit lectus,
+                                eu congue neque mollis in. Pellentesque metus diam, hendrerit in purus fringilla,
+                                accumsan bibendum sapien. Nunc non facilisis sem.</p>
                             <h4 class="title">About eTrade</h4>
-                            <p>In dapibus, nibh sit amet pulvinar convallis, massa nunc tincidunt nunc, a pretium risus nulla ut dui. Ut ut condimentum tellus, dapibus volutpat est. Integer ullamcorper iaculis blandit. Pellentesque id tempus urna. Quisque luctus cursus imperdiet. <a href="mailto:hello@etrade.store">hello@etrade.store</a></p>
+                            <p>In dapibus, nibh sit amet pulvinar convallis, massa nunc tincidunt nunc, a pretium risus
+                                nulla ut dui. Ut ut condimentum tellus, dapibus volutpat est. Integer ullamcorper
+                                iaculis blandit. Pellentesque id tempus urna. Quisque luctus cursus imperdiet. <a
+                                    href="mailto:hello@etrade.store">hello@etrade.store</a></p>
                             <h4 class="title">When we collect personal data about you</h4>
                             <ul>
                                 <li>Email is a crucial channel in any marketing.</li>
@@ -286,31 +301,79 @@
                                 <li>Habitasse per feugiat aliquam luctus accumsan curae</li>
                             </ul>
                             <h4 class="title">Why we collect and use personal data</h4>
-                            <p>Sed nec ex vitae justo molestie maximus. Sed ut neque sit amet libero rhoncus tempor. Fusce tempor quam libero, varius congue magna tempus vitae. Donec a justo nec elit sagittis sagittis eu a ante. Vivamus rutrum elit odio. Donec gravida id ligula ut faucibus. Aenean convallis ligula orci, ut congue nunc sodales ut. In ultrices elit malesuada velit ornare, eget dictum velit hendrerit. Praesent bibendum blandit lectus, eu congue neque mollis in. Pellentesque metus diam, hendrerit in purus fringilla, accumsan bibendum sapien. Nunc non facilisis sem.</p>
+                            <p>Sed nec ex vitae justo molestie maximus. Sed ut neque sit amet libero rhoncus tempor.
+                                Fusce tempor quam libero, varius congue magna tempus vitae. Donec a justo nec elit
+                                sagittis sagittis eu a ante. Vivamus rutrum elit odio. Donec gravida id ligula ut
+                                faucibus. Aenean convallis ligula orci, ut congue nunc sodales ut. In ultrices elit
+                                malesuada velit ornare, eget dictum velit hendrerit. Praesent bibendum blandit lectus,
+                                eu congue neque mollis in. Pellentesque metus diam, hendrerit in purus fringilla,
+                                accumsan bibendum sapien. Nunc non facilisis sem.</p>
                             <ul>
-                                <li>Nulla facilisi. Sed pulvinar nec purus eu sollicitudin. Quisque ut tempus quam, in cursus eros. </li>
-                                <li>Fusce malesuada luctus velit eu tempor. Pellentesque habitant morbi tristique senectus et netus et.</li>
-                                <li>Pellentesque ornare nulla est, non blandit sapien lacinia nec. Nulla ac velit id est mattis faucibus.</li>
-                                <li>Aliquam lacus nisi, lobortis non diam eget, malesuada bibendum justo. Praesent fringilla sagittis ex, ac molestie ipsum ullamcorper a.</li>
+                                <li>Nulla facilisi. Sed pulvinar nec purus eu sollicitudin. Quisque ut tempus quam, in
+                                    cursus eros. </li>
+                                <li>Fusce malesuada luctus velit eu tempor. Pellentesque habitant morbi tristique
+                                    senectus et netus et.</li>
+                                <li>Pellentesque ornare nulla est, non blandit sapien lacinia nec. Nulla ac velit id est
+                                    mattis faucibus.</li>
+                                <li>Aliquam lacus nisi, lobortis non diam eget, malesuada bibendum justo. Praesent
+                                    fringilla sagittis ex, ac molestie ipsum ullamcorper a.</li>
                                 <li>Vestibulum nulla tortor, aliquam at porta in, hendrerit sed nibh.</li>
                             </ul>
                             <h4 class="title">Type of personal data collected</h4>
-                            <p>In ultrices elit malesuada velit ornare, eget dictum velit hendrerit. Praesent bibendum blandit lectus, eu congue neque mollis in. Pellentesque metus diam, hendrerit in purus fringilla, accumsan bibendum sapien. Nunc non facilisis sem.</p>
+                            <p>In ultrices elit malesuada velit ornare, eget dictum velit hendrerit. Praesent bibendum
+                                blandit lectus, eu congue neque mollis in. Pellentesque metus diam, hendrerit in purus
+                                fringilla, accumsan bibendum sapien. Nunc non facilisis sem.</p>
                             <h4 class="title">Information we collect automatically</h4>
-                            <p>Etiam vel mi vel neque mattis iaculis. Proin vitae consequat augue, vel porta tellus. Nullam tincidunt ac lorem eu lacinia. Praesent ac diam id odio elementum efficitur. Suspendisse sit amet urna vitae neque tempor pellentesque. Aenean ut dapibus urna. Pellentesque neque nulla, interdum vitae rhoncus at, pretium id arcu. Etiam sodales lectus at convallis vestibulum. Quisque non neque augue. Nullam condimentum nulla felis, nec suscipit augue congue ac.</p>
+                            <p>Etiam vel mi vel neque mattis iaculis. Proin vitae consequat augue, vel porta tellus.
+                                Nullam tincidunt ac lorem eu lacinia. Praesent ac diam id odio elementum efficitur.
+                                Suspendisse sit amet urna vitae neque tempor pellentesque. Aenean ut dapibus urna.
+                                Pellentesque neque nulla, interdum vitae rhoncus at, pretium id arcu. Etiam sodales
+                                lectus at convallis vestibulum. Quisque non neque augue. Nullam condimentum nulla felis,
+                                nec suscipit augue congue ac.</p>
                             <h4 class="title">The use of cookies and web beacons</h4>
-                            <p class="mb--20">We may log information using "cookies." Cookies are small data files stored on your hard drive by a website. Cookies help us make our Site and your visit better.</p>
-                            <p class="mb--20">We may log information using digital images called web beacons on our Site or in our emails.</p>
-                            <p>This information is used to make our Site work more efficiently, as well as to provide business and marketing information to the owners of the Site, and to gather such personal data as browser type and operating system, referring page, path through site, domain of ISP, etc. for the purposes of understanding how visitors use our Site. Cookies and similar technologies help us tailor our Site to your personal needs, as well as to detect and prevent security threats and abuse. If used alone, cookies and web beacons do not personally identify you.</p>
+                            <p class="mb--20">We may log information using "cookies." Cookies are small data files
+                                stored on your hard drive by a website. Cookies help us make our Site and your visit
+                                better.</p>
+                            <p class="mb--20">We may log information using digital images called web beacons on our
+                                Site or in our emails.</p>
+                            <p>This information is used to make our Site work more efficiently, as well as to provide
+                                business and marketing information to the owners of the Site, and to gather such
+                                personal data as browser type and operating system, referring page, path through site,
+                                domain of ISP, etc. for the purposes of understanding how visitors use our Site. Cookies
+                                and similar technologies help us tailor our Site to your personal needs, as well as to
+                                detect and prevent security threats and abuse. If used alone, cookies and web beacons do
+                                not personally identify you.</p>
                             <h4 class="title">How long we keep your data</h4>
-                            <p class="mb--20">We store personal data for as long as we find it necessary to fulfill the purpose for which the personal data was collected, while also considering our need to answer your queries or resolve possible problems. This helps us to comply with legal requirements under applicable laws, to attend to any legal claims/complaints, and for safeguarding purposes.</p>
-                            <p>This means that we may retain your personal data for a reasonable period after your last interaction with us. When the personal data that we have collected is no longer required, we will delete it securely. We may process data for statistical purposes, but in such cases, data will be anonymized.</p>
+                            <p class="mb--20">We store personal data for as long as we find it necessary to fulfill the
+                                purpose for which the personal data was collected, while also considering our need to
+                                answer your queries or resolve possible problems. This helps us to comply with legal
+                                requirements under applicable laws, to attend to any legal claims/complaints, and for
+                                safeguarding purposes.</p>
+                            <p>This means that we may retain your personal data for a reasonable period after your last
+                                interaction with us. When the personal data that we have collected is no longer
+                                required, we will delete it securely. We may process data for statistical purposes, but
+                                in such cases, data will be anonymized.</p>
                             <h4 class="title">Your rights to your personal data</h4>
-                            <p>We store personal data for as long as we find it necessary to fulfill the purpose for which the personal data was collected, while also considering our need to answer your queries or resolve possible problems. This helps us to comply with legal requirements under applicable laws, to attend to any legal claims/complaints, and for safeguarding purposes.</p>
+                            <p>We store personal data for as long as we find it necessary to fulfill the purpose for
+                                which the personal data was collected, while also considering our need to answer your
+                                queries or resolve possible problems. This helps us to comply with legal requirements
+                                under applicable laws, to attend to any legal claims/complaints, and for safeguarding
+                                purposes.</p>
                             <h4 class="title">Hotjar’s privacy policy</h4>
-                            <p>Pellentesque vestibulum venenatis iaculis. Aliquam viverra sodales ultrices. Quisque sed purus id massa consequat consectetur eu vel lorem. Maecenas lectus velit, cursus quis orci non, laoreet hendrerit mi. Nulla vitae ipsum fringilla, placerat metus eu, malesuada velit. Quisque viverra risus ex. Aenean commodo vestibulum efficitur. Nullam ligula orci, aliquet sed luctus vel, luctus vel dui. Sed pulvinar, ipsum at mattis imperdiet, diam augue tempor diam, sed porttitor odio elit ut ante. In posuere mi at mi pellentesque ornare sit amet gravida nisi. Praesent ac blandit odio. Curabitur iaculis ante elit, et imperdiet leo mollis at.</p>
+                            <p>Pellentesque vestibulum venenatis iaculis. Aliquam viverra sodales ultrices. Quisque sed
+                                purus id massa consequat consectetur eu vel lorem. Maecenas lectus velit, cursus quis
+                                orci non, laoreet hendrerit mi. Nulla vitae ipsum fringilla, placerat metus eu,
+                                malesuada velit. Quisque viverra risus ex. Aenean commodo vestibulum efficitur. Nullam
+                                ligula orci, aliquet sed luctus vel, luctus vel dui. Sed pulvinar, ipsum at mattis
+                                imperdiet, diam augue tempor diam, sed porttitor odio elit ut ante. In posuere mi at mi
+                                pellentesque ornare sit amet gravida nisi. Praesent ac blandit odio. Curabitur iaculis
+                                ante elit, et imperdiet leo mollis at.</p>
                             <h4 class="title">Changes to this Privacy Policy</h4>
-                            <p>Integer eu ornare lectus, ornare ullamcorper tellus. Morbi in urna a justo dignissim luctus. Nam sagittis ante ut lorem feugiat, sed consectetur ligula lacinia. Vestibulum quis mauris sed lectus pretium dictum sed vitae orci. Vestibulum facilisis facilisis mauris non maximus. Nam tristique ipsum egestas, suscipit orci sit amet, rutrum ante. Proin in felis pellentesque, ullamcorper enim vel, molestie ipsum.</p>
+                            <p>Integer eu ornare lectus, ornare ullamcorper tellus. Morbi in urna a justo dignissim
+                                luctus. Nam sagittis ante ut lorem feugiat, sed consectetur ligula lacinia. Vestibulum
+                                quis mauris sed lectus pretium dictum sed vitae orci. Vestibulum facilisis facilisis
+                                mauris non maximus. Nam tristique ipsum egestas, suscipit orci sit amet, rutrum ante.
+                                Proin in felis pellentesque, ullamcorper enim vel, molestie ipsum.</p>
                         </div>
                     </div>
                 </div>
@@ -382,18 +445,20 @@
                         <div class="axil-footer-widget">
                             <h5 class="widget-title">Support</h5>
                             <!-- <div class="logo mb--30">
-                            <a href="index.html">
+                            <a href="{{ route('home') }}">
                                 <img class="light-logo" src="assets/images/logo/logo.png" alt="Logo Images">
                             </a>
                         </div> -->
                             <div class="inner">
                                 <p>685 Market Street, <br>
-                                Las Vegas, LA 95820, <br>
-                                United States.
+                                    Las Vegas, LA 95820, <br>
+                                    United States.
                                 </p>
                                 <ul class="support-list-item">
-                                    <li><a href="mailto:example@domain.com"><i class="fal fa-envelope-open"></i> example@domain.com</a></li>
-                                    <li><a href="tel:(+01)850-315-5862"><i class="fal fa-phone-alt"></i> (+01) 850-315-5862</a></li>
+                                    <li><a href="mailto:example@domain.com"><i class="fal fa-envelope-open"></i>
+                                            example@domain.com</a></li>
+                                    <li><a href="tel:(+01)850-315-5862"><i class="fal fa-phone-alt"></i> (+01)
+                                            850-315-5862</a></li>
                                     <!-- <li><i class="fal fa-map-marker-alt"></i> 685 Market Street,  <br> Las Vegas, LA 95820, <br> United States.</li> -->
                                 </ul>
                             </div>
@@ -407,7 +472,7 @@
                             <div class="inner">
                                 <ul>
                                     <li><a href="my-account.html">My Account</a></li>
-                                    <li><a href="sign-up.html">Login / Register</a></li>
+                                    <li><a href="{{ route('sign_up') }}">Login / Register</a></li>
                                     <li><a href="cart.html">Cart</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
                                     <li><a href="{{ route('shop') }}">Shop</a></li>
@@ -475,12 +540,14 @@
                     <div class="col-xl-4 col-lg-12">
                         <div class="copyright-left d-flex flex-wrap justify-content-center">
                             <ul class="quick-link">
-                                <li>© 2023. All rights reserved by <a target="_blank" href="https://axilthemes.com/">Axilthemes</a>.</li>
+                                <li>© 2023. All rights reserved by <a target="_blank"
+                                        href="https://axilthemes.com/">Axilthemes</a>.</li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-12">
-                        <div class="copyright-right d-flex flex-wrap justify-content-xl-end justify-content-center align-items-center">
+                        <div
+                            class="copyright-right d-flex flex-wrap justify-content-xl-end justify-content-center align-items-center">
                             <span class="card-text">Accept For</span>
                             <ul class="payment-icons-bottom quick-link">
                                 <li><img src="assets/images/icons/cart/cart-1.png" alt="paypal cart"></li>
@@ -501,7 +568,8 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="far fa-times"></i></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="far fa-times"></i></button>
                 </div>
                 <div class="modal-body">
                     <div class="single-product-thumb">
@@ -509,36 +577,43 @@
                             <div class="col-lg-7 mb--40">
                                 <div class="row">
                                     <div class="col-lg-10 order-lg-2">
-                                        <div class="single-product-thumbnail product-large-thumbnail axil-product thumbnail-badge zoom-gallery">
+                                        <div
+                                            class="single-product-thumbnail product-large-thumbnail axil-product thumbnail-badge zoom-gallery">
                                             <div class="thumbnail">
-                                                <img src="assets/images/product/product-big-01.png" alt="Product Images">
+                                                <img src="assets/images/product/product-big-01.png"
+                                                    alt="Product Images">
                                                 <div class="label-block label-right">
                                                     <div class="product-badget">20% OFF</div>
                                                 </div>
                                                 <div class="product-quick-view position-view">
-                                                    <a href="assets/images/product/product-big-01.png" class="popup-zoom">
+                                                    <a href="assets/images/product/product-big-01.png"
+                                                        class="popup-zoom">
                                                         <i class="far fa-search-plus"></i>
                                                     </a>
                                                 </div>
                                             </div>
                                             <div class="thumbnail">
-                                                <img src="assets/images/product/product-big-02.png" alt="Product Images">
+                                                <img src="assets/images/product/product-big-02.png"
+                                                    alt="Product Images">
                                                 <div class="label-block label-right">
                                                     <div class="product-badget">20% OFF</div>
                                                 </div>
                                                 <div class="product-quick-view position-view">
-                                                    <a href="assets/images/product/product-big-02.png" class="popup-zoom">
+                                                    <a href="assets/images/product/product-big-02.png"
+                                                        class="popup-zoom">
                                                         <i class="far fa-search-plus"></i>
                                                     </a>
                                                 </div>
                                             </div>
                                             <div class="thumbnail">
-                                                <img src="assets/images/product/product-big-03.png" alt="Product Images">
+                                                <img src="assets/images/product/product-big-03.png"
+                                                    alt="Product Images">
                                                 <div class="label-block label-right">
                                                     <div class="product-badget">20% OFF</div>
                                                 </div>
                                                 <div class="product-quick-view position-view">
-                                                    <a href="assets/images/product/product-big-03.png" class="popup-zoom">
+                                                    <a href="assets/images/product/product-big-03.png"
+                                                        class="popup-zoom">
                                                         <i class="far fa-search-plus"></i>
                                                     </a>
                                                 </div>
@@ -548,13 +623,16 @@
                                     <div class="col-lg-2 order-lg-1">
                                         <div class="product-small-thumb small-thumb-wrapper">
                                             <div class="small-thumb-img">
-                                                <img src="assets/images/product/product-thumb/thumb-08.png" alt="thumb image">
+                                                <img src="assets/images/product/product-thumb/thumb-08.png"
+                                                    alt="thumb image">
                                             </div>
                                             <div class="small-thumb-img">
-                                                <img src="assets/images/product/product-thumb/thumb-07.png" alt="thumb image">
+                                                <img src="assets/images/product/product-thumb/thumb-07.png"
+                                                    alt="thumb image">
                                             </div>
                                             <div class="small-thumb-img">
-                                                <img src="assets/images/product/product-thumb/thumb-09.png" alt="thumb image">
+                                                <img src="assets/images/product/product-thumb/thumb-09.png"
+                                                    alt="thumb image">
                                             </div>
                                         </div>
                                     </div>
@@ -578,7 +656,9 @@
                                             <li><i class="fal fa-check"></i>Free delivery available</li>
                                             <li><i class="fal fa-check"></i>Sales 30% Off Use Code: MOTIVE30</li>
                                         </ul>
-                                        <p class="description">In ornare lorem ut est dapibus, ut tincidunt nisi pretium. Integer ante est, elementum eget magna. Pellentesque sagittis dictum libero, eu dignissim tellus.</p>
+                                        <p class="description">In ornare lorem ut est dapibus, ut tincidunt nisi
+                                            pretium. Integer ante est, elementum eget magna. Pellentesque sagittis
+                                            dictum libero, eu dignissim tellus.</p>
 
                                         <div class="product-variations-wrapper">
 
@@ -587,11 +667,14 @@
                                                 <h6 class="title">Colors:</h6>
                                                 <div class="color-variant-wrapper">
                                                     <ul class="color-variant mt--0">
-                                                        <li class="color-extra-01 active"><span><span class="color"></span></span>
+                                                        <li class="color-extra-01 active"><span><span
+                                                                    class="color"></span></span>
                                                         </li>
-                                                        <li class="color-extra-02"><span><span class="color"></span></span>
+                                                        <li class="color-extra-02"><span><span
+                                                                    class="color"></span></span>
                                                         </li>
-                                                        <li class="color-extra-03"><span><span class="color"></span></span>
+                                                        <li class="color-extra-03"><span><span
+                                                                    class="color"></span></span>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -621,8 +704,11 @@
 
                                             <!-- Start Product Action  -->
                                             <ul class="product-action d-flex-center mb--0">
-                                                <li class="add-to-cart"><a href="cart.html" class="axil-btn btn-bg-primary">Add to Cart</a></li>
-                                                <li class="wishlist"><a href="wishlist.html" class="axil-btn wishlist-btn"><i class="far fa-heart"></i></a></li>
+                                                <li class="add-to-cart"><a href="cart.html"
+                                                        class="axil-btn btn-bg-primary">Add to Cart</a></li>
+                                                <li class="wishlist"><a href="wishlist.html"
+                                                        class="axil-btn wishlist-btn"><i class="far fa-heart"></i></a>
+                                                </li>
                                             </ul>
                                             <!-- End Product Action  -->
 
@@ -646,7 +732,8 @@
             <div class="card-header">
                 <form action="#">
                     <div class="input-group">
-                        <input type="search" class="form-control" name="prod-search" id="prod-search" placeholder="Write Something....">
+                        <input type="search" class="form-control" name="prod-search" id="prod-search"
+                            placeholder="Write Something....">
                         <button type="submit" class="axil-btn btn-bg-primary"><i class="far fa-search"></i></button>
                     </div>
                 </form>
@@ -666,12 +753,12 @@
                         <div class="product-content">
                             <div class="product-rating">
                                 <span class="rating-icon">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fal fa-star"></i>
-                            </span>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fal fa-star"></i>
+                                </span>
                                 <span class="rating-number"><span>100+</span> Reviews</span>
                             </div>
                             <h6 class="product-title"><a href="single-product.html">Media Remote</a></h6>
@@ -694,12 +781,12 @@
                         <div class="product-content">
                             <div class="product-rating">
                                 <span class="rating-icon">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fal fa-star"></i>
-                            </span>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fal fa-star"></i>
+                                </span>
                                 <span class="rating-number"><span>100+</span> Reviews</span>
                             </div>
                             <h6 class="product-title"><a href="single-product.html">Media Remote</a></h6>
@@ -731,18 +818,19 @@
                 <ul class="cart-item-list">
                     <li class="cart-item">
                         <div class="item-img">
-                            <a href="single-product.html"><img src="assets/images/product/electric/product-01.png" alt="Commodo Blown Lamp"></a>
+                            <a href="single-product.html"><img src="assets/images/product/electric/product-01.png"
+                                    alt="Commodo Blown Lamp"></a>
                             <button class="close-btn"><i class="fas fa-times"></i></button>
                         </div>
                         <div class="item-content">
                             <div class="product-rating">
                                 <span class="icon">
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-							</span>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </span>
                                 <span class="rating-number">(64)</span>
                             </div>
                             <h3 class="item-title"><a href="single-product-3.html">Wireless PS Handler</a></h3>
@@ -754,18 +842,19 @@
                     </li>
                     <li class="cart-item">
                         <div class="item-img">
-                            <a href="single-product-2.html"><img src="assets/images/product/electric/product-02.png" alt="Commodo Blown Lamp"></a>
+                            <a href="single-product-2.html"><img src="assets/images/product/electric/product-02.png"
+                                    alt="Commodo Blown Lamp"></a>
                             <button class="close-btn"><i class="fas fa-times"></i></button>
                         </div>
                         <div class="item-content">
                             <div class="product-rating">
                                 <span class="icon">
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-							</span>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </span>
                                 <span class="rating-number">(4)</span>
                             </div>
                             <h3 class="item-title"><a href="single-product-2.html">Gradient Light Keyboard</a></h3>
@@ -777,18 +866,19 @@
                     </li>
                     <li class="cart-item">
                         <div class="item-img">
-                            <a href="single-product-3.html"><img src="assets/images/product/electric/product-03.png" alt="Commodo Blown Lamp"></a>
+                            <a href="single-product-3.html"><img src="assets/images/product/electric/product-03.png"
+                                    alt="Commodo Blown Lamp"></a>
                             <button class="close-btn"><i class="fas fa-times"></i></button>
                         </div>
                         <div class="item-content">
                             <div class="product-rating">
                                 <span class="icon">
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-							</span>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </span>
                                 <span class="rating-number">(6)</span>
                             </div>
                             <h3 class="item-title"><a href="single-product.html">HD CC Camera</a></h3>

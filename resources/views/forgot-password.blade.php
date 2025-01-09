@@ -36,15 +36,16 @@
         <div class="signin-header">
             <div class="row align-items-center">
                 <div class="col-xl-4 col-sm-6">
-                    <a href="index.html" class="site-logo"><img src="./assets/images/logo/logo.png" alt="logo"></a>
+                    <a href="{{ route('home') }}" class="site-logo"><img src="./assets/images/logo/logo.png"
+                            alt="logo"></a>
                 </div>
                 <div class="col-md-2 d-lg-block d-none">
-                    <a href="sign-in.html" class="back-btn"><i class="far fa-angle-left"></i></a>
+                    <a href="{{ route('sign_in') }}" class="back-btn"><i class="far fa-angle-left"></i></a>
                 </div>
                 <div class="col-xl-6 col-lg-4 col-sm-6">
                     <div class="singin-header-btn">
-                        <p>Already a member?</p>
-                        <a href="sign-in.html" class="sign-up-btn axil-btn btn-bg-secondary">Sign In</a>
+                        <p>Vous avez déjà un compte?</p>
+                        <a href="{{ route('sign_in') }}" class="sign-up-btn axil-btn btn-bg-secondary">Se connecter</a>
                     </div>
                 </div>
             </div>
@@ -61,14 +62,16 @@
                 <div class="axil-signin-form-wrap">
                     <div class="axil-signin-form">
                         <h3 class="title">Forgot Password?</h3>
-                        <p class="b2 mb--55">Enter the email address you used when you joined and we’ll send you instructions to reset your password.</p>
+                        <p class="b2 mb--55">Enter the email address you used when you joined and we’ll send you
+                            instructions to reset your password.</p>
                         <form class="singin-form">
                             <div class="form-group">
                                 <label>Email</label>
                                 <input type="email" class="form-control" name="email" value="annie@example.com">
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="axil-btn btn-bg-primary submit-btn">Send Reset Instructions</button>
+                                <button type="submit" class="axil-btn btn-bg-primary submit-btn">Send Reset
+                                    Instructions</button>
                             </div>
                         </form>
                     </div>

@@ -36,14 +36,16 @@
         <div class="signin-header">
             <div class="row align-items-center">
                 <div class="col-xl-4 col-sm-6">
-                    <a href="index.html" class="site-logo"><img src="./assets/images/logo/logo.png" alt="logo"></a>
+                    <a href="{{ route('home') }}" class="site-logo"><img src="./assets/images/logo/logo.png"
+                            alt="logo"></a>
                 </div>
                 <div class="col-md-2 d-lg-block d-none">
                     <a href="forgot-password.html" class="back-btn"><i class="far fa-angle-left"></i></a>
                 </div>
                 <div class="col-xl-6 col-lg-4 col-sm-6">
                     <div class="singin-header-btn">
-                        <p>Already a member? <a href="sign-in.html" class="sign-in-btn">Sign In</a></p>
+                        <p>Vous avez déjà un compte? <a href="{{ route('sign_in') }}" class="sign-in-btn">Se
+                                connecter</a></p>
                     </div>
                 </div>
             </div>
@@ -70,7 +72,8 @@
                                 <input type="password" class="form-control" name="password2" value="123456789">
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="axil-btn btn-bg-primary submit-btn">Resrt Password</button>
+                                <button type="submit" class="axil-btn btn-bg-primary submit-btn">Resrt
+                                    Password</button>
                             </div>
                         </form>
                     </div>
