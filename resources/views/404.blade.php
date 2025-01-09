@@ -47,7 +47,8 @@
                     <div class="col-lg-6 col-sm-6 col-12">
                         <div class="header-top-dropdown">
                             <div class="dropdown">
-                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
                                     English
                                 </button>
                                 <ul class="dropdown-menu">
@@ -57,7 +58,8 @@
                                 </ul>
                             </div>
                             <div class="dropdown">
-                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
                                     USD
                                 </button>
                                 <ul class="dropdown-menu">
@@ -112,14 +114,15 @@
                                         <li><a href="index-4.html">Home - Jewellery</a></li>
                                         <li><a href="index-5.html">Home - Furniture</a></li>
                                         <li><a href="index-7.html">Home - Multipurpose</a></li>
-                                        <li><a href="https://new.axilthemes.com/demo/template/etrade-rtl/">RTL Version</a></li>
+                                        <li><a href="https://new.axilthemes.com/demo/template/etrade-rtl/">RTL
+                                                Version</a></li>
                                     </ul>
                                 </li>
                                 <li class="menu-item-has-children">
                                     <a href="#">Shop</a>
                                     <ul class="axil-submenu">
                                         <li><a href="shop-sidebar.html">Shop With Sidebar</a></li>
-                                        <li><a href="shop.html">Shop no Sidebar</a></li>
+                                        <li><a href="{{ route('shop') }}">Shop no Sidebar</a></li>
                                         <li><a href="single-product.html">Product Variation 1</a></li>
                                         <li><a href="single-product-2.html">Product Variation 2</a></li>
                                         <li><a href="single-product-3.html">Product Variation 3</a></li>
@@ -167,7 +170,9 @@
                     <div class="header-action">
                         <ul class="action-list">
                             <li class="axil-search d-xl-block d-none">
-                                <input type="search" class="placeholder product-search-input" name="search2" id="search2" value="" maxlength="128" placeholder="What are you looking for?" autocomplete="off">
+                                <input type="search" class="placeholder product-search-input" name="search2"
+                                    id="search2" value="" maxlength="128"
+                                    placeholder="What are you looking for?" autocomplete="off">
                                 <button type="submit" class="icon wooc-btn-search">
                                     <i class="flaticon-magnifying-glass"></i>
                                 </button>
@@ -209,7 +214,8 @@
                                         </li>
                                     </ul>
                                     <a href="sign-in.html" class="axil-btn btn-bg-primary">Login</a>
-                                    <div class="reg-footer text-center">No account yet? <a href="sign-up.html" class="btn-link">REGISTER HERE.</a></div>
+                                    <div class="reg-footer text-center">No account yet? <a href="sign-up.html"
+                                            class="btn-link">REGISTER HERE.</a></div>
                                 </div>
                             </li>
                             <li class="axil-mobile-toggle">
@@ -251,10 +257,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="content" data-sal="slide-up" data-sal-duration="800" data-sal-delay="400">
-                        <span class="title-highlighter highlighter-secondary"> <i class="fal fa-exclamation-circle"></i> Oops! Somthing's missing.</span>
+                        <span class="title-highlighter highlighter-secondary"> <i
+                                class="fal fa-exclamation-circle"></i> Oops! Somthing's missing.</span>
                         <h1 class="title">Page not found</h1>
-                        <p>It seems like we dont find what you searched. The page you were looking for doesn't exist, isn't available loading incorrectly.</p>
-                        <a href="index.html" class="axil-btn btn-bg-secondary right-icon">Back To Home <i class="fal fa-long-arrow-right"></i></a>
+                        <p>It seems like we dont find what you searched. The page you were looking for doesn't exist,
+                            isn't available loading incorrectly.</p>
+                        <a href="index.html" class="axil-btn btn-bg-secondary right-icon">Back To Home <i
+                                class="fal fa-long-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -334,12 +343,14 @@
                         </div> -->
                             <div class="inner">
                                 <p>685 Market Street, <br>
-                                Las Vegas, LA 95820, <br>
-                                United States.
+                                    Las Vegas, LA 95820, <br>
+                                    United States.
                                 </p>
                                 <ul class="support-list-item">
-                                    <li><a href="mailto:example@domain.com"><i class="fal fa-envelope-open"></i> example@domain.com</a></li>
-                                    <li><a href="tel:(+01)850-315-5862"><i class="fal fa-phone-alt"></i> (+01) 850-315-5862</a></li>
+                                    <li><a href="mailto:example@domain.com"><i class="fal fa-envelope-open"></i>
+                                            example@domain.com</a></li>
+                                    <li><a href="tel:(+01)850-315-5862"><i class="fal fa-phone-alt"></i> (+01)
+                                            850-315-5862</a></li>
                                     <!-- <li><i class="fal fa-map-marker-alt"></i> 685 Market Street,  <br> Las Vegas, LA 95820, <br> United States.</li> -->
                                 </ul>
                             </div>
@@ -356,7 +367,7 @@
                                     <li><a href="sign-up.html">Login / Register</a></li>
                                     <li><a href="cart.html">Cart</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
-                                    <li><a href="shop.html">Shop</a></li>
+                                    <li><a href="{{ route('shop') }}">Shop</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -421,12 +432,14 @@
                     <div class="col-xl-4 col-lg-12">
                         <div class="copyright-left d-flex flex-wrap justify-content-center">
                             <ul class="quick-link">
-                                <li>© 2023. All rights reserved by <a target="_blank" href="https://axilthemes.com/">Axilthemes</a>.</li>
+                                <li>© 2023. All rights reserved by <a target="_blank"
+                                        href="https://axilthemes.com/">Axilthemes</a>.</li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-12">
-                        <div class="copyright-right d-flex flex-wrap justify-content-xl-end justify-content-center align-items-center">
+                        <div
+                            class="copyright-right d-flex flex-wrap justify-content-xl-end justify-content-center align-items-center">
                             <span class="card-text">Accept For</span>
                             <ul class="payment-icons-bottom quick-link">
                                 <li><img src="assets/images/icons/cart/cart-1.png" alt="paypal cart"></li>
@@ -447,7 +460,8 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="far fa-times"></i></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="far fa-times"></i></button>
                 </div>
                 <div class="modal-body">
                     <div class="single-product-thumb">
@@ -455,36 +469,43 @@
                             <div class="col-lg-7 mb--40">
                                 <div class="row">
                                     <div class="col-lg-10 order-lg-2">
-                                        <div class="single-product-thumbnail product-large-thumbnail axil-product thumbnail-badge zoom-gallery">
+                                        <div
+                                            class="single-product-thumbnail product-large-thumbnail axil-product thumbnail-badge zoom-gallery">
                                             <div class="thumbnail">
-                                                <img src="assets/images/product/product-big-01.png" alt="Product Images">
+                                                <img src="assets/images/product/product-big-01.png"
+                                                    alt="Product Images">
                                                 <div class="label-block label-right">
                                                     <div class="product-badget">20% OFF</div>
                                                 </div>
                                                 <div class="product-quick-view position-view">
-                                                    <a href="assets/images/product/product-big-01.png" class="popup-zoom">
+                                                    <a href="assets/images/product/product-big-01.png"
+                                                        class="popup-zoom">
                                                         <i class="far fa-search-plus"></i>
                                                     </a>
                                                 </div>
                                             </div>
                                             <div class="thumbnail">
-                                                <img src="assets/images/product/product-big-02.png" alt="Product Images">
+                                                <img src="assets/images/product/product-big-02.png"
+                                                    alt="Product Images">
                                                 <div class="label-block label-right">
                                                     <div class="product-badget">20% OFF</div>
                                                 </div>
                                                 <div class="product-quick-view position-view">
-                                                    <a href="assets/images/product/product-big-02.png" class="popup-zoom">
+                                                    <a href="assets/images/product/product-big-02.png"
+                                                        class="popup-zoom">
                                                         <i class="far fa-search-plus"></i>
                                                     </a>
                                                 </div>
                                             </div>
                                             <div class="thumbnail">
-                                                <img src="assets/images/product/product-big-03.png" alt="Product Images">
+                                                <img src="assets/images/product/product-big-03.png"
+                                                    alt="Product Images">
                                                 <div class="label-block label-right">
                                                     <div class="product-badget">20% OFF</div>
                                                 </div>
                                                 <div class="product-quick-view position-view">
-                                                    <a href="assets/images/product/product-big-03.png" class="popup-zoom">
+                                                    <a href="assets/images/product/product-big-03.png"
+                                                        class="popup-zoom">
                                                         <i class="far fa-search-plus"></i>
                                                     </a>
                                                 </div>
@@ -494,13 +515,16 @@
                                     <div class="col-lg-2 order-lg-1">
                                         <div class="product-small-thumb small-thumb-wrapper">
                                             <div class="small-thumb-img">
-                                                <img src="assets/images/product/product-thumb/thumb-08.png" alt="thumb image">
+                                                <img src="assets/images/product/product-thumb/thumb-08.png"
+                                                    alt="thumb image">
                                             </div>
                                             <div class="small-thumb-img">
-                                                <img src="assets/images/product/product-thumb/thumb-07.png" alt="thumb image">
+                                                <img src="assets/images/product/product-thumb/thumb-07.png"
+                                                    alt="thumb image">
                                             </div>
                                             <div class="small-thumb-img">
-                                                <img src="assets/images/product/product-thumb/thumb-09.png" alt="thumb image">
+                                                <img src="assets/images/product/product-thumb/thumb-09.png"
+                                                    alt="thumb image">
                                             </div>
                                         </div>
                                     </div>
@@ -524,7 +548,9 @@
                                             <li><i class="fal fa-check"></i>Free delivery available</li>
                                             <li><i class="fal fa-check"></i>Sales 30% Off Use Code: MOTIVE30</li>
                                         </ul>
-                                        <p class="description">In ornare lorem ut est dapibus, ut tincidunt nisi pretium. Integer ante est, elementum eget magna. Pellentesque sagittis dictum libero, eu dignissim tellus.</p>
+                                        <p class="description">In ornare lorem ut est dapibus, ut tincidunt nisi
+                                            pretium. Integer ante est, elementum eget magna. Pellentesque sagittis
+                                            dictum libero, eu dignissim tellus.</p>
 
                                         <div class="product-variations-wrapper">
 
@@ -533,11 +559,14 @@
                                                 <h6 class="title">Colors:</h6>
                                                 <div class="color-variant-wrapper">
                                                     <ul class="color-variant mt--0">
-                                                        <li class="color-extra-01 active"><span><span class="color"></span></span>
+                                                        <li class="color-extra-01 active"><span><span
+                                                                    class="color"></span></span>
                                                         </li>
-                                                        <li class="color-extra-02"><span><span class="color"></span></span>
+                                                        <li class="color-extra-02"><span><span
+                                                                    class="color"></span></span>
                                                         </li>
-                                                        <li class="color-extra-03"><span><span class="color"></span></span>
+                                                        <li class="color-extra-03"><span><span
+                                                                    class="color"></span></span>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -567,8 +596,11 @@
 
                                             <!-- Start Product Action  -->
                                             <ul class="product-action d-flex-center mb--0">
-                                                <li class="add-to-cart"><a href="cart.html" class="axil-btn btn-bg-primary">Add to Cart</a></li>
-                                                <li class="wishlist"><a href="wishlist.html" class="axil-btn wishlist-btn"><i class="far fa-heart"></i></a></li>
+                                                <li class="add-to-cart"><a href="cart.html"
+                                                        class="axil-btn btn-bg-primary">Add to Cart</a></li>
+                                                <li class="wishlist"><a href="wishlist.html"
+                                                        class="axil-btn wishlist-btn"><i class="far fa-heart"></i></a>
+                                                </li>
                                             </ul>
                                             <!-- End Product Action  -->
 
@@ -592,7 +624,8 @@
             <div class="card-header">
                 <form action="#">
                     <div class="input-group">
-                        <input type="search" class="form-control" name="prod-search" id="prod-search" placeholder="Write Something....">
+                        <input type="search" class="form-control" name="prod-search" id="prod-search"
+                            placeholder="Write Something....">
                         <button type="submit" class="axil-btn btn-bg-primary"><i class="far fa-search"></i></button>
                     </div>
                 </form>
@@ -600,7 +633,7 @@
             <div class="card-body">
                 <div class="search-result-header">
                     <h6 class="title">24 Result Found</h6>
-                    <a href="shop.html" class="view-all">View All</a>
+                    <a href="{{ route('shop') }}" class="view-all">View All</a>
                 </div>
                 <div class="psearch-results">
                     <div class="axil-product-list">
@@ -612,12 +645,12 @@
                         <div class="product-content">
                             <div class="product-rating">
                                 <span class="rating-icon">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fal fa-star"></i>
-                            </span>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fal fa-star"></i>
+                                </span>
                                 <span class="rating-number"><span>100+</span> Reviews</span>
                             </div>
                             <h6 class="product-title"><a href="single-product.html">Media Remote</a></h6>
@@ -640,12 +673,12 @@
                         <div class="product-content">
                             <div class="product-rating">
                                 <span class="rating-icon">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fal fa-star"></i>
-                            </span>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fal fa-star"></i>
+                                </span>
                                 <span class="rating-number"><span>100+</span> Reviews</span>
                             </div>
                             <h6 class="product-title"><a href="single-product.html">Media Remote</a></h6>
@@ -676,18 +709,19 @@
                 <ul class="cart-item-list">
                     <li class="cart-item">
                         <div class="item-img">
-                            <a href="single-product.html"><img src="assets/images/product/electric/product-01.png" alt="Commodo Blown Lamp"></a>
+                            <a href="single-product.html"><img src="assets/images/product/electric/product-01.png"
+                                    alt="Commodo Blown Lamp"></a>
                             <button class="close-btn"><i class="fas fa-times"></i></button>
                         </div>
                         <div class="item-content">
                             <div class="product-rating">
                                 <span class="icon">
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-							</span>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </span>
                                 <span class="rating-number">(64)</span>
                             </div>
                             <h3 class="item-title"><a href="single-product-3.html">Wireless PS Handler</a></h3>
@@ -699,18 +733,19 @@
                     </li>
                     <li class="cart-item">
                         <div class="item-img">
-                            <a href="single-product-2.html"><img src="assets/images/product/electric/product-02.png" alt="Commodo Blown Lamp"></a>
+                            <a href="single-product-2.html"><img src="assets/images/product/electric/product-02.png"
+                                    alt="Commodo Blown Lamp"></a>
                             <button class="close-btn"><i class="fas fa-times"></i></button>
                         </div>
                         <div class="item-content">
                             <div class="product-rating">
                                 <span class="icon">
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-							</span>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </span>
                                 <span class="rating-number">(4)</span>
                             </div>
                             <h3 class="item-title"><a href="single-product-2.html">Gradient Light Keyboard</a></h3>
@@ -722,18 +757,19 @@
                     </li>
                     <li class="cart-item">
                         <div class="item-img">
-                            <a href="single-product-3.html"><img src="assets/images/product/electric/product-03.png" alt="Commodo Blown Lamp"></a>
+                            <a href="single-product-3.html"><img src="assets/images/product/electric/product-03.png"
+                                    alt="Commodo Blown Lamp"></a>
                             <button class="close-btn"><i class="fas fa-times"></i></button>
                         </div>
                         <div class="item-content">
                             <div class="product-rating">
                                 <span class="icon">
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-							</span>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </span>
                                 <span class="rating-number">(6)</span>
                             </div>
                             <h3 class="item-title"><a href="single-product.html">HD CC Camera</a></h3>

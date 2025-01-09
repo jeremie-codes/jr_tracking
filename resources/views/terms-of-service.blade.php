@@ -114,7 +114,7 @@
                                     <a href="#">Shop</a>
                                     <ul class="axil-submenu">
                                         <li><a href="shop-sidebar.html">Shop With Sidebar</a></li>
-                                        <li><a href="shop.html">Shop no Sidebar</a></li>
+                                        <li><a href="{{ route('shop') }}">Shop no Sidebar</a></li>
                                         <li><a href="single-product.html">Product Variation 1</a></li>
                                         <li><a href="single-product-2.html">Product Variation 2</a></li>
                                         <li><a href="single-product-3.html">Product Variation 3</a></li>
@@ -410,7 +410,7 @@
                                     <li><a href="sign-up.html">Login / Register</a></li>
                                     <li><a href="cart.html">Cart</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
-                                    <li><a href="shop.html">Shop</a></li>
+                                    <li><a href="{{ route('shop') }}">Shop</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -654,7 +654,7 @@
             <div class="card-body">
                 <div class="search-result-header">
                     <h6 class="title">24 Result Found</h6>
-                    <a href="shop.html" class="view-all">View All</a>
+                    <a href="{{ route('shop') }}" class="view-all">View All</a>
                 </div>
                 <div class="psearch-results">
                     <div class="axil-product-list">

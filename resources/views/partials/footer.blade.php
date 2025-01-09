@@ -38,7 +38,7 @@
                                 <li><a href="sign-up.html">Login / Register</a></li>
                                 <li><a href="cart.html">Cart</a></li>
                                 <li><a href="wishlist.html">Wishlist</a></li>
-                                <li><a href="shop.html">Shop</a></li>
+                                <li><a href="{{ route('shop') }}">Shop</a></li>
                             </ul>
                         </div>
                     </div>

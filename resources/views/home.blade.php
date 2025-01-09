@@ -14,8 +14,8 @@
                                     <h1 class="title">Roco Wireless Headphone</h1>
                                     <div class="slide-action">
                                         <div class="shop-btn">
-                                            <a href="shop.html" class="axil-btn btn-bg-white"><i
-                                                    class="fal fa-shopping-cart"></i>Shop Now</a>
+                                            <a href="{{ route('shop') }}" class="axil-btn btn-bg-white"><i
+                                                    class="fal fa-shopping-cart"></i>Boutique</a>
                                         </div>
                                         <div class="item-rating">
                                             <div class="thumb">
@@ -46,8 +46,8 @@
                                     <h1 class="title">Smart Digital Watch</h1>
                                     <div class="slide-action">
                                         <div class="shop-btn">
-                                            <a href="shop.html" class="axil-btn btn-bg-white"><i
-                                                    class="fal fa-shopping-cart"></i>Shop Now</a>
+                                            <a href="{{ route('shop') }}" class="axil-btn btn-bg-white"><i
+                                                    class="fal fa-shopping-cart"></i>Boutique</a>
                                         </div>
                                         <div class="item-rating">
                                             <div class="thumb">
@@ -78,8 +78,8 @@
                                     <h1 class="title">Roco Wireless Headphone</h1>
                                     <div class="slide-action">
                                         <div class="shop-btn">
-                                            <a href="shop.html" class="axil-btn btn-bg-white"><i
-                                                    class="fal fa-shopping-cart"></i>Shop Now</a>
+                                            <a href="{{ route('shop') }}" class="axil-btn btn-bg-white"><i
+                                                    class="fal fa-shopping-cart"></i>Boutique</a>
                                         </div>
                                         <div class="item-rating">
                                             <div class="thumb">
@@ -110,8 +110,8 @@
                                     <h1 class="title">Smart Digital Watch</h1>
                                     <div class="slide-action">
                                         <div class="shop-btn">
-                                            <a href="shop.html" class="axil-btn btn-bg-white"><i
-                                                    class="fal fa-shopping-cart"></i>Shop Now</a>
+                                            <a href="{{ route('shop') }}" class="axil-btn btn-bg-white"><i
+                                                    class="fal fa-shopping-cart"></i>Boutique</a>
                                         </div>
                                         <div class="item-rating">
                                             <div class="thumb">
@@ -1084,7 +1084,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12 text-center mt--20 mt_sm--0">
-                        <a href="shop.html" class="axil-btn btn-bg-lighter btn-load-more">View All Products</a>
+                        <a href="{{ route('shop') }}" class="axil-btn btn-bg-lighter btn-load-more">View All Products</a>
                     </div>
                 </div>
 
@@ -1755,7 +1755,7 @@
                 <div class="row">
                     <div class="col-lg-6 mb--30">
                         <div class="single-poster">
-                            <a href="shop.html">
+                            <a href="{{ route('shop') }}">
                                 <img src="./assets/images/product/poster/poster-01.png" alt="eTrade promotion poster">
                                 <div class="poster-content">
                                     <div class="inner">
