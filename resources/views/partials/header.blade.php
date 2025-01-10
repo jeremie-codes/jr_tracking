@@ -5,10 +5,10 @@
             <div class="header-navbar">
                 <div class="header-brand">
                     <a href="{{ route('home') }}" class="logo logo-dark">
-                        <img src="assets/images/logo/logo.png" alt="Logo du site" width="70px">
+                        <img src="assets/images/logo/logo.png" alt="Logo du site">
                     </a>
                     <a href="{{ route('home') }}" class="logo logo-light">
-                        <img src="assets/images/logo/logo-light.png" alt="Logo du site" width="70px">
+                        <img src="assets/images/logo/logo-light.png" alt="Logo du site">
                     </a>
                 </div>
                 <div class="header-main-nav">
@@ -17,7 +17,7 @@
                         <button class="mobile-close-btn mobile-nav-toggler"><i class="fas fa-times"></i></button>
                         <div class="mobile-nav-brand">
                             <a href="{{ route('home') }}" class="logo">
-                                <img src="assets/images/logo/logo.png" alt="Logo du site" width="70px">
+                                <img src="assets/images/logo/logo.png" alt="Logo du site">
                             </a>
                         </div>
                         <ul class="mainmenu">
