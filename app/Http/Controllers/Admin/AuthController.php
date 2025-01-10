@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Shop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -47,14 +48,34 @@ class AuthController extends Controller
     }
     public function handleRegister(RegisterRequest $request)
     {
-        $$request['avatar'] = $request->file('avatar')->store('avatars', 'public');
+        $request['avatar'] = $request->file('avatar')->store('avatars', 'public');
         $user = $this->userContract->toAdd($request->all());
 
-        Auth::login($user);
+        // dd($user)
 
-        return redirect()->intended('home');
+        $shop = Shop::create([
+            'user_id' => $user->id,
+            'name' => $request['shop_name'],
+        ]);
+
+        if ($shop) {
+            Auth::login($user);
+
+            return redirect()->intended('/');
+        } else {
+            dd('shop non créé');
+        }
+
+        // dd($user = $this->userContract->toGetById($user->id));
+
     }
 
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect()->intended('/');
+    }
     /**
      * Display the specified resource.
      */

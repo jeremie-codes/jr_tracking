@@ -4,12 +4,18 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>eTrade || Se connecter</title>
+    <title> {{ config('app.name') }} || Se connecter</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/favicon/favicon.ico') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/favicon/favicon-96x96.png') }}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{{ asset('assets/favicon/favicon.svg') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/favicon/favicon.ico') }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/favicon/apple-touch-icon.png') }}" />
+    <meta name="apple-mobile-web-app-title" content="E-GALERIA" />
+    <link rel="manifest" href="{{ asset('assets/favicon/site.webmanifest') }}" />
 
     <!-- CSS
     ============================================ -->
@@ -41,8 +47,9 @@
                 </div>
                 <div class="col-sm-8">
                     <div class="singin-header-btn">
-                        <p>Not a member?</p>
-                        <a href="{{ route('register') }}" class="axil-btn btn-bg-secondary sign-up-btn">Sign Up Now</a>
+                        <p>Vous n'avez pas un compte?</p>
+                        <a href="{{ route('register') }}" class="axil-btn btn-bg-secondary sign-up-btn">Créer un
+                            compte</a>
                     </div>
                 </div>
             </div>
@@ -58,7 +65,7 @@
             <div class="col-lg-6 offset-xl-2">
                 <div class="axil-signin-form-wrap">
                     <div class="axil-signin-form">
-                        <h3 class="title">Se connecter to eTrade.</h3>
+                        <h3 class="title">Se connecter à votre compte.</h3>
                         <p class="b2 mb--55">Enter your detail below</p>
                         <form class="singin-form" method="POST" action="{{ route('login') }}">
                             @csrf

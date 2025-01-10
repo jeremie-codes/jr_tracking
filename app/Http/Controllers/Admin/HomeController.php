@@ -2,20 +2,33 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Repository\User\UserContract;
 
 class HomeController extends Controller
 {
+    protected UserContract $userContract;
+
+    public function __construct(UserContract $_userContract)
+    {
+        $this->userContract = $_userContract;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('home', [
-            'auth' => Auth::user()
-        ]);
+        if (Auth::user()) {
+            $user = $this->userContract->toGetById(Auth::user()->id);
+
+            return view('home', [
+                'user' => Auth::user()
+            ]);
+        }
+        return view('home');
     }
 
     /**

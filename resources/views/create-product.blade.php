@@ -46,77 +46,101 @@
                       <div class="row">
                           <div class="col-lg-12">
                               <div class="axil-dashboard-account">
-                                  <form class="account-details-form">
+                                  <form class="account-details-form" action="{{ route('create_product') }}" method="POST"
+                                      enctype="multipart/form-data">
+                                      @csrf
+                                      @method('POST')
+
                                       <div class="row">
-                                          <!-- Upload d'image -->
                                           <div class="col-lg-12">
                                               <div class="form-group">
                                                   <label for="image">Image</label>
                                                   <input type="file" name="image" id="image" class="form-control"
-                                                      required>
+                                                      id="product-image" required>
+                                                  @error('image')
+                                                      <div class="text-danger">{{ $message }}</div>
+                                                  @enderror
                                               </div>
                                           </div>
 
-                                          <!-- Sélection de la boutique -->
+                                          {{-- <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="shop_id">Boutique</label>
+                                                <select name="shop_id" id="shop_id" class="form-control" required>
+                                                    <option value="">Sélectionnez une boutique</option>
+                                                    <!-- Options dynamiques via une relation -->
+                                                </select>
+                                                @error('shop_id')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            </div> --}}
+
                                           <div class="col-lg-6">
                                               <div class="form-group">
-                                                  <label for="shop_id">Boutique</label>
-                                                  <select name="shop_id" id="shop_id" class="form-control" required>
-                                                      <option value="">Sélectionnez une boutique</option>
-                                                      <!-- Options dynamiques via une relation -->
-                                                  </select>
+                                                  <label for="name">Nom</label>
+                                                  <input type="text" name="name" id="name" class="form-control"
+                                                      value="{{ old('name') }}" required autofocus>
+                                                  @error('name')
+                                                      <div class="text-danger">{{ $message }}</div>
+                                                  @enderror
                                               </div>
                                           </div>
 
-                                          <!-- Sélection de la catégorie -->
                                           <div class="col-lg-6">
                                               <div class="form-group">
                                                   <label for="category_id">Catégorie</label>
                                                   <select name="category_id" id="category_id" class="form-control" required>
                                                       <option value="">Sélectionnez une catégorie</option>
-                                                      <!-- Options dynamiques via une relation -->
+                                                      @foreach ($categories as $category)
+                                                          <option value="{{ $category->id }}"
+                                                              {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                                              {{ $category->name }}
+                                                          </option>
+                                                      @endforeach
                                                   </select>
+                                                  @error('category_id')
+                                                      <div class="text-danger">{{ $message }}</div>
+                                                  @enderror
                                               </div>
                                           </div>
 
-                                          <!-- Disponibilité -->
-                                          <div class="col-lg-12">
+                                          <div class="col-lg-6">
                                               <div class="form-group">
                                                   <label for="available">Disponible</label>
                                                   <select name="available" id="available" class="form-control" required>
-                                                      <option value="1">Actif</option>
-                                                      <option value="0">Inactif</option>
+                                                      <option value="1" {{ old('available') == 1 ? 'selected' : '' }}>
+                                                          Actif</option>
+                                                      <option value="0" {{ old('available') == 0 ? 'selected' : '' }}>
+                                                          Inactif</option>
                                                   </select>
+                                                  @error('available')
+                                                      <div class="text-danger">{{ $message }}</div>
+                                                  @enderror
                                               </div>
                                           </div>
 
-                                          <!-- Nom et slug -->
-                                          <div class="col-lg-6">
-                                              <div class="form-group">
-                                                  <label for="name">Nom</label>
-                                                  <input type="text" name="name" id="name" class="form-control"
-                                                      required autofocus>
-                                              </div>
-                                          </div>
-
-                                          <!-- Prix -->
                                           <div class="col-lg-6">
                                               <div class="form-group">
                                                   <label for="price">Prix</label>
                                                   <input type="number" name="price" id="price" class="form-control"
-                                                      required>
+                                                      value="{{ old('price') }}" required>
+                                                  @error('price')
+                                                      <div class="text-danger">{{ $message }}</div>
+                                                  @enderror
                                               </div>
                                           </div>
 
-                                          <!-- Description -->
                                           <div class="col-lg-12">
                                               <div class="form-group">
                                                   <label for="description">Description</label>
-                                                  <textarea name="description" id="description" class="form-control" rows="5" required></textarea>
+                                                  <textarea name="description" id="description" class="form-control" rows="5" required>{{ old('description') }}</textarea>
+                                                  @error('description')
+                                                      <div class="text-danger">{{ $message }}</div>
+                                                  @enderror
                                               </div>
                                           </div>
 
-                                          <!-- Bouton de soumission -->
                                           <div class="col-lg-12">
                                               <div class="form-group">
                                                   <input type="submit" class="btn btn-primary" value="Enregistrer">
@@ -206,4 +230,25 @@
               </div>
           </div>
       </div>
+
+      <script>
+          document.getElementById('product-image').addEventListener('change', function(e) {
+              const file = e.target.files[0];
+              const errorElement = document.getElementById('avatar-error');
+              errorElement.classList.add('d-none'); // Cache l'erreur par défaut
+
+              if (file) {
+                  const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                  if (!validTypes.includes(file.type)) {
+                      errorElement.textContent = 'Le fichier doit être une image (JPEG, PNG ou GIF).';
+                      errorElement.classList.remove('d-none');
+                      e.target.value = ''; // Réinitialise le champ fichier
+                  } else if (file.size > 2048 * 1024) {
+                      errorElement.textContent = 'L\'image ne doit pas dépasser 2 Mo.';
+                      errorElement.classList.remove('d-none');
+                      e.target.value = ''; // Réinitialise le champ fichier
+                  }
+              }
+          });
+      </script>
   @endsection

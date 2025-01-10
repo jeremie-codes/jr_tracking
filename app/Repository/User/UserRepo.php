@@ -19,7 +19,7 @@ class UserRepo implements UserContract
     function logout($id)
     {
         $user = $this->toGetById($id);
-        dd($user->tokens());
+        // dd($user->tokens());
 
         $user->tokens()->delete();
         return true;
@@ -88,6 +88,10 @@ class UserRepo implements UserContract
      */
     public function toGetById($id): \Illuminate\Database\Eloquent\Model
     {
-        return User::findOrFail($id);
+        $user = User::with(['shop.products'])->findOrFail($id);
+        // dd($user);
+
+        return $user;
     }
+
 }

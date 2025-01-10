@@ -85,12 +85,22 @@
                                         <a href="#">Langue</a>
                                     </li>
                                 </ul>
-                                <div class="login-btn">
-                                    <a href="Se connecter" class="axil-btn btn-bg-primary">Connexion</a>
-                                </div>
-                                <div class="reg-footer text-center">Pas encore de compte ?
-                                    <a href="{{ route('register') }}" class="btn-link">INSCRIVEZ-VOUS ICI.</a>
-                                </div>
+                                @auth
+                                    <div class="login-btn">
+                                        <form method="post" action={{ route('logout') }}>
+                                            @csrf
+
+                                            <button type="submit" class="axil-btn btn-bg-primary">Déconnecter</button>
+                                        </form>
+                                    </div>
+                                @endauth
+                                @guest
+                                    <a href="{{ route('login') }}" class="axil-btn btn-bg-primary">Connexion</a>
+
+                                    <div class="reg-footer text-center">Pas encore de compte ?
+                                        <a href="{{ route('register') }}" class="btn-link">INSCRIVEZ-VOUS ICI.</a>
+                                    </div>
+                                @endguest
                             </div>
                         </li>
                         <li class="axil-mobile-toggle">

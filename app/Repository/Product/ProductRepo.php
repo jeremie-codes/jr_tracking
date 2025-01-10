@@ -19,7 +19,9 @@ class ProductRepo implements ProductContract
             $query->whereHas('user', function ($query) use ($sellerId) {
                 $query->where('id', $sellerId);
             });
-        })->get();
+        })
+            ->with('shop')
+            ->get();
     }
 
     public function toGetProductByShop($shopId)

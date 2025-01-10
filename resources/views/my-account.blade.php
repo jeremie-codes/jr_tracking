@@ -138,7 +138,7 @@
                                       <div class="axil-dashboard-overview">
                                           <div class=""
                                               style="display: flex; flex-direction:row; justify-content:space-between;">
-                                              <div class="welcome-text">Votre Boutique</div>
+                                              <div class="welcome-text">Boutique "{{ $seller->name }}" </div>
                                               <div class="">
                                                   <a href="{{ route('create_product') }}"
                                                       class="bg-primary px-4 py-2 rounded text-white">Ajouter</a>
@@ -155,8 +155,8 @@
                                                   <div class="axil-product product-style-one has-color-pick mt--40">
                                                       <div class="thumbnail">
                                                           <a href="{{ route('detail_product') }}">
-                                                              <img src="assets/images/product/electric/product-02.png"
-                                                                  alt="Product Images">
+                                                              <img src="{{ asset('storage/' . $product->image) }}"
+                                                                  alt="{{ $product->name }}">
                                                           </a>
                                                           <div class="product-hover-action">
                                                               <ul class="cart-action">
@@ -172,11 +172,12 @@
                                                       <div class="product-content">
                                                           <div class="inner">
                                                               <h5 class="title"><a
-                                                                      href="{{ route('detail_product') }}">Media
-                                                                      remote</a></h5>
+                                                                      href="{{ route('detail_product') }}">{{ $product->name }}
+                                                                  </a></h5>
                                                               <div class="product-price-variant">
-                                                                  <span class="price current-price">$40</span>
-                                                                  <span class="price old-price">$50</span>
+                                                                  <span class="price current-price">{{ $product->price }}
+                                                                  </span>
+                                                                  {{-- <span class="price old-price">$50</span> --}}
                                                               </div>
                                                           </div>
                                                       </div>
