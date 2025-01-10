@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="assets/css/vendor/sal.css">
     <link rel="stylesheet" href="assets/css/vendor/magnific-popup.css">
     <link rel="stylesheet" href="assets/css/vendor/base.css">
-    <link rel="stylesheet" href="assets/css/style.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 
@@ -42,7 +42,7 @@
                 <div class="col-sm-8">
                     <div class="singin-header-btn">
                         <p>Not a member?</p>
-                        <a href="{{ route('sign_up') }}" class="axil-btn btn-bg-secondary sign-up-btn">Sign Up Now</a>
+                        <a href="{{ route('register') }}" class="axil-btn btn-bg-secondary sign-up-btn">Sign Up Now</a>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,10 @@
                     <div class="axil-signin-form">
                         <h3 class="title">Se connecter to eTrade.</h3>
                         <p class="b2 mb--55">Enter your detail below</p>
-                        <form class="singin-form">
+                        <form class="singin-form" method="POST" action="{{ route('login') }}">
+                            @csrf
+                            @method('POST')
+
                             <div class="form-group">
                                 <label>Email</label>
                                 <input type="email" class="form-control" name="email" value="annie@example.com">

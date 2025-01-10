@@ -30,7 +30,7 @@
                                     <li><a href="{{ route('cart') }}">Panier</a></li>
                                     <li><a href="{{ route('checkout') }}">Paiement</a></li>
                                     <li><a href="{{ route('my_account') }}">Mon compte</a></li>
-                                    <li><a href="{{ route('sign_up') }}">Créer un compte</a></li>
+                                    <li><a href="{{ route('register') }}">Créer un compte</a></li>
                                     <li><a href="Se connecter">Se connecter</a></li>
                                     <li><a href="{{ route('forgot_password') }}">Mot de passe oublié</a></li>
                                     <li><a href="{{ route('reset_password') }}">Réinitialiser le mot de passe</a></li>
@@ -89,7 +89,7 @@
                                     <a href="Se connecter" class="axil-btn btn-bg-primary">Connexion</a>
                                 </div>
                                 <div class="reg-footer text-center">Pas encore de compte ?
-                                    <a href="{{ route('sign_up') }}" class="btn-link">INSCRIVEZ-VOUS ICI.</a>
+                                    <a href="{{ route('register') }}" class="btn-link">INSCRIVEZ-VOUS ICI.</a>
                                 </div>
                             </div>
                         </li>

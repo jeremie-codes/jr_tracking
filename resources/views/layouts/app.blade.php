@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="assets/css/vendor/sal.css">
     <link rel="stylesheet" href="assets/css/vendor/magnific-popup.css">
     <link rel="stylesheet" href="assets/css/vendor/base.css">
-    <link rel="stylesheet" href="assets/css/style.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 

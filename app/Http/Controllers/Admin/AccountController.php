@@ -2,19 +2,33 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Repository\Product\ProductContract;
 use Illuminate\Support\Facades\Auth;
 
-class HomeController extends Controller
+class AccountController extends Controller
 {
+    protected ProductContract $productContract;
+
+    public function __construct(ProductContract $_productContract)
+    {
+        $this->productContract = $_productContract;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('home', [
-            'auth' => Auth::user()
+        $user = Auth::user();
+        $products = $this->productContract->toGetProductBySeller($user->id);
+
+        // dd($products);
+
+        return view('my-account', [
+            'user' => Auth::user(),
+            'products' => $products,
         ]);
     }
 

@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-xl-6 col-lg-4 col-sm-6">
                     <div class="singin-header-btn">
-                        <p>Vous avez déjà un compte? <a href="{{ route('sign_in') }}" class="sign-in-btn">Se
+                        <p>Vous avez déjà un compte? <a href="{{ route('login') }}" class="sign-in-btn">Se
                                 connecter</a></p>
                     </div>
                 </div>

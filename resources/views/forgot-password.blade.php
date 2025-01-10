@@ -40,12 +40,12 @@
                             alt="logo"></a>
                 </div>
                 <div class="col-md-2 d-lg-block d-none">
-                    <a href="{{ route('sign_in') }}" class="back-btn"><i class="far fa-angle-left"></i></a>
+                    <a href="{{ route('login') }}" class="back-btn"><i class="far fa-angle-left"></i></a>
                 </div>
                 <div class="col-xl-6 col-lg-4 col-sm-6">
                     <div class="singin-header-btn">
                         <p>Vous avez déjà un compte?</p>
-                        <a href="{{ route('sign_in') }}" class="sign-up-btn axil-btn btn-bg-secondary">Se connecter</a>
+                        <a href="{{ route('login') }}" class="sign-up-btn axil-btn btn-bg-secondary">Se connecter</a>
                     </div>
                 </div>
             </div>

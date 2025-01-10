@@ -561,10 +561,10 @@
                          <div class="axil-footer-widget">
                              <h5 class="widget-title">Support</h5>
                              <!-- <div class="logo mb--30">
-                                            <a href="{{ route('home') }}">
-                                                <img class="light-logo" src="assets/images/logo/logo.png" alt="Logo Images">
-                                            </a>
-                                        </div> -->
+                                                <a href="{{ route('home') }}">
+                                                    <img class="light-logo" src="assets/images/logo/logo.png" alt="Logo Images">
+                                                </a>
+                                            </div> -->
                              <div class="inner">
                                  <p>685 Market Street, <br>
                                      Las Vegas, LA 95820, <br>
@@ -588,7 +588,7 @@
                              <div class="inner">
                                  <ul>
                                      <li><a href="my-account.html">My Account</a></li>
-                                     <li><a href="{{ route('sign_up') }}">Login / Register</a></li>
+                                     <li><a href="{{ route('register') }}">Login / Register</a></li>
                                      <li><a href="cart.html">Cart</a></li>
                                      <li><a href="wishlist.html">Wishlist</a></li>
                                      <li><a href="{{ route('shop') }}">Shop</a></li>

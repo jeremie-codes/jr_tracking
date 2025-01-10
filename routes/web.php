@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -15,12 +17,20 @@ Route::view('/checkout', 'checkout')->name('checkout');
 Route::view('/coming-soon', 'coming-soon')->name('coming_soon');
 Route::view('/contact', 'contact')->name('contact');
 Route::view('/forgot-password', 'forgot-password')->name('forgot_password');
-Route::view('/my-account', 'my-account')->name('my_account');
 Route::view('/privacy-policy', 'privacy-policy')->name('privacy_policy');
 Route::view('/reset-password', 'reset-password')->name('reset_password');
 Route::view('/shop', 'shop')->name('shop');
 Route::view('/detail-product', 'detail-product')->name('detail_product');
 Route::view('/create-product', 'create-product')->name('create_product');
-Route::view('/sign-in', 'sign-in')->name('sign_in');
-Route::view('/sign-up', 'sign-up')->name('sign_up');
 Route::view('/terms-of-service', 'terms-of-service')->name('terms_of_service');
+
+Route::get('/login', [AuthController::class, 'loginView'])->name('login');
+Route::get('/register', [AuthController::class, 'registerView'])->name('register');
+
+Route::post('/login', [AuthController::class, 'handleLogin'])->name('login');
+Route::post('/register', [AuthController::class, 'handleRegister'])->name('register');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/my-account', [AccountController::class, 'index'])->name('my_account');
+});
+

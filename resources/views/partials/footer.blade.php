@@ -35,7 +35,7 @@
                         <div class="inner">
                             <ul>
                                 <li><a href="my-account.html">My Account</a></li>
-                                <li><a href="{{ route('sign_up') }}">Login / Register</a></li>
+                                <li><a href="{{ route('register') }}">Login / Register</a></li>
                                 <li><a href="cart.html">Cart</a></li>
                                 <li><a href="wishlist.html">Wishlist</a></li>
                                 <li><a href="{{ route('shop') }}">Shop</a></li>

@@ -2,20 +2,32 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Repository\User\UserContract;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 
-class HomeController extends Controller
+class AuthController extends Controller
 {
+    protected UserContract $userContract;
+
+    public function __construct(UserContract $_userContract)
+    {
+        $this->userContract = $_userContract;
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function loginView()
     {
-        return view('home', [
-            'auth' => Auth::user()
-        ]);
+        return view('auth.login');
+    }
+    public function registerView()
+    {
+        return view('auth.register');
     }
 
     /**
@@ -29,9 +41,18 @@ class HomeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function handleLogin(LoginRequest $request)
     {
-        //
+        dd($request->all());
+    }
+    public function handleRegister(RegisterRequest $request)
+    {
+        $$request['avatar'] = $request->file('avatar')->store('avatars', 'public');
+        $user = $this->userContract->toAdd($request->all());
+
+        Auth::login($user);
+
+        return redirect()->intended('home');
     }
 
     /**

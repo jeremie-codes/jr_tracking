@@ -69,8 +69,8 @@
                         <div class="header-top-link">
                             <ul class="quick-link">
                                 <li><a href="#">Help</a></li>
-                                <li><a href="{{ route('sign_up') }}">Join Us</a></li>
-                                <li><a href="{{ route('sign_in') }}">Se connecter</a></li>
+                                <li><a href="{{ route('register') }}">Join Us</a></li>
+                                <li><a href="{{ route('login') }}">Se connecter</a></li>
                             </ul>
                         </div>
                     </div>
@@ -134,8 +134,8 @@
                                         <li><a href="cart.html">Cart</a></li>
                                         <li><a href="checkout.html">Checkout</a></li>
                                         <li><a href="my-account.html">Account</a></li>
-                                        <li><a href="{{ route('sign_up') }}">Sign Up</a></li>
-                                        <li><a href="{{ route('sign_in') }}">Se connecter</a></li>
+                                        <li><a href="{{ route('register') }}">Sign Up</a></li>
+                                        <li><a href="{{ route('login') }}">Se connecter</a></li>
                                         <li><a href="forgot-password.html">Forgot Password</a></li>
                                         <li><a href="reset-password.html">Reset Password</a></li>
                                         <li><a href="privacy-policy.html">Privacy Policy</a></li>
@@ -208,9 +208,9 @@
                                             <a href="#">Language</a>
                                         </li>
                                     </ul>
-                                    <a href="{{ route('sign_in') }}" class="axil-btn btn-bg-primary">Login</a>
+                                    <a href="{{ route('login') }}" class="axil-btn btn-bg-primary">Login</a>
                                     <div class="reg-footer text-center">No account yet? <a
-                                            href="{{ route('sign_up') }}" class="btn-link">REGISTER HERE.</a></div>
+                                            href="{{ route('register') }}" class="btn-link">REGISTER HERE.</a></div>
                                 </div>
                             </li>
                             <li class="axil-mobile-toggle">
@@ -474,7 +474,7 @@
                             <div class="inner">
                                 <ul>
                                     <li><a href="my-account.html">My Account</a></li>
-                                    <li><a href="{{ route('sign_up') }}">Login / Register</a></li>
+                                    <li><a href="{{ route('register') }}">Login / Register</a></li>
                                     <li><a href="cart.html">Cart</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
                                     <li><a href="{{ route('shop') }}">Shop</a></li>
