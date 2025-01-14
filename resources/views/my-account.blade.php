@@ -61,8 +61,8 @@
                                               role="tab" aria-selected="false"><i
                                                   class="fas fa-bags-shopping"></i>Produits</a> --}}
                                           <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-account"
-                                              role="tab" aria-selected="false"><i class="fas fa-user"></i>Account
-                                              Details</a>
+                                              role="tab" aria-selected="false"><i class="fas fa-user"></i>Détails du
+                                              compte</a>
                                           <a class="nav-item nav-link" href="{{ route('login') }}"><i
                                                   class="fal fa-sign-out"></i>Logout</a>
                                       </div>
@@ -162,7 +162,8 @@
                                                               <ul class="cart-action">
                                                                   {{-- <li class="wishlist"><a href="wishlist.html"><i
                                                                           class="far fa-heart"></i></a></li> --}}
-                                                                  <li class="quickview"><a href="#"
+                                                                  <li class="quickview"><a
+                                                                          href="{{ route('detail_product') }}"
                                                                           data-bs-toggle="modal"
                                                                           data-bs-target="#quick-view-modal"><i
                                                                               class="far fa-eye"></i></a></li>

@@ -115,9 +115,9 @@ class SellerResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('avatar')
-                    ->label('Avatar')
-                    ->circular(),
+                // ImageColumn::make('avatar')
+                //     ->label('Avatar')
+                //     ->circular(),
                 TextColumn::make('name')
                     ->label('Nom complet')
                     ->searchable()

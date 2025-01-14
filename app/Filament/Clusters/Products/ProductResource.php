@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use App\Filament\Clusters\Products;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -20,6 +21,8 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Columns\BooleanColumn;
+use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\MarkdownEditor;
 use App\Filament\Resources\ProductResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ProductResource\RelationManagers;
@@ -55,7 +58,21 @@ class ProductResource extends Resource
                         Select::make('category_id')
                             ->label('Catégorie')
                             ->required()
-                            ->relationship('category', 'name'),
+                            ->relationship('category', 'name')
+                            ->createOptionForm([
+                                TextInput::make('name')
+                                    ->required(),
+                                Toggle::make('is_visible')
+                                    ->label('Visible au public.')
+                                    ->default(true),
+                                MarkdownEditor::make('description')
+                                    ->label('Description'),
+                            ])
+                            ->createOptionAction(function (Action $action) {
+                                return $action
+                                    ->modalHeading('Ajouter une catégorie')
+                                    ->modalSubmitActionLabel('Ajouter une catégorie');
+                            }),
                         Select::make('available')
                             ->label('Disponible')
                             ->options([

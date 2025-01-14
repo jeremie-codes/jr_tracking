@@ -41,7 +41,7 @@
                                 </ul>
                             </li>
                             <li><a href="{{ route('about') }}">À propos</a></li>
-                            <li><a href="{{ route('blog') }}">Blog</a></li>
+                            {{-- <li><a href="{{ route('blog') }}">Blog</a></li> --}}
                             <li><a href="{{ route('contact') }}">Contact</a></li>
                         </ul>
                     </nav>

@@ -51,11 +51,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $seller = $this->userContract->toGetById(Auth::user()->id);
-
         $imageName = $request['image']->getClientOriginalName();
-        $imagePath = $request->file('image')->store('product-images');
-
-        // dd($imagePath);
 
         $product = Product::create([
             'shop_id' => $seller->shop->id,
@@ -85,7 +81,7 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('detail-product');
     }
 
     /**
