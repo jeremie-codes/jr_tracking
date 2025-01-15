@@ -3,20 +3,23 @@
  @section('content')
      <main class="main-wrapper">
 
-         <!-- Start Cart Area  -->
-         <div class="axil-product-cart-area axil-section-gap">
-             <div class="container">
-                 <div class="axil-product-cart-wrap">
-                     <div class="product-table-heading">
-                         <h4 class="title">Votre panier</h4>
-                         <a href="{{ route('cart.empty') }}" class="cart-clear">Vider le panier</a>
-                     </div>
-                    @if (session()->has('message'))
-                        <div id="success-alert" class="alert alert-primary p-4" role="alert">
-                            {{ session('message') }}
-                        </div>
-                    @endif
-                   <div class="table-responsive">
+        <!-- Start Cart Area  -->
+        <div class="axil-product-cart-area axil-section-gap">
+        <div class="container">
+            <div class="axil-product-cart-wrap">
+                <div class="product-table-heading">
+                    <h4 class="title">Votre panier</h4>
+                    <a href="{{ route('cart.empty') }}" class="cart-clear">Vider le panier</a>
+                </div>
+                @if (session()->has('message'))
+                    <div id="success-alert" class="alert alert-primary p-4" role="alert">
+                        {{ session('message') }}
+                    </div>
+                @endif
+                <div class="table-responsive">
+                    <form action="{{ route('cart.update.multiple') }}" method="POST" id="update-cart-form">
+                        @csrf
+                        @method('PUT')
                         <table class="table axil-product-table axil-cart-table mb--40">
                             <thead>
                                 <tr>
@@ -29,41 +32,51 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @if(session("cart") && is_array(session("cart")))
-                                @foreach (session("cart") as $key => $item)
-                                    <tr>
-                                        <td class="product-remove"><a href="{{ route('cart.remove', $key) }}" class="remove-wishlist"><i
-                                                    class="fal fa-times"></i></a></td>
-                                        <td class="product-thumbnail"><a href="single-product.html"><img src="{{ asset('storage/' . $item['image']) }}"
-                                                    alt="Digital Product"></a></td>
-                                        <td class="product-title"><a href="single-product.html">{{ $item['name'] }}</a></td>
-                                        <td class="product-price" data-title="Price">{{ $item['price'] }} <span class="currency-symbol">$</span></td>
-                                        <td class="product-quantity" data-title="Qty">
-                                            <form action="{{ route('cart.add', $key) }}" method="POST" class="update-form" id="update-form-{{ $key }}">
-                                                @csrf
-                                                @method('POST')
+                                @if(session("cart") && is_array(session("cart")))
+                                    @foreach (session("cart") as $key => $item)
+                                        <tr>
+                                            <td class="product-remove">
+                                                <a href="{{ route('cart.remove', $key) }}" class="remove-wishlist">
+                                                    <i class="fal fa-times"></i>
+                                                </a>
+                                            </td>
+                                            <td class="product-thumbnail">
+                                                <a href="single-product.html">
+                                                    <img src="{{ asset('storage/' . $item['image']) }}" alt="Digital Product">
+                                                </a>
+                                            </td>
+                                            <td class="product-title">
+                                                <a href="single-product.html">{{ $item['name'] }}</a>
+                                            </td>
+                                            <td class="product-price" data-title="Price">
+                                                {{ $item['price'] }} <span class="currency-symbol">$</span>
+                                            </td>
+                                            <td class="product-quantity" data-title="Qty">
                                                 <div class="pro-qty">
-                                                    <input type="number" name="quantity" class="quantity" value="{{ $item['quantity'] }}">
+                                                    <input type="number" name="quantities[{{ $key }}]" class="quantity"
+                                                        value="{{ $item['quantity'] }}">
                                                 </div>
-                                            </form>
-                                        </td>
-                                        <td class="product-subtotal" data-title="Subtotal">{{ $item['price'] * $item['quantity'] }} <span
-                                                class="currency-symbol">$</span></td>
+                                            </td>
+                                            <td class="product-subtotal" data-title="Subtotal">
+                                                {{ $item['price'] * $item['quantity'] }} <span class="currency-symbol">$</span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="6" class="text-center">Votre panier est vide.</td>
                                     </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td colspan="6" class="text-center">Votre panier est vide.</td>
-                                </tr>
-                            @endif
+                                @endif
                             </tbody>
                         </table>
+                    </form>
+                </div>
+                <div class="cart-update-btn-area">
+                    <div class="update-btn">
+                        <button type="submit" form="update-cart-form" class="axil-btn btn-outline">Mettre à jour le panier</button>
                     </div>
-                    <div class="cart-update-btn-area">
-                        <div class="update-btn">
-                            <a href="#" class="axil-btn btn-outline" id="update-cart">Update Cart</a>
-                        </div>
-                    </div>
+                </div>
+                <!-- Récapitulatif de la commande -->
                 <div class="row">
                     <div class="col-xl-5 col-lg-7 offset-xl-7 offset-lg-5">
                         <div class="axil-order-summery mt--80">
@@ -71,13 +84,10 @@
                             <div class="summery-table-wrap">
                                 <table class="table summery-table mb--30">
                                     <tbody>
-                                        <!-- Sous-total -->
                                         <tr class="order-subtotal">
                                             <td>Sous-total</td>
                                             <td>$117.00</td>
                                         </tr>
-                
-                                        <!-- Frais de livraison -->
                                         <tr class="order-shipping">
                                             <td>Livraison</td>
                                             <td>
@@ -95,14 +105,10 @@
                                                 </div>
                                             </td>
                                         </tr>
-                
-                                        <!-- Taxes -->
                                         <tr class="order-tax">
                                             <td>Taxes</td>
                                             <td>$8.00</td>
                                         </tr>
-                
-                                        <!-- Total -->
                                         <tr class="order-total">
                                             <td>Total</td>
                                             <td class="order-total-amount">$125.00</td>
@@ -110,16 +116,14 @@
                                     </tbody>
                                 </table>
                             </div>
-                
-                            <!-- Bouton de passage à la caisse -->
                             <a href="checkout.html" class="axil-btn btn-bg-primary checkout-btn">Passer à la caisse</a>
                         </div>
                     </div>
                 </div>
-                 </div>
-             </div>
-         </div>
-         <!-- End Cart Area  -->
+            </div>
+        </div>
+        </div>
+        <!-- End Cart Area  -->
      </main>
 
      <div class="service-area">

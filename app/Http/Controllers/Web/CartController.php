@@ -26,20 +26,37 @@ class CartController extends Controller
      */
     public function add(Product $product, Request $request)
     {
-        // dd($request->all());
         $quantity = $request->quantity;
 
         if (!$request->quantity) {
             $quantity = 1;
         }
 
-        // dd($quantity);
-
         // Ajout/Mise à jour du produit au panier avec sa quantité
         $this->cartRepo->add($product, $quantity);
 
         // Redirection vers le panier avec un message
         return redirect()->route("cart")->withMessage("Produit rajouté au panier");
+    }
+
+    public function updateMultiple(Request $request)
+    {
+        $quantities = $request->input('quantities'); // Récupérer les quantités
+
+        if (is_array($quantities)) {
+            $cart = session('cart', []);
+
+            foreach ($quantities as $productId => $quantity) {
+                if (isset($cart[$productId])) {
+                    // Mettre à jour la quantité du produit dans le panier
+                    $cart[$productId]['quantity'] = $quantity;
+                }
+            }
+
+            session()->put('cart', $cart); // Mettre à jour la session
+        }
+
+        return redirect()->route('cart')->withMessage('Panier mis à jour avec succès.');
     }
 
     public function remove(Product $product)
