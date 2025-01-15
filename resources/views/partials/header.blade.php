@@ -22,7 +22,7 @@
                         </div>
                         <ul class="mainmenu">
                             <li><a href="{{ route('home') }}">Accueil</a></li>
-                            <li><a href="{{ route('shop') }}">Boutique</a></li>
+                            <li><a href="{{ route('shop') }}">Produits</a></li>
                             <li class="menu-item-has-children">
                                 <a href="#">Pages</a>
                                 <ul class="axil-submenu">
