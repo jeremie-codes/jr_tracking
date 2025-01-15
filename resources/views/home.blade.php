@@ -37,7 +37,7 @@
                                                     <i class="fal fa-star"></i>
                                                 </span>
                                                 <span class="review-text">
-                                                    <span>100+</span> Reviews
+                                                    <span>100+</span> Review
                                                 </span>
                                             </div>
                                         </div>

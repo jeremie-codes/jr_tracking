@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Shop')
+@section('title', 'Articles')
 
 @section('content')
     <main class="main-wrapper">
