@@ -22,7 +22,7 @@
                         </div>
                         <ul class="mainmenu">
                             <li><a href="{{ route('home') }}">Accueil</a></li>
-                            <li><a href="{{ route('shop') }}">Produits</a></li>
+                            <li><a href="{{ route('shop') }}">Articles</a></li>
                             <li class="menu-item-has-children">
                                 <a href="#">Pages</a>
                                 <ul class="axil-submenu">
@@ -52,11 +52,6 @@
                         <li class="axil-search">
                             <a href="javascript:void(0)" class="header-search-icon" title="Rechercher">
                                 <i class="flaticon-magnifying-glass"></i>
-                            </a>
-                        </li>
-                        <li class="wishlist">
-                            <a href="#"> <!-- Wishlist n'a pas de route -->
-                                <i class="flaticon-heart"></i>
                             </a>
                         </li>
                         <li class="shopping-cart">

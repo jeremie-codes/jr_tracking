@@ -1,3 +1,11 @@
+@php
+    use Illuminate\Support\Facades\Auth;
+
+    $client = Auth::user();
+@endphp
+
+@extends('layouts.app')
+  
   @extends('layouts.app')
 
   @section('content')
@@ -34,13 +42,15 @@
                   <div class="axil-dashboard-warp">
                       <div class="axil-dashboard-author">
                           <div class="media">
-                              <div class="thumbnail">
-                                  <img src="./assets/images/product/author1.png" alt="Hello Annie">
-                              </div>
-                              <div class="media-body">
-                                  <h5 class="title mb-0">Hello Annie</h5>
-                                  <span class="joining-date">eTrade Member Since Sep 2020</span>
-                              </div>
+                            <div class="thumbnail">
+                                <img src="{{ $client->avatar ? '/storage/' . $client->avatar : asset('assets/images/product/author1.png') }}"
+                                    alt="Hello Annie">
+                            </div>
+                            <div class="media-body">
+                                <h5 class="title mb-0">{{ $client->name }}</h5>
+                                <span class="joining-date {{ $client->role == 'customer' ? 'd-none' : '' }}">Boutique :
+                                    {{ $client->shop?->name }}</span>
+                            </div>
                           </div>
                       </div>
                       <div class="row">

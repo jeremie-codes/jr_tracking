@@ -29,24 +29,33 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @if(session("cart") && is_array(session("cart")))
                                 @foreach (session("cart") as $key => $item)
                                     <tr>
-                                        <td class="product-remove"><a href="{{ route('cart.remove', $key) }}" class="remove-wishlist"><i class="fal fa-times"></i></a></td>
-                                        <td class="product-thumbnail"><a href="single-product.html"><img src="{{ asset('storage/' . $item['image']) }}" alt="Digital Product"></a></td>
+                                        <td class="product-remove"><a href="{{ route('cart.remove', $key) }}" class="remove-wishlist"><i
+                                                    class="fal fa-times"></i></a></td>
+                                        <td class="product-thumbnail"><a href="single-product.html"><img src="{{ asset('storage/' . $item['image']) }}"
+                                                    alt="Digital Product"></a></td>
                                         <td class="product-title"><a href="single-product.html">{{ $item['name'] }}</a></td>
                                         <td class="product-price" data-title="Price">{{ $item['price'] }} <span class="currency-symbol">$</span></td>
                                         <td class="product-quantity" data-title="Qty">
-                                        <form action="{{ route('cart.add', $key) }}" method="POST" class="update-form" id="update-form-{{ $key }}">
-                                            @csrf
-                                            @method('POST')
-                                            <div class="pro-qty">
-                                                <input type="number" name="quantity" class="quantity" value="{{ $item['quantity'] }}">
-                                            </div>
-                                        </form>
+                                            <form action="{{ route('cart.add', $key) }}" method="POST" class="update-form" id="update-form-{{ $key }}">
+                                                @csrf
+                                                @method('POST')
+                                                <div class="pro-qty">
+                                                    <input type="number" name="quantity" class="quantity" value="{{ $item['quantity'] }}">
+                                                </div>
+                                            </form>
                                         </td>
-                                        <td class="product-subtotal" data-title="Subtotal">{{ $item['price'] * $item['quantity'] }} <span class="currency-symbol">$</span></td>
+                                        <td class="product-subtotal" data-title="Subtotal">{{ $item['price'] * $item['quantity'] }} <span
+                                                class="currency-symbol">$</span></td>
                                     </tr>
                                 @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="6" class="text-center">Votre panier est vide.</td>
+                                </tr>
+                            @endif
                             </tbody>
                         </table>
                     </div>
@@ -55,50 +64,58 @@
                             <a href="#" class="axil-btn btn-outline" id="update-cart">Update Cart</a>
                         </div>
                     </div>
-                     <div class="row">
-                         <div class="col-xl-5 col-lg-7 offset-xl-7 offset-lg-5">
-                             <div class="axil-order-summery mt--80">
-                                 <h5 class="title mb--20">Order Summary</h5>
-                                 <div class="summery-table-wrap">
-                                     <table class="table summery-table mb--30">
-                                         <tbody>
-                                             <tr class="order-subtotal">
-                                                 <td>Subtotal</td>
-                                                 <td>$117.00</td>
-                                             </tr>
-                                             <tr class="order-shipping">
-                                                 <td>Shipping</td>
-                                                 <td>
-                                                     <div class="input-group">
-                                                         <input type="radio" id="radio1" name="shipping" checked>
-                                                         <label for="radio1">Free Shippping</label>
-                                                     </div>
-                                                     <div class="input-group">
-                                                         <input type="radio" id="radio2" name="shipping">
-                                                         <label for="radio2">Local: $35.00</label>
-                                                     </div>
-                                                     <div class="input-group">
-                                                         <input type="radio" id="radio3" name="shipping">
-                                                         <label for="radio3">Flat rate: $12.00</label>
-                                                     </div>
-                                                 </td>
-                                             </tr>
-                                             <tr class="order-tax">
-                                                 <td>State Tax</td>
-                                                 <td>$8.00</td>
-                                             </tr>
-                                             <tr class="order-total">
-                                                 <td>Total</td>
-                                                 <td class="order-total-amount">$125.00</td>
-                                             </tr>
-                                         </tbody>
-                                     </table>
-                                 </div>
-                                 <a href="checkout.html" class="axil-btn btn-bg-primary checkout-btn">Process to
-                                     Checkout</a>
-                             </div>
-                         </div>
-                     </div>
+                <div class="row">
+                    <div class="col-xl-5 col-lg-7 offset-xl-7 offset-lg-5">
+                        <div class="axil-order-summery mt--80">
+                            <h5 class="title mb--20">Récapitulatif de la commande</h5>
+                            <div class="summery-table-wrap">
+                                <table class="table summery-table mb--30">
+                                    <tbody>
+                                        <!-- Sous-total -->
+                                        <tr class="order-subtotal">
+                                            <td>Sous-total</td>
+                                            <td>$117.00</td>
+                                        </tr>
+                
+                                        <!-- Frais de livraison -->
+                                        <tr class="order-shipping">
+                                            <td>Livraison</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="radio" id="radio1" name="shipping" checked>
+                                                    <label for="radio1">Livraison gratuite</label>
+                                                </div>
+                                                <div class="input-group">
+                                                    <input type="radio" id="radio2" name="shipping">
+                                                    <label for="radio2">Local : $35.00</label>
+                                                </div>
+                                                <div class="input-group">
+                                                    <input type="radio" id="radio3" name="shipping">
+                                                    <label for="radio3">Tarif fixe : $12.00</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                
+                                        <!-- Taxes -->
+                                        <tr class="order-tax">
+                                            <td>Taxes</td>
+                                            <td>$8.00</td>
+                                        </tr>
+                
+                                        <!-- Total -->
+                                        <tr class="order-total">
+                                            <td>Total</td>
+                                            <td class="order-total-amount">$125.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                
+                            <!-- Bouton de passage à la caisse -->
+                            <a href="checkout.html" class="axil-btn btn-bg-primary checkout-btn">Passer à la caisse</a>
+                        </div>
+                    </div>
+                </div>
                  </div>
              </div>
          </div>
