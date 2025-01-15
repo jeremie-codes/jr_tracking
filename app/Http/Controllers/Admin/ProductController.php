@@ -101,9 +101,14 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($slug)
     {
-        return view('detail-product');
+        $product = Product::where('slug', $slug)->first();
+        // dd($product);
+
+        return view('detail-product', [
+            'product' => $product
+        ]);
     }
 
     /**

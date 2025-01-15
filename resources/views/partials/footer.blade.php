@@ -59,10 +59,10 @@
                             <div class="download-btn-group">
                                 <div class="app-link">
                                     <a href="#">
-                                        <img src="assets/images/others/app-store.png" alt="App Store">
+                                        <img src="{{asset('assets/images/others/app-store.png')}}" alt="App Store">
                                     </a>
                                     <a href="#">
-                                        <img src="assets/images/others/play-store.png" alt="Play Store">
+                                        <img src="{{asset('assets/images/others/play-store.png')}}" alt="Play Store">
                                     </a>
                                 </div>
                             </div>
@@ -77,8 +77,8 @@
     <!-- Start Copyright Area  -->
     <div class="copyright-area copyright-default separator-top">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-xl-4">
+            <div class="row d-flex justify-content-center align-items-center">
+                {{-- <div class="col-xl-4">
                     <div class="social-share">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
@@ -86,23 +86,12 @@
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#"><i class="fab fa-discord"></i></a>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-xl-4 col-lg-12">
                     <div class="copyright-left d-flex flex-wrap justify-content-center">
                         <ul class="quick-link">
                             <li>© 2025. E-Galeria | Made by <a target="_blank"
                                     href="https://mastagate.com/">Mastagate</a>.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-12">
-                    <div
-                        class="copyright-right d-flex flex-wrap justify-content-xl-end justify-content-center align-items-center">
-                        <span class="card-text">Accept For</span>
-                        <ul class="payment-icons-bottom quick-link">
-                            <li><img src="assets/images/icons/cart/cart-1.png" alt="paypal cart"></li>
-                            <li><img src="assets/images/icons/cart/cart-2.png" alt="paypal cart"></li>
-                            <li><img src="assets/images/icons/cart/cart-5.png" alt="paypal cart"></li>
                         </ul>
                     </div>
                 </div>
