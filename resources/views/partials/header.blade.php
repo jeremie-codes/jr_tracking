@@ -24,7 +24,7 @@
                             <li><a href="{{ route('home') }}">Accueil</a></li>
                             <li><a href="{{ route('shop') }}">Articles</a></li>
                             <li><a href="{{ route('about') }}">À propos</a></li>
-                            {{-- <li><a href="{{ route('blog') }}">Blog</a></li> --}}
+                            {{-- <li><a href="{{ route('boutique') }}">Boutique</a></li> --}}
                             <li><a href="{{ route('contact') }}">Contact</a></li>
                         </ul>
                     </nav>

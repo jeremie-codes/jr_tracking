@@ -13,9 +13,8 @@
                             </a>
                         </div> -->
                         <div class="inner">
-                            <p>685 Market Street, <br>
-                                Las Vegas, LA 95820, <br>
-                                United States.
+                            <p>info@e-galeria.com, <br>
+                                +243 994 853 896
                             </p>
                             <ul class="support-list-item">
                                 <li><a href="mailto:example@domain.com"><i class="fal fa-envelope-open"></i>
@@ -31,14 +30,14 @@
                 <!-- Start Single Widget  -->
                 <div class="col-lg-3 col-sm-6">
                     <div class="axil-footer-widget">
-                        <h5 class="widget-title">Account</h5>
+                        <h5 class="widget-title">Compte</h5>
                         <div class="inner">
                             <ul>
-                                <li><a href="my-account.html">My Account</a></li>
-                                <li><a href="{{ route('register') }}">Login / Register</a></li>
+                                <li><a href="#">Mon Compte</a></li>
+                                <li><a href="{{ route('register') }}">Se Connecter / S'inscrire</a></li>
                                 <li><a href="cart.html">Cart</a></li>
-                                <li><a href="wishlist.html">Wishlist</a></li>
-                                <li><a href="{{ route('shop') }}">Shop</a></li>
+                                {{-- <li><a href="wishlist.html">Boutique</a></li> --}}
+                                <li><a href="{{ route('shop') }}">Articles</a></li>
                             </ul>
                         </div>
                     </div>
@@ -47,14 +46,14 @@
                 <!-- Start Single Widget  -->
                 <div class="col-lg-3 col-sm-6">
                     <div class="axil-footer-widget">
-                        <h5 class="widget-title">Quick Link</h5>
+                        <h5 class="widget-title">Liens rapides</h5>
                         <div class="inner">
                             <ul>
-                                <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                                <li><a href="terms-of-service.html">Terms Of Use</a></li>
-                                <li><a href="#">FAQ</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="{{ route('home') }}">Accueil</a></li>
+                                <li><a href="{{ route('shop') }}">Articles</a></li>
+                                {{-- <li><a href="#">Boutiques</a></li> --}}
+                                <li><a href="{{ route('about') }}">À propos</a></li>
+                                <li><a href="{{ route('contact') }}">Contact</a></li>
                             </ul>
                         </div>
                     </div>
@@ -63,13 +62,9 @@
                 <!-- Start Single Widget  -->
                 <div class="col-lg-3 col-sm-6">
                     <div class="axil-footer-widget">
-                        <h5 class="widget-title">Download App</h5>
+                        <h5 class="widget-title">Télécharger l'App</h5>
                         <div class="inner">
-                            <span>Save $3 With App & New User only</span>
                             <div class="download-btn-group">
-                                <div class="qr-code">
-                                    <img src="assets/images/others/qr.png" alt="Axilthemes">
-                                </div>
                                 <div class="app-link">
                                     <a href="#">
                                         <img src="assets/images/others/app-store.png" alt="App Store">
@@ -103,8 +98,8 @@
                 <div class="col-xl-4 col-lg-12">
                     <div class="copyright-left d-flex flex-wrap justify-content-center">
                         <ul class="quick-link">
-                            <li>© 2023. All rights reserved by <a target="_blank"
-                                    href="https://axilthemes.com/">Axilthemes</a>.</li>
+                            <li>© 2025. E-Galeria | Made by <a target="_blank"
+                                    href="https://mastagate.com/">Mastagate</a>.</li>
                         </ul>
                     </div>
                 </div>
