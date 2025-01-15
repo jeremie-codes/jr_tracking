@@ -47,18 +47,18 @@
                                             <!-- End Single Select  -->
 
                                             <!-- Start Single Select  -->
-                                            <select class="single-select">
+                                            {{-- <select class="single-select">
                                                 <option>Color</option>
                                                 <option>Red</option>
                                                 <option>Blue</option>
                                                 <option>Green</option>
                                                 <option>Pink</option>
-                                            </select>
+                                            </select> --}}
                                             <!-- End Single Select  -->
 
                                             <!-- Start Single Select  -->
                                             <select class="single-select">
-                                                <option>Price Range</option>
+                                                <option>Gamme de Prix</option>
                                                 <option>0 - 100</option>
                                                 <option>100 - 500</option>
                                                 <option>500 - 1000</option>
@@ -201,7 +201,8 @@
 
                 <!-- Pagination -->
                 <div class="d-flex justify-content-center">
-                    {{ $products->links('vendor.pagination.bootstrap-4') }}
+                    {{ $products->links('vendor.pagination.bootstrap-4
+                    ') }}
                 </div>
 
                 {{-- <div class="text-center pt--30">
