@@ -160,15 +160,23 @@
                                     </div>
                                 </div>
 
-                                <!-- Nom de la boutique -->
-                                <div class="col-lg-12">
+                               <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="role">Type de compte</label>
+                                        <select name="role" id="role" class="form-control">
+                                            <option value="customer" {{ old('role') == 'customer' ? 'selected' : '' }}>Client</option>
+                                            <option value="seller" {{ old('role') == 'seller' ? 'selected' : '' }}>Vendeur</option>
+                                        </select>
+                                        @error('role')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12" id="shop_name_field" style="display: none;">
                                     <div class="form-group">
                                         <label for="shop_name">Nom de la boutique</label>
-                                        <input type="text" name="shop_name" id="shop_name" class="form-control"
-                                            value="{{ old('shop_name') }}">
-                                        {{-- @error('shop_name')
-                                            <small class="text-danger">{{ $message }}</small>
-                                        @enderror --}}
+                                        <input type="text" name="shop_name" id="shop_name" class="form-control" value="{{ old('shop_name') }}">
                                     </div>
                                 </div>
 
@@ -254,6 +262,48 @@
                 }
             }
         });
+    </script>
+    
+    <script>
+        // Sélectionner les éléments du DOM
+        const roleSelect = document.getElementById('role');
+        const shopNameField = document.getElementById('shop_name_field');
+
+        // Fonction pour afficher ou masquer le champ shop_name
+        function toggleShopNameField() {
+            if (roleSelect.value === 'seller') {
+                shopNameField.style.display = 'block'; // Afficher le champ
+            } else {
+                shopNameField.style.display = 'none'; // Masquer le champ
+            }
+        }
+
+        // Écouter les changements sur le champ role
+        roleSelect.addEventListener('change', toggleShopNameField);
+
+        // Appliquer la logique au chargement de la page (si un rôle est déjà sélectionné)
+        document.addEventListener('DOMContentLoaded', toggleShopNameField);
+    </script>
+
+    <script>
+        // Sélectionner les éléments du DOM
+        const roleSelect = document.getElementById('role');
+        const shopNameField = document.getElementById('shop_name_field');
+
+        // Fonction pour afficher ou masquer le champ shop_name
+        function toggleShopNameField() {
+            if (roleSelect.value === 'seller') {
+                shopNameField.style.display = 'block'; // Afficher le champ
+            } else {
+                shopNameField.style.display = 'none'; // Masquer le champ
+            }
+        }
+
+        // Écouter les changements sur le champ role
+        roleSelect.addEventListener('change', toggleShopNameField);
+
+        // Appliquer la logique au chargement de la page (si un rôle est déjà sélectionné)
+        document.addEventListener('DOMContentLoaded', toggleShopNameField);
     </script>
 </body>
 

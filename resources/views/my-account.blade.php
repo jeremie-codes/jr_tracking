@@ -1,5 +1,7 @@
 @php
 use Illuminate\Support\Facades\Auth;
+
+$client = Auth::user();
 @endphp
 
 @extends('layouts.app')
@@ -39,11 +41,11 @@ use Illuminate\Support\Facades\Auth;
                       <div class="axil-dashboard-author">
                           <div class="media">
                               <div class="thumbnail">
-                                  <img src="{{ Auth::user()->avatar ? '/storage/' . Auth::user()->avatar : asset('assets/images/product/author1.png') }}" alt="Hello Annie">
+                                  <img src="{{ $client->avatar ? '/storage/' . $client->avatar : asset('assets/images/product/author1.png') }}" alt="Hello Annie">
                               </div>
                               <div class="media-body">
-                                  <h5 class="title mb-0">{{ Auth::user()->name }}</h5>
-                                  <span class="joining-date">Boutique : {{ Auth::user()->shop?->name }}</span>
+                                  <h5 class="title mb-0">{{ $client->name }}</h5>
+                                  <span class="joining-date {{ $client->role == 'customer' ? 'd-none' : '' }}">Boutique : {{ $client->shop?->name }}</span>
                               </div>
                           </div>
                       </div>
@@ -55,10 +57,10 @@ use Illuminate\Support\Facades\Auth;
                                           {{-- <a class="nav-item nav-link active" data-bs-toggle="tab" href="#nav-dashboard"
                                               role="tab" aria-selected="true"><i
                                                   class="fas fa-th-large"></i>Dashboard</a> --}}
-                                          <a class="nav-item nav-link active" data-bs-toggle="tab" href="#nav-downloads"
+                                          <a class="nav-item nav-link {{ $client->role == 'customer' ? 'd-none' : 'active' }}" data-bs-toggle="tab" href="#nav-downloads"
                                               role="tab" aria-selected="false"><i
                                                   class="fas fa-shopping-bag"></i>Boutique</a>
-                                          <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-orders"
+                                          <a class="nav-item nav-link {{ $client->role == 'customer' ? 'active' : '' }}" data-bs-toggle="tab" href="#nav-orders"
                                               role="tab" aria-selected="false"><i
                                                   class="fas fa-shopping-basket"></i>Commandes</a>
                                           {{-- <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-address"
@@ -68,7 +70,7 @@ use Illuminate\Support\Facades\Auth;
                                               role="tab" aria-selected="false"><i class="fas fa-user"></i>Détails du
                                               compte</a>
                                           <a class="nav-item nav-link" href="{{ route('login') }}"><i
-                                                  class="fal fa-sign-out"></i>Logout</a>
+                                                  class="fal fa-sign-out"></i>Se déconnecter</a>
                                       </div>
                                   </nav>
                               </aside>
@@ -84,7 +86,7 @@ use Illuminate\Support\Facades\Auth;
                                           </p>
                                       </div>
                                   </div> --}}
-                                  <div class="tab-pane fade" id="nav-orders" role="tabpanel">
+                                  <div class="tab-pane fade {{ $client->role == 'customer' ? 'active show' : '' }}" id="nav-orders" role="tabpanel">
                                       <div class="axil-dashboard-order">
                                           <div class="table-responsive">
                                               <table class="table">
@@ -138,7 +140,7 @@ use Illuminate\Support\Facades\Auth;
                                           </div>
                                       </div>
                                   </div>
-                                  <div class="tab-pane fade show active" id="nav-downloads" role="tabpanel">
+                                  <div class="tab-pane fade  {{ $client->role == 'customer' ? 'd-none' : 'active show' }}" id="nav-downloads" role="tabpanel">
                                       <div class="axil-dashboard-overview">
                                           <div class=""
                                               style="display: flex; flex-direction:row; justify-content:space-between;">
@@ -191,58 +193,16 @@ use Illuminate\Support\Facades\Auth;
                                           @empty
                                               <div class="mt-4">
                                                   <div class="p-3 mb-2 bg-secondary rounded text-white">
-                                                {{ Auth::user()->role == 'admin' ? 'Pour voir vos produits connectez-vous sur ' . url('/admin/products/') : 'Aucun produit trouvé' }}
+                                                {{ $client->role == 'admin' ? 'Pour voir vos produits connectez-vous sur ' . url('/admin/products/') : 'Aucun produit trouvé' }}
                                                   </div>
                                               </div>
                                           @endforelse
                                       </div>
                                   </div>
-                                  {{-- <div class="tab-pane fade" id="nav-address" role="tabpanel">
-                                      <div class="axil-dashboard-address">
-                                          <p class="notice-text">The following addresses will be used on the checkout page
-                                              by default.</p>
-                                          <div class="row row--30">
-                                              <div class="col-lg-6">
-                                                  <div class="address-info mb--40">
-                                                      <div
-                                                          class="addrss-header d-flex align-items-center justify-content-between">
-                                                          <h4 class="title mb-0">Shipping Address</h4>
-                                                          <a href="#" class="address-edit"><i
-                                                                  class="far fa-edit"></i></a>
-                                                      </div>
-                                                      <ul class="address-details">
-                                                          <li>Name: Annie Mario</li>
-                                                          <li>Email: annie@example.com</li>
-                                                          <li>Phone: 1234 567890</li>
-                                                          <li class="mt--30">7398 Smoke Ranch Road <br>
-                                                              Las Vegas, Nevada 89128</li>
-                                                      </ul>
-                                                  </div>
-                                              </div>
-                                              <div class="col-lg-6">
-                                                  <div class="address-info">
-                                                      <div
-                                                          class="addrss-header d-flex align-items-center justify-content-between">
-                                                          <h4 class="title mb-0">Billing Address</h4>
-                                                          <a href="#" class="address-edit"><i
-                                                                  class="far fa-edit"></i></a>
-                                                      </div>
-                                                      <ul class="address-details">
-                                                          <li>Name: Annie Mario</li>
-                                                          <li>Email: annie@example.com</li>
-                                                          <li>Phone: 1234 567890</li>
-                                                          <li class="mt--30">7398 Smoke Ranch Road <br>
-                                                              Las Vegas, Nevada 89128</li>
-                                                      </ul>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div> --}}
                                   <div class="tab-pane fade" id="nav-account" role="tabpanel">
                                       <div class="col-lg-9">
                                           <div class="axil-dashboard-account">
-                                               <form class="singin-form" method="POST" action="{{ route('update', Auth::user()->id) }}" enctype="multipart/form-data" id="avatar-form">
+                                               <form class="singin-form" method="POST" action="{{ route('update', $client->id) }}" enctype="multipart/form-data" id="avatar-form">
                                                     @csrf
                                                     @method('POST')
 
@@ -263,7 +223,7 @@ use Illuminate\Support\Facades\Auth;
                                                             <div class="form-group">
                                                                 <label for="name">Nom complet</label>
                                                                 <input type="text" name="name" id="name" class="form-control"
-                                                                    value="{{ old('name') }}" required maxlength="255">
+                                                                    value="{{ $client->name }}" required maxlength="255">
                                                                 @error('name')
                                                                     <small class="text-danger">{{ $message }}</small>
                                                                 @enderror
@@ -275,7 +235,7 @@ use Illuminate\Support\Facades\Auth;
                                                             <div class="form-group">
                                                                 <label for="email">Email</label>
                                                                 <input type="email" name="email" id="email" class="form-control"
-                                                                    value="{{ old('email') }}" required maxlength="255">
+                                                                    value="{{ $client->email }}" required maxlength="255">
                                                                 @error('email')
                                                                     <small class="text-danger">{{ $message }}</small>
                                                                 @enderror
@@ -287,7 +247,7 @@ use Illuminate\Support\Facades\Auth;
                                                             <div class="form-group">
                                                                 <label for="phone_number">Téléphone</label>
                                                                 <input type="text" name="phone_number" id="phone_number"
-                                                                    class="form-control" value="{{ old('phone_number') }}" required
+                                                                    class="form-control" value="{{ $client->phone_number }}" required
                                                                     maxlength="20">
                                                                 @error('phone_number')
                                                                     <small class="text-danger">{{ $message }}</small>
@@ -300,7 +260,7 @@ use Illuminate\Support\Facades\Auth;
                                                             <div class="form-group">
                                                                 <label for="address">Adresse</label>
                                                                 <input type="text" name="address" id="address" class="form-control"
-                                                                    value="{{ old('address') }}" required maxlength="255">
+                                                                    value="{{ $client->address }}" required maxlength="255">
                                                                 @error('address')
                                                                     <small class="text-danger">{{ $message }}</small>
                                                                 @enderror
@@ -312,9 +272,9 @@ use Illuminate\Support\Facades\Auth;
                                                             <div class="form-group">
                                                                 <label for="gender">Genre</label>
                                                                 <select name="gender" id="gender" class="form-control">
-                                                                    <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>
+                                                                    <option value="male" {{ $client->gender == 'male' ? 'selected' : '' }}>
                                                                         Homme</option>
-                                                                    <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>
+                                                                    <option value="female" {{ $client->gender == 'female' ? 'selected' : '' }}>
                                                                         Femme</option>
                                                                 </select>
                                                                 @error('gender')
@@ -328,22 +288,30 @@ use Illuminate\Support\Facades\Auth;
                                                             <div class="form-group">
                                                                 <label for="date_of_birth">Date de naissance</label>
                                                                 <input type="date" name="date_of_birth" id="date_of_birth"
-                                                                    class="form-control" value="{{ old('date_of_birth') }}">
+                                                                    class="form-control" value="{{ $client->date_of_birth }}">
                                                                 @error('date_of_birth')
                                                                     <small class="text-danger">{{ $message }}</small>
                                                                 @enderror
                                                             </div>
                                                         </div>
 
-                                                        <!-- Nom de la boutique -->
                                                         <div class="col-lg-12">
                                                             <div class="form-group">
-                                                                <label for="shop_name">Nom de la boutique</label>
-                                                                <input type="text" name="shop_name" id="shop_name" class="form-control"
-                                                                    value="{{ old('shop_name') }}">
-                                                                {{-- @error('shop_name')
+                                                                <label for="role">Type de compte</label>
+                                                                <select name="role" id="role" class="form-control">
+                                                                    <option value="customer" {{ $client->role == 'customer' ? 'selected' : '' }}>Client</option>
+                                                                    <option value="seller" {{ $client->role == 'seller' ? 'selected' : '' }}>Vendeur</option>
+                                                                </select>
+                                                                @error('role')
                                                                     <small class="text-danger">{{ $message }}</small>
-                                                                @enderror --}}
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="col-lg-12" id="shop_name_field" style="display: none;">
+                                                            <div class="form-group">
+                                                                <label for="shop_name">Nom de la boutique</label>
+                                                                <input type="text" name="shop_name" id="shop_name" class="form-control" value="{{ $client->shop->name }}">
                                                             </div>
                                                         </div>
 
@@ -351,14 +319,14 @@ use Illuminate\Support\Facades\Auth;
                                                             <h5 class="title">Changer le mot de passe</h5>
                                                             <div class="form-group">
                                                                 <label for="old_password">Ancien mot de passe</label>
-                                                                <input type="password" name="old_password" id="old_password" class="form-control" required minlength="8">
+                                                                <input type="password" name="old_password" id="old_password" class="form-control" minlength="8">
                                                                 @error('old_password')
                                                                     <small class="text-danger">{{ $message }}</small>
                                                                 @enderror
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="new_password">Confirmation du mot de passe</label>
-                                                                <input type="password" name="new_password" id="new_password" class="form-control" required
+                                                                <input type="password" name="new_password" id="new_password" class="form-control"
                                                                     minlength="8">
                                                                 @error('new_password')
                                                                     <small class="text-danger">{{ $message }}</small>
@@ -366,7 +334,7 @@ use Illuminate\Support\Facades\Auth;
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="password_confirmation">Confirmation du mot de passe</label>
-                                                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required
+                                                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control"
                                                                     minlength="8">
                                                                 @error('password_confirmation')
                                                                     <small class="text-danger">{{ $message }}</small>
@@ -466,4 +434,25 @@ use Illuminate\Support\Facades\Auth;
               </div>
           </div>
       </div>
+
+       <script>
+        // Sélectionner les éléments du DOM
+        const roleSelect = document.getElementById('role');
+        const shopNameField = document.getElementById('shop_name_field');
+
+        // Fonction pour afficher ou masquer le champ shop_name
+        function toggleShopNameField() {
+            if (roleSelect.value === 'seller') {
+                shopNameField.style.display = 'block'; // Afficher le champ
+            } else {
+                shopNameField.style.display = 'none'; // Masquer le champ
+            }
+        }
+
+        // Écouter les changements sur le champ role
+        roleSelect.addEventListener('change', toggleShopNameField);
+
+        // Appliquer la logique au chargement de la page (si un rôle est déjà sélectionné)
+        document.addEventListener('DOMContentLoaded', toggleShopNameField);
+    </script>
   @endsection
