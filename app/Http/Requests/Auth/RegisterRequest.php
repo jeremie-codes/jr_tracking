@@ -25,7 +25,7 @@ class RegisterRequest extends FormRequest
             'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
-            'phone_number' => ['required', 'string', 'max:20', 'regex:/^\+?[0-9]{1,3}\s?\([0-9]{3}\)\s?[0-9]{3}-[0-9]{4}$/'],
+            'phone_number' => ['required', 'string', 'max:20',],
             'address' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'in:male,female'],
             'date_of_birth' => ['nullable', 'date', 'before:today'],
@@ -41,7 +41,7 @@ class RegisterRequest extends FormRequest
             'avatar.mimes' => 'L\'avatar doit être au format jpeg, png, jpg ou gif.',
             'avatar.max' => 'La taille de l\'avatar ne peut pas dépasser 2 Mo.',
             'email.unique' => 'Cet email est déjà utilisé.',
-            'phone_number.regex' => 'Le numéro de téléphone n\'est pas valide.',
+            // 'phone_number.regex' => 'Le numéro de téléphone n\'est pas valide.',
             'date_of_birth.before' => 'La date de naissance doit être antérieure à aujourd\'hui.',
             'password.confirmed' => 'Les mots de passe ne correspondent pas.',
         ];
