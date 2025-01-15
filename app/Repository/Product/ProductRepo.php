@@ -29,6 +29,11 @@ class ProductRepo implements ProductContract
         return Product::where('shop_id', $shopId)->get();
     }
 
+    public function toGetLatest($n)
+    {
+        return Product::latest($n);
+    }
+
     /**
      *
      * @param array $inputs

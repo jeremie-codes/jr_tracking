@@ -100,7 +100,7 @@
                                 <div class="product-hover-action">
                                     <ul class="cart-action">
                                         <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
-                                        <li class="select-option"><a href="cart.html">+ Panier</a></li>
+                                        <li class="select-option"><a href="cart.html">Commander</a></li>
                                         <li class="quickview"><a href="#" data-bs-toggle="modal"
                                                 data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
                                     </ul>
@@ -137,7 +137,7 @@
                                 <div class="product-hover-action">
                                     <ul class="cart-action">
                                         <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
-                                        <li class="select-option"><a href="cart.html">+ Panier</a></li>
+                                        <li class="select-option"><a href="cart.html">Commander</a></li>
                                         <li class="quickview"><a href="#" data-bs-toggle="modal"
                                                 data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
                                     </ul>
@@ -179,7 +179,7 @@
                                             <form action="{{ route('cart.add', $product) }}" method="POST">
                                                 @csrf
                                                 @method('POST')
-                                                <li class="select-option"><button class="bg-transparent" type="submit">+ Panier </button> </li>
+                                                <li class="select-option"><button class="bg-transparent" type="submit">Commander </button> </li>
                                             </form>
                                             <li class="quickview"><a href="#" data-bs-toggle="modal"
                                                     data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>

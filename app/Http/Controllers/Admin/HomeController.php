@@ -6,14 +6,17 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Repository\User\UserContract;
+use App\Repository\Product\ProductContract;
 
 class HomeController extends Controller
 {
     protected UserContract $userContract;
+    protected ProductContract $productContract;
 
-    public function __construct(UserContract $_userContract)
+    public function __construct(UserContract $_userContract, ProductContract $_productContract)
     {
         $this->userContract = $_userContract;
+        $this->productContract = $_productContract;
     }
 
     /**
@@ -31,6 +34,10 @@ class HomeController extends Controller
             $subtotal += $item['price'] * $item['quantity'];
         }
 
+        $products = $this->productContract->toGetAll();
+        $latestProducts = $this->productContract->toGetAll(5);
+        // dd( $products);
+
         if (Auth::user()) {
             $user = $this->userContract->toGetById(Auth::user()->id);
 
@@ -39,12 +46,16 @@ class HomeController extends Controller
                 'cart' => $cart,
                 'totalItems' => $totalItems,
                 'subtotal' => $subtotal,
+                'products' => $products,
+                'latestProducts' => $latestProducts
             ]);
         }
         return view('home', [
             'cart' => $cart,
             'totalItems' => $totalItems,
             'subtotal' => $subtotal,
+            'products' => $products,
+            'latestProducts' => $latestProducts
         ]);
     }
 
