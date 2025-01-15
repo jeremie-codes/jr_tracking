@@ -8,88 +8,53 @@
              <div class="container">
                  <div class="axil-product-cart-wrap">
                      <div class="product-table-heading">
-                         <h4 class="title">Your Cart</h4>
-                         <a href="#" class="cart-clear">Clear Shoping Cart</a>
+                         <h4 class="title">Votre panier</h4>
+                         <a href="#" class="cart-clear">Vider le panier</a>
                      </div>
-                     <div class="table-responsive">
-                         <table class="table axil-product-table axil-cart-table mb--40">
-                             <thead>
-                                 <tr>
-                                     <th scope="col" class="product-remove"></th>
-                                     <th scope="col" class="product-thumbnail">Product</th>
-                                     <th scope="col" class="product-title"></th>
-                                     <th scope="col" class="product-price">Price</th>
-                                     <th scope="col" class="product-quantity">Quantity</th>
-                                     <th scope="col" class="product-subtotal">Subtotal</th>
-                                 </tr>
-                             </thead>
-                             <tbody>
-                                 <tr>
-                                     <td class="product-remove"><a href="#" class="remove-wishlist"><i
-                                                 class="fal fa-times"></i></a></td>
-                                     <td class="product-thumbnail"><a href="single-product.html"><img
-                                                 src="./assets/images/product/electric/product-01.png"
-                                                 alt="Digital Product"></a></td>
-                                     <td class="product-title"><a href="single-product.html">Wireless PS Handler</a></td>
-                                     <td class="product-price" data-title="Price"><span
-                                             class="currency-symbol">$</span>124.00</td>
-                                     <td class="product-quantity" data-title="Qty">
-                                         <div class="pro-qty">
-                                             <input type="number" class="quantity-input" value="1">
-                                         </div>
-                                     </td>
-                                     <td class="product-subtotal" data-title="Subtotal"><span
-                                             class="currency-symbol">$</span>275.00</td>
-                                 </tr>
-                                 <tr>
-                                     <td class="product-remove"><a href="#" class="remove-wishlist"><i
-                                                 class="fal fa-times"></i></a></td>
-                                     <td class="product-thumbnail"><a href="single-product-2.html"><img
-                                                 src="./assets/images/product/electric/product-02.png"
-                                                 alt="Digital Product"></a></td>
-                                     <td class="product-title"><a href="single-product-2.html">Gradient Light Keyboard</a>
-                                     </td>
-                                     <td class="product-price" data-title="Price"><span
-                                             class="currency-symbol">$</span>124.00</td>
-                                     <td class="product-quantity" data-title="Qty">
-                                         <div class="pro-qty">
-                                             <input type="number" class="quantity-input" value="1">
-                                         </div>
-                                     </td>
-                                     <td class="product-subtotal" data-title="Subtotal"><span
-                                             class="currency-symbol">$</span>275.00</td>
-                                 </tr>
-                                 <tr>
-                                     <td class="product-remove"><a href="#" class="remove-wishlist"><i
-                                                 class="fal fa-times"></i></a></td>
-                                     <td class="product-thumbnail"><a href="single-product-3.html"><img
-                                                 src="./assets/images/product/electric/product-03.png"
-                                                 alt="Digital Product"></a></td>
-                                     <td class="product-title"><a href="single-product-3.html">HD CC Camera</a></td>
-                                     <td class="product-price" data-title="Price"><span
-                                             class="currency-symbol">$</span>124.00</td>
-                                     <td class="product-quantity" data-title="Qty">
-                                         <div class="pro-qty">
-                                             <input type="number" class="quantity-input" value="1">
-                                         </div>
-                                     </td>
-                                     <td class="product-subtotal" data-title="Subtotal"><span
-                                             class="currency-symbol">$</span>275.00</td>
-                                 </tr>
-                             </tbody>
-                         </table>
-                     </div>
-                     <div class="cart-update-btn-area">
-                         <div class="input-group product-cupon">
-                             <input placeholder="Enter coupon code" type="text">
-                             <div class="product-cupon-btn">
-                                 <button type="submit" class="axil-btn btn-outline">Apply</button>
-                             </div>
-                         </div>
-                         <div class="update-btn">
-                             <a href="#" class="axil-btn btn-outline">Update Cart</a>
-                         </div>
-                     </div>
+                    @if (session()->has('message'))
+                        <div id="success-alert" class="alert alert-primary p-4" role="alert">
+                            {{ session('message') }}
+                        </div>
+                    @endif
+                   <div class="table-responsive">
+                        <table class="table axil-product-table axil-cart-table mb--40">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="product-remove"></th>
+                                    <th scope="col" class="product-thumbnail">Produit</th>
+                                    <th scope="col" class="product-title"></th>
+                                    <th scope="col" class="product-price">Prix</th>
+                                    <th scope="col" class="product-quantity">Quantité</th>
+                                    <th scope="col" class="product-subtotal">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (session("cart") as $key => $item)
+                                    <tr>
+                                        <td class="product-remove"><a href="{{ route('cart.remove', $key) }}" class="remove-wishlist"><i class="fal fa-times"></i></a></td>
+                                        <td class="product-thumbnail"><a href="single-product.html"><img src="{{ asset('storage/' . $item['image']) }}" alt="Digital Product"></a></td>
+                                        <td class="product-title"><a href="single-product.html">{{ $item['name'] }}</a></td>
+                                        <td class="product-price" data-title="Price">{{ $item['price'] }} <span class="currency-symbol">$</span></td>
+                                        <td class="product-quantity" data-title="Qty">
+                                        <form action="{{ route('cart.add', $key) }}" method="POST" class="update-form" id="update-form-{{ $key }}">
+                                            @csrf
+                                            @method('POST')
+                                            <div class="pro-qty">
+                                                <input type="number" name="quantity" class="quantity" value="{{ $item['quantity'] }}">
+                                            </div>
+                                        </form>
+                                        </td>
+                                        <td class="product-subtotal" data-title="Subtotal">{{ $item['price'] * $item['quantity'] }} <span class="currency-symbol">$</span></td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="cart-update-btn-area">
+                        <div class="update-btn">
+                            <a href="#" class="axil-btn btn-outline" id="update-cart">Update Cart</a>
+                        </div>
+                    </div>
                      <div class="row">
                          <div class="col-xl-5 col-lg-7 offset-xl-7 offset-lg-5">
                              <div class="axil-order-summery mt--80">
@@ -138,9 +103,7 @@
              </div>
          </div>
          <!-- End Cart Area  -->
-
      </main>
-
 
      <div class="service-area">
          <div class="container">
@@ -192,4 +155,32 @@
              </div>
          </div>
      </div>
+
+    <script>
+        // Sélectionnez l'élément d'alerte
+        var alertElement = document.getElementById('success-alert');
+
+        // Définissez un délai de 3 secondes (3000 millisecondes)
+        setTimeout(function () {
+            // Masquez l'élément en définissant display à 'none'
+            alertElement.style.display = 'none';
+        }, 3000);
+    </script>
+    <script>
+      document.getElementById('update-cart').addEventListener('click', function (event) {
+            event.preventDefault(); // Empêche le comportement par défaut du lien
+
+            // Soumettre tous les formulaires de mise à jour un par un
+            document.querySelectorAll('.update-form').forEach(function (form) {
+                // Récupérer la valeur de l'input quantity
+                const quantityInput = form.querySelector('.quantity');
+                const newQuantity = quantityInput.value;
+
+                // Vérifier si la quantité a changé
+                if (newQuantity !== quantityInput.defaultValue) {
+                    form.submit(); // Soumettre le formulaire si la quantité a changé
+                }
+            });
+        });
+    </script>
  @endsection

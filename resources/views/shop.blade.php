@@ -174,7 +174,11 @@
                                         <ul class="cart-action">
                                             <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a>
                                             </li>
-                                            <li class="select-option"><a href="cart.html">+ Panier</a></li>
+                                            <form action="{{ route('cart.add', $product) }}" method="POST">
+                                                @csrf
+                                                @method('POST')
+                                                <li class="select-option"><button class="bg-transparent" type="submit">+ Panier </button> </li>
+                                            </form>
                                             <li class="quickview"><a href="#" data-bs-toggle="modal"
                                                     data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
                                         </ul>
@@ -182,8 +186,7 @@
                                 </div>
                                 <div class="product-content">
                                     <div class="inner">
-                                        <h5 class="title"><a href="{{ route('detail_product', $product->id) }}">Guys Bomber
-                                                Jacket</a>
+                                        <h5 class="title"><a href="{{ route('detail_product', $product->id) }}">{{ $product->name }}</a>
                                         </h5>
                                         <div class="product-price-variant">
                                             <span class="price current-price">{{ $product->price }}$</span>
