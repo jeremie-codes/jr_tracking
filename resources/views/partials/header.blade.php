@@ -23,23 +23,6 @@
                         <ul class="mainmenu">
                             <li><a href="{{ route('home') }}">Accueil</a></li>
                             <li><a href="{{ route('shop') }}">Articles</a></li>
-                            <li class="menu-item-has-children">
-                                <a href="#">Pages</a>
-                                <ul class="axil-submenu">
-                                    <li><a href="#">Liste de souhaits</a></li>
-                                    <li><a href="{{ route('cart') }}">Panier</a></li>
-                                    <li><a href="{{ route('checkout') }}">Paiement</a></li>
-                                    <li><a href="{{ route('my_account') }}">Mon compte</a></li>
-                                    <li><a href="{{ route('register') }}">Créer un compte</a></li>
-                                    <li><a href="Se connecter">Se connecter</a></li>
-                                    <li><a href="{{ route('forgot_password') }}">Mot de passe oublié</a></li>
-                                    <li><a href="{{ route('reset_password') }}">Réinitialiser le mot de passe</a></li>
-                                    <li><a href="{{ route('privacy_policy') }}">Politique de confidentialité</a></li>
-                                    <li><a href="{{ route('coming_soon') }}">Bientôt disponible</a></li>
-                                    <li><a href="{{ route('404') }}">Erreur 404</a></li>
-                                    <li><a href="#">Typographie</a></li>
-                                </ul>
-                            </li>
                             <li><a href="{{ route('about') }}">À propos</a></li>
                             {{-- <li><a href="{{ route('blog') }}">Blog</a></li> --}}
                             <li><a href="{{ route('contact') }}">Contact</a></li>
