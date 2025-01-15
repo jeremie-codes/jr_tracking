@@ -16,13 +16,13 @@
                             <p>info@e-galeria.com, <br>
                                 +243 994 853 896
                             </p>
-                            <ul class="support-list-item">
+                            {{-- <ul class="support-list-item">
                                 <li><a href="mailto:example@domain.com"><i class="fal fa-envelope-open"></i>
                                         example@domain.com</a></li>
                                 <li><a href="tel:(+01)850-315-5862"><i class="fal fa-phone-alt"></i> (+01)
                                         850-315-5862</a></li>
                                 <!-- <li><i class="fal fa-map-marker-alt"></i> 685 Market Street,  <br> Las Vegas, LA 95820, <br> United States.</li> -->
-                            </ul>
+                            </ul> --}}
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,6 @@
                             <ul>
                                 <li><a href="#">Mon Compte</a></li>
                                 <li><a href="{{ route('register') }}">Se Connecter / S'inscrire</a></li>
-                                <li><a href="cart.html">Cart</a></li>
                                 {{-- <li><a href="wishlist.html">Boutique</a></li> --}}
                                 <li><a href="{{ route('shop') }}">Articles</a></li>
                             </ul>

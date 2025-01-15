@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'About')
+
 @section('content')
 <main class="main-wrapper">
     <!-- Début de la section Fil d'Ariane -->
@@ -13,7 +15,7 @@
                             <li class="separator"></li>
                             <li class="axil-breadcrumb-item active" aria-current="page">À propos de nous</li>
                         </ul>
-                        <h1 class="title">À propos de notre boutique</h1>
+                        <h1 class="title">E-Galeria</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-4">

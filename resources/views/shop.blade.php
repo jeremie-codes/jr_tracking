@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Shop')
+
 @section('content')
     <main class="main-wrapper">
         <!-- Start Breadcrumb Area  -->

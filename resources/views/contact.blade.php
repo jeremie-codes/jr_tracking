@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Contact')
+
 @section('content')
 <main class="main-wrapper">
     <!-- Début de la section Fil d'Ariane -->

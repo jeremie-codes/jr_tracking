@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Accueil')
+
 @section('content')
     <main class="main-wrapper">
         <div class="axil-main-slider-area main-slider-style-1">
