@@ -3,6 +3,7 @@
 namespace App\Filament\Clusters\Products;
 
 use Filament\Forms;
+use App\Models\Shop;
 use Filament\Tables;
 use App\Models\Product;
 use Filament\Forms\Set;
@@ -39,7 +40,6 @@ class ProductResource extends Resource
     protected static ?int $navigationSort = 3;
     protected static ?string $cluster = Products::class;
 
-
     public static function form(Form $form): Form
     {
         return $form
@@ -55,7 +55,13 @@ class ProductResource extends Resource
                         Select::make('shop_id')
                             ->label('Boutique')
                             ->required()
-                            ->relationship('shop', 'name'),
+                            ->options(function () {
+                                return Shop::with('user')->get()->mapWithKeys(function ($shop) {
+                                    return [$shop->id => "Boutique : {$shop->name} du vendeur {$shop->user->name}"];
+                                });
+                            })
+                            ->searchable() // Optionnel: pour permettre la recherche
+                            ->preload(), // Optionnel: pour précharger les options
                         Select::make('category_id')
                             ->label('Catégorie')
                             ->required()
@@ -80,6 +86,7 @@ class ProductResource extends Resource
                                 true => 'Actif',
                                 false => 'Inactif',
                             ])
+                            ->default(true)
                             ->required(),
                     ]),
                 Section::make()
