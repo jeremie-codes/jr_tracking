@@ -43,7 +43,7 @@ use Illuminate\Support\Facades\Auth;
                               </div>
                               <div class="media-body">
                                   <h5 class="title mb-0">{{ Auth::user()->name }}</h5>
-                                  <span class="joining-date">Boutique : {{ Auth::user()->shop->name }}</span>
+                                  <span class="joining-date">Boutique : {{ Auth::user()->shop?->name }}</span>
                               </div>
                           </div>
                       </div>
