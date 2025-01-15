@@ -9,7 +9,7 @@
                  <div class="axil-product-cart-wrap">
                      <div class="product-table-heading">
                          <h4 class="title">Votre panier</h4>
-                         <a href="#" class="cart-clear">Vider le panier</a>
+                         <a href="{{ route('cart.empty') }}" class="cart-clear">Vider le panier</a>
                      </div>
                     @if (session()->has('message'))
                         <div id="success-alert" class="alert alert-primary p-4" role="alert">
