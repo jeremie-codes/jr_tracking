@@ -188,140 +188,140 @@
         <div class="axil-categorie-area bg-color-white axil-section-gapcommon">
             <div class="container">
                 <div class="section-title-wrapper">
-                    <span class="title-highlighter highlighter-secondary"> <i class="far fa-tags"></i> Categories</span>
-                    <h2 class="title">Browse by Category</h2>
+                    <span class="title-highlighter highlighter-secondary"> <i class="far fa-tags"></i> Catégories</span>
+                    <h2 class="title">Parcourir par catégorie</h2>
                 </div>
                 <div class="categrie-product-activation slick-layout-wrapper--15 axil-slick-arrow  arrow-top-slide">
                     <div class="slick-single-layout">
                         <div class="categrie-product" data-sal="zoom-out" data-sal-delay="200" data-sal-duration="500">
                             <a href="#">
                                 <img class="img-fluid" src="./assets/images/product/categories/elec-4.png"
-                                    alt="product categorie">
-                                <h6 class="cat-title">Phones</h6>
+                                    alt="catégorie produit">
+                                <h6 class="cat-title">Téléphones</h6>
                             </a>
                         </div>
-                        <!-- End .categrie-product -->
+                        <!-- Fin .categrie-product -->
                     </div>
-                    <!-- End .slick-single-layout -->
+                    <!-- Fin .slick-single-layout -->
                     <div class="slick-single-layout">
                         <div class="categrie-product" data-sal="zoom-out" data-sal-delay="300" data-sal-duration="500">
                             <a href="#">
                                 <img class="img-fluid" src="./assets/images/product/categories/elec-5.png"
-                                    alt="product categorie">
-                                <h6 class="cat-title">Computers</h6>
+                                    alt="catégorie produit">
+                                <h6 class="cat-title">Ordinateurs</h6>
                             </a>
                         </div>
-                        <!-- End .categrie-product -->
+                        <!-- Fin .categrie-product -->
                     </div>
-                    <!-- End .slick-single-layout -->
+                    <!-- Fin .slick-single-layout -->
                     <div class="slick-single-layout">
                         <div class="categrie-product" data-sal="zoom-out" data-sal-delay="400" data-sal-duration="500">
                             <a href="#">
                                 <img class="img-fluid" src="./assets/images/product/categories/elec-11.png"
-                                    alt="product categorie">
-                                <h6 class="cat-title">Accessories</h6>
+                                    alt="catégorie produit">
+                                <h6 class="cat-title">Accessoires</h6>
                             </a>
                         </div>
-                        <!-- End .categrie-product -->
+                        <!-- Fin .categrie-product -->
                     </div>
-                    <!-- End .slick-single-layout -->
+                    <!-- Fin .slick-single-layout -->
                     <div class="slick-single-layout">
                         <div class="categrie-product" data-sal="zoom-out" data-sal-delay="500" data-sal-duration="500">
                             <a href="#">
                                 <img class="img-fluid" src="./assets/images/product/categories/elec-6.png"
-                                    alt="product categorie">
-                                <h6 class="cat-title">Laptops</h6>
+                                    alt="catégorie produit">
+                                <h6 class="cat-title">PC Portables</h6>
                             </a>
                         </div>
-                        <!-- End .categrie-product -->
+                        <!-- Fin .categrie-product -->
                     </div>
-                    <!-- End .slick-single-layout -->
+                    <!-- Fin .slick-single-layout -->
                     <div class="slick-single-layout">
                         <div class="categrie-product" data-sal="zoom-out" data-sal-delay="600" data-sal-duration="500">
                             <a href="#">
                                 <img class="img-fluid" src="./assets/images/product/categories/elec-2.png"
-                                    alt="product categorie">
-                                <h6 class="cat-title">Monitors</h6>
+                                    alt="catégorie produit">
+                                <h6 class="cat-title">Écrans</h6>
                             </a>
                         </div>
-                        <!-- End .categrie-product -->
+                        <!-- Fin .categrie-product -->
                     </div>
-                    <!-- End .slick-single-layout -->
+                    <!-- Fin .slick-single-layout -->
                     <div class="slick-single-layout">
                         <div class="categrie-product" data-sal="zoom-out" data-sal-delay="700" data-sal-duration="500">
                             <a href="#">
                                 <img class="img-fluid" src="./assets/images/product/categories/elec-7.png"
-                                    alt="product categorie">
-                                <h6 class="cat-title">Networking</h6>
+                                    alt="catégorie produit">
+                                <h6 class="cat-title">Réseaux</h6>
                             </a>
                         </div>
-                        <!-- End .categrie-product -->
+                        <!-- Fin .categrie-product -->
                     </div>
-                    <!-- End .slick-single-layout -->
+                    <!-- Fin .slick-single-layout -->
                     <div class="slick-single-layout">
                         <div class="categrie-product" data-sal="zoom-out" data-sal-delay="800" data-sal-duration="500">
                             <a href="#">
                                 <img class="img-fluid" src="./assets/images/product/categories/elec-8.png"
-                                    alt="product categorie">
+                                    alt="catégorie produit">
                                 <h6 class="cat-title">PC Gaming</h6>
                             </a>
                         </div>
-                        <!-- End .categrie-product -->
+                        <!-- Fin .categrie-product -->
                     </div>
-                    <!-- End .slick-single-layout -->
+                    <!-- Fin .slick-single-layout -->
                     <div class="slick-single-layout">
                         <div class="categrie-product">
                             <a href="#">
                                 <img class="img-fluid" src="./assets/images/product/categories/elec-1.png"
-                                    alt="product categorie">
-                                <h6 class="cat-title">Smartwatches</h6>
+                                    alt="catégorie produit">
+                                <h6 class="cat-title">Montres connectées</h6>
                             </a>
                         </div>
-                        <!-- End .categrie-product -->
+                        <!-- Fin .categrie-product -->
                     </div>
-                    <!-- End .slick-single-layout -->
+                    <!-- Fin .slick-single-layout -->
                     <div class="slick-single-layout">
                         <div class="categrie-product">
                             <a href="#">
                                 <img class="img-fluid" src="./assets/images/product/categories/elec-9.png"
-                                    alt="product categorie">
-                                <h6 class="cat-title">Headphones</h6>
+                                    alt="catégorie produit">
+                                <h6 class="cat-title">Casques audio</h6>
                             </a>
                         </div>
-                        <!-- End .categrie-product -->
+                        <!-- Fin .categrie-product -->
                     </div>
-                    <!-- End .slick-single-layout -->
+                    <!-- Fin .slick-single-layout -->
                     <div class="slick-single-layout">
                         <div class="categrie-product">
                             <a href="#">
                                 <img class="img-fluid" src="./assets/images/product/categories/elec-10.png"
-                                    alt="product categorie">
-                                <h6 class="cat-title">Camera & Photo</h6>
+                                    alt="catégorie produit">
+                                <h6 class="cat-title">Appareils photo</h6>
                             </a>
                         </div>
-                        <!-- End .categrie-product -->
+                        <!-- Fin .categrie-product -->
                     </div>
-                    <!-- End .slick-single-layout -->
+                    <!-- Fin .slick-single-layout -->
                     <div class="slick-single-layout">
                         <div class="categrie-product">
                             <a href="#">
                                 <img class="img-fluid" src="./assets/images/product/categories/elec-8.png"
-                                    alt="product categorie">
-                                <h6 class="cat-title">Video Games</h6>
+                                    alt="catégorie produit">
+                                <h6 class="cat-title">Jeux vidéo</h6>
                             </a>
                         </div>
-                        <!-- End .categrie-product -->
+                        <!-- Fin .categrie-product -->
                     </div>
-                    <!-- End .slick-single-layout -->
+                    <!-- Fin .slick-single-layout -->
                     <div class="slick-single-layout">
                         <div class="categrie-product">
                             <a href="#">
                                 <img class="img-fluid" src="./assets/images/product/categories/elec-1.png"
-                                    alt="product categorie">
+                                    alt="catégorie produit">
                                 <h6 class="cat-title">Sports</h6>
                             </a>
                         </div>
-                        <!-- End .categrie-product -->
+                        <!-- Fin .categrie-product -->
                     </div>
                 </div>
             </div>
@@ -336,17 +336,17 @@
                         <div class="col-xl-5 col-lg-6">
                             <div class="poster-countdown-content">
                                 <div class="section-title-wrapper">
-                                    <span class="title-highlighter highlighter-secondary"> <i
-                                            class="fal fa-headphones-alt"></i> Don’t Miss!!</span>
-                                    <h2 class="title">Enhance Your Music Experience</h2>
+                                    <span class="title-highlighter highlighter-secondary"> <i class="fal fa-headphones-alt"></i>
+                                        Ne manquez pas !!</span>
+                                    <h2 class="title">Améliorez votre expérience musicale</h2>
                                 </div>
                                 <div class="poster-countdown countdown mb--40"></div>
-                                <a href="#" class="axil-btn btn-bg-primary">Check it Out!</a>
+                                <a href="#" class="axil-btn btn-bg-primary">Découvrez-le !</a>
                             </div>
                         </div>
                         <div class="col-xl-7 col-lg-6">
                             <div class="poster-countdown-thumbnail">
-                                <img src="./assets/images/product/poster/poster-03.png" alt="Poster Product">
+                                <img src="./assets/images/product/poster/poster-03.png" alt="Poster Produit">
                                 <div class="music-singnal">
                                     <div class="item-circle circle-1"></div>
                                     <div class="item-circle circle-2"></div>
@@ -1096,94 +1096,84 @@
         <div class="axil-testimoial-area axil-section-gap bg-vista-white">
             <div class="container">
                 <div class="section-title-wrapper">
-                    <span class="title-highlighter highlighter-secondary"> <i
-                            class="fal fa-quote-left"></i>Testimonials</span>
-                    <h2 class="title">Users Feedback</h2>
+                    <span class="title-highlighter highlighter-secondary"> <i class="fal fa-quote-left"></i>Témoignages</span>
+                    <h2 class="title">Avis des utilisateurs</h2>
                 </div>
-                <!-- End .section-title -->
+                <!-- Fin .section-title -->
                 <div
                     class="testimonial-slick-activation testimonial-style-one-wrapper slick-layout-wrapper--20 axil-slick-arrow arrow-top-slide">
                     <div class="slick-single-layout testimonial-style-one">
                         <div class="review-speech">
-                            <p>“ It’s amazing how much easier it has been to
-                                meet new people and create instantly non
-                                connections. I have the exact same personal
-                                the only thing that has changed is my mind
-                                set and a few behaviors. “</p>
+                            <p>“ C’est incroyable à quel point il est devenu plus facile de rencontrer de nouvelles personnes et
+                                de créer des connexions instantanées. J’ai exactement la même personnalité, la seule chose qui a
+                                changé, c’est mon état d’esprit et quelques comportements. “</p>
                         </div>
                         <div class="media">
                             <div class="thumbnail">
-                                <img src="./assets/images/testimonial/image-1.png" alt="testimonial image">
+                                <img src="./assets/images/testimonial/image-1.png" alt="image témoignage">
                             </div>
                             <div class="media-body">
-                                <span class="designation">Head Of Idea</span>
+                                <span class="designation">Responsable des idées</span>
                                 <h6 class="title">James C. Anderson</h6>
                             </div>
                         </div>
-                        <!-- End .thumbnail -->
+                        <!-- Fin .thumbnail -->
                     </div>
-                    <!-- End .slick-single-layout -->
+                    <!-- Fin .slick-single-layout -->
                     <div class="slick-single-layout testimonial-style-one">
                         <div class="review-speech">
-                            <p>“ It’s amazing how much easier it has been to
-                                meet new people and create instantly non
-                                connections. I have the exact same personal
-                                the only thing that has changed is my mind
-                                set and a few behaviors. “</p>
+                            <p>“ C’est incroyable à quel point il est devenu plus facile de rencontrer de nouvelles personnes et
+                                de créer des connexions instantanées. J’ai exactement la même personnalité, la seule chose qui a
+                                changé, c’est mon état d’esprit et quelques comportements. “</p>
                         </div>
                         <div class="media">
                             <div class="thumbnail">
-                                <img src="./assets/images/testimonial/image-2.png" alt="testimonial image">
+                                <img src="./assets/images/testimonial/image-2.png" alt="image témoignage">
                             </div>
                             <div class="media-body">
-                                <span class="designation">Head Of Idea</span>
+                                <span class="designation">Responsable des idées</span>
                                 <h6 class="title">James C. Anderson</h6>
                             </div>
                         </div>
-                        <!-- End .thumbnail -->
+                        <!-- Fin .thumbnail -->
                     </div>
-                    <!-- End .slick-single-layout -->
+                    <!-- Fin .slick-single-layout -->
                     <div class="slick-single-layout testimonial-style-one">
                         <div class="review-speech">
-                            <p>“ It’s amazing how much easier it has been to
-                                meet new people and create instantly non
-                                connections. I have the exact same personal
-                                the only thing that has changed is my mind
-                                set and a few behaviors. “</p>
+                            <p>“ C’est incroyable à quel point il est devenu plus facile de rencontrer de nouvelles personnes et
+                                de créer des connexions instantanées. J’ai exactement la même personnalité, la seule chose qui a
+                                changé, c’est mon état d’esprit et quelques comportements. “</p>
                         </div>
                         <div class="media">
                             <div class="thumbnail">
-                                <img src="./assets/images/testimonial/image-3.png" alt="testimonial image">
+                                <img src="./assets/images/testimonial/image-3.png" alt="image témoignage">
                             </div>
                             <div class="media-body">
-                                <span class="designation">Head Of Idea</span>
+                                <span class="designation">Responsable des idées</span>
                                 <h6 class="title">James C. Anderson</h6>
                             </div>
                         </div>
-                        <!-- End .thumbnail -->
+                        <!-- Fin .thumbnail -->
                     </div>
-                    <!-- End .slick-single-layout -->
+                    <!-- Fin .slick-single-layout -->
                     <div class="slick-single-layout testimonial-style-one">
                         <div class="review-speech">
-                            <p>“ It’s amazing how much easier it has been to
-                                meet new people and create instantly non
-                                connections. I have the exact same personal
-                                the only thing that has changed is my mind
-                                set and a few behaviors. “</p>
+                            <p>“ C’est incroyable à quel point il est devenu plus facile de rencontrer de nouvelles personnes et
+                                de créer des connexions instantanées. J’ai exactement la même personnalité, la seule chose qui a
+                                changé, c’est mon état d’esprit et quelques comportements. “</p>
                         </div>
                         <div class="media">
                             <div class="thumbnail">
-                                <img src="./assets/images/testimonial/image-2.png" alt="testimonial image">
+                                <img src="./assets/images/testimonial/image-2.png" alt="image témoignage">
                             </div>
                             <div class="media-body">
-                                <span class="designation">Head Of Idea</span>
+                                <span class="designation">Responsable des idées</span>
                                 <h6 class="title">James C. Anderson</h6>
                             </div>
                         </div>
-                        <!-- End .thumbnail -->
+                        <!-- Fin .thumbnail -->
                     </div>
-                    <!-- End .slick-single-layout -->
-
+                    <!-- Fin .slick-single-layout -->
                 </div>
             </div>
         </div>
@@ -1194,9 +1184,8 @@
             <div class="container">
                 <div class="product-area pb--50">
                     <div class="section-title-wrapper">
-                        <span class="title-highlighter highlighter-primary"><i class="far fa-shopping-basket"></i>This
-                            Week’s</span>
-                        <h2 class="title">New Arrivals</h2>
+                        <span class="title-highlighter highlighter-primary"><i class="far fa-shopping-basket"></i>Cette semaine</span>
+                        <h2 class="title">Nouveautés</h2>
                     </div>
                     <div
                         class="new-arrivals-product-activation slick-layout-wrapper--30 axil-slick-arrow  arrow-top-slide">
@@ -1696,56 +1685,56 @@
         <!-- End Most Sold Product Area  -->
 
         <!-- Start Why Choose Area  -->
-        <div class="axil-why-choose-area pb--50 pb_sm--30">
-            <div class="container">
-                <div class="section-title-wrapper section-title-center">
-                    <span class="title-highlighter highlighter-secondary"><i class="fal fa-thumbs-up"></i>Why Us</span>
-                    <h2 class="title">Why People Choose Us</h2>
+    <div class="axil-why-choose-area pb--50 pb_sm--30">
+        <div class="container">
+            <div class="section-title-wrapper section-title-center">
+                <span class="title-highlighter highlighter-secondary"><i class="fal fa-thumbs-up"></i>Pourquoi nous ?</span>
+                <h2 class="title">Pourquoi nous choisir ?</h2>
+            </div>
+            <div class="row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 row--20">
+                <div class="col">
+                    <div class="service-box">
+                        <div class="icon">
+                            <img src="./assets/images/icons/service6.png" alt="Service">
+                        </div>
+                        <h6 class="title">Livraison rapide et sécurisée</h6>
+                    </div>
                 </div>
-                <div class="row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 row--20">
-                    <div class="col">
-                        <div class="service-box">
-                            <div class="icon">
-                                <img src="./assets/images/icons/service6.png" alt="Service">
-                            </div>
-                            <h6 class="title">Fast &amp; Secure Delivery</h6>
+                <div class="col">
+                    <div class="service-box">
+                        <div class="icon">
+                            <img src="./assets/images/icons/service7.png" alt="Service">
                         </div>
+                        <h6 class="title">Garantie 100% sur les produits</h6>
                     </div>
-                    <div class="col">
-                        <div class="service-box">
-                            <div class="icon">
-                                <img src="./assets/images/icons/service7.png" alt="Service">
-                            </div>
-                            <h6 class="title">100% Guarantee On Product</h6>
+                </div>
+                <div class="col">
+                    <div class="service-box">
+                        <div class="icon">
+                            <img src="./assets/images/icons/service8.png" alt="Service">
                         </div>
+                        <h6 class="title">Politique de retour sous 24 heures</h6>
                     </div>
-                    <div class="col">
-                        <div class="service-box">
-                            <div class="icon">
-                                <img src="./assets/images/icons/service8.png" alt="Service">
-                            </div>
-                            <h6 class="title">24 Hour Return Policy</h6>
+                </div>
+                <div class="col">
+                    <div class="service-box">
+                        <div class="icon">
+                            <img src="./assets/images/icons/service9.png" alt="Service">
                         </div>
+                        <h6 class="title">Politique de retour sous 24 heures</h6>
                     </div>
-                    <div class="col">
-                        <div class="service-box">
-                            <div class="icon">
-                                <img src="./assets/images/icons/service9.png" alt="Service">
-                            </div>
-                            <h6 class="title">24 Hour Return Policy</h6>
+                </div>
+                <div class="col">
+                    <div class="service-box">
+                        <div class="icon">
+                            <img src="./assets/images/icons/service10.png" alt="Service">
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="service-box">
-                            <div class="icon">
-                                <img src="./assets/images/icons/service10.png" alt="Service">
-                            </div>
-                            <h6 class="title">Next Level Pro Quality</h6>
-                        </div>
+                        <h6 class="title">Qualité professionnelle supérieure</h6>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
         <!-- End Why Choose Area  -->
 
 
