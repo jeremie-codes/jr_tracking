@@ -30,7 +30,15 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = $this->productContract->toGetAll();
+        $categories = Category::all();
+
+        // dd( $products->links() );
+
+        return view('shop', data: [
+            'products' => $products,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -50,6 +58,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
+        // dd($request->all());
         $seller = $this->userContract->toGetById(Auth::user()->id);
         $imageName = $request['image']->getClientOriginalName();
 

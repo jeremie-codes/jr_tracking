@@ -22,14 +22,14 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'avatar' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
             'phone_number' => ['required', 'string', 'max:20', 'regex:/^\+?[0-9]{1,3}\s?\([0-9]{3}\)\s?[0-9]{3}-[0-9]{4}$/'],
             'address' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'in:male,female'],
-            'date_of_birth' => ['required', 'date', 'before:today'],
-            'shop_name' => ['required', 'string', 'max:255'],
+            'date_of_birth' => ['nullable', 'date', 'before:today'],
+            'shop_name' => ['nullable', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
@@ -37,7 +37,6 @@ class RegisterRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'avatar.required' => 'L\'avatar est requis.',
             'avatar.image' => 'L\'avatar doit être une image.',
             'avatar.mimes' => 'L\'avatar doit être au format jpeg, png, jpg ou gif.',
             'avatar.max' => 'La taille de l\'avatar ne peut pas dépasser 2 Mo.',

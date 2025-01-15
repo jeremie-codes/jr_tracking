@@ -72,9 +72,9 @@ class ProductRepo implements ProductContract
      *
      * @param mixed $n
      */
-    public function toGetAll($n = 50)
+    public function toGetAll($n = 20)
     {
-        $product = Product::with('product_type', 'therapeutic_category')
+        $product = Product::with('category', 'shop')
             ->paginate($n);
         return $product;
     }

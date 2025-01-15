@@ -10,4 +10,9 @@ class CreateProduct extends CreateRecord
 {
     protected static string $resource = ProductResource::class;
     protected static ?string $title = 'Ajouter un produit';
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        dd($data);
+    }
 }

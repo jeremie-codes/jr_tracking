@@ -90,15 +90,17 @@
                                         <form method="post" action={{ route('logout') }}>
                                             @csrf
 
-                                            <button type="submit" class="axil-btn btn-bg-primary">Déconnecter</button>
+                                            <button type="submit" class="axil-btn btn-bg-primary">Se déconnecter</button>
                                         </form>
                                     </div>
                                 @endauth
                                 @guest
-                                    <a href="{{ route('login') }}" class="axil-btn btn-bg-primary">Connexion</a>
+                                    <div class="login-btn">
+                                    <a href="{{ route('login') }}" class="axil-btn btn-bg-primary">Se connecter</a>
 
                                     <div class="reg-footer text-center">Pas encore de compte ?
                                         <a href="{{ route('register') }}" class="btn-link">INSCRIVEZ-VOUS ICI.</a>
+                                    </div>
                                     </div>
                                 @endguest
                             </div>

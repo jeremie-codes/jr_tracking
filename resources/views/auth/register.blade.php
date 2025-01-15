@@ -76,8 +76,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="avatar">Avatar</label>
-                                        <input type="file" name="avatar" id="avatar" class="form-control"
-                                            required>
+                                        <input type="file" name="avatar" id="avatar" class="form-control">
                                         @error('avatar')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -166,10 +165,10 @@
                                     <div class="form-group">
                                         <label for="shop_name">Nom de la boutique</label>
                                         <input type="text" name="shop_name" id="shop_name" class="form-control"
-                                            value="{{ old('shop_name') }}" required>
-                                        @error('shop_name')
+                                            value="{{ old('shop_name') }}">
+                                        {{-- @error('shop_name')
                                             <small class="text-danger">{{ $message }}</small>
-                                        @enderror
+                                        @enderror --}}
                                     </div>
                                 </div>
 
@@ -205,8 +204,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </form>
                     </div>
                 </div>

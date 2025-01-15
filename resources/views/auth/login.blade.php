@@ -66,22 +66,28 @@
                 <div class="axil-signin-form-wrap">
                     <div class="axil-signin-form">
                         <h3 class="title">Se connecter à votre compte.</h3>
-                        <p class="b2 mb--55">Enter your detail below</p>
+                        {{-- <p class="b2 mb--55">Enter your detail below</p> --}}
                         <form class="singin-form" method="POST" action="{{ route('login') }}">
                             @csrf
                             @method('POST')
 
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" class="form-control" name="email" value="annie@example.com">
+                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" class="form-control" name="password" value="123456789">
+                                <input type="password" class="form-control" name="password" value="{{ old('password') }}">
                             </div>
                             <div class="form-group d-flex align-items-center justify-content-between">
                                 <button type="submit" class="axil-btn btn-bg-primary submit-btn">Se connecter</button>
-                                <a href="forgot-password.html" class="forgot-btn">Forget password?</a>
+                                <a href="{{ route('forgot_password') }}" class="forgot-btn">Mot de passe oublié?</a>
                             </div>
                         </form>
                     </div>

@@ -1,4 +1,8 @@
-  @extends('layouts.app')
+@php
+use Illuminate\Support\Facades\Auth;
+@endphp
+
+@extends('layouts.app')
 
   @section('content')
       <main class="main-wrapper">
@@ -35,11 +39,11 @@
                       <div class="axil-dashboard-author">
                           <div class="media">
                               <div class="thumbnail">
-                                  <img src="./assets/images/product/author1.png" alt="Hello Annie">
+                                  <img src="{{ Auth::user()->avatar ? '/storage/' . Auth::user()->avatar : asset('assets/images/product/author1.png') }}" alt="Hello Annie">
                               </div>
                               <div class="media-body">
-                                  <h5 class="title mb-0">Hello Annie</h5>
-                                  <span class="joining-date">eTrade Member Since Sep 2020</span>
+                                  <h5 class="title mb-0">{{ Auth::user()->name }}</h5>
+                                  <span class="joining-date">Boutique : {{ Auth::user()->shop->name }}</span>
                               </div>
                           </div>
                       </div>
@@ -154,7 +158,7 @@
                                               <div class="col-lg-4 col-sm-6">
                                                   <div class="axil-product product-style-one has-color-pick mt--40">
                                                       <div class="thumbnail">
-                                                          <a href="{{ route('detail_product') }}">
+                                                          <a href="{{ route('detail_product', $product->id) }}">
                                                               <img src="{{ asset('storage/' . $product->image) }}"
                                                                   alt="{{ $product->name }}">
                                                           </a>
@@ -163,7 +167,7 @@
                                                                   {{-- <li class="wishlist"><a href="wishlist.html"><i
                                                                           class="far fa-heart"></i></a></li> --}}
                                                                   <li class="quickview"><a
-                                                                          href="{{ route('detail_product') }}"
+                                                                          href="{{ route('detail_product', $product->id) }}"
                                                                           data-bs-toggle="modal"
                                                                           data-bs-target="#quick-view-modal"><i
                                                                               class="far fa-eye"></i></a></li>
@@ -173,10 +177,10 @@
                                                       <div class="product-content">
                                                           <div class="inner">
                                                               <h5 class="title"><a
-                                                                      href="{{ route('detail_product') }}">{{ $product->name }}
+                                                                      href="{{ route('detail_product', $product->id) }}">{{ $product->name }}
                                                                   </a></h5>
                                                               <div class="product-price-variant">
-                                                                  <span class="price current-price">{{ $product->price }}
+                                                                  <span class="price current-price">{{ $product->price }}$
                                                                   </span>
                                                                   {{-- <span class="price old-price">$50</span> --}}
                                                               </div>
@@ -187,7 +191,7 @@
                                           @empty
                                               <div class="mt-4">
                                                   <div class="p-3 mb-2 bg-secondary rounded text-white">
-                                                      Aucun produit trouvé
+                                                {{ Auth::user()->role == 'admin' ? 'Pour voir vos produits connectez-vous sur ' . url('/admin/products/') : 'Aucun produit trouvé' }}
                                                   </div>
                                               </div>
                                           @endforelse
@@ -238,103 +242,146 @@
                                   <div class="tab-pane fade" id="nav-account" role="tabpanel">
                                       <div class="col-lg-9">
                                           <div class="axil-dashboard-account">
-                                              <form class="account-details-form">
-                                                  <div class="row">
-                                                      <div class="col-lg-6">
-                                                          <div class="form-group">
-                                                              <label>Nom</label>
-                                                              <input type="text" name="name" class="form-control"
-                                                                  placeholder="Entrez votre nom" value="">
-                                                          </div>
-                                                      </div>
+                                               <form class="singin-form" method="POST" action="{{ route('update', Auth::user()->id) }}" enctype="multipart/form-data" id="avatar-form">
+                                                    @csrf
+                                                    @method('POST')
 
-                                                      <div class="col-lg-6">
-                                                          <div class="form-group">
-                                                              <label>Email</label>
-                                                              <input type="email" name="email" class="form-control"
-                                                                  placeholder="Entrez votre email" value="">
-                                                          </div>
-                                                      </div>
+                                                    <div class="row">
+                                                        <!-- Avatar -->
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group">
+                                                                <label for="avatar">Avatar</label>
+                                                                <input type="file" name="avatar" id="avatar" class="form-control">
+                                                                @error('avatar')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
 
-                                                      <div class="col-lg-6">
-                                                          <div class="form-group">
-                                                              <label>Numéro de téléphone</label>
-                                                              <input type="text" name="phone_number"
-                                                                  class="form-control"
-                                                                  placeholder="Entrez votre numéro de téléphone"
-                                                                  value="">
-                                                          </div>
-                                                      </div>
+                                                        <!-- Nom complet -->
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="name">Nom complet</label>
+                                                                <input type="text" name="name" id="name" class="form-control"
+                                                                    value="{{ old('name') }}" required maxlength="255">
+                                                                @error('name')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
 
-                                                      <div class="col-lg-6">
-                                                          <div class="form-group">
-                                                              <label>Adresse</label>
-                                                              <input type="text" name="address" class="form-control"
-                                                                  placeholder="Entrez votre adresse" value="">
-                                                          </div>
-                                                      </div>
+                                                        <!-- Email -->
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="email">Email</label>
+                                                                <input type="email" name="email" id="email" class="form-control"
+                                                                    value="{{ old('email') }}" required maxlength="255">
+                                                                @error('email')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
 
-                                                      <div class="col-lg-6">
-                                                          <div class="form-group">
-                                                              <label>Genre</label>
-                                                              <select name="gender" class="form-control">
-                                                                  <option value="">Sélectionnez votre genre</option>
-                                                                  <option value="male">Homme</option>
-                                                                  <option value="female">Femme</option>
-                                                              </select>
-                                                          </div>
-                                                      </div>
+                                                        <!-- Téléphone -->
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="phone_number">Téléphone</label>
+                                                                <input type="text" name="phone_number" id="phone_number"
+                                                                    class="form-control" value="{{ old('phone_number') }}" required
+                                                                    maxlength="20">
+                                                                @error('phone_number')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
 
-                                                      <div class="col-lg-6">
-                                                          <div class="form-group">
-                                                              <label>Date de naissance</label>
-                                                              <input type="date" name="date_of_birth"
-                                                                  class="form-control" value="">
-                                                          </div>
-                                                      </div>
+                                                        <!-- Adresse -->
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="address">Adresse</label>
+                                                                <input type="text" name="address" id="address" class="form-control"
+                                                                    value="{{ old('address') }}" required maxlength="255">
+                                                                @error('address')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
 
-                                                      <div class="col-lg-12">
-                                                          <div class="form-group">
-                                                              <label>Avatar</label>
-                                                              <input type="file" name="avatar" class="form-control">
-                                                          </div>
-                                                      </div>
-                                                      <div class="col-12">
-                                                          <div class="form-group mb--40">
-                                                              <label>Country/ Region</label>
-                                                              <select class="select2">
-                                                                  <option value="1">United Kindom (UK)</option>
-                                                                  <option value="1">United States (USA)</option>
-                                                                  <option value="1">United Arab Emirates (UAE)
-                                                                  </option>
-                                                                  <option value="1">Australia</option>
-                                                              </select>
-                                                              <p class="b3 mt--10">This will be how your name will be
-                                                                  displayed in the account section and in reviews</p>
-                                                          </div>
-                                                      </div>
-                                                      <div class="col-12">
-                                                          <h5 class="title">Password Change</h5>
-                                                          <div class="form-group">
-                                                              <label>Password</label>
-                                                              <input type="password" class="form-control"
-                                                                  value="123456789101112131415">
-                                                          </div>
-                                                          <div class="form-group">
-                                                              <label>New Password</label>
-                                                              <input type="password" class="form-control">
-                                                          </div>
-                                                          <div class="form-group">
-                                                              <label>Confirm New Password</label>
-                                                              <input type="password" class="form-control">
-                                                          </div>
-                                                          <div class="form-group mb--0">
-                                                              <input type="submit" class="axil-btn"
-                                                                  value="Save Changes">
-                                                          </div>
-                                                      </div>
-                                                  </div>
-                                              </form>
+                                                        <!-- Genre -->
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="gender">Genre</label>
+                                                                <select name="gender" id="gender" class="form-control">
+                                                                    <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>
+                                                                        Homme</option>
+                                                                    <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>
+                                                                        Femme</option>
+                                                                </select>
+                                                                @error('gender')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Date de naissance -->
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="date_of_birth">Date de naissance</label>
+                                                                <input type="date" name="date_of_birth" id="date_of_birth"
+                                                                    class="form-control" value="{{ old('date_of_birth') }}">
+                                                                @error('date_of_birth')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Nom de la boutique -->
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group">
+                                                                <label for="shop_name">Nom de la boutique</label>
+                                                                <input type="text" name="shop_name" id="shop_name" class="form-control"
+                                                                    value="{{ old('shop_name') }}">
+                                                                {{-- @error('shop_name')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror --}}
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <h5 class="title">Changer le mot de passe</h5>
+                                                            <div class="form-group">
+                                                                <label for="old_password">Ancien mot de passe</label>
+                                                                <input type="password" name="old_password" id="old_password" class="form-control" required minlength="8">
+                                                                @error('old_password')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="new_password">Confirmation du mot de passe</label>
+                                                                <input type="password" name="new_password" id="new_password" class="form-control" required
+                                                                    minlength="8">
+                                                                @error('new_password')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="password_confirmation">Confirmation du mot de passe</label>
+                                                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required
+                                                                    minlength="8">
+                                                                @error('password_confirmation')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Bouton de soumission -->
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group">
+                                                                <button type="submit" class="axil-btn btn-bg-primary submit-btn">Mettre à jour</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                           </div>
                                       </div>
                                   </div>

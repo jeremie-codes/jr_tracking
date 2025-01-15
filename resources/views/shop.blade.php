@@ -36,37 +36,36 @@
                             <div class="row">
                                 <div class="col-lg-9">
                                     <div class="category-select">
+                                        <form action="">
+                                            <!-- Start Single Select  -->
+                                            <select class="single-select">
+                                                <option value="">Catégorie</option>
+                                                @foreach ($categories as $category)
+                                                    <option value=" {{ $category->name }} ">{{ $category->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <!-- End Single Select  -->
 
-                                        <!-- Start Single Select  -->
-                                        <select class="single-select">
-                                            <option>Categories</option>
-                                            <option>Fashion</option>
-                                            <option>Electronics</option>
-                                            <option>Furniture</option>
-                                            <option>Beauty</option>
-                                        </select>
-                                        <!-- End Single Select  -->
+                                            <!-- Start Single Select  -->
+                                            <select class="single-select">
+                                                <option>Color</option>
+                                                <option>Red</option>
+                                                <option>Blue</option>
+                                                <option>Green</option>
+                                                <option>Pink</option>
+                                            </select>
+                                            <!-- End Single Select  -->
 
-                                        <!-- Start Single Select  -->
-                                        <select class="single-select">
-                                            <option>Color</option>
-                                            <option>Red</option>
-                                            <option>Blue</option>
-                                            <option>Green</option>
-                                            <option>Pink</option>
-                                        </select>
-                                        <!-- End Single Select  -->
-
-                                        <!-- Start Single Select  -->
-                                        <select class="single-select">
-                                            <option>Price Range</option>
-                                            <option>0 - 100</option>
-                                            <option>100 - 500</option>
-                                            <option>500 - 1000</option>
-                                            <option>1000 - 1500</option>
-                                        </select>
-                                        <!-- End Single Select  -->
-
+                                            <!-- Start Single Select  -->
+                                            <select class="single-select">
+                                                <option>Price Range</option>
+                                                <option>0 - 100</option>
+                                                <option>100 - 500</option>
+                                                <option>500 - 1000</option>
+                                                <option>1000 - 1500</option>
+                                            </select>
+                                            <!-- End Single Select  -->
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -86,10 +85,11 @@
                     </div>
                 </div>
                 <div class="row row--15">
-                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                    {{-- EXEMPLES --}}
+                    {{-- <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="axil-product product-style-one has-color-pick mt--40">
                             <div class="thumbnail">
-                                <a href="{{ route('detail_product') }}">
+                                <a href="{{ route('detail_product', 1) }}">
                                     <img src="assets/images/product/electric/product-01.png" alt="Product Images">
                                 </a>
                                 <div class="label-block label-right">
@@ -98,7 +98,7 @@
                                 <div class="product-hover-action">
                                     <ul class="cart-action">
                                         <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
-                                        <li class="select-option"><a href="cart.html">Add to Cart</a></li>
+                                        <li class="select-option"><a href="cart.html">+ Panier</a></li>
                                         <li class="quickview"><a href="#" data-bs-toggle="modal"
                                                 data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
                                     </ul>
@@ -106,7 +106,8 @@
                             </div>
                             <div class="product-content">
                                 <div class="inner">
-                                    <h5 class="title"><a href="{{ route('detail_product') }}">3D™ wireless headset</a></h5>
+                                    <h5 class="title"><a href="{{ route('detail_product', 1) }}">3D™ wireless headset</a>
+                                    </h5>
                                     <div class="product-price-variant">
                                         <span class="price current-price">$30</span>
                                         <span class="price old-price">$30</span>
@@ -125,17 +126,16 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End Single Product  -->
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="axil-product product-style-one has-color-pick mt--40">
                             <div class="thumbnail">
-                                <a href="{{ route('detail_product') }}">
+                                <a href="{{ route('detail_product', 1) }}">
                                     <img src="assets/images/product/electric/product-02.png" alt="Product Images">
                                 </a>
                                 <div class="product-hover-action">
                                     <ul class="cart-action">
                                         <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
-                                        <li class="select-option"><a href="cart.html">Add to Cart</a></li>
+                                        <li class="select-option"><a href="cart.html">+ Panier</a></li>
                                         <li class="quickview"><a href="#" data-bs-toggle="modal"
                                                 data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
                                     </ul>
@@ -143,7 +143,7 @@
                             </div>
                             <div class="product-content">
                                 <div class="inner">
-                                    <h5 class="title"><a href="{{ route('detail_product') }}">Media remote</a></h5>
+                                    <h5 class="title"><a href="{{ route('detail_product', 1) }}">Media remote</a></h5>
                                     <div class="product-price-variant">
                                         <span class="price current-price">$40</span>
                                         <span class="price old-price">$50</span>
@@ -161,411 +161,52 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- End Single Product  -->
-                    <div class="col-xl-3 col-lg-4 col-sm-6">
-                        <div class="axil-product product-style-one has-color-pick mt--40">
-                            <div class="thumbnail">
-                                <a href="{{ route('detail_product') }}">
-                                    <img src="assets/images/product/electric/product-03.png" alt="Product Images">
-                                </a>
-                                <div class="label-block label-right">
-                                    <div class="product-badget">30% OFF</div>
-                                </div>
-                                <div class="product-hover-action">
-                                    <ul class="cart-action">
-                                        <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a>
-                                        </li>
-                                        <li class="select-option"><a href="cart.html">Add to Cart</a></li>
-                                        <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="inner">
-                                    <h5 class="title"><a href="{{ route('detail_product') }}">HD camera</a></h5>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$45</span>
-                                        <span class="price old-price">$60</span>
-                                    </div>
-                                    <div class="color-variant-wrapper">
-                                        <ul class="color-variant">
-                                            <li class="color-extra-01 active"><span><span class="color"></span></span>
+                    </div> --}}
+
+                    @forelse ($products as $product)
+                        <div class="col-xl-3 col-lg-4 col-sm-6">
+                            <div class="axil-product product-style-one has-color-pick mt--40">
+                                <div class="thumbnail">
+                                    <a href="{{ route('detail_product', 1) }}">
+                                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                                    </a>
+                                    <div class="product-hover-action">
+                                        <ul class="cart-action">
+                                            <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a>
                                             </li>
-                                            <li class="color-extra-02"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-03"><span><span class="color"></span></span>
-                                            </li>
+                                            <li class="select-option"><a href="cart.html">+ Panier</a></li>
+                                            <li class="quickview"><a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
                                         </ul>
+                                    </div>
+                                </div>
+                                <div class="product-content">
+                                    <div class="inner">
+                                        <h5 class="title"><a href="{{ route('detail_product', $product->id) }}">Guys Bomber
+                                                Jacket</a>
+                                        </h5>
+                                        <div class="product-price-variant">
+                                            <span class="price current-price">{{ $product->price }}$</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- End Single Product  -->
-                    <div class="col-xl-3 col-lg-4 col-sm-6">
-                        <div class="axil-product product-style-one has-color-pick mt--40">
-                            <div class="thumbnail">
-                                <a href="{{ route('detail_product') }}">
-                                    <img src="assets/images/product/electric/product-04.png" alt="Product Images">
-                                </a>
-                                <div class="product-hover-action">
-                                    <ul class="cart-action">
-                                        <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a>
-                                        </li>
-                                        <li class="select-option"><a href="cart.html">Add to Cart</a></li>
-                                        <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="inner">
-                                    <h5 class="title"><a href="{{ route('detail_product') }}">Guys Bomber Jacket</a></h5>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$70</span>
-                                        <span class="price old-price">$100</span>
-                                    </div>
-                                    <div class="color-variant-wrapper">
-                                        <ul class="color-variant">
-                                            <li class="color-extra-01 active"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-02"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-03"><span><span class="color"></span></span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                    @empty
+                        <div class="col-12 mt-4">
+                            <div class="p-3 my-4 alert alert-success">Aucun produit trouvé</div>
                         </div>
-                    </div>
-                    <!-- End Single Product  -->
-                    <div class="col-xl-3 col-lg-4 col-sm-6">
-                        <div class="axil-product product-style-one has-color-pick mt--40">
-                            <div class="thumbnail">
-                                <a href="{{ route('detail_product') }}">
-                                    <img src="assets/images/product/electric/product-05.png" alt="Product Images">
-                                </a>
-                                <div class="label-block label-right">
-                                    <div class="product-badget">15% OFF</div>
-                                </div>
-                                <div class="product-hover-action">
-                                    <ul class="cart-action">
-                                        <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a>
-                                        </li>
-                                        <li class="select-option"><a href="cart.html">Add to Cart</a></li>
-                                        <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="inner">
-                                    <h5 class="title"><a href="{{ route('detail_product') }}">Level 20 RGB Cherry</a>
-                                    </h5>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$38</span>
-                                        <span class="price old-price">$50</span>
-                                    </div>
-                                    <div class="color-variant-wrapper">
-                                        <ul class="color-variant">
-                                            <li class="color-extra-01 active"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-02"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-03"><span><span class="color"></span></span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Product  -->
-                    <div class="col-xl-3 col-lg-4 col-sm-6">
-                        <div class="axil-product product-style-one has-color-pick mt--40">
-                            <div class="thumbnail">
-                                <a href="{{ route('detail_product') }}">
-                                    <img src="assets/images/product/electric/product-06.png" alt="Product Images">
-                                </a>
-                                <div class="product-hover-action">
-                                    <ul class="cart-action">
-                                        <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a>
-                                        </li>
-                                        <li class="select-option"><a href="cart.html">Add to Cart</a></li>
-                                        <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="inner">
-                                    <h5 class="title"><a href="{{ route('detail_product') }}">Level 20 RGB Cherry</a>
-                                    </h5>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$25</span>
-                                        <span class="price old-price">$40</span>
-                                    </div>
-                                    <div class="color-variant-wrapper">
-                                        <ul class="color-variant">
-                                            <li class="color-extra-01 active"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-02"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-03"><span><span class="color"></span></span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Product  -->
-                    <div class="col-xl-3 col-lg-4 col-sm-6">
-                        <div class="axil-product product-style-one has-color-pick mt--40">
-                            <div class="thumbnail">
-                                <a href="{{ route('detail_product') }}">
-                                    <img src="assets/images/product/electric/product-07.png" alt="Product Images">
-                                </a>
-                                <div class="label-block label-right">
-                                    <div class="product-badget">5% OFF</div>
-                                </div>
-                                <div class="product-hover-action">
-                                    <ul class="cart-action">
-                                        <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a>
-                                        </li>
-                                        <li class="select-option"><a href="cart.html">Add to Cart</a></li>
-                                        <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="inner">
-                                    <h5 class="title"><a href="{{ route('detail_product') }}">Logitech Streamcam</a>
-                                    </h5>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$15</span>
-                                        <span class="price old-price">$20</span>
-                                    </div>
-                                    <div class="color-variant-wrapper">
-                                        <ul class="color-variant">
-                                            <li class="color-extra-01 active"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-02"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-03"><span><span class="color"></span></span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Product  -->
-                    <div class="col-xl-3 col-lg-4 col-sm-6">
-                        <div class="axil-product product-style-one has-color-pick mt--40">
-                            <div class="thumbnail">
-                                <a href="{{ route('detail_product') }}">
-                                    <img src="assets/images/product/electric/product-08.png" alt="Product Images">
-                                </a>
-                                <div class="product-hover-action">
-                                    <ul class="cart-action">
-                                        <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a>
-                                        </li>
-                                        <li class="select-option"><a href="cart.html">Add to Cart</a></li>
-                                        <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="inner">
-                                    <h5 class="title"><a href="{{ route('detail_product') }}">Bass Meets Clarity</a>
-                                    </h5>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$60</span>
-                                        <span class="price old-price">$80</span>
-                                    </div>
-                                    <div class="color-variant-wrapper">
-                                        <ul class="color-variant">
-                                            <li class="color-extra-01 active"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-02"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-03"><span><span class="color"></span></span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Product  -->
-                    <div class="col-xl-3 col-lg-4 col-sm-6">
-                        <div class="axil-product product-style-one has-color-pick mt--40">
-                            <div class="thumbnail">
-                                <a href="{{ route('detail_product') }}">
-                                    <img src="assets/images/product/fashion/product-9.png" alt="Product Images">
-                                </a>
-                                <div class="label-block label-right">
-                                    <div class="product-badget">20% OFF</div>
-                                </div>
-                                <div class="product-hover-action">
-                                    <ul class="cart-action">
-                                        <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a>
-                                        </li>
-                                        <li class="select-option"><a href="cart.html">Add to Cart</a></li>
-                                        <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="inner">
-                                    <h5 class="title"><a href="{{ route('detail_product') }}">Wall Mount</a></h5>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$30</span>
-                                        <span class="price old-price">$30</span>
-                                    </div>
-                                    <div class="color-variant-wrapper">
-                                        <ul class="color-variant">
-                                            <li class="color-extra-01 active"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-02"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-03"><span><span class="color"></span></span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Product  -->
-                    <div class="col-xl-3 col-lg-4 col-sm-6">
-                        <div class="axil-product product-style-one has-color-pick mt--40">
-                            <div class="thumbnail">
-                                <a href="{{ route('detail_product') }}">
-                                    <img src="assets/images/product/fashion/product-10.png" alt="Product Images">
-                                </a>
-                                <div class="product-hover-action">
-                                    <ul class="cart-action">
-                                        <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a>
-                                        </li>
-                                        <li class="select-option"><a href="cart.html">Add to Cart</a></li>
-                                        <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="inner">
-                                    <h5 class="title"><a href="{{ route('detail_product') }}">MX Master 3</a></h5>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$40</span>
-                                        <span class="price old-price">$50</span>
-                                    </div>
-                                    <div class="color-variant-wrapper">
-                                        <ul class="color-variant">
-                                            <li class="color-extra-01 active"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-02"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-03"><span><span class="color"></span></span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Product  -->
-                    <div class="col-xl-3 col-lg-4 col-sm-6">
-                        <div class="axil-product product-style-one has-color-pick mt--40">
-                            <div class="thumbnail">
-                                <a href="{{ route('detail_product') }}">
-                                    <img src="assets/images/product/fashion/product-11.png" alt="Product Images">
-                                </a>
-                                <div class="label-block label-right">
-                                    <div class="product-badget">30% OFF</div>
-                                </div>
-                                <div class="product-hover-action">
-                                    <ul class="cart-action">
-                                        <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a>
-                                        </li>
-                                        <li class="select-option"><a href="cart.html">Add to Cart</a></li>
-                                        <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="inner">
-                                    <h5 class="title"><a href="{{ route('detail_product') }}">Zone Headphone</a></h5>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$45</span>
-                                        <span class="price old-price">$60</span>
-                                    </div>
-                                    <div class="color-variant-wrapper">
-                                        <ul class="color-variant">
-                                            <li class="color-extra-01 active"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-02"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-03"><span><span class="color"></span></span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Product  -->
-                    <div class="col-xl-3 col-lg-4 col-sm-6">
-                        <div class="axil-product product-style-one has-color-pick mt--40">
-                            <div class="thumbnail">
-                                <a href="{{ route('detail_product') }}">
-                                    <img src="assets/images/product/fashion/product-12.png" alt="Product Images">
-                                </a>
-                                <div class="product-hover-action">
-                                    <ul class="cart-action">
-                                        <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a>
-                                        </li>
-                                        <li class="select-option"><a href="cart.html">Add to Cart</a></li>
-                                        <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="inner">
-                                    <h5 class="title"><a href="{{ route('detail_product') }}">Mice Logitech</a></h5>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">$70</span>
-                                        <span class="price old-price">$100</span>
-                                    </div>
-                                    <div class="color-variant-wrapper">
-                                        <ul class="color-variant">
-                                            <li class="color-extra-01 active"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-02"><span><span class="color"></span></span>
-                                            </li>
-                                            <li class="color-extra-03"><span><span class="color"></span></span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Product  -->
+                    @endforelse
                 </div>
-                <div class="text-center pt--30">
-                    <a href="#" class="axil-btn btn-bg-lighter btn-load-more">Load more</a>
+
+                <!-- Pagination -->
+                <div class="d-flex justify-content-center">
+                    {{ $products->links('vendor.pagination.bootstrap-4') }}
                 </div>
+
+                {{-- <div class="text-center pt--30">
+                    <a href="#" class="axil-btn btn-bg-lighter btn-load-more"> {{ $products ? 'Voir plus' : '' }}</a>
+                </div> --}}
             </div>
             <!-- End .container -->
         </div>

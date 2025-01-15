@@ -47,6 +47,7 @@ class ProductResource extends Resource
                 Section::make()
                     ->schema([
                         FileUpload::make('image')
+                            ->imageEditor()
                             ->required()
                     ]),
                 Section::make()
