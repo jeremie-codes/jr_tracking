@@ -17,6 +17,30 @@
     <meta name="apple-mobile-web-app-title" content="E-GALERIA" />
     <link rel="manifest" href="{{ asset('assets/favicon/site.webmanifest') }}" />
 
+    {{-- Meta --}}
+    <meta name="theme-color" content="#888">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="E-GALERIA">
+    <meta name="description"
+        content="E-GALERIA est une plateforme e-commerce qui permet aux vendeurs de créer des boutiques en ligne et de vendre leurs produits facilement. Découvrez une expérience d'achat unique et sécurisée." />
+    <meta name="keywords"
+        content="E-GALERIA, boutique en ligne, e-commerce, vente en ligne, produits, vendeurs, acheteurs, shopping en ligne, marketplace, vente sécurisée, expérience d'achat" />
+    <link rel="canonical" href="#">
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="E-GALERIA - Votre boutique en ligne préférée" />
+    <meta property="og:description"
+        content="E-GALERIA est une plateforme e-commerce qui permet aux vendeurs de créer des boutiques en ligne et de vendre leurs produits facilement. Découvrez une expérience d'achat unique et sécurisée." />
+    <meta property="og:image" content="{{ asset('assets/images/logo/logo.png') }}" />
+    <meta property="og:url" content="#" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="1024" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="{{ asset('assets/images/logo/logo.png') }}">
+    <meta name="twitter:title" content="E-GALERIA - Votre boutique en ligne préférée">
+    <meta name="twitter:description"
+        content="E-GALERIA est une plateforme e-commerce qui permet aux vendeurs de créer des boutiques en ligne et de vendre leurs produits facilement. Découvrez une expérience d'achat unique et sécurisée.">
+
     <!-- CSS
     ============================================ -->
 
