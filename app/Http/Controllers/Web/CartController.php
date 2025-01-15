@@ -18,7 +18,31 @@ class CartController extends Controller
 
     public function show()
     {
-        return view('cart');
+        $cart = session('cart', []);
+        $subtotal = 0;
+
+        // Calculer le sous-total
+        foreach ($cart as $item) {
+            $subtotal += $item['price'] * $item['quantity'];
+        }
+
+        // Frais de livraison (exemple : gratuit par défaut)
+        $shipping = 0;
+
+        // Taxes (exemple : 8% du sous-total)
+        $taxRate = 0.08;
+        $tax = $subtotal * $taxRate;
+
+        // Total
+        $total = $subtotal + $shipping + $tax;
+
+        return view('cart', [
+            'cart' => $cart,
+            'subtotal' => $subtotal,
+            'shipping' => $shipping,
+            'tax' => $tax,
+            'total' => $total,
+        ]);
     }
 
     /**

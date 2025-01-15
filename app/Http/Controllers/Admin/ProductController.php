@@ -30,6 +30,16 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $cart = session('cart', []);
+        $totalItems = 0;
+        $subtotal = 0;
+
+        // Calculer le nombre total d'articles et le sous-total
+        foreach ($cart as $item) {
+            $totalItems += $item['quantity'];
+            $subtotal += $item['price'] * $item['quantity'];
+        }
+
         $products = $this->productContract->toGetAll();
         $categories = Category::all();
 
@@ -38,6 +48,9 @@ class ProductController extends Controller
         return view('shop', data: [
             'products' => $products,
             'categories' => $categories,
+            'cart' => $cart,
+            'totalItems' => $totalItems,
+            'subtotal' => $subtotal,
         ]);
     }
 

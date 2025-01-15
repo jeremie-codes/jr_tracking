@@ -167,7 +167,7 @@
                         <div class="col-xl-3 col-lg-4 col-sm-6">
                             <div class="axil-product product-style-one has-color-pick mt--40">
                                 <div class="thumbnail">
-                                    <a href="{{ route('detail_product', 1) }}">
+                                    <a href="{{ route('detail_product', $product->slug) }}">
                                         <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
                                     </a>
                                     <div class="product-hover-action">
@@ -186,7 +186,7 @@
                                 </div>
                                 <div class="product-content">
                                     <div class="inner">
-                                        <h5 class="title"><a href="{{ route('detail_product', $product->id) }}">{{ $product->name }}</a>
+                                        <h5 class="title"><a href="{{ route('detail_product', $product->slug) }}">{{ $product->name }}</a>
                                         </h5>
                                         <div class="product-price-variant">
                                             <span class="price current-price">{{ $product->price }}$</span>

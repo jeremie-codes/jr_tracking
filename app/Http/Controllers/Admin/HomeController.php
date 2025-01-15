@@ -21,14 +21,31 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $cart = session('cart', []);
+        $totalItems = 0;
+        $subtotal = 0;
+
+        // Calculer le nombre total d'articles et le sous-total
+        foreach ($cart as $item) {
+            $totalItems += $item['quantity'];
+            $subtotal += $item['price'] * $item['quantity'];
+        }
+
         if (Auth::user()) {
             $user = $this->userContract->toGetById(Auth::user()->id);
 
             return view('home', [
-                'user' => Auth::user()
+                'user' => Auth::user(),
+                'cart' => $cart,
+                'totalItems' => $totalItems,
+                'subtotal' => $subtotal,
             ]);
         }
-        return view('home');
+        return view('home', [
+            'cart' => $cart,
+            'totalItems' => $totalItems,
+            'subtotal' => $subtotal,
+        ]);
     }
 
     /**

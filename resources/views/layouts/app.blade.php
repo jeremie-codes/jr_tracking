@@ -1,3 +1,17 @@
+@php
+
+    $cart = session('cart', []);
+    $totalItems = 0;
+    $subtotal = 0;
+
+    // Calculer le nombre total d'articles et le sous-total
+    foreach ($cart as $item) {
+        $totalItems += $item['quantity'];
+        $subtotal += $item['price'] * $item['quantity'];
+    }
+
+@endphp
+
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -321,94 +335,72 @@
     <div class="cart-dropdown" id="cart-dropdown">
         <div class="cart-content-wrap">
             <div class="cart-header">
-                <h2 class="header-title">Cart review</h2>
+                <h2 class="header-title">Révision du panier</h2>
                 <button class="cart-close sidebar-close"><i class="fas fa-times"></i></button>
             </div>
             <div class="cart-body">
                 <ul class="cart-item-list">
-                    <li class="cart-item">
-                        <div class="item-img">
-                            <a href="single-product.html"><img src="assets/images/product/electric/product-01.png"
-                                    alt="Commodo Blown Lamp"></a>
-                            <button class="close-btn"><i class="fas fa-times"></i></button>
-                        </div>
-                        <div class="item-content">
-                            <div class="product-rating">
-                                <span class="icon">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </span>
-                                <span class="rating-number">(64)</span>
+                    @if(session('cart') && count(session('cart')) > 0)
+                        @foreach(session('cart') as $key => $item)
+                            <li class="cart-item">
+                                <div class="item-img">
+                                    <a href="single-product.html">
+                                        <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}">
+                                    </a>
+                                    <a class="close-btn" href="{{ route('cart.remove', $key) }}">
+                                        <i class="fas fa-times"></i>
+                                    </a>
+                                </div>
+                                <div class="item-content">
+                                    <div class="product-rating">
+                                        <span class="icon">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </span>
+                                        <span class="rating-number">(64)</span>
+                                    </div>
+                                    <h3 class="item-title">
+                                        <a href="single-product-3.html">{{ $item['name'] }}</a>
+                                    </h3>
+                                    <div class="item-price">
+                                        {{-- <span class="currency-symbol">$</span>{{ number_format($item['price'], 2) }} --}}
+                                    </div>
+                                    <form action="{{ route('cart.add', $key) }}" method="POST" class="update-form">
+                                        @csrf
+                                        <div class="pro-qty item-quantity">
+                                            <input type="number" name="quantity" class="quantity-input"
+                                                value="{{ $item['quantity'] }}">
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                        @endforeach
+                    @else
+                        <li class="cart-item">
+                            <div class="item-content">
+                                <h3 class="item-title">Votre panier est vide.</h3>
                             </div>
-                            <h3 class="item-title"><a href="single-product-3.html">Wireless PS Handler</a></h3>
-                            <div class="item-price"><span class="currency-symbol">$</span>155.00</div>
-                            <div class="pro-qty item-quantity">
-                                <input type="number" class="quantity-input" value="15">
-                            </div>
-                        </div>
-                    </li>
-                    <li class="cart-item">
-                        <div class="item-img">
-                            <a href="single-product-2.html"><img src="assets/images/product/electric/product-02.png"
-                                    alt="Commodo Blown Lamp"></a>
-                            <button class="close-btn"><i class="fas fa-times"></i></button>
-                        </div>
-                        <div class="item-content">
-                            <div class="product-rating">
-                                <span class="icon">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </span>
-                                <span class="rating-number">(4)</span>
-                            </div>
-                            <h3 class="item-title"><a href="single-product-2.html">Gradient Light Keyboard</a></h3>
-                            <div class="item-price"><span class="currency-symbol">$</span>255.00</div>
-                            <div class="pro-qty item-quantity">
-                                <input type="number" class="quantity-input" value="5">
-                            </div>
-                        </div>
-                    </li>
-                    <li class="cart-item">
-                        <div class="item-img">
-                            <a href="single-product-3.html"><img src="assets/images/product/electric/product-03.png"
-                                    alt="Commodo Blown Lamp"></a>
-                            <button class="close-btn"><i class="fas fa-times"></i></button>
-                        </div>
-                        <div class="item-content">
-                            <div class="product-rating">
-                                <span class="icon">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </span>
-                                <span class="rating-number">(6)</span>
-                            </div>
-                            <h3 class="item-title"><a href="single-product.html">HD CC Camera</a></h3>
-                            <div class="item-price"><span class="currency-symbol">$</span>200.00</div>
-                            <div class="pro-qty item-quantity">
-                                <input type="number" class="quantity-input" value="100">
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    @endif
                 </ul>
             </div>
             <div class="cart-footer">
+                  <div class="update-btn my-4">
+                    <button type="button" class="axil-btn btn-outline" id="update-cart-dropdown">Mettre à jour le
+                        panier</button>
+                </div>
+
                 <h3 class="cart-subtotal">
-                    <span class="subtotal-title">Subtotal:</span>
-                    <span class="subtotal-amount">$610.00</span>
+                    <span class="subtotal-title">Sous-total:</span>
+                    <span class="subtotal-amount">${{ number_format($subtotal, 2) }}</span>
                 </h3>
                 <div class="group-btn">
                     <a href="{{ route('cart') }}" class="axil-btn btn-bg-primary viewcart-btn">Voir le panier</a>
-                    <a href="checkout.html" class="axil-btn btn-bg-secondary checkout-btn">Checkout</a>
-                </div>
+                    <a href="{{ route('checkout') }}" class="axil-btn btn-bg-secondary checkout-btn">Checkout</a>
+                </div>              
             </div>
         </div>
     </div>
@@ -457,6 +449,15 @@
 
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
+
+    <script>
+        document.getElementById('update-cart-dropdown').addEventListener('click', function () {
+                // Soumettre tous les formulaires de mise à jour
+                document.querySelectorAll('.update-form').forEach(form => {
+                    form.submit();
+                });
+            });
+    </script>
 
 </body>
 

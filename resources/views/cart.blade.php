@@ -76,50 +76,57 @@
                         <button type="submit" form="update-cart-form" class="axil-btn btn-outline">Mettre à jour le panier</button>
                     </div>
                 </div>
-                <!-- Récapitulatif de la commande -->
-                <div class="row">
-                    <div class="col-xl-5 col-lg-7 offset-xl-7 offset-lg-5">
-                        <div class="axil-order-summery mt--80">
-                            <h5 class="title mb--20">Récapitulatif de la commande</h5>
-                            <div class="summery-table-wrap">
-                                <table class="table summery-table mb--30">
-                                    <tbody>
-                                        <tr class="order-subtotal">
-                                            <td>Sous-total</td>
-                                            <td>$117.00</td>
-                                        </tr>
-                                        <tr class="order-shipping">
-                                            <td>Livraison</td>
-                                            <td>
-                                                <div class="input-group">
-                                                    <input type="radio" id="radio1" name="shipping" checked>
-                                                    <label for="radio1">Livraison gratuite</label>
-                                                </div>
-                                                <div class="input-group">
-                                                    <input type="radio" id="radio2" name="shipping">
-                                                    <label for="radio2">Local : $35.00</label>
-                                                </div>
-                                                <div class="input-group">
-                                                    <input type="radio" id="radio3" name="shipping">
-                                                    <label for="radio3">Tarif fixe : $12.00</label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="order-tax">
-                                            <td>Taxes</td>
-                                            <td>$8.00</td>
-                                        </tr>
-                                        <tr class="order-total">
-                                            <td>Total</td>
-                                            <td class="order-total-amount">$125.00</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <a href="checkout.html" class="axil-btn btn-bg-primary checkout-btn">Passer à la caisse</a>
+            <!-- Récapitulatif de la commande -->
+            <div class="row">
+                <div class="col-xl-5 col-lg-7 offset-xl-7 offset-lg-5">
+                    <div class="axil-order-summery mt--80">
+                        <h5 class="title mb--20">Récapitulatif de la commande</h5>
+                        <div class="summery-table-wrap">
+                            <table class="table summery-table mb--30">
+                                <tbody>
+                                    <!-- Sous-total -->
+                                    <tr class="order-subtotal">
+                                        <td>Sous-total</td>
+                                        <td>${{ number_format($subtotal, 2) }}</td>
+                                    </tr>
+            
+                                    <!-- Frais de livraison -->
+                                    {{-- <tr class="order-shipping">
+                                        <td>Livraison</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="radio" id="radio1" name="shipping" checked>
+                                                <label for="radio1">Livraison gratuite</label>
+                                            </div>
+                                            <div class="input-group">
+                                                <input type="radio" id="radio2" name="shipping">
+                                                <label for="radio2">Local : $35.00</label>
+                                            </div>
+                                            <div class="input-group">
+                                                <input type="radio" id="radio3" name="shipping">
+                                                <label for="radio3">Tarif fixe : $12.00</label>
+                                            </div>
+                                        </td>
+                                    </tr> --}}
+            
+                                    <!-- Taxes -->
+                                    {{-- <tr class="order-tax">
+                                        <td>Taxes</td>
+                                        <td>${{ number_format($tax, 2) }}</td>
+                                    </tr> --}}
+            
+                                    <!-- Total -->
+                                    <tr class="order-total">
+                                        <td>Total</td>
+                                        <td class="order-total-amount">${{ number_format($subtotal, 2) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
+                        <a href="{{ route('checkout') }}" class="axil-btn btn-bg-primary checkout-btn">Passer à la caisse</a>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
         </div>

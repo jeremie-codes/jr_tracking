@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProductController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/shop', [ProductController::class, 'index'])->name('shop');
+Route::get('/detail-product/{slug}', [ProductController::class, 'show'])->name('detail_product');
 
 // Les routes de gestion du panier
 Route::get('cart', [CartController::class, 'show'])->name('cart');
@@ -17,6 +18,7 @@ Route::post('cart/add/{product}', [CartController::class, 'add'])->name('cart.ad
 Route::get('cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('cart/empty', [CartController::class, 'empty'])->name('cart.empty');
 Route::put('/cart/update-multiple', [CartController::class, 'updateMultiple'])->name('cart.update.multiple');
+
 
 Route::view('/404', '404')->name('404');
 Route::view('/about-us', 'about-us')->name('about');
@@ -39,7 +41,6 @@ Route::post('/register', [AuthController::class, 'handleRegister'])->name('regis
 Route::post('/update/{id}', [AuthController::class, 'update'])->name('update');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/detail-product/{id}', [ProductController::class, 'show'])->name('detail_product');
 
 Route::middleware('auth')->group(function () {
     Route::get('/my-account', [AccountController::class, 'index'])->name('my_account');

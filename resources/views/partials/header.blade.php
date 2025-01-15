@@ -1,3 +1,15 @@
+@php
+
+    $cart = session('cart', []);
+    $totalItems = 0;
+
+    // Calculer le nombre total d'articles
+    foreach ($cart as $item) {
+        $totalItems += $item['quantity'];
+    }
+    
+@endphp
+
 <header class="header axil-header header-style-5">
     <!-- Start Mainmenu Area -->
     <div class="axil-mainmenu">
@@ -37,12 +49,12 @@
                                 <i class="flaticon-magnifying-glass"></i>
                             </a>
                         </li>
-                        <li class="shopping-cart">
-                            <a href="#" class="cart-dropdown-btn">
-                                <span class="cart-count">3</span>
-                                <i class="flaticon-shopping-cart"></i>
-                            </a>
-                        </li>
+                    <li class="shopping-cart">
+                        <a href="#" class="cart-dropdown-btn">
+                            <span class="cart-count" id="cart-count">{{ $totalItems }}</span>
+                            <i class="flaticon-shopping-cart"></i>
+                        </a>
+                    </li>
                         <li class="my-account">
                             <a href="javascript:void(0)">
                                 <i class="flaticon-person"></i>
