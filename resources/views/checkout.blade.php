@@ -180,9 +180,9 @@
                                 <!-- WhatsApp -->
                                 <div class="single-payment">
                                     <div class="input-group justify-content-between align-items-center">
-                                        <a href="https://wa.me/2250707070707?text=Bonjour, je souhaite passer une commande." target="_blank"
+                                        <a href="https://wa.me/243815229941?text=Bonjour, je souhaite passer une commande." target="_blank"
                                             class="whatsapp-btn">
-                                            <img src="{{ asset('/assets/images/others/whatsapp.png') }}" alt="WhatsApp"
+                                            <img src="{{ asset('/assets/images/logo/whatsapp.png') }}" alt="WhatsApp"
                                                 style="width: 24px; height: 24px; margin-right: 10px;">
                                             Payer via WhatsApp
                                         </a>
