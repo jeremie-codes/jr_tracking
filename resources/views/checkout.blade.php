@@ -205,35 +205,36 @@
                                          </tbody>
                                      </table>
                                  </div>
-                                 <div class="order-payment-method">
-                                     <div class="single-payment">
-                                         <div class="input-group">
-                                             <input type="radio" id="radio4" name="payment">
-                                             <label for="radio4">Direct bank transfer</label>
-                                         </div>
-                                         <p>Make your payment directly into our bank account. Please use your Order ID as
-                                             the payment reference. Your order will not be shipped until the funds have
-                                             cleared in our account.</p>
-                                     </div>
-                                     <div class="single-payment">
-                                         <div class="input-group">
-                                             <input type="radio" id="radio5" name="payment">
-                                             <label for="radio5">Cash on delivery</label>
-                                         </div>
-                                         <p>Pay with cash upon delivery.</p>
-                                     </div>
-                                     <div class="single-payment">
-                                         <div class="input-group justify-content-between align-items-center">
-                                             <input type="radio" id="radio6" name="payment" checked>
-                                             <label for="radio6">Paypal</label>
-                                             <img src="./assets/images/others/payment.png" alt="Paypal payment">
-                                         </div>
-                                         <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal
-                                             account.</p>
-                                     </div>
-                                 </div>
-                                 <button type="submit" class="axil-btn btn-bg-primary checkout-btn">Process to
-                                     Checkout</button>
+                                <div class="order-payment-method bg-white p-4 rounded mb--15">
+                                    <div class="single-payment">
+                                        <div class="input-group justify-content-between align-items-center">
+                                            <input type="radio" id="radio4" name="type" value="mobile" required>
+                                            <label for="radio4">Mobile Money</label>
+                                            <img src="{{asset('/assets/images/others/mobile.png')}}" alt="Paypal payment">
+                                        </div>
+                                        <p>
+                                        <div class="form-group">
+                                            <label>Téléphone</label>
+                                            <input type="text" id="company-name" name="phone" pattern="^243(80|81|82|83|84|85|89|90|97|99)\d{7}$">
+                                
+                                            @error('phone')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        </p>
+                                    </div>
+                                    <div class="single-payment">
+                                        <div class="input-group justify-content-between align-items-center">
+                                            <input type="radio" id="radio6" name="type" value="card">
+                                            <label for="radio6">Carte Bancaire</label>
+                                            <img src="./assets/images/others/payment.png" alt="Paypal payment">
+                                        </div>
+                                        <p>Vous pouvez payer avec votre carte de crédit.</p>
+                                    </div>
+                                </div>
+                                 <button type="submit" class="axil-btn btn-bg-primary checkout-btn">Paiement</button>
                              </div>
                          </div>
                      </div>

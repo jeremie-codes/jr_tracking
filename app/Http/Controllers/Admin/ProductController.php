@@ -111,6 +111,36 @@ class ProductController extends Controller
         ]);
     }
 
+    public function filterProducts(Request $request)
+    {
+        $categoryId = $request['category_id'];
+        $priceRange = $request['price_range'];
+        $sort = $request['sort'];
+
+        $products = $this->productContract->getFilteredProducts($categoryId, $priceRange, $sort, $n = 20);
+        $categories = Category::all();
+
+        $cart = session('cart', []);
+        $totalItems = 0;
+        $subtotal = 0;
+
+        // Calculer le nombre total d'articles et le sous-total
+        foreach ($cart as $item) {
+            $totalItems += $item['quantity'];
+            $subtotal += $item['price'] * $item['quantity'];
+        }
+
+        // dd( $products->links() );
+
+        return view('shop', data: [
+            'products' => $products,
+            'categories' => $categories,
+            'cart' => $cart,
+            'totalItems' => $totalItems,
+            'subtotal' => $subtotal,
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

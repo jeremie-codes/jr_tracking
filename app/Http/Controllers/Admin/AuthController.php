@@ -58,6 +58,8 @@ class AuthController extends Controller
     {
         $data = $request->all();
 
+        $request['password'] = Hash::make($request['password']);
+
         if (!$request['shop_name']) {
             $request['shop_name'] = $request['name'];
         }

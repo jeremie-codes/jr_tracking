@@ -35,54 +35,55 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="axil-shop-top">
-                            <div class="row">
-                                <div class="col-lg-9">
-                                    <div class="category-select">
-                                        <form action="">
+                           <form id="filter-form" action="{{ route('products.filter') }}" method="POST">
+                                @csrf
+                                @method('POST')
+                                <div class="row">
+                                    <div class="col-lg-9">
+                                        <div class="category-select">
+                                            <div>
+                                                <!-- Start Single Select  -->
+                                                <select class="single-select" name="category_id" onchange="submitForm()">
+                                                    <option value="">Catégorie</option>
+                                                    <option value="all">Toutes</option>
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <!-- End Single Select  -->
+
+                                                <!-- Start Single Select  -->
+                                                <select class="single-select" name="price_range" onchange="submitForm()">
+                                                    <option value="">Gamme de Prix</option>
+                                                    <option value="all">Tous les prix</option>
+                                                    <option value="0 - 100">0 - 100</option>
+                                                    <option value="100 - 500">100 - 500</option>
+                                                    <option value="500 - 1000">500 - 1000</option>
+                                                    <option value="1000 - 1500">1000 - 1500</option>
+                                                </select>
+                                                <!-- End Single Select  -->
+                                            </div>  
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="category-select mt_md--10 mt_sm--10 justify-content-lg-end">
                                             <!-- Start Single Select  -->
-                                            <select class="single-select">
-                                                <option value="">Catégorie</option>
-                                                @foreach ($categories as $category)
-                                                    <option value=" {{ $category->name }} ">{{ $category->name }}</option>
-                                                @endforeach
+                                            <select name="sort" class="single-select" onchange="submitForm()">
+                                                <option value="">Trier par</option>
+                                                <option value="price_asc">Prix croissant</option>
+                                                <option value="price_desc">Prix décroissant</option>
+                                                <option value="latest">Plus récents</option>
                                             </select>
                                             <!-- End Single Select  -->
-
-                                            <!-- Start Single Select  -->
-                                            {{-- <select class="single-select">
-                                                <option>Color</option>
-                                                <option>Red</option>
-                                                <option>Blue</option>
-                                                <option>Green</option>
-                                                <option>Pink</option>
-                                            </select> --}}
-                                            <!-- End Single Select  -->
-
-                                            <!-- Start Single Select  -->
-                                            <select class="single-select">
-                                                <option>Gamme de Prix</option>
-                                                <option>0 - 100</option>
-                                                <option>100 - 500</option>
-                                                <option>500 - 1000</option>
-                                                <option>1000 - 1500</option>
-                                            </select>
-                                            <!-- End Single Select  -->
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
-                                    <div class="category-select mt_md--10 mt_sm--10 justify-content-lg-end">
-                                        <!-- Start Single Select  -->
-                                        <select class="single-select">
-                                            <option>Sort by Latest</option>
-                                            <option>Sort by Name</option>
-                                            <option>Sort by Price</option>
-                                            <option>Sort by Viewed</option>
-                                        </select>
-                                        <!-- End Single Select  -->
-                                    </div>
-                                </div>
-                            </div>
+                            </form>
+                            <script>
+                                function submitForm() {
+                                    document.getElementById('filter-form').submit();
+                                }
+                            </script>
                         </div>
                     </div>
                 </div>

@@ -11,6 +11,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/shop', [ProductController::class, 'index'])->name('shop');
 Route::get('/detail-product/{slug}', [ProductController::class, 'show'])->name('detail_product');
+Route::post('/products/filter', [ProductController::class, 'filterProducts'])->name('products.filter');
 
 // Les routes de gestion du panier
 Route::get('cart', [CartController::class, 'show'])->name('cart');

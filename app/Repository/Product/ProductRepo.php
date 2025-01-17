@@ -34,6 +34,65 @@ class ProductRepo implements ProductContract
         return Product::latest($n);
     }
 
+    public function toGetProductByPriceRange($priceRange)
+    {
+        // Vérifier si la chaîne contient bien le séparateur ' - '
+        if (strpos($priceRange, ' - ') === false) {
+            throw new \InvalidArgumentException("Le format de la plage de prix est invalide.");
+        }
+
+        // Séparer la chaîne en deux valeurs : min et max
+        [$minPrice, $maxPrice] = array_map('intval', explode(' - ', $priceRange));
+
+        // Récupérer les produits dans la gamme de prix
+        return Product::whereBetween('price', [$minPrice, $maxPrice])->get();
+    }
+
+    public function getFilteredProducts($categoryId = null, $priceRange = null, $sort = null, $n)
+    {
+        // Commencer avec une requête de base
+        $query = Product::query();
+
+        // Filtrer par catégorie si un `categoryId` est fourni
+        if (!is_null($categoryId)) {
+            $query->where('category_id', $categoryId);
+        }
+
+        // Filtrer par gamme de prix si un `priceRange` est fourni
+        if (!is_null($priceRange)) {
+            $prices = explode(' - ', $priceRange);
+            if (count($prices) === 2) {
+                [$minPrice, $maxPrice] = $prices;
+                $query->whereBetween('price', [(int) $minPrice, (int) $maxPrice]);
+            } else {
+                // Gérer le cas où le format de `priceRange` est invalide
+                throw new \InvalidArgumentException('Le format de la gamme de prix est invalide.');
+            }
+        }
+
+        // Appliquer un tri si un `sort` est fourni
+        if (!is_null($sort)) {
+            switch ($sort) {
+                case 'price_asc':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'price_desc':
+                    $query->orderBy('price', 'desc');
+                    break;
+                case 'latest':
+                    $query->orderBy('created_at', 'desc');
+                    break;
+                default:
+                    // Gérer le cas où la valeur de `sort` est inconnue
+                    throw new \InvalidArgumentException('Le critère de tri est invalide.');
+            }
+        }
+
+        // Exécuter la requête et récupérer les produits
+        return $query->paginate($n);
+    }
+
+
     /**
      *
      * @param array $inputs
