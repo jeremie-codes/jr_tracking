@@ -9,47 +9,6 @@
                  <form action="#">
                      <div class="row">
                          <div class="col-lg-6">
-                             <div class="axil-checkout-notice">
-                                 <div class="axil-toggle-box">
-                                     <div class="toggle-bar"><i class="fas fa-user"></i> Returning customer? <a
-                                             href="javascript:void(0)" class="toggle-btn">Click here to login <i
-                                                 class="fas fa-angle-down"></i></a>
-                                     </div>
-                                     <div class="axil-checkout-login toggle-open">
-                                         <p>If you didn't Logged in, Please Log in first.</p>
-                                         <div class="signin-box">
-                                             <div class="form-group">
-                                                 <label>Email</label>
-                                                 <input type="email" class="form-control" name="email">
-                                             </div>
-                                             <div class="form-group">
-                                                 <label>Password</label>
-                                                 <input type="password" class="form-control" name="password">
-                                             </div>
-                                             <div class="form-group mb--0">
-                                                 <button type="submit" class="axil-btn btn-bg-primary submit-btn">Sign
-                                                     In</button>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="axil-toggle-box">
-                                     <div class="toggle-bar"><i class="fas fa-pencil"></i> Have a coupon? <a
-                                             href="javascript:void(0)" class="toggle-btn">Click here to enter your code <i
-                                                 class="fas fa-angle-down"></i></a>
-                                     </div>
-
-                                     <div class="axil-checkout-coupon toggle-open">
-                                         <p>If you have a coupon code, please apply it below.</p>
-                                         <div class="input-group">
-                                             <input placeholder="Enter coupon code" type="text">
-                                             <div class="apply-btn">
-                                                 <button type="submit" class="axil-btn btn-bg-primary">Apply</button>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
                              <div class="axil-checkout-billing">
                                  <h4 class="title mb--40">Billing details</h4>
                                  <div class="row">
@@ -156,84 +115,81 @@
                          </div>
                          <div class="col-lg-6">
                              <div class="axil-order-summery order-checkout-summery">
-                                 <h5 class="title mb--20">Your Order</h5>
-                                 <div class="summery-table-wrap">
-                                     <table class="table summery-table">
-                                         <thead>
-                                             <tr>
-                                                 <th>Product</th>
-                                                 <th>Subtotal</th>
-                                             </tr>
-                                         </thead>
-                                         <tbody>
-                                             <tr class="order-product">
-                                                 <td>Commodo Blown Lamp <span class="quantity">x1</span></td>
-                                                 <td>$117.00</td>
-                                             </tr>
-                                             <tr class="order-product">
-                                                 <td>Commodo Blown Lamp <span class="quantity">x1</span></td>
-                                                 <td>$198.00</td>
-                                             </tr>
-                                             <tr class="order-subtotal">
-                                                 <td>Subtotal</td>
-                                                 <td>$117.00</td>
-                                             </tr>
-                                             <tr class="order-shipping">
-                                                 <td colspan="2">
-                                                     <div class="shipping-amount">
-                                                         <span class="title">Shipping Method</span>
-                                                         <span class="amount">$35.00</span>
-                                                     </div>
-                                                     <div class="input-group">
-                                                         <input type="radio" id="radio1" name="shipping" checked>
-                                                         <label for="radio1">Free Shippping</label>
-                                                     </div>
-                                                     <div class="input-group">
-                                                         <input type="radio" id="radio2" name="shipping">
-                                                         <label for="radio2">Local</label>
-                                                     </div>
-                                                     <div class="input-group">
-                                                         <input type="radio" id="radio3" name="shipping">
-                                                         <label for="radio3">Flat rate</label>
-                                                     </div>
-                                                 </td>
-                                             </tr>
-                                             <tr class="order-total">
-                                                 <td>Total</td>
-                                                 <td class="order-total-amount">$323.00</td>
-                                             </tr>
-                                         </tbody>
-                                     </table>
-                                 </div>
-                                <div class="order-payment-method bg-white p-4 rounded mb--15">
-                                    <div class="single-payment">
-                                        <div class="input-group justify-content-between align-items-center">
-                                            <input type="radio" id="radio4" name="type" value="mobile" required>
-                                            <label for="radio4">Mobile Money</label>
-                                            <img src="{{asset('/assets/images/others/mobile.png')}}" alt="Paypal payment">
-                                        </div>
-                                        <p>
-                                        <div class="form-group">
-                                            <label>Téléphone</label>
-                                            <input type="text" id="company-name" name="phone" pattern="^243(80|81|82|83|84|85|89|90|97|99)\d{7}$">
-                                
-                                            @error('phone')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                        </p>
-                                    </div>
-                                    <div class="single-payment">
-                                        <div class="input-group justify-content-between align-items-center">
-                                            <input type="radio" id="radio6" name="type" value="card">
-                                            <label for="radio6">Carte Bancaire</label>
-                                            <img src="./assets/images/others/payment.png" alt="Paypal payment">
-                                        </div>
-                                        <p>Vous pouvez payer avec votre carte de crédit.</p>
-                                    </div>
+                                <h5 class="title mb--20">Ta commande</h5>
+                                <div class="summery-table-wrap">
+                                    <table class="table summery-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Produit</th>
+                                                <th>Sous-total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if(session('cart') && count(session('cart')) > 0)
+                                                @foreach(session('cart') as $key => $item)
+                                                    <tr class="order-product">
+                                                        <td>{{ $item['name'] }} <span class="quantity">x{{ $item['quantity'] }}</span></td>
+                                                        <td>${{ number_format($item['price'] * $item['quantity'], 2) }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            @else
+                                                <tr>
+                                                    <td colspan="2">Votre panier est vide.</td>
+                                                </tr>
+                                            @endif
+                                                                
+                                            <!-- Total -->
+                                            <tr class="order-total">
+                                                <td>Total</td>
+                                                <td class="order-total-amount">${{ number_format($total, 2) }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
+                            <div class="order-payment-method bg-white rounded mb--15" style="padding: 30px">
+                                <!-- Mobile Money -->
+                                <div class="single-payment">
+                                    <div class="input-group justify-content-between align-items-center">
+                                        <input type="radio" id="radio4" name="type" value="mobile" required>
+                                        <label for="radio4">Mobile Money</label>
+                                        <img src="{{ asset('/assets/images/others/mobile.png') }}" alt="Mobile Money">
+                                    </div>
+                                    <p>
+                                    <div class="form-group">
+                                        <label>Téléphone</label>
+                                        <input type="text" id="company-name" name="phone">
+                                        @error('phone')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    </p>
+                                </div>
+                            
+                                <!-- Carte Bancaire -->
+                                <div class="single-payment">
+                                    <div class="input-group justify-content-between align-items-center">
+                                        <input type="radio" id="radio6" name="type" value="card">
+                                        <label for="radio6">Carte Bancaire</label>
+                                        <img src="{{ asset('/assets/images/others/payment.png') }}" alt="Carte Bancaire">
+                                    </div>
+                                    <p>Vous pouvez payer avec votre carte de crédit.</p>
+                                </div>
+                            
+                                <!-- WhatsApp -->
+                                <div class="single-payment">
+                                    <div class="input-group justify-content-between align-items-center">
+                                        <a href="https://wa.me/2250707070707?text=Bonjour, je souhaite passer une commande." target="_blank"
+                                            class="whatsapp-btn">
+                                            <img src="{{ asset('/assets/images/others/whatsapp.png') }}" alt="WhatsApp"
+                                                style="width: 24px; height: 24px; margin-right: 10px;">
+                                            Payer via WhatsApp
+                                        </a>
+                                    </div>
+                                    <p>Cliquez pour nous contacter sur WhatsApp et finaliser votre commande.</p>
+                                </div>
+                            </div>
                                  <button type="submit" class="axil-btn btn-bg-primary checkout-btn">Paiement</button>
                              </div>
                          </div>

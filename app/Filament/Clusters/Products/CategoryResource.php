@@ -2,18 +2,20 @@
 
 namespace App\Filament\Clusters\Products;
 
-use App\Filament\Clusters\Products;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Category;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use App\Filament\Clusters\Products;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\MarkdownEditor;
 use App\Filament\Resources\CategoryResource\Pages;
@@ -37,6 +39,13 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
+                Section::make()
+                    ->schema([
+                        FileUpload::make('image')
+                            ->directory('category-images')
+                            ->imageEditor()
+                            ->image()
+                    ]),
                 Section::make()
                     ->schema([
                         TextInput::make('name')
@@ -69,6 +78,7 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
+                ImageColumn::make('image'),
                 TextColumn::make('name')
                     ->label('Nom')
                     ->searchable()

@@ -103,4 +103,23 @@ class CartController extends Controller
         return back()->withMessage("Panier vidé");
 
     }
+
+    public function checkout()
+    {
+        $cart = session('cart', []);
+        $subtotal = 0;
+
+        // Calculer le sous-total
+        foreach ($cart as $item) {
+            $subtotal += $item['price'] * $item['quantity'];
+        }
+
+        $total = $subtotal;
+
+        return view('checkout', [
+            'cart' => $cart,
+            'subtotal' => $subtotal,
+            'total' => $total,
+        ]);
+    }
 }

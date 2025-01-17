@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,8 @@ class HomeController extends Controller
 
         $products = $this->productContract->toGetAll();
         $latestProducts = $this->productContract->toGetAll(5);
+        $categories = Category::all();
+
         // dd( $products);
 
         if (Auth::user()) {
@@ -47,7 +50,8 @@ class HomeController extends Controller
                 'totalItems' => $totalItems,
                 'subtotal' => $subtotal,
                 'products' => $products,
-                'latestProducts' => $latestProducts
+                'latestProducts' => $latestProducts,
+                'categories' => $categories,
             ]);
         }
         return view('home', [
@@ -55,7 +59,8 @@ class HomeController extends Controller
             'totalItems' => $totalItems,
             'subtotal' => $subtotal,
             'products' => $products,
-            'latestProducts' => $latestProducts
+            'latestProducts' => $latestProducts,
+            'categories' => $categories,
         ]);
     }
 

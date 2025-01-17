@@ -19,6 +19,7 @@ Route::post('cart/add/{product}', [CartController::class, 'add'])->name('cart.ad
 Route::get('cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('cart/empty', [CartController::class, 'empty'])->name('cart.empty');
 Route::put('/cart/update-multiple', [CartController::class, 'updateMultiple'])->name('cart.update.multiple');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 
 
 Route::view('/404', '404')->name('404');
@@ -26,7 +27,6 @@ Route::view('/about-us', 'about-us')->name('about');
 Route::view('/blog-details', 'blog-details')->name('blog_details');
 Route::view('/blog-grid', 'blog-grid')->name('blog_grid');
 Route::view('/blog', 'blog')->name('blog');
-Route::view('/checkout', 'checkout')->name('checkout');
 Route::view('/coming-soon', 'coming-soon')->name('coming_soon');
 Route::view('/contact', 'contact')->name('contact');
 Route::view('/forgot-password', 'forgot-password')->name('forgot_password');

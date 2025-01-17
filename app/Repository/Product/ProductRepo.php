@@ -53,13 +53,13 @@ class ProductRepo implements ProductContract
         // Commencer avec une requête de base
         $query = Product::query();
 
-        // Filtrer par catégorie si un `categoryId` est fourni
-        if (!is_null($categoryId)) {
+        // Filtrer par catégorie si un `categoryId` est fourni et différent de "all"
+        if (!is_null($categoryId) && $categoryId !== 'all') {
             $query->where('category_id', $categoryId);
         }
 
-        // Filtrer par gamme de prix si un `priceRange` est fourni
-        if (!is_null($priceRange)) {
+        // Filtrer par gamme de prix si un `priceRange` est fourni et différent de "all"
+        if (!is_null($priceRange) && $priceRange !== 'all') {
             $prices = explode(' - ', $priceRange);
             if (count($prices) === 2) {
                 [$minPrice, $maxPrice] = $prices;
@@ -88,7 +88,6 @@ class ProductRepo implements ProductContract
             }
         }
 
-        // Exécuter la requête et récupérer les produits
         return $query->paginate($n);
     }
 

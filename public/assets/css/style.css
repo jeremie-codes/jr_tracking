@@ -18939,3 +18939,9 @@ RTL Style
 .close:hover {
     color: #000;
 }
+
+.category-image {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+}

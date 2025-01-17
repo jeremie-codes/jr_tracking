@@ -15,13 +15,13 @@
                                 <li class="separator"></li>
                                 <li class="axil-breadcrumb-item active" aria-current="page">My Account</li>
                             </ul>
-                            <h1 class="title">Explore All Products</h1>
+                            <h1 class="title">Découvrir tous les produits</h1>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-4">
                         <div class="inner">
                             <div class="bradcrumb-thumb">
-                                <img src="assets/images/product/product-45.png" alt="Image">
+                                <img src="{{ asset('assets/images/banner/chaussures-1.png') }}" alt="Image">
                             </div>
                         </div>
                     </div>
