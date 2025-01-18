@@ -1,3 +1,22 @@
+<!-- Start Axil Product Poster Area  -->
+<div class="axil-poster">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mb--30">
+                <div class="single-poster">
+                    <a href="{{ route('shop') }}">
+                        <img src="{{ asset('assets/images/bg/bg-image-5.jpg') }}" alt="eTrade promotion poster">
+                        <div class="poster-content">
+                        </div>
+                        <!-- End .poster-content -->
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Axil Product Poster Area  -->
+
 <footer class="axil-footer-area footer-style-2">
     <!-- Start Footer Top Area  -->
     <div class="footer-top separator-top">
