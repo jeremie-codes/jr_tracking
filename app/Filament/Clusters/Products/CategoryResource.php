@@ -39,13 +39,13 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                Section::make()
-                    ->schema([
-                        FileUpload::make('image')
-                            ->directory('category-images')
-                            ->imageEditor()
-                            ->image()
-                    ]),
+                // Section::make()
+                    // ->schema([
+                    //     FileUpload::make('image')
+                    //         ->directory('category-images')
+                    //         ->imageEditor()
+                    //         ->image()
+                    // ]),
                 Section::make()
                     ->schema([
                         TextInput::make('name')

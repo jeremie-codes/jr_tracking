@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Web\PaiementController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -42,6 +43,7 @@ Route::post('/register', [AuthController::class, 'handleRegister'])->name('regis
 Route::post('/update/{id}', [AuthController::class, 'update'])->name('update');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::post('/web/payTicket', [PaiementController::class, 'payTicket'])->name('tikect.pay');
 
 Route::middleware('auth')->group(function () {
     Route::get('/my-account', [AccountController::class, 'index'])->name('my_account');

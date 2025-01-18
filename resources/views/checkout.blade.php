@@ -6,7 +6,13 @@
          <!-- Start Checkout Area  -->
          <div class="axil-checkout-area axil-section-gap">
              <div class="container">
-                 <form action="#">
+                 <form method="POST" action="{{ route('tikect.pay') }}">
+                    {{-- <input type="hidden" id="product_id" name="product_id" value="{{$price->event->id}}">
+                    <input type="hidden" id="currency" name="currency" value="{{$price->currency}}">
+                    <input type="hidden" id="montant" name="montant" value="{{$price->amount}}">
+                    <input type="hidden" id="quantity" name="quantity" value="{{$quantity}}"> --}}
+                    <input type="hidden" id="total" name="total" value="{{ number_format($total, 2) }}">
+
                      <div class="row">
                          <div class="col-lg-6">
                              <div class="axil-checkout-billing">
@@ -137,7 +143,7 @@
                                                     <td colspan="2">Votre panier est vide.</td>
                                                 </tr>
                                             @endif
-                                                                
+
                                             <!-- Total -->
                                             <tr class="order-total">
                                                 <td>Total</td>
@@ -166,7 +172,7 @@
                                     </div>
                                     </p>
                                 </div>
-                            
+
                                 <!-- Carte Bancaire -->
                                 <div class="single-payment">
                                     <div class="input-group justify-content-between align-items-center">
@@ -176,7 +182,7 @@
                                     </div>
                                     <p>Vous pouvez payer avec votre carte de crédit.</p>
                                 </div>
-                            
+
                                 <!-- WhatsApp -->
                                 <div class="single-payment">
                                     <div class="input-group justify-content-between align-items-center">
