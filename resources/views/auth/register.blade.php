@@ -48,7 +48,7 @@
                 <div class="col-md-6">
                     <div class="singin-header-btn">
                         <p>Vous avez déjà un compte?</p>
-                        <a href="{{ route('login') }}" class="axil-btn btn-bg-secondary sign-up-btn">Se connecter</a>
+                        <a href="{{ route('login') }}" class="axil-btn btn-bg-primary sign-up-btn">Se connecter</a>
                     </div>
                 </div>
             </div>

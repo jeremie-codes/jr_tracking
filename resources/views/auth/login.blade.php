@@ -41,14 +41,14 @@
         <!-- Start Header -->
         <div class="signin-header">
             <div class="row align-items-center">
-                <div class="col-sm-4">
-                    <a href="{{ route('home') }}" class="site-logo"><img src="./assets/images/logo/logo.png"
-                            alt="logo"></a>
+                <div class="col-sm-4 mb--40">
+                    <a href="{{ route('home') }}" class="site-logo"><img src="./assets/images/logo/logo-light.png" alt="logo"
+                            width="100px"></a>
                 </div>
                 <div class="col-sm-8">
                     <div class="singin-header-btn">
                         <p>Vous n'avez pas un compte?</p>
-                        <a href="{{ route('register') }}" class="axil-btn btn-bg-secondary sign-up-btn">Créer un
+                        <a href="{{ route('register') }}" class="axil-btn btn-bg-primary sign-up-btn">Créer un
                             compte</a>
                     </div>
                 </div>
@@ -58,8 +58,8 @@
 
         <div class="row">
             <div class="col-xl-4 col-lg-6">
-                <div class="axil-signin-banner bg_image bg_image--9">
-                    <h3 class="title">We Offer the Best Products</h3>
+                <div class="axil-signin-banner bg_image bg_image--10 shadow-sm">
+                    {{-- <h3 class="title">We Offer the Best Products</h3> --}}
                 </div>
             </div>
             <div class="col-lg-6 offset-xl-2">
