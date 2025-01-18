@@ -37,7 +37,7 @@
                 <div class="col-xl-4 col-lg-6">
                     <div class="about-thumbnail">
                         <div class="thumbnail">
-                            <img src="./assets/images/about/about-01.png" alt="À propos de nous">
+                            <img src="{{ asset('assets/images/banner/logo-about.jpg') }}" alt="À propos de nous">
                         </div>
                     </div>
                 </div>
@@ -68,26 +68,6 @@
     </div>
     <!-- Fin de la section À propos -->
 
-    <!-- Début de la section Newsletter -->
-    <div class="axil-newsletter-area axil-section-gap">
-        <div class="container">
-            <div class="etrade-newsletter-wrapper bg_image bg_image--5">
-                <div class="newsletter-content">
-                    <span class="title-highlighter highlighter-primary2"><i
-                            class="fas fa-envelope-open"></i>Newsletter</span>
-                    {{-- <h2 class="title mb--40 mb_sm--30">Recevez des mises à jour hebdomadaires</h2> --}}
-                    <div class="input-group newsletter-form">
-                        <div class="position-relative newsletter-inner mb--15">
-                            <input placeholder="exemple@gmail.com" type="text">
-                        </div>
-                        <button type="submit" class="axil-btn mb--15">S'abonner</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Fin .container -->
-    </div>
-    <!-- Fin de la section Newsletter -->
 </main>
 
 <!-- Début de la section Services -->

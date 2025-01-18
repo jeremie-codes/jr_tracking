@@ -66,13 +66,7 @@
                                         <a href="{{ route('my_account') }}">Mon compte</a>
                                     </li>
                                     <li>
-                                        <a href="#">Retourner un article</a>
-                                    </li>
-                                    <li>
                                         <a href="#">Assistance</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Langue</a>
                                     </li>
                                 </ul>
                                 @auth

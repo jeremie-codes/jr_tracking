@@ -18,13 +18,6 @@
                         <h1 class="title">Contactez-nous</h1>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-4">
-                    <div class="inner">
-                        <div class="bradcrumb-thumb">
-                            <img src="assets/images/product/product-45.png" alt="Image">
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -79,35 +72,13 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="contact-location mb--40">
-                            <h4 class="title mb--20">Notre boutique</h4>
-                            <span class="address mb--20">8212 E. Glen Creek Street Orchard Park, NY 14127,
-                                États-Unis</span>
-                            <span class="phone">Téléphone : +123 456 7890</span>
-                            <span class="email">E-mail : contact@e-galeria.com</span>
-                        </div>
-                        <div class="contact-career mb--40">
-                            <h4 class="title mb--20">Carrières</h4>
-                            <p>Au lieu d'acheter six choses, choisissez celle que vous aimez vraiment.</p>
-                        </div>
-                        <div class="opening-hour">
-                            <h4 class="title mb--20">Heures d'ouverture :</h4>
-                            <p>Lundi au samedi : 9h - 22h
-                                <br>Dimanche : 10h - 18h
-                            </p>
+                            <h4 class="title mb--20">Contact</h4>
+                            <span class="phone">Téléphone : +243 994 853 896</span>
+                            <span class="email">E-mail : info@e-galeria.com</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Début de la section Google Map -->
-            <div class="axil-google-map-wrap axil-section-gap pb--0">
-                <div class="mapouter">
-                    <div class="gmap_canvas">
-                        <iframe width="1080" height="500" id="gmap_canvas"
-                            src="https://maps.google.com/maps?q=melbourne&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
-                    </div>
-                </div>
-            </div>
-            <!-- Fin de la section Google Map -->
         </div>
     </div>
     <!-- Fin de la section Contact -->

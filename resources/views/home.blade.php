@@ -226,12 +226,12 @@
                                     <h2 class="title">Découvrez les meilleurs produits de la ville</h2>
                                 </div>
                                 <div class="poster-countdown countdown mb--40"></div>
-                                <a href="#" class="axil-btn btn-bg-primary">Découvrez-le !</a>
+                                <a href="#" class="axil-btn btn-bg-primary">Go !</a>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-5">
                             <div class="poster-countdown-thumbnail">
-                                <img src="./assets/images/product/poster/poster-03.png" alt="Poster Produit">
+                                <img src="{{ asset('assets/images/banner/products.jpg') }}" alt="Poster Produit">
                             </div>
                         </div>
                     </div>
@@ -931,57 +931,5 @@
         </div>
         <!-- End Most Sold Product Area  -->
 
-        <!-- Start Why Choose Area  -->
-    <div class="axil-why-choose-area pb--50 pb_sm--30">
-        <div class="container">
-            <div class="section-title-wrapper section-title-center">
-                <span class="title-highlighter highlighter-secondary"><i class="fal fa-thumbs-up"></i>Pourquoi nous ?</span>
-                <h2 class="title">Pourquoi nous choisir ?</h2>
-            </div>
-            <div class="row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 row--20">
-                <div class="col">
-                    <div class="service-box">
-                        <div class="icon">
-                            <img src="./assets/images/icons/service6.png" alt="Service">
-                        </div>
-                        <h6 class="title">Livraison rapide et sécurisée</h6>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="service-box">
-                        <div class="icon">
-                            <img src="./assets/images/icons/service7.png" alt="Service">
-                        </div>
-                        <h6 class="title">Garantie 100% sur les produits</h6>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="service-box">
-                        <div class="icon">
-                            <img src="./assets/images/icons/service8.png" alt="Service">
-                        </div>
-                        <h6 class="title">Politique de retour sous 24 heures</h6>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="service-box">
-                        <div class="icon">
-                            <img src="./assets/images/icons/service9.png" alt="Service">
-                        </div>
-                        <h6 class="title">Politique de retour sous 24 heures</h6>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="service-box">
-                        <div class="icon">
-                            <img src="./assets/images/icons/service10.png" alt="Service">
-                        </div>
-                        <h6 class="title">Qualité professionnelle supérieure</h6>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-        <!-- End Why Choose Area  -->
     </main>
 @endsection
