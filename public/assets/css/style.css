@@ -3478,6 +3478,11 @@ Newsletter
     }
 }
 
+.axil-newsletter-area{
+    height: 400px;
+    padding: 40px;
+}
+
 .newsletter-form {
     display: flex;
     align-items: center;

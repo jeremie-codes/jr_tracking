@@ -42,7 +42,7 @@
         <div class="signin-header">
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <a href="{{ route('home') }}" class="site-logo"><img src="./assets/images/logo/logo.png"
+                    <a href="{{ route('home') }}" class="site-logo"><img src="./assets/images/logo/logo-light.png"
                             alt="logo" width="100px"></a>
                 </div>
                 <div class="col-md-6">
@@ -57,15 +57,15 @@
 
         <div class="row">
             <div class="col-xl-4 col-lg-6">
-                <div class="axil-signin-banner bg_image bg_image--10">
-                    <h3 class="title">We Offer the Best Products</h3>
+                <div class="axil-signin-banner bg_image bg_image--10 shadow-sm">
+                    {{-- <h3 class="title">Nous offrons les meilleurs produits</h3> --}}
                 </div>
             </div>
             <div class="col-lg-8"> {{--  offset-xl-2 --}}
                 <div class="axil-signin-form-wrap">
                     <div class="container container-register">
-                        <h3 class="title">I'm New Here</h3>
-                        <p class="b2 mb--55">Enter your detail below</p>
+                        <h3 class="title">Je suis nouveau ici</h3>
+                        <p class="b2 mb--55">Entrez vos coordonnées ci-dessous</p>
                         <form class="singin-form" method="POST" action="{{ route('register') }}"
                             enctype="multipart/form-data" id="avatar-form">
                             @csrf

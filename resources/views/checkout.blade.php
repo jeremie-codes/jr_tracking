@@ -14,112 +14,124 @@
                     <input type="hidden" id="total" name="total" value="{{ number_format($total, 2) }}">
 
                      <div class="row">
-                         <div class="col-lg-6">
-                             <div class="axil-checkout-billing">
-                                 <h4 class="title mb--40">Billing details</h4>
-                                 <div class="row">
-                                     <div class="col-lg-6">
-                                         <div class="form-group">
-                                             <label>First Name <span>*</span></label>
-                                             <input type="text" id="first-name" placeholder="Adam">
-                                         </div>
-                                     </div>
-                                     <div class="col-lg-6">
-                                         <div class="form-group">
-                                             <label>Last Name <span>*</span></label>
-                                             <input type="text" id="last-name" placeholder="John">
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="form-group">
-                                     <label>Company Name</label>
-                                     <input type="text" id="company-name">
-                                 </div>
-                                 <div class="form-group">
-                                     <label>Country/ Region <span>*</span></label>
-                                     <select id="Region">
-                                         <option value="3">Australia</option>
-                                         <option value="4">England</option>
-                                         <option value="6">New Zealand</option>
-                                         <option value="5">Switzerland</option>
-                                         <option value="1">United Kindom (UK)</option>
-                                         <option value="2">United States (USA)</option>
-                                     </select>
-                                 </div>
-                                 <div class="form-group">
-                                     <label>Street Address <span>*</span></label>
-                                     <input type="text" id="address1" class="mb--15"
-                                         placeholder="House number and street name">
-                                     <input type="text" id="address2"
-                                         placeholder="Apartment, suite, unit, etc. (optonal)">
-                                 </div>
-                                 <div class="form-group">
-                                     <label>Town/ City <span>*</span></label>
-                                     <input type="text" id="town">
-                                 </div>
-                                 <div class="form-group">
-                                     <label>Country</label>
-                                     <input type="text" id="country">
-                                 </div>
-                                 <div class="form-group">
-                                     <label>Phone <span>*</span></label>
-                                     <input type="tel" id="phone">
-                                 </div>
-                                 <div class="form-group">
-                                     <label>Email Address <span>*</span></label>
-                                     <input type="email" id="email">
-                                 </div>
-                                 <div class="form-group input-group">
-                                     <input type="checkbox" id="checkbox1" name="account-create">
-                                     <label for="checkbox1">Create an account</label>
-                                 </div>
-                                 <div class="form-group different-shippng">
-                                     <div class="toggle-bar">
-                                         <a href="javascript:void(0)" class="toggle-btn">
-                                             <input type="checkbox" id="checkbox2" name="diffrent-ship">
-                                             <label for="checkbox2">Ship to a different address?</label>
-                                         </a>
-                                     </div>
-                                     <div class="toggle-open">
-                                         <div class="form-group">
-                                             <label>Country/ Region <span>*</span></label>
-                                             <select id="Region">
-                                                 <option value="3">Australia</option>
-                                                 <option value="4">England</option>
-                                                 <option value="6">New Zealand</option>
-                                                 <option value="5">Switzerland</option>
-                                                 <option value="1">United Kindom (UK)</option>
-                                                 <option value="2">United States (USA)</option>
-                                             </select>
-                                         </div>
-                                         <div class="form-group">
-                                             <label>Street Address <span>*</span></label>
-                                             <input type="text" id="address1" class="mb--15"
-                                                 placeholder="House number and street name">
-                                             <input type="text" id="address2"
-                                                 placeholder="Apartment, suite, unit, etc. (optonal)">
-                                         </div>
-                                         <div class="form-group">
-                                             <label>Town/ City <span>*</span></label>
-                                             <input type="text" id="town">
-                                         </div>
-                                         <div class="form-group">
-                                             <label>Country</label>
-                                             <input type="text" id="country">
-                                         </div>
-                                         <div class="form-group">
-                                             <label>Phone <span>*</span></label>
-                                             <input type="tel" id="phone">
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="form-group">
-                                     <label>Other Notes (optional)</label>
-                                     <textarea id="notes" rows="2" placeholder="Notes about your order, e.g. speacial notes for delivery."></textarea>
-                                 </div>
-                             </div>
-                         </div>
-                         <div class="col-lg-6">
+                        <div class="col-lg-6">
+                            <div class="axil-checkout-billing">
+                                <h4 class="title mb--40">Détails de facturation</h4>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Prénom <span>*</span></label>
+                                            <input type="text" id="first-name" placeholder="Adam">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Nom de famille <span>*</span></label>
+                                            <input type="text" id="last-name" placeholder="John">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" form-group">
+                                            <label>Pays / Région <span>*</span></label>
+                                            <select id="Region">
+                                                <option value="1">France</option>
+                                                <option value="2">Belgique</option>
+                                                <option value="3">Canada</option>
+                                                <option value="4">Suisse</option>
+                                                <option value="5">Algérie</option>
+                                                <option value="6">Maroc</option>
+                                                <option value="7">Sénégal</option>
+                                                <option value="8">Côte d'Ivoire</option>
+                                                <option value="9">Tunisie</option>
+                                                <option value="10">Cameroun</option>
+                                                <option value="11">Nigeria</option>
+                                                <option value="12">Afrique du Sud</option>
+                                                <option value="13">Kenya</option>
+                                                <option value="14">Bénin</option>
+                                                <option value="15">Togo</option>
+                                                <option value="16">Mali</option>
+                                                <option value="17">Burkina Faso</option>
+                                                <option value="18">République Démocratique du Congo</option>
+                                                <option value="19">Gabon</option>
+                                                <option value="20">Madagascar</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Adresse <span>*</span></label>
+                                            <input type="text" id="town">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Pays</label>
+                                            <input type="text" id="country">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Téléphone <span>*</span></label>
+                                            <input type="tel" id="phone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Adresse e-mail <span>*</span></label>
+                                            <input type="email" id="email">
+                                        </div>
+                                        <div class="form-group different-shippng">
+                                            <div class="toggle-bar">
+                                                <a href="javascript:void(0)" class="toggle-btn">
+                                                    <input type="checkbox" id="checkbox2" name="diffrent-ship">
+                                            <label for=" checkbox2">Livrer à une adresse différente ?</label>
+                                                </a>
+                                            </div>
+                                            <div class="toggle-open">
+                                                <div class="form-group">
+                                                    <label>Pays / Région <span>*</span></label>
+                                                    <select id="Region">
+                                                        <option value="1">France</option>
+                                                        <option value="2">Belgique</option>
+                                                        <option value="3">Canada</option> <option value="4">Suisse</option>
+                                                        <option value="5">Algérie</option>
+                                                        <option value="6">Maroc</option>
+                                                        <option value="7">Sénégal</option>
+                                                        <option value="8">Côte d'Ivoire</option>
+                                                        <option value="9">Tunisie</option>
+                                                        <option value="10">Cameroun</option>
+                                                        <option value="11">Nigeria</option>
+                                                        <option value="12">Afrique du Sud</option>
+                                                        <option value="13">Kenya</option>
+                                                        <option value="14">Bénin</option>
+                                                        <option value="15">Togo</option>
+                                                        <option value="16">Mali</option>
+                                                        <option value="17">Burkina Faso</option>
+                                                        <option value="18">République Démocratique du Congo</option>
+                                                        <option value="19">Gabon</option>
+                                                        <option value="20">Madagascar</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Adresse <span>*</span></label>
+                                                    <input type="text" id="address1" class="mb--15"
+                                                        placeholder="Numéro de rue et nom de la rue">
+                                                    <input type="text" id="address2" placeholder="Appartement, suite, unité, etc. (optionnel)">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Ville <span>*</span></label>
+                                                    <input type="text" id="town">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Pays</label>
+                                                    <input type="text" id="country">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Téléphone <span>*</span></label>
+                                                    <input type="tel" id="phone">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Autres notes (optionnel)</label>
+                                            <textarea id="notes" rows="2"
+                                                placeholder="Notes sur votre commande, par exemple des instructions spéciales pour la livraison."></textarea>
+                                        </div>
+                                    </div>
+                        </div>
+                        <div class="col-lg-6">
                              <div class="axil-order-summery order-checkout-summery">
                                 <h5 class="title mb--20">Ta commande</h5>
                                 <div class="summery-table-wrap">
@@ -152,7 +164,24 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="order-payment-method bg-white rounded mb--15" style="padding: 30px">
+                                    <h4 class="title mb--40">Contacter le vendeur</h4>
+                                    <!-- WhatsApp -->
+                                    <div class="single-payment">
+                                        <div class="input-group justify-content-between align-items-center">
+                                            <a href="https://wa.me/243815229941?text=Bonjour, je souhaite passer une commande." target="_blank"
+                                                class="whatsapp-btn">
+                                                <img src="{{ asset('/assets/images/logo/whatsapp.png') }}" alt="WhatsApp"
+                                                    style="width: 24px; height: 24px; margin-right: 10px;">
+                                                Cliquez pour nous contacter sur WhatsApp et finaliser votre commande.
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
                             <div class="order-payment-method bg-white rounded mb--15" style="padding: 30px">
+                                <h4 class="title mb--40">Payer par E-GALERIA CASH</h4>
+
                                 <!-- Mobile Money -->
                                 <div class="single-payment">
                                     <div class="input-group justify-content-between align-items-center">
@@ -182,19 +211,6 @@
                                     </div>
                                     <p>Vous pouvez payer avec votre carte de crédit.</p>
                                 </div>
-
-                                <!-- WhatsApp -->
-                                <div class="single-payment">
-                                    <div class="input-group justify-content-between align-items-center">
-                                        <a href="https://wa.me/243815229941?text=Bonjour, je souhaite passer une commande." target="_blank"
-                                            class="whatsapp-btn">
-                                            <img src="{{ asset('/assets/images/logo/whatsapp.png') }}" alt="WhatsApp"
-                                                style="width: 24px; height: 24px; margin-right: 10px;">
-                                            Payer via WhatsApp
-                                        </a>
-                                    </div>
-                                    <p>Cliquez pour nous contacter sur WhatsApp et finaliser votre commande.</p>
-                                </div>
                             </div>
                                  <button type="submit" class="axil-btn btn-bg-primary checkout-btn">Paiement</button>
                              </div>
@@ -206,55 +222,4 @@
          <!-- End Checkout Area  -->
 
      </main>
-
-     <div class="service-area">
-         <div class="container">
-             <div class="row row-cols-xl-4 row-cols-sm-2 row-cols-1 row--20">
-                 <div class="col">
-                     <div class="service-box service-style-2">
-                         <div class="icon">
-                             <img src="./assets/images/icons/service1.png" alt="Service">
-                         </div>
-                         <div class="content">
-                             <h6 class="title">Fast &amp; Secure Delivery</h6>
-                             <p>Tell about your service.</p>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="col">
-                     <div class="service-box service-style-2">
-                         <div class="icon">
-                             <img src="./assets/images/icons/service2.png" alt="Service">
-                         </div>
-                         <div class="content">
-                             <h6 class="title">Money Back Guarantee</h6>
-                             <p>Within 10 days.</p>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="col">
-                     <div class="service-box service-style-2">
-                         <div class="icon">
-                             <img src="./assets/images/icons/service3.png" alt="Service">
-                         </div>
-                         <div class="content">
-                             <h6 class="title">24 Hour Return Policy</h6>
-                             <p>No question ask.</p>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="col">
-                     <div class="service-box service-style-2">
-                         <div class="icon">
-                             <img src="./assets/images/icons/service4.png" alt="Service">
-                         </div>
-                         <div class="content">
-                             <h6 class="title">Pro Quality Support</h6>
-                             <p>24/7 Live support.</p>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
  @endsection
