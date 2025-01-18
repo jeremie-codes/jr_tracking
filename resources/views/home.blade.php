@@ -225,8 +225,8 @@
                                 <div class="section-title-wrapper">
                                     <h2 class="title">Découvrez les meilleurs produits de la ville</h2>
                                 </div>
-                                <div class="poster-countdown countdown mb--40"></div>
                                 <a href="#" class="axil-btn btn-bg-primary">Go !</a>
+                                {{-- <div class="poster-countdown countdown mb--40"></div> --}}
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-5">
