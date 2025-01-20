@@ -3,28 +3,24 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\BillPromo;
-use App\Models\Bills;
-use App\Models\Callback;
-use App\Models\Event;
-use App\Models\Price;
-use App\Models\Ticket;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Session;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use App\Models\Callback;
 
 class PaiementController extends Controller
 {
     public function payTicket(Request $request)
     {
         // Récupérer toutes les valeurs de la session
-        $sessionData = Session::all();
-        dd($sessionData);
+        $cart = Session::all()['cart'];
+        // dd($request);
         // $token = env('CARD_API_PAYMENT');
         // $billRef = 'Fact-'. now()->getTimestamp();
         // $client = new Client();
@@ -77,7 +73,7 @@ class PaiementController extends Controller
 
         //     if ($data->respcode == '00') {
         //         $montant = $request->total/$request->quantity;
-        //         $result =  $this->addTicket($request->event_id, $montant, $request->currency, $request->quantity, $billRef);
+        //         $result =  $this->addCommande($request->event_id, $montant, $request->currency, $request->quantity, $billRef);
         //         if ($request->promoCode) {
         //             BillPromo::create([
         //                 'bill_id' => $result->id,
@@ -93,79 +89,66 @@ class PaiementController extends Controller
         //         return redirect()->back()->withErrors(['message' => 'Une erreur lors du paiement. Veuillez reessayer.']);
         //     }
 
-        // } elseif($request->has('type') && $request->type == 'card') {
+        // } else
+        if($request->has('type') && $request->type == 'card') {
 
-        //     try {
-        //         $this->validate($request, [
-        //             'montant' => 'numeric',
-        //             'currency' => 'required',
-        //             'event_id' => 'required|numeric',
-        //             'type' => 'required',
-        //             'quantity' => 'required|numeric',
-        //             "total" => 'required|numeric',
-        //         ]);
+            try {
+                // $this->validate($request, [
+                //     'montant' => 'numeric',
+                //     'currency' => 'required',
+                //     'event_id' => 'required|numeric',
+                //     'type' => 'required',
+                //     'quantity' => 'required|numeric',
+                //     "total" => 'required|numeric',
+                // ]);
 
-        //         /*dd($request->type);*/
-        //         /*
-        //         $headers = [
-        //         'Content-Type' => 'application/json'
-        //         ];
-        //         $body = json_encode([
-        //             "authorization" => 'Bearer ' . $token,
-        //             'merchant' => 'bevent',
-        //             'reference' => $billRef,
-        //             'amount' => $request->total,
-        //             'currency' => Str::upper($request->currency),
-        //             'description' => "Paiement de la facture $billRef",
-        //             'callback_url' => 'https://b924-81-177-186-13.ngrok-free.app/callback',
-        //             'approve_url' => 'https://b924-81-177-186-13.ngrok-free.app/approve',
-        //             'cancel_url' => 'https://b924-81-177-186-13.ngrok-free.app/cancel',
-        //             'decline_url' => 'https://b924-81-177-186-13.ngrok-free.app/decline'
-        //         ]);
+                $stripe = new \Stripe\StripeClient('sk_test_26PHem9AhJZvU623DfE1x4sd');
 
-        //         $req = new GuzzleRequest('POST', 'https://cardpayment.flexpay.cd/v1.1/pay', $headers, strval($body));
-        //         $response = $client->sendAsync($req)->wait();
+                $lineItems = [];
 
-        //         $data = json_decode($response->getBody()->getContents());
-        //         */
-        //         $stripe = new \Stripe\StripeClient('sk_test_26PHem9AhJZvU623DfE1x4sd');
-        //         $event = Event::find($request->event_id);
-        //         $price = $stripe->prices->create([
-        //             'currency' => $request->currency,
-        //             'unit_amount' => $request->total * 100,
-        //             'product_data' => ['name' => 'Ticket '.$event->name],
-        //         ]);
-        //         $data = $stripe->checkout->sessions->create([
-        //             'success_url' => route('approve').'?session_id={CHECKOUT_SESSION_ID}',
-        //             'cancel_url' => route('cancel'),
-        //             'line_items' => [
-        //                 [
-        //                   'price' => $price->id,
-        //                   'quantity' => 1,
-        //                 ],
-        //             ],
-        //             'currency' => $request->currency,
-        //             'mode' => 'payment',
-        //         ]);
+                foreach ($cart as $item) {
+                    // Créer un price pour chaque article
+                    $price = $stripe->prices->create([
+                        'currency' => 'usd', // Devise
+                        'unit_amount' => $item['price'] * 100, // Montant en cents
+                        'product_data' => [
+                            'name' => $item['name'], // Nom du produit
+                        ],
+                    ]);
 
-        //         if(isset($data->id) && $data->id != '') {
-        //             $montant = $request->total/$request->quantity;
-        //             $billRef = $data->id;
-        //             $result =  $this->addTicket($request->event_id, $montant, $request->currency, $request->quantity, $billRef);
-        //             /*dd($data->url);*/
-        //             return redirect()->away($data->url);
-        //         } else{
-        //             return redirect()->back()->withErrors(['message' => 'Une erreur lors du paiement. Veuillez reessayer.']);
-        //         }
+                    // Ajouter le price aux line_items
+                    $lineItems[] = [
+                            'price' => $price->id,
+                            'quantity' => $item['quantity'],
+                        ];
+                }
 
-        //     } catch (ValidationException $e) {
-        //         $errors = $e->validator->errors()->getMessages();
+                // Créer la session de paiement
+                $data = $stripe->checkout->sessions->create([
+                    'success_url' => route('approve') . '?session_id={CHECKOUT_SESSION_ID}',
+                    'cancel_url' => route('cancel'),
+                    'line_items' => $lineItems, // Utiliser les line_items préparés
+                    'mode' => 'payment',
+                ]);
 
-        //         return redirect()->back()->withErrors($errors);
-        //     }
-        // } else{
-        //     return redirect()->back()->withErrors(['message' => "Une erreur s'est produite lors du choix du mode de paiement! "]);
-        // }
+                if(isset($data->id) && $data->id != '') {
+                    // dd($data->id);
+                    $cmdRef = $data->id;
+                    $result =  $this->addCommande($request->total, 'usd', $cmdRef);
+
+                    return redirect()->away($data->url);
+                } else{
+                    return redirect()->back()->withErrors(['message' => 'Une erreur lors du paiement. Veuillez reessayer.']);
+                }
+
+            } catch (ValidationException $e) {
+                $errors = $e->validator->errors()->getMessages();
+
+                return redirect()->back()->withErrors($errors);
+            }
+        } else{
+            return redirect()->back()->withErrors(['message' => "Une erreur s'est produite lors du choix du mode de paiement! "]);
+        }
 
     }
 
@@ -173,44 +156,32 @@ class PaiementController extends Controller
      * Create a bill and ticket to database
      */
 
-    public function addTicket($event_id, $amount, $currency, $quantity, $billRef)
+    public function addCommande($amount, $currency, $cmdRef)
     {
 
-        $result = DB::transaction(function() use ($event_id, $amount, $currency, $quantity, $billRef){
+        $result = DB::transaction(function() use ($amount, $currency, $cmdRef){
+            $cart = Session::all()['cart'];
 
-            $type_ticket = Price::where('event_id', $event_id)->where('currency', $currency)->where('amount', $amount)->first();
-            if ($type_ticket) {
-                $type_ticket = $type_ticket->category;
-            } else {
-                $type_ticket = 'ticket';
-            }
-            $bill = Bills::create([
-                'user_id' => auth()->id(),
-                'event_id' => $event_id,
-                'unit_amount' => $amount,
+            // Exemple de création d'une commande
+            $order = Order::create([
+                'user_id' => Auth::user()->id,
+                'number' => $cmdRef,
+                'total_price' => $amount,
                 'currency' => $currency,
-                'reference' => $billRef,
-                'quantity' => $quantity,
-                'type_ticket' => $type_ticket,
-                'total_amount' => $amount * $quantity,
-                'payment_method' => 'mobile',
+                'status' => 'pending',
             ]);
 
-            if ($bill) {
-                for ($i=0; $i < $quantity; $i++) {
-                    $reference = 'BEVENT'. strtoupper(Str::random(3)) . now()->getTimestamp();
-
-                    $ticket = Ticket::create([
-                        'user_id' => auth()->id(),
-                        'event_id' => $event_id,
-                        'amount' => $amount,
-                        'currency' => $currency,
-                        'reference' => $reference,
-                        'bills_id' => $bill->id,
+            if ($order) {
+                foreach ($cart as $key => $item) {
+                    OrderItem::create([
+                        'order_id' => $order->id,
+                        'product_id' => $key,
+                        'unit_price' => $item['price'],
+                        'qty' => $item['quantity'],
                     ]);
                 }
 
-                return $bill;
+                return $order;
             } else {
                 return 'echec';
             }
@@ -223,57 +194,36 @@ class PaiementController extends Controller
     {
         $stripe = new \Stripe\StripeClient('sk_test_26PHem9AhJZvU623DfE1x4sd');
         $session = $stripe->checkout->sessions->retrieve($request->session_id);
-        $bill = Bills::with('tickets')-> where('reference', $request->reference)->first();
-        if ($bill) {
+        $commande = Order::where('number', $request->reference)->first();
+        if ($commande) {
             if ($request->code == 1) {
-                $bill->update([
-                    'success' => false,
-                ]);
-            } elseif($request->code == 0) {
-                foreach ($bill->tickets as $ticket) {
-                    $path = 'qrcode/'.$ticket->reference.'.png';
-                    $link = route('ticket.scan', ['reference'=> $ticket->reference]);
-                    $qrCode = QrCode::format('png')->size(300)->generate($link, public_path($path));
-                    $ticket->update([
-                        'qrcode' => $path,
-                    ]);
-                }
-                $path = 'qrcode/'.$request->reference.'.png';
-                $link = route('ticket.scan', ['reference'=> $request->reference]);
-                $qrCode = QrCode::format('png')->size(300)->generate($link, public_path($path));
-                $bill->update([
-                    'qrcode' => $path,
-                    'success' => true,
+                $commande->update([
+                    'status' => 'paid',
                 ]);
             }
-            dd("Callback reçu web");
+            dd($request);
 
+            // 'reference' => $request->reference,
             $callback = Callback::create([
-                    'code' => $request->code,
-                    'reference' => $request->reference,
-                    'amountCustomer' => $request->amountCustomer,
-                    'amount' => $request->amount,
+                    'total_price' => $request->amount,
                     'currency' => $request->currency,
                     'phone' => $request->phone,
-                    'createdAt' => $request->createdAt,
                     'channel' => $request->channel,
                     'orderNumber' => $request->orderNumber,
-                    'provider_reference' => $request->provider_reference
-                    ]
-                );
+                    'createdAt' => $request->createdAt,
+                ]
+            );
 
             if ($callback) {
                 return response()->json([
-                    "message" => "Callback reçu",
-                    "data" => $ticket,
+                    "data" => $callback,
                     "status_code" => 201,
                     "success" => true
                 ],201);
-
             } else {
                 return response()->json([
-                    "message" => "Callback non enregistré mais ticket mis à jour",
-                    "data" => $ticket,
+                    "message" => "Callback non enregistré",
+                    "data" => $callback,
                     "status_code" => 422,
                     "success" => false
                     ],422);
@@ -281,7 +231,7 @@ class PaiementController extends Controller
 
         } else {
             return response()->json([
-                "message" => "Ticket introuvable web",
+                "message" => "Commande introuvable",
                 "data" => [],
                 "status_code" => 404,
                 "success" => false
@@ -292,9 +242,9 @@ class PaiementController extends Controller
 
     public function handleApproved(Request $request)
     {
+        // dd("jdjdjdj");
         $stripe = new \Stripe\StripeClient('sk_test_26PHem9AhJZvU623DfE1x4sd');
         $session = $stripe->checkout->sessions->retrieve($request->session_id);
-        /*dd("jdjdjdj");*/
         return view('payment.approved');
 
     }
@@ -302,7 +252,6 @@ class PaiementController extends Controller
     public function handleCanceled(Request $request)
     {
         return view('payment.canceled');
-
     }
 
     public function handleDeclined(Request $request)

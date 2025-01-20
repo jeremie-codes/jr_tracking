@@ -10,6 +10,10 @@ use App\Http\Controllers\Web\PaiementController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('/cancel', [PaiementController::class, 'handleCanceled'])->name('cancel');
+Route::get('/approve', [PaiementController::class, 'handleApproved'])->name('approve');
+Route::get('/decline', [PaiementController::class, 'handleDeclined'])->name('decline');
+
 Route::get('/shop', [ProductController::class, 'index'])->name('shop');
 Route::get('/detail-product/{slug}', [ProductController::class, 'show'])->name('detail_product');
 Route::post('/products/filter', [ProductController::class, 'filterProducts'])->name('products.filter');
@@ -20,8 +24,6 @@ Route::post('cart/add/{product}', [CartController::class, 'add'])->name('cart.ad
 Route::get('cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('cart/empty', [CartController::class, 'empty'])->name('cart.empty');
 Route::put('/cart/update-multiple', [CartController::class, 'updateMultiple'])->name('cart.update.multiple');
-Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
-
 
 Route::view('/404', '404')->name('404');
 Route::view('/about-us', 'about-us')->name('about');
@@ -43,11 +45,12 @@ Route::post('/register', [AuthController::class, 'handleRegister'])->name('regis
 Route::post('/update/{id}', [AuthController::class, 'update'])->name('update');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::post('/web/payTicket', [PaiementController::class, 'payTicket'])->name('tikect.pay');
 
 Route::middleware('auth')->group(function () {
     Route::get('/my-account', [AccountController::class, 'index'])->name('my_account');
     Route::get('/create-product', [ProductController::class, 'create'])->name('create_product');
     Route::post('/create-product', [ProductController::class, 'store'])->name('create_product');
+    Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+    Route::post('/web/payTicket', [PaiementController::class, 'payTicket'])->name('tikect.pay');
 });
 

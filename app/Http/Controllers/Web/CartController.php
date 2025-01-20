@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Repository\Cart\CartInterfaceRepo;
 
 class CartController extends Controller
@@ -106,6 +107,8 @@ class CartController extends Controller
 
     public function checkout()
     {
+        $user = Auth::user();
+        // dd($user);
         $cart = session('cart', []);
         $subtotal = 0;
 
@@ -117,6 +120,7 @@ class CartController extends Controller
         $total = $subtotal;
 
         return view('checkout', [
+            'user' => $user,
             'cart' => $cart,
             'subtotal' => $subtotal,
             'total' => $total,

@@ -7,33 +7,34 @@
          <div class="axil-checkout-area axil-section-gap">
              <div class="container">
                  <form method="POST" action="{{ route('tikect.pay') }}">
+                    @csrf
                     {{-- <input type="hidden" id="product_id" name="product_id" value="{{$price->event->id}}">
                     <input type="hidden" id="currency" name="currency" value="{{$price->currency}}">
                     <input type="hidden" id="montant" name="montant" value="{{$price->amount}}">
                     <input type="hidden" id="quantity" name="quantity" value="{{$quantity}}"> --}}
-                    <input type="hidden" id="total" name="total" value="{{ number_format($total, 2) }}">
+                    <input type="hidden" id="total" name="total" value={{ number_format($total, 2) }}>
 
                      <div class="row">
                         <div class="col-lg-6">
                             <div class="axil-checkout-billing">
                                 <h4 class="title mb--40">Détails de facturation</h4>
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label>Prénom <span>*</span></label>
-                                            <input type="text" id="first-name" placeholder="Adam">
+                                            <label>Nom complet <span>*</span></label>
+                                            <input type="text" id="fullname" name="fullname" placeholder="Adam" value="{{ $user->name }}">
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    {{-- <div class="col-lg-6">
                                         <div class="form-group">
                                             <label>Nom de famille <span>*</span></label>
                                             <input type="text" id="last-name" placeholder="John">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class=" form-group">
                                             <label>Pays / Région <span>*</span></label>
-                                            <select id="Region">
+                                            <select id="Region" name="country">
                                                 <option value="1">France</option>
                                                 <option value="2">Belgique</option>
                                                 <option value="3">Canada</option>
@@ -58,21 +59,17 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Adresse <span>*</span></label>
-                                            <input type="text" id="town">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Pays</label>
-                                            <input type="text" id="country">
+                                            <input type="text" id="address" name="address">
                                         </div>
                                         <div class="form-group">
                                             <label>Téléphone <span>*</span></label>
-                                            <input type="tel" id="phone">
+                                            <input type="tel" id="phone_number" name="phone" value="{{ $user->phone_number }}">
                                         </div>
                                         <div class="form-group">
                                             <label>Adresse e-mail <span>*</span></label>
-                                            <input type="email" id="email">
+                                            <input type="email" id="email" name="email" value="{{ $user->email }}">
                                         </div>
-                                        <div class="form-group different-shippng">
+                                        {{-- <div class="form-group different-shippng">
                                             <div class="toggle-bar">
                                                 <a href="javascript:void(0)" class="toggle-btn">
                                                     <input type="checkbox" id="checkbox2" name="diffrent-ship">
@@ -123,10 +120,10 @@
                                                     <input type="tel" id="phone">
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="form-group">
-                                            <label>Autres notes (optionnel)</label>
-                                            <textarea id="notes" rows="2"
+                                            <label>Notes (optionnel)</label>
+                                            <textarea id="notes" rows="2" name="notes"
                                                 placeholder="Notes sur votre commande, par exemple des instructions spéciales pour la livraison."></textarea>
                                         </div>
                                     </div>
@@ -149,9 +146,7 @@
                                                         <td>{{ $item['name'] }} <span class="quantity">x{{ $item['quantity'] }}</span></td>
                                                         <td>${{ number_format($item['price'] * $item['quantity'], 2) }}</td>
                                                     </tr>
-                                                @endforeach
-                                            @else
-                                                <tr>
+                                                @endforeach @else <tr>
                                                     <td colspan="2">Votre panier est vide.</td>
                                                 </tr>
                                             @endif
