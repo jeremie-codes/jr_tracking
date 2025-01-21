@@ -19,6 +19,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $slug
  * @property string $description
  * @property string $image
+ * @property string|null $image2
+ * @property string|null $image3
+ * @property string|null $image4
+ * @property string|null $image5
  * @property bool $available
  * @property float $price
  * @property Carbon|null $created_at
@@ -47,6 +51,10 @@ class Product extends Model
 		'slug',
 		'description',
 		'image',
+		'image2', // Ajout de image2
+		'image3', // Ajout de image3
+		'image4', // Ajout de image4
+		'image5', // Ajout de image5
 		'available',
 		'price'
 	];

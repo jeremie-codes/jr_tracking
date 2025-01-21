@@ -1,7 +1,7 @@
 @php
-    use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 
-    $client = Auth::user();
+$client = Auth::user();
 @endphp
 
 @extends('layouts.app')
@@ -62,17 +62,36 @@
                                       @method('POST')
 
                                       <div class="row">
-                                          <div class="col-lg-12">
-                                              <div class="form-group">
-                                                  <label for="image">Image</label>
-                                                  <input type="file" name="image" id="image" class="form-control"
-                                                      id="product-image">
-                                                  @error('image')
-                                                      <div class="text-danger">{{ $message }}</div>
-                                                  @enderror
-                                              </div>
-                                          </div>
-
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="image">Image principale</label>
+                                                <input type="file" name="image" id="image" class="form-control">
+                                                @error('image')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="image2">Image 2</label>
+                                                <input type="file" name="image2" id="image2" class="form-control">
+                                                @error('image2')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="image3">Image 3</label>
+                                                <input type="file" name="image3" id="image3" class="form-control">
+                                                @error('image3')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                     
                                           {{-- <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label for="shop_id">Boutique</label>
@@ -168,24 +187,34 @@
           <!-- End My Account Area  -->
       </main>
 
-      <script>
-          document.getElementById('product-image').addEventListener('change', function(e) {
-              const file = e.target.files[0];
-              const errorElement = document.getElementById('avatar-error');
-              errorElement.classList.add('d-none'); // Cache l'erreur par défaut
+    <script>
+        // Fonction pour valider un fichier image
+        function validateImage(inputId, errorId) {
+            const input = document.getElementById(inputId);
+            const errorElement = document.getElementById(errorId);
 
-              if (file) {
-                  const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-                  if (!validTypes.includes(file.type)) {
-                      errorElement.textContent = 'Le fichier doit être une image (JPEG, PNG ou GIF).';
-                      errorElement.classList.remove('d-none');
-                      e.target.value = ''; // Réinitialise le champ fichier
-                  } else if (file.size > 2048 * 1024) {
-                      errorElement.textContent = 'L\'image ne doit pas dépasser 2 Mo.';
-                      errorElement.classList.remove('d-none');
-                      e.target.value = ''; // Réinitialise le champ fichier
-                  }
-              }
-          });
-      </script>
+            input.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                errorElement.classList.add('d-none'); // Cache l'erreur par défaut
+
+                if (file) {
+                    const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                    if (!validTypes.includes(file.type)) {
+                        errorElement.textContent = 'Le fichier doit être une image (JPEG, PNG ou GIF).';
+                        errorElement.classList.remove('d-none');
+                        e.target.value = ''; // Réinitialise le champ fichier
+                    } else if (file.size > 2048 * 1024) {
+                        errorElement.textContent = 'L\'image ne doit pas dépasser 2 Mo.';
+                        errorElement.classList.remove('d-none');
+                        e.target.value = ''; // Réinitialise le champ fichier
+                    }
+                }
+            });
+        }
+
+        // Appliquer la validation à chaque champ d'upload
+        validateImage('image', 'image-error');
+        validateImage('image2', 'image2-error');
+        validateImage('image3', 'image3-error');
+    </script>
   @endsection

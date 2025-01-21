@@ -71,30 +71,35 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        // dd($request->all());
+        // Récupérer le vendeur connecté
         $seller = $this->userContract->toGetById(Auth::user()->id);
-        $imageName = $request['image']->getClientOriginalName();
+        // dd($request['image2']->getClientOriginalName());
 
+        // Enregistrer l'image principale
+        $imageName = $request['image']->getClientOriginalName();
+        $imagePath = $request->file('image')->storeAs('product-images', $imageName, 'public');
+        // Enregistrer l'image principale
+        $imageName2 = $request['image2']->getClientOriginalName();
+        $imagePath2 = $request->file('image2')->storeAs('product-images', $imageName2, 'public');
+        // Enregistrer l'image principale
+        $imageName3 = $request['image3']->getClientOriginalName();
+        $imagePath3 = $request->file('image3')->storeAs('product-images', $imageName3, 'public');
+
+        // Créer le produit avec l'image principale
         $product = Product::create([
             'shop_id' => $seller->shop->id,
             'category_id' => $request['category_id'],
             'name' => $request['name'],
             'slug' => Str::slug($request['name']),
             'description' => $request['description'],
-            'image' => $request->file('image')->storeAs('product-images', $imageName, 'public'),
+            'image' => $imagePath,
+            'image2' => $imagePath2,
+            'image3' => $imagePath3,
             'available' => $request['available'],
             'price' => $request['price']
         ]);
 
-        // $request['image'] = $request->file('image')->storeAs('product-images', $imageName);
-        // $request['shop_id'] = $seller->shop->id;
-        // $request['slug'] = Str::slug($request['name']);
-
-        // dd($request->file('image')->storeAs('product-images', $imageName));
-        // $product = $this->productContract->toAdd($request->all());
-
         // dd($product);
-
 
         return redirect()->route('my_account')->with('success', 'Le produit a été créé avec succès');
     }
@@ -105,6 +110,8 @@ class ProductController extends Controller
     public function show($slug)
     {
         $product = Product::where('slug', $slug)->first();
+        // dd($product);
+
 
         // Récupérer l'utilisateur connecté
         $user = Auth::user();

@@ -26,28 +26,24 @@ use Illuminate\Support\Str;
                                     <div class="single-product-thumbnail-wrap zoom-gallery">
                                         <div class="single-product-thumbnail product-large-thumbnail-3 axil-product">
                                             <div class="thumbnail">
-                                                <a href="assets/images/product/product-big-01.png" class="popup-zoom">
+                                                <a href="{{ asset('storage/' . $product->image) }}" class="popup-zoom">
                                                     <img src="{{ asset('storage/' . $product->image) }}" alt="Product Images">
                                                 </a>
                                             </div>
-                                            <div class="thumbnail">
-                                                <a href="assets/images/product/product-big-02.png" class="popup-zoom">
-                                                    <img src="{{ asset('storage/' . $product->image) }}"
-                                                        alt="Product Images">
-                                                </a>
-                                            </div>
-                                            <div class="thumbnail">
-                                                <a href="assets/images/product/product-big-03.png" class="popup-zoom">
-                                                    <img src="{{ asset('storage/' . $product->image) }}"
-                                                        alt="Product Images">
-                                                </a>
-                                            </div>
-                                            <div class="thumbnail">
-                                                <a href="assets/images/product/product-big-02.png" class="popup-zoom">
-                                                    <img src="{{ asset('storage/' . $product->image) }}"
-                                                        alt="Product Images">
-                                                </a>
-                                            </div>
+                                            @if ($product->image2)
+                                                <div class="thumbnail">
+                                                    <a href="{{ asset('storage/' . $product->image2) }}" class="popup-zoom">
+                                                        <img src="{{ asset('storage/' . $product->image2) }}" alt="Product Images">
+                                                    </a>
+                                                </div>
+                                            @endif
+                                            @if ($product->image3)
+                                                <div class="thumbnail">
+                                                    <a href="{{ asset('storage/' . $product->image3) }}" class="popup-zoom">
+                                                        <img src="{{ asset('storage/' . $product->image3) }}" alt="Product Images">
+                                                    </a>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -56,15 +52,16 @@ use Illuminate\Support\Str;
                                         <div class="small-thumb-img">
                                             <img src="{{ asset('storage/' . $product->image) }}" alt="thumb image">
                                         </div>
-                                        <div class="small-thumb-img">
-                                            <img src="{{ asset('storage/' . $product->image) }}" alt="thumb image">
-                                        </div>
-                                        <div class="small-thumb-img">
-                                            <img src="{{ asset('storage/' . $product->image) }}" alt="thumb image">
-                                        </div>
-                                        <div class="small-thumb-img">
-                                            <img src="{{ asset('storage/' . $product->image) }}" alt="thumb image">
-                                        </div>
+                                        @if ($product->image2)
+                                            <div class="small-thumb-img">
+                                                <img src="{{ asset('storage/' . $product->image2) }}" alt="thumb image">
+                                            </div>
+                                        @endif
+                                        @if ($product->image3)
+                                            <div class="small-thumb-img">
+                                                <img src="{{ asset('storage/' . $product->image3) }}" alt="thumb image">
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
