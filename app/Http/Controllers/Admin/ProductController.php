@@ -173,22 +173,51 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // Récupérer le produit à mettre à jour
         $product = $this->productContract->toGetById($id);
-        $seller = $this->userContract->toGetById(Auth::user()->id);
-        $imageName = $request['image']->getClientOriginalName();
 
-        $product->update([
+        // Récupérer le vendeur connecté
+        $seller = $this->userContract->toGetById(Auth::user()->id);
+
+        // Préparer les données de mise à jour
+        $updateData = [
             'shop_id' => $seller->shop->id,
             'category_id' => $request['category_id'],
             'name' => $request['name'],
             'slug' => Str::slug($request['name']),
             'description' => $request['description'],
-            'image' => $request->file('image')->storeAs('product-images', $imageName, 'public'),
             'available' => $request['available'],
-            'price' => $request['price']
-        ]);
+            'price' => $request['price'],
+        ];
 
-        return redirect()->route('my_account')->with('success', 'Le produit a été créé avec succès');
+        // Gérer l'image principale (image)
+        if ($request->hasFile('image')) {
+            $imageName = $request->file('image')->getClientOriginalName();
+            $updateData['image'] = $request->file('image')->storeAs('product-images', $imageName, 'public');
+        } else {
+            $updateData['image'] = $product->image; // Conserver l'ancienne image
+        }
+
+        // Gérer l'image 2 (image2)
+        if ($request->hasFile('image2')) {
+            $imageName2 = $request->file('image2')->getClientOriginalName();
+            $updateData['image2'] = $request->file('image2')->storeAs('product-images', $imageName2, 'public');
+        } else {
+            $updateData['image2'] = $product->image2; // Conserver l'ancienne image
+        }
+
+        // Gérer l'image 3 (image3)
+        if ($request->hasFile('image3')) {
+            $imageName3 = $request->file('image3')->getClientOriginalName();
+            $updateData['image3'] = $request->file('image3')->storeAs('product-images', $imageName3, 'public');
+        } else {
+            $updateData['image3'] = $product->image3; // Conserver l'ancienne image
+        }
+
+        // Mettre à jour le produit
+        $product->update($updateData);
+
+        return redirect()->route('my_account')->with('success', 'Le produit a été mis à jour avec succès');
     }
 
     /**

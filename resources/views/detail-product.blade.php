@@ -13,8 +13,8 @@ use Illuminate\Support\Str;
                     @if ($user && ($user->role == 'admin' || $user->id == $product->shop->user_id))
                         <div class="row mb--40">
                             <div class="d-flex justify-content-end">
-                                    <a href=" {{ route('update_product', $product) }}" class="axil-btn btn-bg-primary">Modifier</a>
-                                <a href="{{ route('delete_product', $product) }}" class="axil-btn btn-bg-danger">Supprimer</a>
+                                    <a href=" {{ route('update_product', $product->slug) }}" class="axil-btn btn-bg-primary">Modifier</a>
+                                <a href="{{ route('delete_product', $product->slug) }}" class="axil-btn btn-bg-danger">Supprimer</a>
                             </div>
                         </div>
                     @endif

@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-account', [AccountController::class, 'index'])->name('my_account');
     Route::get('/create-product', [ProductController::class, 'create'])->name('create_product');
     Route::get('/edit-product/{slug}', [ProductController::class, 'edit'])->name('update_product');
+    Route::put('/edit-product/{id}', [ProductController::class, 'update'])->name('update_product');
     Route::get('/delete-product/{slug}', [ProductController::class, 'destroy'])->name('delete_product');
     Route::post('/create-product', [ProductController::class, 'store'])->name('create_product');
     Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
