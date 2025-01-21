@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Web\OrderController;
 use App\Http\Controllers\Web\PaiementController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -24,6 +25,8 @@ Route::post('cart/add/{product}', [CartController::class, 'add'])->name('cart.ad
 Route::get('cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('cart/empty', [CartController::class, 'empty'])->name('cart.empty');
 Route::put('/cart/update-multiple', [CartController::class, 'updateMultiple'])->name('cart.update.multiple');
+
+Route::get('/orders', [OrderController::class, 'index'])->name('orders');
 
 Route::view('/about-us', 'about-us')->name('about');
 Route::view('/blog-details', 'blog-details')->name('blog_details');
@@ -48,6 +51,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::get('/my-account', [AccountController::class, 'index'])->name('my_account');
     Route::get('/create-product', [ProductController::class, 'create'])->name('create_product');
+    Route::get('/edit-product/{slug}', [ProductController::class, 'edit'])->name('update_product');
+    Route::get('/delete-product/{slug}', [ProductController::class, 'destroy'])->name('delete_product');
     Route::post('/create-product', [ProductController::class, 'store'])->name('create_product');
     Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
     Route::post('/web/payTicket', [PaiementController::class, 'payTicket'])->name('tikect.pay');

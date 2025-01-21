@@ -95,6 +95,7 @@ class ProductController extends Controller
 
         // dd($product);
 
+
         return redirect()->route('my_account')->with('success', 'Le produit a été créé avec succès');
     }
 
@@ -104,10 +105,14 @@ class ProductController extends Controller
     public function show($slug)
     {
         $product = Product::where('slug', $slug)->first();
-        // dd($product);
+
+        // Récupérer l'utilisateur connecté
+        $user = Auth::user();
+        // dd($user->id);
 
         return view('detail-product', [
-            'product' => $product
+            'product' => $product,
+            'user' => $user, // Passer l'utilisateur connecté à la vue
         ]);
     }
 
@@ -144,9 +149,16 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($slug)
     {
-        //
+        $product = Product::where('slug', $slug)->first();
+
+        $categories = Category::all();
+
+        return view('edit-product', [
+            'product' => $product,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -154,7 +166,22 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $product = $this->productContract->toGetById($id);
+        $seller = $this->userContract->toGetById(Auth::user()->id);
+        $imageName = $request['image']->getClientOriginalName();
+
+        $product->update([
+            'shop_id' => $seller->shop->id,
+            'category_id' => $request['category_id'],
+            'name' => $request['name'],
+            'slug' => Str::slug($request['name']),
+            'description' => $request['description'],
+            'image' => $request->file('image')->storeAs('product-images', $imageName, 'public'),
+            'available' => $request['available'],
+            'price' => $request['price']
+        ]);
+
+        return redirect()->route('my_account')->with('success', 'Le produit a été créé avec succès');
     }
 
     /**
@@ -162,6 +189,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->productContract->toDelete($id);
+
+        return redirect()->route('my_account')->withMessage('Le produit a été supprimé avec succès');
     }
 }

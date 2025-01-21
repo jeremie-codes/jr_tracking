@@ -50,7 +50,19 @@ $client = Auth::user();
                           </div>
                       </div>
                       <div class="row">
-                          <div class="col-xl-3 col-md-4">
+                        <div class="row">
+                            @if (session()->has('message'))
+                            <div id="success-alert" class="alert alert-primary p-4" role="alert">
+                                {{ session('message') }}
+                            </div>
+                            @endif
+                              @if (session('success'))
+                                <div id="success-alert" class="alert alert-primary p-4" role="alert">
+                                {{ session('success') }}
+                                </div>
+                            @endif
+                        </div>
+                        <div class="col-xl-3 col-md-4">
                               <aside class="axil-dashboard-aside">
                                   <nav class="axil-dashboard-nav">
                                       <div class="nav nav-tabs" role="tablist">
@@ -106,7 +118,7 @@ $client = Auth::user();
                                                         <td>{{ $order->created_at->translatedFormat('j F Y') }}</td> <!-- Format de date -->
                                                         <td>{{ $order->status }}</td>
                                                         <td>{{ $order->total_price }}$</td>
-                                                        <td><a href="#" class="axil-btn view-btn">View</a></td>
+                                                        <td><a href="{{ route('orders') }}" class="axil-btn view-btn">Voir</a></td>
                                                     </tr>
                                                 @empty
                                                     <tr>
@@ -137,7 +149,7 @@ $client = Auth::user();
                                               <div class="col-lg-4 col-sm-6">
                                                   <div class="axil-product product-style-one has-color-pick mt--40">
                                                       <div class="thumbnail">
-                                                          <a href="{{ route('detail_product', $product->id) }}">
+                                                          <a href="{{ route('detail_product', $product->slug) }}">
                                                               <img src="{{ asset('storage/' . $product->image) }}"
                                                                   alt="{{ $product->name }}">
                                                           </a>
@@ -146,7 +158,7 @@ $client = Auth::user();
                                                                   {{-- <li class="wishlist"><a href="wishlist.html"><i
                                                                           class="far fa-heart"></i></a></li> --}}
                                                                   <li class="quickview"><a
-                                                                          href="{{ route('detail_product', $product->id) }}"
+                                                                          href="{{ route('detail_product', $product->slug) }}"
                                                                           data-bs-toggle="modal"
                                                                           data-bs-target="#quick-view-modal"><i
                                                                               class="far fa-eye"></i></a></li>
@@ -156,7 +168,7 @@ $client = Auth::user();
                                                       <div class="product-content">
                                                           <div class="inner">
                                                               <h5 class="title"><a
-                                                                      href="{{ route('detail_product', $product->id) }}">{{ $product->name }}
+                                                                      href="{{ route('detail_product', $product->slug) }}">{{ $product->name }}
                                                                   </a></h5>
                                                               <div class="product-price-variant">
                                                                   <span class="price current-price">{{ $product->price }}$
@@ -359,4 +371,15 @@ $client = Auth::user();
         // Appliquer la logique au chargement de la page (si un rôle est déjà sélectionné)
         document.addEventListener('DOMContentLoaded', toggleShopNameField);
     </script>
+
+        <script>
+            // Sélectionnez l'élément d'alerte
+            var alertElement = document.getElementById('success-alert');
+
+            // Définissez un délai de 3 secondes (3000 millisecondes)
+            setTimeout(function () {
+                // Masquez l'élément en définissant display à 'none'
+                alertElement.style.display = 'none';
+            }, 3000);
+        </script>
   @endsection

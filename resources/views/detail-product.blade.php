@@ -10,6 +10,15 @@ use Illuminate\Support\Str;
         <div class="axil-single-product-area axil-section-gap pb--0 bg-color-white">
             <div class="single-product-thumb mb--40">
                 <div class="container">
+                    @if ($user && ($user->role == 'admin' || $user->id == $product->shop->user_id))
+                        <div class="row mb--40">
+                            <div class="d-flex justify-content-end">
+                                    <a href=" {{ route('update_product', $product) }}" class="axil-btn btn-bg-primary">Modifier</a>
+                                <a href="{{ route('delete_product', $product) }}" class="axil-btn btn-bg-danger">Supprimer</a>
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="row">
                         <div class="col-lg-7 mb--40">
                             <div class="row">
