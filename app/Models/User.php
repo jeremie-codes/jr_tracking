@@ -8,6 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Filament\Panel;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Collection;
@@ -76,6 +77,6 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return false;
+        return Auth::user()->role == 'admin';
     }
 }
