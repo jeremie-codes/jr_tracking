@@ -57,7 +57,7 @@
         <!-- End Header -->
 
         <div class="row">
-            <div class="col-xl-4 col-lg-6 mt-4">
+            <div class="col-xl-4 col-lg-6">
                 <div class="axil-signin-banner bg_image bg_image--10 shadow-sm">
                     {{-- <h3 class="title">We Offer the Best Products</h3> --}}
                 </div>

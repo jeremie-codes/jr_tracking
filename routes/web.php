@@ -25,7 +25,6 @@ Route::get('cart/remove/{product}', [CartController::class, 'remove'])->name('ca
 Route::get('cart/empty', [CartController::class, 'empty'])->name('cart.empty');
 Route::put('/cart/update-multiple', [CartController::class, 'updateMultiple'])->name('cart.update.multiple');
 
-Route::view('/404', '404')->name('404');
 Route::view('/about-us', 'about-us')->name('about');
 Route::view('/blog-details', 'blog-details')->name('blog_details');
 Route::view('/blog-grid', 'blog-grid')->name('blog_grid');
