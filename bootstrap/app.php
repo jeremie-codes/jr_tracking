@@ -30,5 +30,4 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->renderable(function (ModelNotFoundException $e, $request) {
             return response()->view('errors.404', [], 404);
         });
-
     })->create();
