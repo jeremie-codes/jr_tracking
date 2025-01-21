@@ -10854,7 +10854,7 @@ body.open .closeMask {
     transform: scale(1);
 }
 
-.single-product-content .inner .product-rating {
+.single-product-content .inner .price-amount {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
