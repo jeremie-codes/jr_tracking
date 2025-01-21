@@ -542,7 +542,7 @@
         <!-- End New Arrivals Product Area  -->
 
         <!-- Start Most Sold Product Area  -->
-        <div class="axil-most-sold-product axil-section-gap">
+        {{-- <div class="axil-most-sold-product axil-section-gap">
             <div class="container">
                 <div class="product-area pb--50">
                     <div class="section-title-wrapper section-title-center">
@@ -572,7 +572,6 @@
                                         <button ty class="cart-btn"><i class="fal fa-shopping-cart"></i></button>
                                             </form>
 
-                                        {{-- <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -583,7 +582,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- End Most Sold Product Area  -->
     </main>
 @endsection
