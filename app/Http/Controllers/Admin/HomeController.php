@@ -36,7 +36,7 @@ class HomeController extends Controller
         }
 
         $products = $this->productContract->toGetAll();
-        $latestProducts = $this->productContract->toGetAll(5);
+        $latestProducts = $this->productContract->latestProducts(5);
 
         $categories = Category::all();
 

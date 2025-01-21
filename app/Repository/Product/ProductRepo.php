@@ -6,6 +6,12 @@ use App\Models\Product;
 
 class ProductRepo implements ProductContract
 {
+    public function latestProducts($n)
+    {
+        return Product::orderBy('created_at', 'desc') // Trier par date de création décroissante
+            ->take($n) // Limiter le nombre de résultats à $n
+            ->get(); // Récupérer les résultats
+    }
 
     public function toGetProductByCategory($categoryId)
     {
