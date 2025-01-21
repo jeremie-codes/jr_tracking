@@ -18,28 +18,6 @@
                                             <a href="{{ route('shop') }}" class="axil-btn btn-bg-white"><i
                                                     class="fal fa-shopping-cart"></i>Articles</a>
                                         </div>
-                                        <div class="item-rating">
-                                            <div class="thumb">
-                                                <ul>
-                                                    <li><img src="assets/images/others/author1.png" alt="Author"></li>
-                                                    <li><img src="assets/images/others/author2.png" alt="Author"></li>
-                                                    <li><img src="assets/images/others/author3.png" alt="Author"></li>
-                                                    <li><img src="assets/images/others/author4.png" alt="Author"></li>
-                                                </ul>
-                                            </div>
-                                            <div class="content">
-                                                <span class="rating-icon">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                </span>
-                                                <span class="review-text">
-                                                    <span>100+</span> Review
-                                                </span>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="single-slide slick-slide">
@@ -145,32 +123,16 @@
                                 <div class="single-slide slick-slide" data-sal="slide-up" data-sal-delay="600"
                                     data-sal-duration="1500">
                                     <img src="{{ asset('assets/images/banner/manteau.png') }}" alt="Product" width="1000px">
-                                    <div class="product-price">
-                                        <span class="text">From</span>
-                                        <span class="price-amount">$49.00</span>
-                                    </div>
                                 </div>
                                 <div class="single-slide slick-slide" data-sal="slide-up" data-sal-delay="600"
                                     data-sal-duration="1500">
                                     <img src="{{ asset('assets/images/banner/par-dessus.png') }}" alt="Product">
-                                    <div class="product-price">
-                                        <span class="text">From</span>
-                                        <span class="price-amount">$49.00</span>
-                                    </div>
                                 </div>
                                 <div class="single-slide slick-slide">
                                     <img src="{{ asset('assets/images/banner/phone.png') }}" alt="Product">
-                                    <div class="product-price">
-                                        <span class="text">From</span>
-                                        <span class="price-amount">$49.00</span>
-                                    </div>
                                 </div>
                                 <div class="single-slide slick-slide">
                                     <img src="{{ asset('assets/images/banner/manteau.png') }}" alt="Product">
-                                    <div class="product-price">
-                                        <span class="text">From</span>
-                                        <span class="price-amount">$49.00</span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -345,95 +307,8 @@
         </div>
         <!-- End Expolre Product Area  -->
 
-        <!-- Start Testimonila Area  -->
-        <div class="axil-testimoial-area axil-section-gap bg-vista-white">
-            <div class="container">
-                <div class="section-title-wrapper">
-                    <span class="title-highlighter highlighter-secondary"> <i class="fal fa-quote-left"></i>Témoignages</span>
-                    <h2 class="title">Avis des utilisateurs</h2>
-                </div>
-                <!-- Fin .section-title -->
-                <div
-                    class="testimonial-slick-activation testimonial-style-one-wrapper slick-layout-wrapper--20 axil-slick-arrow arrow-top-slide">
-                    <div class="slick-single-layout testimonial-style-one">
-                        <div class="review-speech">
-                            <p>“ C’est incroyable à quel point il est devenu plus facile de rencontrer de nouvelles personnes et
-                                de créer des connexions instantanées. J’ai exactement la même personnalité, la seule chose qui a
-                                changé, c’est mon état d’esprit et quelques comportements. “</p>
-                        </div>
-                        <div class="media">
-                            <div class="thumbnail">
-                                <img src="./assets/images/testimonial/image-1.png" alt="image témoignage">
-                            </div>
-                            <div class="media-body">
-                                <span class="designation">Responsable des idées</span>
-                                <h6 class="title">James C. Anderson</h6>
-                            </div>
-                        </div>
-                        <!-- Fin .thumbnail -->
-                    </div>
-                    <!-- Fin .slick-single-layout -->
-                    <div class="slick-single-layout testimonial-style-one">
-                        <div class="review-speech">
-                            <p>“ C’est incroyable à quel point il est devenu plus facile de rencontrer de nouvelles personnes et
-                                de créer des connexions instantanées. J’ai exactement la même personnalité, la seule chose qui a
-                                changé, c’est mon état d’esprit et quelques comportements. “</p>
-                        </div>
-                        <div class="media">
-                            <div class="thumbnail">
-                                <img src="./assets/images/testimonial/image-2.png" alt="image témoignage">
-                            </div>
-                            <div class="media-body">
-                                <span class="designation">Responsable des idées</span>
-                                <h6 class="title">James C. Anderson</h6>
-                            </div>
-                        </div>
-                        <!-- Fin .thumbnail -->
-                    </div>
-                    <!-- Fin .slick-single-layout -->
-                    <div class="slick-single-layout testimonial-style-one">
-                        <div class="review-speech">
-                            <p>“ C’est incroyable à quel point il est devenu plus facile de rencontrer de nouvelles personnes et
-                                de créer des connexions instantanées. J’ai exactement la même personnalité, la seule chose qui a
-                                changé, c’est mon état d’esprit et quelques comportements. “</p>
-                        </div>
-                        <div class="media">
-                            <div class="thumbnail">
-                                <img src="./assets/images/testimonial/image-3.png" alt="image témoignage">
-                            </div>
-                            <div class="media-body">
-                                <span class="designation">Responsable des idées</span>
-                                <h6 class="title">James C. Anderson</h6>
-                            </div>
-                        </div>
-                        <!-- Fin .thumbnail -->
-                    </div>
-                    <!-- Fin .slick-single-layout -->
-                    <div class="slick-single-layout testimonial-style-one">
-                        <div class="review-speech">
-                            <p>“ C’est incroyable à quel point il est devenu plus facile de rencontrer de nouvelles personnes et
-                                de créer des connexions instantanées. J’ai exactement la même personnalité, la seule chose qui a
-                                changé, c’est mon état d’esprit et quelques comportements. “</p>
-                        </div>
-                        <div class="media">
-                            <div class="thumbnail">
-                                <img src="./assets/images/testimonial/image-2.png" alt="image témoignage">
-                            </div>
-                            <div class="media-body">
-                                <span class="designation">Responsable des idées</span>
-                                <h6 class="title">James C. Anderson</h6>
-                            </div>
-                        </div>
-                        <!-- Fin .thumbnail -->
-                    </div>
-                    <!-- Fin .slick-single-layout -->
-                </div>
-            </div>
-        </div>
-        <!-- End Testimonila Area  -->
-
         <!-- Start New Arrivals Product Area  -->
-        <div class="axil-new-arrivals-product-area bg-color-white axil-section-gap pb--0">
+        <div class="axil-new-arrivals-product-area bg-vista-white axil-section-gap pb--0">
             <div class="container">
                 <div class="product-area pb--50">
                     <div class="section-title-wrapper">
@@ -675,7 +550,7 @@
                         <h2 class="title">Découvrez les articles les plus vendus</h2>
                     </div>
                     <div class="row row-cols-xl-2 row-cols-1 row--15">
-                      @forelse ($latestProducts as $product )
+                      @forelse ($latestProducts as $product)
                         <div class="col">
                             <div class="axil-product-list">
                                 <div class="thumbnail" style="width: 97px; height: 87px; overflow: hidden;">
