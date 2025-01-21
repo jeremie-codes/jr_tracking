@@ -19,6 +19,7 @@ class CartSessionRepo implements CartInterfaceRepo
 
         // Les informations du produit à ajouter
         $product_details = [
+            'id' => $product->id,  // On ajoute l'id du produit à la clé pour faciliter la suppression
             'name' => $product->name,
             'price' => $product->price,
             'image' => $product->image,

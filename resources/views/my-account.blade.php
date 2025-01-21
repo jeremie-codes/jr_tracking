@@ -15,11 +15,11 @@ $client = Auth::user();
                       <div class="col-lg-6 col-md-8">
                           <div class="inner">
                               <ul class="axil-breadcrumb">
-                                  <li class="axil-breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                                  <li class="axil-breadcrumb-item"><a href="{{ route('home') }}">Accueil</a></li>
                                   <li class="separator"></li>
-                                  <li class="axil-breadcrumb-item active" aria-current="page">My Account</li>
+                                  <li class="axil-breadcrumb-item active" aria-current="page">Mon compte</li>
                               </ul>
-                              <h1 class="title">Explore All Products</h1>
+                              <h1 class="title">Gérer votre compte</h1>
                           </div>
                       </div>
                       <div class="col-lg-6 col-md-4">
@@ -100,42 +100,19 @@ $client = Auth::user();
                                                       </tr>
                                                   </thead>
                                                   <tbody>
-                                                      <tr>
-                                                          <th scope="row">#6523</th>
-                                                          <td>September 10, 2020</td>
-                                                          <td>Processing</td>
-                                                          <td>$326.63 for 3 items</td>
-                                                          <td><a href="#" class="axil-btn view-btn">View</a></td>
-                                                      </tr>
-                                                      <tr>
-                                                          <th scope="row">#6523</th>
-                                                          <td>September 10, 2020</td>
-                                                          <td>On Hold</td>
-                                                          <td>$326.63 for 3 items</td>
-                                                          <td><a href="#" class="axil-btn view-btn">View</a></td>
-                                                      </tr>
-                                                      <tr>
-                                                          <th scope="row">#6523</th>
-                                                          <td>September 10, 2020</td>
-                                                          <td>Processing</td>
-                                                          <td>$326.63 for 3 items</td>
-                                                          <td><a href="#" class="axil-btn view-btn">View</a></td>
-                                                      </tr>
-                                                      <tr>
-                                                          <th scope="row">#6523</th>
-                                                          <td>September 10, 2020</td>
-                                                          <td>Processing</td>
-                                                          <td>$326.63 for 3 items</td>
-                                                          <td><a href="#" class="axil-btn view-btn">View</a></td>
-                                                      </tr>
-                                                      <tr>
-                                                          <th scope="row">#6523</th>
-                                                          <td>September 10, 2020</td>
-                                                          <td>Processing</td>
-                                                          <td>$326.63 for 3 items</td>
-                                                          <td><a href="#" class="axil-btn view-btn">View</a></td>
-                                                      </tr>
-                                                  </tbody>
+                                                @forelse ($orders as $order)
+                                                    <tr>
+                                                        <th scope="row">#{{ $order->number }}</th> <!-- Affiche le numéro de commande -->
+                                                        <td>{{ $order->created_at->translatedFormat('j F Y') }}</td> <!-- Format de date -->
+                                                        <td>{{ $order->status }}</td>
+                                                        <td>{{ $order->total_price }}$</td>
+                                                        <td><a href="#" class="axil-btn view-btn">View</a></td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="5">Aucune commande trouvée.</td>
+                                                    </tr>
+                                                @endforelse
                                               </table>
                                           </div>
                                       </div>

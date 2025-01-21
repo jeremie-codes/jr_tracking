@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,9 @@ class AccountController extends Controller
         $userAuth = Auth::user();
         $seller = $this->userContract->toGetById(Auth::user()->id);
         $products = $this->productContract->toGetProductBySeller($userAuth->id);
+        $orders = Order::all();
+
+        // dd($orders);
 
         // dd(Auth::user()->id);
         // dd($products);
@@ -34,6 +38,7 @@ class AccountController extends Controller
         return view('my-account', [
             'seller' => $seller,
             'products' => $products,
+            'orders' => $orders
         ]);
     }
 

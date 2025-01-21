@@ -16,10 +16,68 @@ use App\Models\Callback;
 
 class PaiementController extends Controller
 {
+    protected $totalPrice = 0;
+
     public function payTicket(Request $request)
     {
-        // Récupérer toutes les valeurs de la session
+
         $cart = Session::all()['cart'];
+        // dd($cart);
+
+        foreach ($cart as $product) {
+            // Convertir la quantité en entier (au cas où elle est une chaîne)
+            $quantity = (int) $product['quantity'];
+
+            // Ajouter le prix total de ce produit au prix global
+            $this->totalPrice += $product['price'] * $quantity;
+        }
+
+        // Récupérer le dernier numéro de commande
+        $lastOrder = Order::orderBy('id', 'desc')->first(); // Récupère la dernière commande
+
+        // Déterminer le prochain numéro de commande
+        if ($lastOrder) {
+            // Extraire le numéro de la dernière commande (supposons que le numéro est stocké comme "Commande-0001")
+            $lastNumber = (int) substr($lastOrder->number, -4); // Extrait les 4 derniers chiffres
+            $nextNumber = $lastNumber + 1; // Incrémente le numéro
+        } else {
+            // Si aucune commande n'existe, commencer à 1
+            $nextNumber = 1;
+        }
+
+        // Formater le numéro avec des zéros non significatifs (4 chiffres)
+        $formattedNumber = str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+
+        // Créer la commande avec le numéro formaté
+        $order = Order::create([
+            'user_id' => Auth::user()->id,
+            'number' => '#' . $formattedNumber,
+            'total_price' => $this->totalPrice,
+            'status' => 'paid',
+            'currency' => '',
+            'notes' => 'notes'
+        ]);
+
+        dd($order);
+
+        if ($order) {
+            foreach ($cart as $product) {
+                $quantity = (int) $product['quantity'];
+                $orderItem = OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $product['id'],
+                    'qty' => $quantity,
+                    'unit_price' => $product['price']
+                ]);
+
+                // dd($orderItem);
+            }
+        }
+
+
+
+
+        // Récupérer toutes les valeurs de la session
         // dd($request);
         // $token = env('CARD_API_PAYMENT');
         // $billRef = 'Fact-'. now()->getTimestamp();
@@ -90,7 +148,7 @@ class PaiementController extends Controller
         //     }
 
         // } else
-        if($request->has('type') && $request->type == 'card') {
+        if ($request->has('type') && $request->type == 'card') {
 
             try {
                 // $this->validate($request, [
@@ -118,9 +176,9 @@ class PaiementController extends Controller
 
                     // Ajouter le price aux line_items
                     $lineItems[] = [
-                            'price' => $price->id,
-                            'quantity' => $item['quantity'],
-                        ];
+                        'price' => $price->id,
+                        'quantity' => $item['quantity'],
+                    ];
                 }
 
                 // Créer la session de paiement
@@ -131,13 +189,13 @@ class PaiementController extends Controller
                     'mode' => 'payment',
                 ]);
 
-                if(isset($data->id) && $data->id != '') {
+                if (isset($data->id) && $data->id != '') {
                     // dd($data->id);
                     $cmdRef = $data->id;
-                    $result =  $this->addCommande($request->total, 'usd', $cmdRef);
+                    $result = $this->addCommande($request->total, 'usd', $cmdRef);
 
                     return redirect()->away($data->url);
-                } else{
+                } else {
                     return redirect()->back()->withErrors(['message' => 'Une erreur lors du paiement. Veuillez reessayer.']);
                 }
 
@@ -146,7 +204,7 @@ class PaiementController extends Controller
 
                 return redirect()->back()->withErrors($errors);
             }
-        } else{
+        } else {
             return redirect()->back()->withErrors(['message' => "Une erreur s'est produite lors du choix du mode de paiement! "]);
         }
 
@@ -159,7 +217,7 @@ class PaiementController extends Controller
     public function addCommande($amount, $currency, $cmdRef)
     {
 
-        $result = DB::transaction(function() use ($amount, $currency, $cmdRef){
+        $result = DB::transaction(function () use ($amount, $currency, $cmdRef) {
             $cart = Session::all()['cart'];
 
             // Exemple de création d'une commande
@@ -204,7 +262,8 @@ class PaiementController extends Controller
             dd($request);
 
             // 'reference' => $request->reference,
-            $callback = Callback::create([
+            $callback = Callback::create(
+                [
                     'total_price' => $request->amount,
                     'currency' => $request->currency,
                     'phone' => $request->phone,
@@ -219,14 +278,14 @@ class PaiementController extends Controller
                     "data" => $callback,
                     "status_code" => 201,
                     "success" => true
-                ],201);
+                ], 201);
             } else {
                 return response()->json([
                     "message" => "Callback non enregistré",
                     "data" => $callback,
                     "status_code" => 422,
                     "success" => false
-                    ],422);
+                ], 422);
             }
 
         } else {
@@ -235,7 +294,7 @@ class PaiementController extends Controller
                 "data" => [],
                 "status_code" => 404,
                 "success" => false
-            ],404);
+            ], 404);
         }
 
     }

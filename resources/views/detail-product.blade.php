@@ -17,7 +17,27 @@ use Illuminate\Support\Str;
                                     <div class="single-product-thumbnail-wrap zoom-gallery">
                                         <div class="single-product-thumbnail product-large-thumbnail-3 axil-product">
                                             <div class="thumbnail">
-                                                <img src="{{ asset('storage/' . $product->image) }}" alt="Product Images">
+                                                <a href="assets/images/product/product-big-01.png" class="popup-zoom">
+                                                    <img src="{{ asset('storage/' . $product->image) }}" alt="Product Images">
+                                                </a>
+                                            </div>
+                                            <div class="thumbnail">
+                                                <a href="assets/images/product/product-big-02.png" class="popup-zoom">
+                                                    <img src="{{ asset('storage/' . $product->image) }}"
+                                                        alt="Product Images">
+                                                </a>
+                                            </div>
+                                            <div class="thumbnail">
+                                                <a href="assets/images/product/product-big-03.png" class="popup-zoom">
+                                                    <img src="{{ asset('storage/' . $product->image) }}"
+                                                        alt="Product Images">
+                                                </a>
+                                            </div>
+                                            <div class="thumbnail">
+                                                <a href="assets/images/product/product-big-02.png" class="popup-zoom">
+                                                    <img src="{{ asset('storage/' . $product->image) }}"
+                                                        alt="Product Images">
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
