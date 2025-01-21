@@ -37,6 +37,7 @@ class HomeController extends Controller
 
         $products = $this->productContract->toGetAll();
         $latestProducts = $this->productContract->latestProducts(5);
+        $productsByCategory = $this->productContract->toGetProductByCategory('Chaussure');
 
         $categories = Category::all();
 
@@ -53,6 +54,7 @@ class HomeController extends Controller
                 'products' => $products,
                 'latestProducts' => $latestProducts,
                 'categories' => $categories,
+                'productsByCategory' => $productsByCategory
             ]);
         }
         return view('home', [

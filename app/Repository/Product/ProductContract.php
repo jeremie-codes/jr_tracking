@@ -6,7 +6,7 @@ use App\Contracts\BaseOpContract;
 
 interface ProductContract extends BaseOpContract
 {
-    public function toGetProductByCategory($categoryId);
+    public function toGetProductByCategory($category);
     public function toGetProductBySeller($sellerId);
     public function toGetProductByShop($shopId);
     public function toGetLatest($n);

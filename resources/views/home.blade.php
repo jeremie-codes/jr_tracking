@@ -547,10 +547,10 @@
                 <div class="product-area pb--50">
                     <div class="section-title-wrapper section-title-center">
                         <span class="title-highlighter highlighter-primary"><i class="fas fa-star"></i>Les plus vendus</span>
-                        <h2 class="title">Découvrez les articles les plus vendus</h2>
+                        <h2 class="title">Découvrez nos chaussures</h2>
                     </div>
                     <div class="row row-cols-xl-2 row-cols-1 row--15">
-                      @forelse ($latestProducts as $product)
+                      @forelse ($productsByCategory as $product)
                         <div class="col">
                             <div class="axil-product-list">
                                 <div class="thumbnail" style="width: 97px; height: 87px; overflow: hidden;">
@@ -578,7 +578,7 @@
                             </div>
                         </div>                          
                       @empty
-                          
+                        <p>Aucune produit disponible.</p>
                       @endforelse
                     </div>
                 </div>

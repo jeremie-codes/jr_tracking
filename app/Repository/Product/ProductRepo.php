@@ -13,9 +13,9 @@ class ProductRepo implements ProductContract
             ->get(); // Récupérer les résultats
     }
 
-    public function toGetProductByCategory($categoryId)
+    public function toGetProductByCategory($category)
     {
-        $product = Product::where('category_id', $categoryId)->get();
+        $product = Product::where('name', $category)->get();
         return $product;
     }
 

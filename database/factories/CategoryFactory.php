@@ -17,7 +17,10 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => 'Chaussure',
+            'image' => asset('assets/images/banner/chaussures.png'),
+            'is_visible' => true,
+            'description' => fake()->sentence(),
         ];
     }
 }

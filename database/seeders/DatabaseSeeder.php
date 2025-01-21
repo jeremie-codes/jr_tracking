@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,11 +17,18 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'role' => 'admin',
-            'password' => Hash::make('admin123')
+        // User::factory()->create([
+        //     'name' => 'Admin',
+        //     'email' => 'admin@gmail.com',
+        //     'role' => 'admin',
+        //     'password' => Hash::make('admin123')
+        // ]);
+
+        Category::factory()->create([
+            'name' => 'Chaussure',
+            'image' => asset('assets/images/banner/chaussures.png'),
+            'is_visible' => true,
+            'description' => fake()->sentence(),
         ]);
     }
 }
