@@ -64,6 +64,7 @@ class HomeController extends Controller
             'products' => $products,
             'latestProducts' => $latestProducts,
             'categories' => $categories,
+            'productsByCategory' => $productsByCategory
         ]);
     }
 
