@@ -578,13 +578,12 @@
                             </div>
                         </div>                          
                       @empty
-                        <p>Aucune produit disponible.</p>
+                        <p>Aucun produit disponible.</p>
                       @endforelse
                     </div>
                 </div>
             </div>
         </div>
         <!-- End Most Sold Product Area  -->
-
     </main>
 @endsection

@@ -17,18 +17,18 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Admin',
-        //     'email' => 'admin@gmail.com',
-        //     'role' => 'admin',
-        //     'password' => Hash::make('admin123')
-        // ]);
-
-        Category::factory()->create([
-            'name' => 'Chaussure',
-            'image' => asset('assets/images/banner/chaussures.png'),
-            'is_visible' => true,
-            'description' => fake()->sentence(),
+        User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'role' => 'admin',
+            'password' => Hash::make('admin123')
         ]);
+
+        //     Category::factory()->create([
+        //         'name' => 'Chaussure',
+        //         'image' => asset('assets/images/banner/chaussures.png'),
+        //         'is_visible' => true,
+        //         'description' => fake()->sentence(),
+        //     ]);
     }
 }
