@@ -10,58 +10,6 @@ foreach ($cart as $item) {
 
 @endphp
 
-<style>
-    /* À ajouter dans votre fichier CSS ou dans une balise <style> */
-    .header.axil-header.sticky,
-    .header.axil-header.header-style-5 {
-        background-color: #0fb7c6 !important;
-        transition: all 0.3s !important;
-    }
-
-    /* Pour le menu déroulant mobile */
-    .axil-mainmenu,
-    .mainmenu-nav {
-        background-color: #0fb7c6 !important;
-        color: white !important;
-    }
-
-    /* Couleur générale du texte */
-    .header.axil-header,
-    .header.axil-header a,
-    .header.axil-header .mainmenu>li>a,
-    .header.axil-header .flaticon-shopping-cart,
-    .header.axil-header .flaticon-person,
-    .header.axil-header .mobile-nav-toggler,
-    .header.axil-header .cart-count {
-        color: #ffffff !important;
-    }
-
-    /* États hover/survol */
-    .header.axil-header .mainmenu>li>a:hover,
-    .header.axil-header .action-list li:hover>a {
-        color: #e6e6e6 !important;
-        opacity: 0.9 !important;
-    }
-
-    /* Menu déroulant compte */
-    .my-account-dropdown .title,
-    .my-account-dropdown a,
-    .my-account-dropdown .btn-link {
-        color: #333 !important;
-        /* Garder le foncé pour le dropdown */
-    }
-
-    /* Boutons (connexion/déconnexion) */
-    .axil-btn.btn-bg-primary {
-        color: #fff !important;
-        border-color: #fff !important;
-    }
-
-    #logosize {
-        height: 70px !important;
-    }
-</style>
-
 <header class="header axil-header header-style-5">
     <!-- Start Mainmenu Area -->
     <div class="axil-mainmenu">

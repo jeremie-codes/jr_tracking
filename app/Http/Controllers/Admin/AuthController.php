@@ -58,6 +58,8 @@ class AuthController extends Controller
     {
         $data = $request->all();
 
+        // dd($data);
+
         $request['password'] = Hash::make($request['password']);
 
         if (!$request['shop_name']) {
@@ -74,7 +76,9 @@ class AuthController extends Controller
         $shop = Shop::create([
             'user_id' => $user->id,
             'name' => $request['shop_name'],
+            'image' => $request->file('image')->store('shop-images', 'public')
         ]);
+        // dd($shop);
 
         if ($shop) {
             Auth::login($user);
@@ -121,7 +125,10 @@ class AuthController extends Controller
         $shop = Shop::findOrFail($user->shop->id);
         $shop->update([
             'name' => $request['shop_name'],
+            'image' => $request->file('image')->store('shop-images', 'public')
         ]);
+
+        // dd($shop);
 
         $user = $this->userContract->toUpdate($data, $id);
 

@@ -56,7 +56,7 @@
         <!-- End Header -->
 
         <div class="row">
-            <div class="col-xl-4 col-lg-6 mt-4">
+            <div class="col-xl-4 col-lg-6">
                 <div class="axil-signin-banner bg_image bg_image--10 shadow-sm">
                     {{-- <h3 class="title">Nous offrons les meilleurs produits</h3> --}}
                 </div>
@@ -67,7 +67,7 @@
                         <h3 class="title">Je suis nouveau ici</h3>
                         <p class="b2 mb--55">Entrez vos coordonnées ci-dessous</p>
                         <form class="singin-form" method="POST" action="{{ route('register') }}"
-                            enctype="multipart/form-data" id="avatar-form">
+                            enctype="multipart/form-data">
                             @csrf
                             @method('POST')
 
@@ -177,6 +177,13 @@
                                     <div class="form-group">
                                         <label for="shop_name">Nom de la boutique</label>
                                         <input type="text" name="shop_name" id="shop_name" class="form-control" value="{{ old('shop_name') }}">
+                                    </div>
+                                     <div class="form-group">
+                                        <label for="image">Image</label>
+                                        <input type="file" name="image" id="image" class="form-control">
+                                        @error('image')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                 </div>
 

@@ -25,7 +25,7 @@ $client = Auth::user();
                       <div class="col-lg-6 col-md-4">
                           <div class="inner">
                               <div class="bradcrumb-thumb">
-                                  <img src="assets/images/product/product-45.png" alt="Image">
+                                  {{-- <img src="assets/images/product/product-45.png" alt="Image"> --}}
                               </div>
                           </div>
                       </div>
@@ -41,7 +41,10 @@ $client = Auth::user();
                       <div class="axil-dashboard-author">
                           <div class="media">
                               <div class="thumbnail">
-                                  <img src="{{ $client->avatar ? '/storage/' . $client->avatar : asset('assets/images/product/author1.png') }}" alt="Hello Annie">
+                                  <img src="{{ $client->shop?->image
+                                                ? asset('storage/' . $client->shop?->image)
+                                                : asset('assets/images/default.jpg') 
+                                            }}" alt="{{  $client->shop?->name }}" alt="Hello Annie" width="100px">
                               </div>
                               <div class="media-body">
                                   <h5 class="title mb-0">{{ $client->name }}</h5>
@@ -191,17 +194,17 @@ $client = Auth::user();
                                   <div class="tab-pane fade" id="nav-account" role="tabpanel">
                                       <div class="col-lg-9">
                                           <div class="axil-dashboard-account">
-                                               <form class="singin-form" method="POST" action="{{ route('update', $client->id) }}" enctype="multipart/form-data" id="avatar-form">
+                                               <form class="singin-form" method="POST" action="{{ route('update', $client->id) }}" enctype="multipart/form-data" id="image-form">
                                                     @csrf
                                                     @method('POST')
 
                                                     <div class="row">
-                                                        <!-- Avatar -->
+                                                        <!-- Image -->
                                                         <div class="col-lg-12">
                                                             <div class="form-group">
-                                                                <label for="avatar">Avatar</label>
-                                                                <input type="file" name="avatar" id="avatar" class="form-control">
-                                                                @error('avatar')
+                                                                <label for="image">Image</label>
+                                                                <input type="file" name="image" id="image" class="form-control">
+                                                                @error('image')
                                                                     <small class="text-danger">{{ $message }}</small>
                                                                 @enderror
                                                             </div>
@@ -300,7 +303,7 @@ $client = Auth::user();
                                                         <div class="col-lg-12" id="shop_name_field" style="display: none;">
                                                             <div class="form-group">
                                                                 <label for="shop_name">Nom de la boutique</label>
-                                                                <input type="text" name="shop_name" id="shop_name" class="form-control" value="{{ $client->shop->name }}">
+                                                                <input type="text" name="shop_name" id="shop_name" class="form-control" value="{{ $client->shop?->name }}">
                                                             </div>
                                                         </div>
 

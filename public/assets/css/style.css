@@ -8519,6 +8519,14 @@ Header Styles
     bottom: 18px;
 }
 
+.axil-mainmenu,
+.header-main-nav .mainmenu-nav {
+    background-color: var(--color-primary);
+}
+.header-main-nav .mainmenu-nav li a {
+    color: white !important;
+}
+
 /*-----------------------
     Mobile Menu
 -------------------------*/
@@ -8530,7 +8538,7 @@ Header Styles
         bottom: 0;
         right: -250px;
         width: 250px;
-        background-color: var(--color-white);
+        /* background-color: var(--color-primary); */
         z-index: 100;
         transition: all 0.3s ease-in-out;
         padding: 20px 30px 10px;
@@ -19010,4 +19018,8 @@ RTL Style
 .order-details p::before {
     margin-right: 10px;
     font-size: 18px;
+}
+
+#logosize {
+    height: 70px !important;
 }

@@ -173,7 +173,9 @@
                                     <div class="thumbnail">
                                         <a href="single-product.html">
                                             <img data-sal="zoom-out" data-sal-delay="300" data-sal-duration="500"
-                                                src="{{ asset('storage/' . $shop->image) }}" alt="{{  $shop->name }}">
+                                                src="{{ $shop->image
+                                                 ? asset('storage/' . $shop->image) 
+                                                : asset('assets/images/default.jpg') }}" alt="{{  $shop->name }}">
                                         </a>
                                     </div>
                                     <div class="product-content">
