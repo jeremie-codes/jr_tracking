@@ -34,7 +34,9 @@ class SellerResource extends Resource
     protected static ?string $model = User::class;
     protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
     protected static ?string $label = 'Vendeurs';
-    protected static ?string $cluster = Customer::class;
+    // protected static ?string $cluster = Customer::class;
+    protected static ?string $navigationGroup = 'Vendeurs';
+
 
     public static function getEloquentQuery(): Builder
     {

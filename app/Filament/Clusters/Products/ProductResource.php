@@ -38,7 +38,9 @@ class ProductResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
     protected static ?string $label = 'Produits';
     protected static ?int $navigationSort = 3;
-    protected static ?string $cluster = Products::class;
+    // protected static ?string $cluster = Products::class;
+    protected static ?string $navigationGroup = 'Articles';
+
 
     public static function form(Form $form): Form
     {

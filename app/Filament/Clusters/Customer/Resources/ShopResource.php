@@ -10,11 +10,11 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
-use App\Filament\Clusters\Customer;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Repeater;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
@@ -28,8 +28,10 @@ class ShopResource extends Resource
 {
     protected static ?string $model = Shop::class;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $cluster = Customer::class;
+    // protected static ?string $cluster = Customer::class;
     protected static ?string $label = 'Boutiques';
+    protected static ?string $navigationGroup = 'Vendeurs';
+
 
     public static function form(Form $form): Form
     {
@@ -106,8 +108,13 @@ class ShopResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
+                TextColumn::make('name')
+                    ->label('Nom de la boutique'),
                 TextColumn::make('user.name')
+                    ->label('Propriétaire'),
+                IconColumn::make('status')
+                    ->label('Visibilité')
+                    ->sortable(),
             ])
             ->filters([
                 //

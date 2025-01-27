@@ -31,9 +31,9 @@ class CategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-archive-box';
     protected static ?string $label = 'Catégories';
-    protected static ?int $navigationSort = 2;
-    protected static ?string $cluster = Products::class;
-
+    protected static ?int $navigationSort = 1;
+    // protected static ?string $cluster = Products::class;
+    protected static ?string $navigationGroup = 'Articles';
 
     public static function form(Form $form): Form
     {
