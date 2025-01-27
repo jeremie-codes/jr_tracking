@@ -81,6 +81,11 @@ class ProductRepo implements ProductContract
             $query->where('shop_id', $shopId);
         }
 
+        // Ajouter une condition pour inclure uniquement les produits liés à des boutiques actives
+        $query->whereHas('shop', function ($q) {
+            $q->where('status', 1);
+        });
+
         // Appliquer un tri si un `sort` est fourni
         if (!is_null($sort)) {
             switch ($sort) {
@@ -149,10 +154,15 @@ class ProductRepo implements ProductContract
      */
     public function toGetAll($n = 20)
     {
-        $product = Product::with('category', 'shop')
+        $products = Product::with('category', 'shop')
+            ->whereHas('shop', function ($query) {
+                $query->where('status', 1);
+            })
             ->paginate($n);
-        return $product;
+
+        return $products;
     }
+
 
     /**
      *

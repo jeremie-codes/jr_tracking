@@ -157,9 +157,9 @@ class AuthController extends Controller
 
         $user = $this->userContract->toGetById($id);
 
-        $data = $request->except(['_method', '_token', 'old_password', 'new_password', 'password_confirmation', 'shop_name']);
+        $data = $request->except(['_method', '_token', 'old_password', 'new_password', 'password_confirmation', 'shop_name', 'image', 'slug']);
 
-        $data['slug'] = Str::slug('shop_name');
+        $request['slug'] = Str::slug('shop_name');
 
         $shop = Shop::findOrFail($user->shop->id);
 
@@ -168,7 +168,7 @@ class AuthController extends Controller
             $shop->update([
                 'name' => $request['shop_name'],
                 'image' => $request->file('image')->store('shop-images', 'public'),
-                'slug' => $data['slug']
+                'slug' => $request['slug']
             ]);
         } else {
             $shop->update([

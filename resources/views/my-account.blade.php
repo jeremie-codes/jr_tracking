@@ -25,7 +25,7 @@ $client = Auth::user();
                       <div class="col-lg-6 col-md-4">
                           <div class="inner">
                               <div class="bradcrumb-thumb">
-                                  {{-- <img src="assets/images/product/product-45.png" alt="Image"> --}}
+                                  <img src="assets/images/product/product-45.png" alt="Image">
                               </div>
                           </div>
                       </div>
@@ -42,8 +42,8 @@ $client = Auth::user();
                           <div class="media">
                               <div class="thumbnail">
                                   <img src="{{ $client->shop?->image
-                                                ? asset('storage/' . $client->shop?->image)
-                                                : asset('assets/images/default.jpg') 
+    ? asset('storage/' . $client->shop?->image)
+    : asset('assets/images/default.jpg') 
                                             }}" alt="{{  $client->shop?->name }}" alt="Hello Annie" width="100px">
                               </div>
                               <div class="media-body">
@@ -194,17 +194,18 @@ $client = Auth::user();
                                   <div class="tab-pane fade" id="nav-account" role="tabpanel">
                                       <div class="col-lg-9">
                                           <div class="axil-dashboard-account">
-                                               <form class="singin-form" method="POST" action="{{ route('update', $client->id) }}" enctype="multipart/form-data" id="image-form">
+                                               <form class="singin-form" method="POST" action="{{ route('update', $client->id) }}" enctype="multipart/form-data">
+                                                {{-- id="avatar-form" --}}
                                                     @csrf
                                                     @method('POST')
 
                                                     <div class="row">
-                                                        <!-- Image -->
+                                                        <!-- Avatar -->
                                                         <div class="col-lg-12">
                                                             <div class="form-group">
-                                                                <label for="image">Image</label>
-                                                                <input type="file" name="image" id="image" class="form-control">
-                                                                @error('image')
+                                                                <label for="avatar">Avatar</label>
+                                                                <input type="file" name="avatar" id="avatar" class="form-control">
+                                                                @error('avatar')
                                                                     <small class="text-danger">{{ $message }}</small>
                                                                 @enderror
                                                             </div>
@@ -301,6 +302,13 @@ $client = Auth::user();
                                                         </div>
                                                         
                                                         <div class="col-lg-12" id="shop_name_field" style="display: none;">
+                                                             <div class="form-group">
+                                                                <label for="image">Image de la boutique</label>
+                                                                <input type="file" name="image" id="image" class="form-control">
+                                                                @error('image')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
                                                             <div class="form-group">
                                                                 <label for="shop_name">Nom de la boutique</label>
                                                                 <input type="text" name="shop_name" id="shop_name" class="form-control" value="{{ $client->shop?->name }}">
@@ -362,9 +370,9 @@ $client = Auth::user();
         // Fonction pour afficher ou masquer le champ shop_name
         function toggleShopNameField() {
             if (roleSelect.value === 'seller') {
-                shopNameField.style.display = 'block'; // Afficher le champ
+                shopNameField.style.display = 'block';
             } else {
-                shopNameField.style.display = 'none'; // Masquer le champ
+                shopNameField.style.display = 'none';
             }
         }
 
