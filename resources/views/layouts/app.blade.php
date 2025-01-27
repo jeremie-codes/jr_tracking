@@ -104,7 +104,7 @@
             <div class="card-body">
                 <div class="search-result-header">
                     <h6 class="title">24 Result Found</h6>
-                    <a href="{{ route('shop') }}" class="view-all">View All</a>
+                    <a href="{{ route('articles') }}" class="view-all">View All</a>
                 </div>
                 <div class="psearch-results">
                     <div class="axil-product-list">
@@ -255,7 +255,7 @@
                         <h3 class="title">Best Sales Offer<br> Grab Yours</h3>
                     </div>
                     <div class="poster-countdown countdown"></div>
-                    <a href="{{ route('shop') }}" class="axil-btn btn-bg-primary">Boutique <i
+                    <a href="{{ route('articles') }}" class="axil-btn btn-bg-primary">Boutique <i
                             class="fal fa-long-arrow-right"></i></a>
                 </div>
             </div>

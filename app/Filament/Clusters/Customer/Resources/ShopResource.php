@@ -35,12 +35,26 @@ class ShopResource extends Resource
     {
         return $form
             ->schema([
+                Section::make('')
+                    ->schema([
+                        FileUpload::make('image')
+                            ->imageEditor()
+                            ->image()
+                    ]),
                 Section::make()
                     ->schema([
                         TextInput::make('name')
                             ->label('Nom de la boutique')
                             ->required()
                             ->maxLength(255),
+                        Select::make('status')
+                            ->label('Visibilité')
+                            ->options([
+                                true => 'Visible',
+                                false => 'Masquée',
+                            ])
+                            ->default(true)
+                            ->required(),
                         Select::make('user_id')
                             ->relationship('user', 'name')
                     ]),

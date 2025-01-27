@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $user_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property bool $status
+ * @property string|null $image
  * 
  * @property User $user
  * @property Collection|Product[] $products
@@ -29,12 +31,15 @@ class Shop extends Model
 	protected $table = 'shops';
 
 	protected $casts = [
-		'user_id' => 'int'
+		'user_id' => 'int',
+		'status' => 'bool'
 	];
 
 	protected $fillable = [
 		'name',
-		'user_id'
+		'user_id',
+		'status',
+		'image'
 	];
 
 	public function user()

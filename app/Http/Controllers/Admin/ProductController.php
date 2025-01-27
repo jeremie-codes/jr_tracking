@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Shop;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
@@ -42,11 +43,43 @@ class ProductController extends Controller
 
         $products = $this->productContract->toGetAll();
         $categories = Category::all();
+        $shops = Shop::where('status', 1)->paginate(12);
+
+
+        // dd( $products->links() );
+
+        return view('articles', data: [
+            'products' => $products,
+            'categories' => $categories,
+            'cart' => $cart,
+            'shops' => $shops,
+            'totalItems' => $totalItems,
+            'subtotal' => $subtotal,
+        ]);
+    }
+
+    public function shop()
+    {
+        $cart = session('cart', []);
+        $totalItems = 0;
+        $subtotal = 0;
+
+        // Calculer le nombre total d'articles et le sous-total
+        foreach ($cart as $item) {
+            $totalItems += $item['quantity'];
+            $subtotal += $item['price'] * $item['quantity'];
+        }
+
+        $shops = Shop::where('status', 1)->paginate(12);
+
+        // dd($shops);
+        // $products = $this->productContract->toGetAll();
+        $categories = Category::all();
 
         // dd( $products->links() );
 
         return view('shop', data: [
-            'products' => $products,
+            'shops' => $shops,
             'categories' => $categories,
             'cart' => $cart,
             'totalItems' => $totalItems,
@@ -129,8 +162,9 @@ class ProductController extends Controller
         $priceRange = $request['price_range'];
         $sort = $request['sort'];
 
-        $products = $this->productContract->getFilteredProducts($categoryId, $priceRange, $sort, $n = 20);
+        $products = $this->productContract->getFilteredProducts($categoryId, $priceRange, $sort, $request->shop_id, $n = 20);
         $categories = Category::all();
+        $shops = Shop::where('status', 1)->paginate(12);
 
         $cart = session('cart', []);
         $totalItems = 0;
@@ -144,8 +178,9 @@ class ProductController extends Controller
 
         // dd( $products->links() );
 
-        return view('shop', data: [
+        return view('articles', data: [
             'products' => $products,
+            'shops' => $shops,
             'categories' => $categories,
             'cart' => $cart,
             'totalItems' => $totalItems,

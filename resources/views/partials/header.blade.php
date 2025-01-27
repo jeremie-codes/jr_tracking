@@ -34,9 +34,9 @@
                         </div>
                         <ul class="mainmenu">
                             <li><a href="{{ route('home') }}">Accueil</a></li>
-                            <li><a href="{{ route('shop') }}">Articles</a></li>
                             <li><a href="{{ route('about') }}">À propos</a></li>
-                            {{-- <li><a href="{{ route('boutique') }}">Boutique</a></li> --}}
+                            <li><a href="{{ route('articles') }}">Articles</a></li>
+                            <li><a href="{{ route('shop') }}">Boutiques</a></li>
                             <li><a href="{{ route('contact') }}">Contact</a></li>
                         </ul>
                     </nav>

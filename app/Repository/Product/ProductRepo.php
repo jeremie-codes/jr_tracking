@@ -54,7 +54,7 @@ class ProductRepo implements ProductContract
         return Product::whereBetween('price', [$minPrice, $maxPrice])->get();
     }
 
-    public function getFilteredProducts($categoryId = null, $priceRange = null, $sort = null, $n)
+    public function getFilteredProducts($categoryId = null, $priceRange = null, $sort = null, $shopId = null, $n)
     {
         // Commencer avec une requête de base
         $query = Product::query();
@@ -76,6 +76,11 @@ class ProductRepo implements ProductContract
             }
         }
 
+        // Filtrer par boutique si un `shopId` est fourni et différent de "all"
+        if (!is_null($shopId) && $shopId !== 'all') {
+            $query->where('shop_id', $shopId);
+        }
+
         // Appliquer un tri si un `sort` est fourni
         if (!is_null($sort)) {
             switch ($sort) {
@@ -94,6 +99,7 @@ class ProductRepo implements ProductContract
             }
         }
 
+        // Retourner les résultats paginés
         return $query->paginate($n);
     }
 

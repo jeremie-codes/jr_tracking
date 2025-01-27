@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-12 mb--30">
                 <div class="single-poster">
-                    <a href="{{ route('shop') }}">
+                    <a href="{{ route('articles') }}">
                         <img src="{{ asset('assets/images/bg/bg-image-5.jpg') }}" alt="eTrade promotion poster">
                         <div class="poster-content">
                         </div>
@@ -48,7 +48,7 @@
                                 <li><a href="#">Mon Compte</a></li>
                                 <li><a href="{{ route('register') }}">Se Connecter / S'inscrire</a></li>
                                 {{-- <li><a href="wishlist.html">Boutique</a></li> --}}
-                                <li><a href="{{ route('shop') }}">Articles</a></li>
+                                <li><a href="{{ route('articles') }}">Articles</a></li>
                             </ul>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                         <div class="inner">
                             <ul>
                                 <li><a href="{{ route('home') }}">Accueil</a></li>
-                                <li><a href="{{ route('shop') }}">Articles</a></li>
+                                <li><a href="{{ route('articles') }}">Articles</a></li>
                                 {{-- <li><a href="#">Boutiques</a></li> --}}
                                 <li><a href="{{ route('about') }}">À propos</a></li>
                                 <li><a href="{{ route('contact') }}">Contact</a></li>

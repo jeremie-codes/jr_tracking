@@ -15,7 +15,7 @@
                                     <h1 class="title">Bienvenue sur E-GALERIA</h1>
                                     <div class="slide-action">
                                         <div class="shop-btn">
-                                            <a href="{{ route('shop') }}" class="axil-btn btn-bg-white"><i
+                                            <a href="{{ route('articles') }}" class="axil-btn btn-bg-white"><i
                                                     class="fal fa-shopping-cart"></i>Articles</a>
                                         </div>
                                     </div>
@@ -25,7 +25,7 @@
                                     <h1 class="title">Guichet unique des Articless digitales</h1>
                                     <div class="slide-action">
                                         <div class="shop-btn">
-                                            <a href="{{ route('shop') }}" class="axil-btn btn-bg-white"><i
+                                            <a href="{{ route('articles') }}" class="axil-btn btn-bg-white"><i
                                                     class="fal fa-shopping-cart"></i>Articles</a>
                                         </div>
                                         <div class="item-rating">
@@ -56,7 +56,7 @@
                                     <h1 class="title">Bienvenue sur E-GALERIA</h1>
                                     <div class="slide-action">
                                         <div class="shop-btn">
-                                            <a href="{{ route('shop') }}" class="axil-btn btn-bg-white"><i
+                                            <a href="{{ route('articles') }}" class="axil-btn btn-bg-white"><i
                                                     class="fal fa-shopping-cart"></i>Articles</a>
                                         </div>
                                         <div class="item-rating">
@@ -87,7 +87,7 @@
                                     <h1 class="title">Guichet unique des Articless digitales</h1>
                                     <div class="slide-action">
                                         <div class="shop-btn">
-                                            <a href="{{ route('shop') }}" class="axil-btn btn-bg-white"><i
+                                            <a href="{{ route('articles') }}" class="axil-btn btn-bg-white"><i
                                                     class="fal fa-shopping-cart"></i>Articles</a>
                                         </div>
                                         <div class="item-rating">
@@ -187,7 +187,7 @@
                                 <div class="section-title-wrapper">
                                     <h2 class="title">Découvrez les meilleurs produits de la ville</h2>
                                 </div>
-                                <a href="{{ route('shop') }}" class="axil-btn btn-bg-primary">Go !</a>
+                                <a href="{{ route('articles') }}" class="axil-btn btn-bg-primary">Go !</a>
                                 {{-- <div class="poster-countdown countdown mb--40"></div> --}}
                             </div>
                         </div>
@@ -299,7 +299,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12 text-center mt--20 mt_sm--0">
-                        <a href="{{ route('shop') }}" class="axil-btn btn-bg-lighter btn-load-more">Voir plus</a>
+                        <a href="{{ route('articles') }}" class="axil-btn btn-bg-lighter btn-load-more">Voir plus</a>
                     </div>
                 </div>
 

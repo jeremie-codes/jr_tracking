@@ -11,6 +11,6 @@ interface ProductContract extends BaseOpContract
     public function toGetProductByShop($shopId);
     public function toGetLatest($n);
     public function toGetProductByPriceRange($priceRange);
-    public function getFilteredProducts($categoryId = null, $priceRange = null, $sort = null, $n);
+    public function getFilteredProducts($categoryId = null, $priceRange = null, $sort = null, $shopId = null, $n);
     public function latestProducts($n);
 }

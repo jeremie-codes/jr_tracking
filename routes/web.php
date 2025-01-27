@@ -15,7 +15,8 @@ Route::get('/cancel', [PaiementController::class, 'handleCanceled'])->name('canc
 Route::get('/approve', [PaiementController::class, 'handleApproved'])->name('approve');
 Route::get('/decline', [PaiementController::class, 'handleDeclined'])->name('decline');
 
-Route::get('/shop', [ProductController::class, 'index'])->name('shop');
+Route::get('/articles', [ProductController::class, 'index'])->name('articles');
+Route::get('/shop', [ProductController::class, 'shop'])->name('shop');
 Route::get('/detail-product/{slug}', [ProductController::class, 'show'])->name('detail_product');
 Route::post('/products/filter', [ProductController::class, 'filterProducts'])->name('products.filter');
 
