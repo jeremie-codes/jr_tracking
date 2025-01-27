@@ -43,10 +43,15 @@ class ShopResource extends Resource
                     ]),
                 Section::make()
                     ->schema([
-                        TextInput::make('name')
+                        Forms\Components\TextInput::make('name')
                             ->label('Nom de la boutique')
+                            ->autofocus()
                             ->required()
-                            ->maxLength(255),
+                            ->debounce()
+                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                        Forms\Components\TextInput::make('slug')
+                            ->readOnly()
+                            ->required(),
                         Select::make('status')
                             ->label('Visibilité')
                             ->options([

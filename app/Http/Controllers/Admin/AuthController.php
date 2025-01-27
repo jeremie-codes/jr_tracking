@@ -61,19 +61,20 @@ class AuthController extends Controller
 
         if (!$request['shop_name']) {
             $request['shop_name'] = $request['name'];
-        }
-        $data['slug'] = Str::slug('shop_name');
 
-        $request->validate([
-            'shop_name' => [
-                'required',
-                'string',
-                'max:255',
-                'unique:shops,slug' // Assurez-vous que la colonne slug existe dans votre table shops
-            ],
-        ], [
-            'shop_name.unique' => 'Le nom de la boutique est déjà pris.',
-        ]);
+            $request->validate([
+                'shop_name' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    'unique:shops,slug' // Assurez-vous que la colonne slug existe dans votre table shops
+                ],
+            ], [
+                'shop_name.unique' => 'Le nom de la boutique est déjà pris.',
+            ]);
+        }
+
+        $data['slug'] = Str::slug('shop_name');
 
         $request['password'] = Hash::make($request['password']);
 
@@ -138,15 +139,44 @@ class AuthController extends Controller
     {
         // dd($request->all());
 
+        if (!$request['shop_name']) {
+            $request['shop_name'] = $request['name'];
+
+            $request->validate([
+                'shop_name' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    'unique:shops,slug' // Assurez-vous que la colonne slug existe dans votre table shops
+                ],
+            ], [
+                'shop_name.unique' => 'Le nom de la boutique est déjà pris.',
+            ]);
+
+        }
+
         $user = $this->userContract->toGetById($id);
 
         $data = $request->except(['_method', '_token', 'old_password', 'new_password', 'password_confirmation', 'shop_name']);
 
+        $data['slug'] = Str::slug('shop_name');
+
         $shop = Shop::findOrFail($user->shop->id);
-        $shop->update([
-            'name' => $request['shop_name'],
-            'image' => $request->file('image')->store('shop-images', 'public')
-        ]);
+
+
+        if ($request->file('image')) {
+            $shop->update([
+                'name' => $request['shop_name'],
+                'image' => $request->file('image')->store('shop-images', 'public'),
+                'slug' => $data['slug']
+            ]);
+        } else {
+            $shop->update([
+                'name' => $request['shop_name'],
+                'image' => '',
+                'slug' => $data['slug']
+            ]);
+        }
 
         // dd($shop);
 
