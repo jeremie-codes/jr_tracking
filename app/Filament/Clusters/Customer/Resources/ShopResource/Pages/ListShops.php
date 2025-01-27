@@ -2,9 +2,10 @@
 
 namespace App\Filament\Clusters\Customer\Resources\ShopResource\Pages;
 
-use App\Filament\Clusters\Customer\Resources\ShopResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Clusters\Customer\Resources\ShopResource;
+use App\Filament\Clusters\Customer\Resources\ShopResource\Widgets\ShopsOverview;
 
 class ListShops extends ListRecords
 {
@@ -14,6 +15,13 @@ class ListShops extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            ShopsOverview::class,
         ];
     }
 }
