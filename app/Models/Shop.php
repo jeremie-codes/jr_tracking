@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $updated_at
  * @property bool $status
  * @property string|null $image
+ * @property string $slug
  * 
  * @property User $user
  * @property Collection|Product[] $products
@@ -39,7 +40,8 @@ class Shop extends Model
 		'name',
 		'user_id',
 		'status',
-		'image'
+		'image',
+		'slug'
 	];
 
 	public function user()

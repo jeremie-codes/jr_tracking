@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Boutiques')
+@section('title', 'Articles')
 
 @section('content')
     <main class="main-wrapper">
@@ -11,11 +11,11 @@
                     <div class="col-lg-6 col-md-8">
                         <div class="inner">
                             <ul class="axil-breadcrumb">
-                                <li class="axil-breadcrumb-item"><a href="{{ route('home') }}">Accueil</a></li>
+                                <li class="axil-breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                                 <li class="separator"></li>
-                                <li class="axil-breadcrumb-item active" aria-current="page">Boutique</li>
+                                <li class="axil-breadcrumb-item active" aria-current="page">My Account</li>
                             </ul>
-                            <h1 class="title">Découvrir tous les Boutiques</h1>
+                            <h1 class="title">Boutique : {{ $shop->name }}</h1>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-4">
@@ -32,7 +32,7 @@
         <!-- Start Shop Area  -->
         <div class="axil-shop-area axil-section-gap bg-color-white">
             <div class="container">
-                {{-- <div class="row">
+                <div class="row">
                     <div class="col-lg-12">
                         <div class="axil-shop-top">
                            <form id="filter-form" action="{{ route('products.filter') }}" method="POST">
@@ -43,24 +43,24 @@
                                         <div class="category-select">
                                             <div>
                                                 <!-- Start Single Select  -->
-                                                <select class="single-select" name="category_id" onchange="submitForm()">
+                                                {{-- <select class="single-select" name="category_id" onchange="submitForm()">
                                                     <option value="">Catégorie</option>
                                                     <option value="all">Toutes</option>
                                                     @foreach ($categories as $category)
                                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                     @endforeach
-                                                </select>
+                                                </select> --}}
                                                 <!-- End Single Select  -->
 
                                                 <!-- Start Single Select  -->
-                                                <select class="single-select" name="price_range" onchange="submitForm()">
+                                                {{-- <select class="single-select" name="price_range" onchange="submitForm()">
                                                     <option value="">Gamme de Prix</option>
                                                     <option value="all">Tous les prix</option>
                                                     <option value="0 - 100">0 - 100</option>
                                                     <option value="100 - 500">100 - 500</option>
                                                     <option value="500 - 1000">500 - 1000</option>
                                                     <option value="1000 - 1500">1000 - 1500</option>
-                                                </select>
+                                                </select> --}}
                                                 <!-- End Single Select  -->
                                             </div>  
                                         </div>
@@ -68,12 +68,12 @@
                                     <div class="col-lg-3">
                                         <div class="category-select mt_md--10 mt_sm--10 justify-content-lg-end">
                                             <!-- Start Single Select  -->
-                                            <select name="sort" class="single-select" onchange="submitForm()">
+                                            {{-- <select name="sort" class="single-select" onchange="submitForm()">
                                                 <option value="">Trier par</option>
                                                 <option value="price_asc">Prix croissant</option>
                                                 <option value="price_desc">Prix décroissant</option>
                                                 <option value="latest">Plus récents</option>
-                                            </select>
+                                            </select> --}}
                                             <!-- End Single Select  -->
                                         </div>
                                     </div>
@@ -86,45 +86,133 @@
                             </script>
                         </div>
                     </div>
-                </div> --}}
+                </div>
                 <div class="row row--15">
-                    @forelse ($shops as $shop)
-                                        <div class="col-xl-3 col-lg-4 col-sm-6">
-                                            <div class="slick-single-layout">
-                                                <div class="axil-product product-style-two">
-                                                    <div class="thumbnail">
-                                                        <a href="{{route('show_shop', $shop->slug)}}">
-                                                            <img data-sal="zoom-out" data-sal-delay="300" data-sal-duration="500"
-                                                                src="{{ $shop->image
-                        ? asset('storage/' . $shop->image)
-                        : asset('assets/images/default.jpg') }}" alt="{{  $shop->name }}">
-                                                        </a>
-                                                    </div>
-                                                    <div class="product-content">
-                                                        <div class="inner">
-                                                            <a href="{{route('show_shop', $shop->slug)}}">
-                                                                <h5 class="title">{{ $shop->name }}</h5>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                    {{-- EXEMPLES --}}
+                    {{-- <div class="col-xl-3 col-lg-4 col-sm-6">
+                        <div class="axil-product product-style-one has-color-pick mt--40">
+                            <div class="thumbnail">
+                                <a href="{{ route('detail_product', 1) }}">
+                                    <img src="assets/images/product/electric/product-01.png" alt="Product Images">
+                                </a>
+                                <div class="label-block label-right">
+                                    <div class="product-badget">20% OFF</div>
+                                </div>
+                                <div class="product-hover-action">
+                                    <ul class="cart-action">
+                                        <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
+                                        <li class="select-option"><a href="cart.html">Commander</a></li>
+                                        <li class="quickview"><a href="#" data-bs-toggle="modal"
+                                                data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="product-content">
+                                <div class="inner">
+                                    <h5 class="title"><a href="{{ route('detail_product', 1) }}">3D™ wireless headset</a>
+                                    </h5>
+                                    <div class="product-price-variant">
+                                        <span class="price current-price">$30</span>
+                                        <span class="price old-price">$30</span>
+                                    </div>
+                                    <div class="color-variant-wrapper">
+                                        <ul class="color-variant">
+                                            <li class="color-extra-01 active"><span><span class="color"></span></span>
+                                            </li>
+                                            <li class="color-extra-02"><span><span class="color"></span></span>
+                                            </li>
+                                            <li class="color-extra-03"><span><span class="color"></span></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                        <div class="axil-product product-style-one has-color-pick mt--40">
+                            <div class="thumbnail">
+                                <a href="{{ route('detail_product', 1) }}">
+                                    <img src="assets/images/product/electric/product-02.png" alt="Product Images">
+                                </a>
+                                <div class="product-hover-action">
+                                    <ul class="cart-action">
+                                        <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
+                                        <li class="select-option"><a href="cart.html">Commander</a></li>
+                                        <li class="quickview"><a href="#" data-bs-toggle="modal"
+                                                data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="product-content">
+                                <div class="inner">
+                                    <h5 class="title"><a href="{{ route('detail_product', 1) }}">Media remote</a></h5>
+                                    <div class="product-price-variant">
+                                        <span class="price current-price">$40</span>
+                                        <span class="price old-price">$50</span>
+                                    </div>
+                                    <div class="color-variant-wrapper">
+                                        <ul class="color-variant">
+                                            <li class="color-extra-01 active"><span><span class="color"></span></span>
+                                            </li>
+                                            <li class="color-extra-02"><span><span class="color"></span></span>
+                                            </li>
+                                            <li class="color-extra-03"><span><span class="color"></span></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> --}}
+
+                    @forelse ($products as $product)
+                        <div class="col-xl-3 col-lg-4 col-sm-6">
+                            <div class="axil-product product-style-one has-color-pick mt--40">
+                                <div class="thumbnail">
+                                    <a href="{{ route('detail_product', $product->slug) }}">
+                                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                                    </a>
+                                    <div class="product-hover-action">
+                                        <ul class="cart-action">
+                                            <li class="wishlist"><a href="wishlist.html"><i class="far fa-heart"></i></a>
+                                            </li>
+                                            <form action="{{ route('cart.add', $product) }}" method="POST">
+                                                @csrf
+                                                @method('POST')
+                                                <li class="select-option"><button class="bg-transparent" type="submit">Commander </button> </li>
+                                            </form>
+                                            <li class="quickview"><a href="{{ route('detail_product', $product->slug) }}" data-bs-toggle="modal"
+                                                    data-bs-target="#quick-view-modal"><i class="far fa-eye"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-content">
+                                    <div class="inner">
+                                        <h5 class="title"><a href="{{ route('detail_product', $product->slug) }}">{{ $product->name }}</a>
+                                        </h5>
+                                        <div class="product-price-variant">
+                                            <span class="price current-price">{{ $product->price }}$</span>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @empty
                         <div class="col-12 mt-4">
-                            <div class="p-3 my-4 alert alert-success">Aucune boutique trouvée</div>
+                            <div class="p-3 my-4 alert alert-success">Aucun produit trouvé</div>
                         </div>
                     @endforelse
                 </div>
 
                 <!-- Pagination -->
                 <div class="d-flex justify-content-center">
-                    {{ $shops->links('vendor.pagination.bootstrap-4
+                    {{ $products->links('vendor.pagination.bootstrap-4
                     ') }}
                 </div>
 
                 {{-- <div class="text-center pt--30">
-                    <a href="#" class="axil-btn btn-bg-lighter btn-load-more"> {{ $shops ? 'Voir plus' : '' }}</a>
+                    <a href="#" class="axil-btn btn-bg-lighter btn-load-more"> {{ $products ? 'Voir plus' : '' }}</a>
                 </div> --}}
             </div>
             <!-- End .container -->

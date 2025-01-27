@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Shop;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -58,13 +59,23 @@ class AuthController extends Controller
     {
         $data = $request->all();
 
-        // dd($data);
-
-        $request['password'] = Hash::make($request['password']);
-
         if (!$request['shop_name']) {
             $request['shop_name'] = $request['name'];
         }
+        $data['slug'] = Str::slug('shop_name');
+
+        $request->validate([
+            'shop_name' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:shops,slug' // Assurez-vous que la colonne slug existe dans votre table shops
+            ],
+        ], [
+            'shop_name.unique' => 'Le nom de la boutique est déjà pris.',
+        ]);
+
+        $request['password'] = Hash::make($request['password']);
 
         if ($request->file('avatar')) {
             $request['avatar'] = $request->file('avatar')->store('avatars', 'public');
@@ -73,12 +84,21 @@ class AuthController extends Controller
             $user = $this->userContract->toAdd($request->except('avatar'));
         }
 
-        $shop = Shop::create([
-            'user_id' => $user->id,
-            'name' => $request['shop_name'],
-            'image' => $request->file('image')->store('shop-images', 'public')
-        ]);
-        // dd($shop);
+        if ($request->file('image')) {
+            $shop = Shop::create([
+                'user_id' => $user->id,
+                'name' => $request['shop_name'],
+                'image' => $request->file('image')->store('shop-images', 'public'),
+                'slug' => $data['slug']
+            ]);
+        } else {
+            $shop = Shop::create([
+                'user_id' => $user->id,
+                'name' => $request['shop_name'],
+                'image' => '',
+                'slug' => $data['slug']
+            ]);
+        }
 
         if ($shop) {
             Auth::login($user);

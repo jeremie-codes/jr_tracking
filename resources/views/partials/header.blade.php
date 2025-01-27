@@ -10,6 +10,12 @@ foreach ($cart as $item) {
 
 @endphp
 
+<style>
+    /* Pour le menu déroulant mobile */
+
+
+</style>
+
 <header class="header axil-header header-style-5">
     <!-- Start Mainmenu Area -->
     <div class="axil-mainmenu">
@@ -34,7 +40,7 @@ foreach ($cart as $item) {
                         </div>
                         <ul class="mainmenu">
                             <li><a href="{{ route('home') }}">Accueil</a></li>
-                            <li><a href="{{ route('shop') }}">Articles</a></li>
+                            <li><a href="{{ route('articles') }}">Articles</a></li>
                             <li><a href="{{ route('shop') }}">Boutiques</a></li>
                             <li><a href="{{ route('about') }}">À propos</a></li>
                             {{-- <li><a href="{{ route('boutique') }}">Boutique</a></li> --}}
@@ -47,18 +53,18 @@ foreach ($cart as $item) {
                     <ul class="action-list">
                         <li class="axil-search">
                             <a href="javascript:void(0)" class="header-search-icon" title="Rechercher">
-                                <i class="flaticon-magnifying-glass"></i>
+                                <i class="flaticon-magnifying-glass text-white"></i>
                             </a>
                         </li>
                         <li class="shopping-cart">
                             <a href="#" class="cart-dropdown-btn">
                                 <span class="cart-count" id="cart-count">{{ $totalItems }}</span>
-                                <i class="flaticon-shopping-cart"></i>
+                                <i class="flaticon-shopping-cart text-white"></i>
                             </a>
                         </li>
                         <li class="my-account">
                             <a href="javascript:void(0)">
-                                <i class="flaticon-person"></i>
+                                <i class="flaticon-person text-white"></i>
                             </a>
                             <div class="my-account-dropdown">
                                 <span class="title">LIENS RAPIDES</span>

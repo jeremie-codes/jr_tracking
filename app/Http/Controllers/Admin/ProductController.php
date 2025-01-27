@@ -60,31 +60,7 @@ class ProductController extends Controller
 
     public function shop()
     {
-        $cart = session('cart', []);
-        $totalItems = 0;
-        $subtotal = 0;
 
-        // Calculer le nombre total d'articles et le sous-total
-        foreach ($cart as $item) {
-            $totalItems += $item['quantity'];
-            $subtotal += $item['price'] * $item['quantity'];
-        }
-
-        $shops = Shop::where('status', 1)->paginate(12);
-
-        // dd($shops);
-        // $products = $this->productContract->toGetAll();
-        $categories = Category::all();
-
-        // dd( $products->links() );
-
-        return view('shop', data: [
-            'shops' => $shops,
-            'categories' => $categories,
-            'cart' => $cart,
-            'totalItems' => $totalItems,
-            'subtotal' => $subtotal,
-        ]);
     }
 
     /**

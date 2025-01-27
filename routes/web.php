@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Web\OrderController;
 use App\Http\Controllers\Web\PaiementController;
+use App\Http\Controllers\Web\ShopController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -16,7 +17,8 @@ Route::get('/approve', [PaiementController::class, 'handleApproved'])->name('app
 Route::get('/decline', [PaiementController::class, 'handleDeclined'])->name('decline');
 
 Route::get('/articles', [ProductController::class, 'index'])->name('articles');
-Route::get('/shop', [ProductController::class, 'shop'])->name('shop');
+Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+Route::get('/shop/{slug}', [ShopController::class, 'show'])->name('show_shop');
 Route::get('/detail-product/{slug}', [ProductController::class, 'show'])->name('detail_product');
 Route::post('/products/filter', [ProductController::class, 'filterProducts'])->name('products.filter');
 

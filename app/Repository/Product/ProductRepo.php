@@ -30,9 +30,9 @@ class ProductRepo implements ProductContract
             ->get();
     }
 
-    public function toGetProductByShop($shopId)
+    public function toGetProductByShop($shopId, $n)
     {
-        return Product::where('shop_id', $shopId)->get();
+        return Product::where('shop_id', $shopId)->paginate($n);
     }
 
     public function toGetLatest($n)

@@ -8520,8 +8520,8 @@ Header Styles
 }
 
 .axil-mainmenu,
-.header-main-nav .mainmenu-nav {
-    background-color: var(--color-primary);
+.mainmenu-nav {
+    background-color: var(--color-primary)  !important;
 }
 .header-main-nav .mainmenu-nav li a {
     color: white !important;

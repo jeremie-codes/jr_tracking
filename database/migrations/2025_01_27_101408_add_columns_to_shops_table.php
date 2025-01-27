@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::table('shops', function (Blueprint $table) {
             $table->boolean('status')->default(1);
             $table->string('image')->nullable();
+            $table->string('slug', 255)->unique();
         });
     }
 
