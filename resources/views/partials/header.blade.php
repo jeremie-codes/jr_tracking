@@ -1,14 +1,66 @@
 @php
 
-    $cart = session('cart', []);
-    $totalItems = 0;
+$cart = session('cart', []);
+$totalItems = 0;
 
-    // Calculer le nombre total d'articles
-    foreach ($cart as $item) {
-        $totalItems += $item['quantity'];
-    }
-    
+// Calculer le nombre total d'articles
+foreach ($cart as $item) {
+    $totalItems += $item['quantity'];
+}
+
 @endphp
+
+<style>
+    /* À ajouter dans votre fichier CSS ou dans une balise <style> */
+    .header.axil-header.sticky,
+    .header.axil-header.header-style-5 {
+        background-color: #0fb7c6 !important;
+        transition: all 0.3s !important;
+    }
+
+    /* Pour le menu déroulant mobile */
+    .axil-mainmenu,
+    .mainmenu-nav {
+        background-color: #0fb7c6 !important;
+        color: white !important;
+    }
+
+    /* Couleur générale du texte */
+    .header.axil-header,
+    .header.axil-header a,
+    .header.axil-header .mainmenu>li>a,
+    .header.axil-header .flaticon-shopping-cart,
+    .header.axil-header .flaticon-person,
+    .header.axil-header .mobile-nav-toggler,
+    .header.axil-header .cart-count {
+        color: #ffffff !important;
+    }
+
+    /* États hover/survol */
+    .header.axil-header .mainmenu>li>a:hover,
+    .header.axil-header .action-list li:hover>a {
+        color: #e6e6e6 !important;
+        opacity: 0.9 !important;
+    }
+
+    /* Menu déroulant compte */
+    .my-account-dropdown .title,
+    .my-account-dropdown a,
+    .my-account-dropdown .btn-link {
+        color: #333 !important;
+        /* Garder le foncé pour le dropdown */
+    }
+
+    /* Boutons (connexion/déconnexion) */
+    .axil-btn.btn-bg-primary {
+        color: #fff !important;
+        border-color: #fff !important;
+    }
+
+    #logosize {
+        height: 70px !important;
+    }
+</style>
 
 <header class="header axil-header header-style-5">
     <!-- Start Mainmenu Area -->
@@ -17,7 +69,7 @@
             <div class="header-navbar">
                 <div class="header-brand">
                     <a href="{{ route('home') }}" class="logo logo-dark">
-                        <img src="{{asset('assets/images/logo/logo.png')}}" alt="Logo du site">
+                        <img src="{{asset('assets/images/logo/logo-light.png')}}" alt="Logo du site" id='logosize'>
                     </a>
                     <a href="{{ route('home') }}" class="logo logo-light">
                         <img src="{{asset('assets/images/logo/logo-light.png')}}" alt="Logo du site">
@@ -34,9 +86,10 @@
                         </div>
                         <ul class="mainmenu">
                             <li><a href="{{ route('home') }}">Accueil</a></li>
-                            <li><a href="{{ route('about') }}">À propos</a></li>
-                            <li><a href="{{ route('articles') }}">Articles</a></li>
+                            <li><a href="{{ route('shop') }}">Articles</a></li>
                             <li><a href="{{ route('shop') }}">Boutiques</a></li>
+                            <li><a href="{{ route('about') }}">À propos</a></li>
+                            {{-- <li><a href="{{ route('boutique') }}">Boutique</a></li> --}}
                             <li><a href="{{ route('contact') }}">Contact</a></li>
                         </ul>
                     </nav>
@@ -49,12 +102,12 @@
                                 <i class="flaticon-magnifying-glass"></i>
                             </a>
                         </li>
-                    <li class="shopping-cart">
-                        <a href="#" class="cart-dropdown-btn">
-                            <span class="cart-count" id="cart-count">{{ $totalItems }}</span>
-                            <i class="flaticon-shopping-cart"></i>
-                        </a>
-                    </li>
+                        <li class="shopping-cart">
+                            <a href="#" class="cart-dropdown-btn">
+                                <span class="cart-count" id="cart-count">{{ $totalItems }}</span>
+                                <i class="flaticon-shopping-cart"></i>
+                            </a>
+                        </li>
                         <li class="my-account">
                             <a href="javascript:void(0)">
                                 <i class="flaticon-person"></i>
@@ -80,11 +133,11 @@
                                 @endauth
                                 @guest
                                     <div class="login-btn">
-                                    <a href="{{ route('login') }}" class="axil-btn btn-bg-primary">Se connecter</a>
+                                        <a href="{{ route('login') }}" class="axil-btn btn-bg-primary">Se connecter</a>
 
-                                    <div class="reg-footer text-center">Pas encore de compte ?
-                                        <a href="{{ route('register') }}" class="btn-link">INSCRIVEZ-VOUS ICI.</a>
-                                    </div>
+                                        <div class="reg-footer text-center">Pas encore de compte ?
+                                            <a href="{{ route('register') }}" class="btn-link">INSCRIVEZ-VOUS ICI.</a>
+                                        </div>
                                     </div>
                                 @endguest
                             </div>
