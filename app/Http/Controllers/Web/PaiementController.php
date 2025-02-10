@@ -13,17 +13,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Session;
 use App\Models\Callback;
+use GuzzleHttp\Client;
 
 class PaiementController extends Controller
 {
     protected $totalPrice = 0;
 
-    public function payTicket(Request $request)
+    public function payorder(Request $request)
     {
 
         $cart = Session::all()['cart'];
-        // dd($cart);
-
+        $client = new Client();
+        $token = env('CARD_API_PAYMENT');
         foreach ($cart as $product) {
             // Convertir la quantité en entier (au cas où elle est une chaîne)
             $quantity = (int) $product['quantity'];
@@ -48,200 +49,182 @@ class PaiementController extends Controller
         // Formater le numéro avec des zéros non significatifs (4 chiffres)
         $formattedNumber = str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
 
-        // Créer la commande avec le numéro formaté
-        $order = Order::create([
-            'user_id' => Auth::user()->id,
-            'number' => '#' . $formattedNumber,
-            'total_price' => $this->totalPrice,
-            'status' => 'paid',
-            'currency' => '',
-            'notes' => 'notes'
-        ]);
+        // addCommande();
 
-        dd($order);
+        if ($request->has('type') && $request->type == 'mobile') {
 
-        if ($order) {
-            foreach ($cart as $product) {
-                $quantity = (int) $product['quantity'];
-                $orderItem = OrderItem::create([
-                    'order_id' => $order->id,
-                    'product_id' => $product['id'],
-                    'qty' => $quantity,
-                    'unit_price' => $product['price']
-                ]);
+            // $request->validate([
+            //     'phone' => 'required|string|min:10|max:12',
+            //     'montant' => 'required|min:0|numeric',
+            //     'currency' => 'required',
+            //     'event_id' => 'required|exists:events,id',
+            //     'type' => 'required',
+            //     'quantity' => 'required|numeric',
+            //     "total" => 'required|numeric',
+            // ]);
 
-                // dd($orderItem);
+            $prodUrl = env('PROD_URL');
+            if (empty($prodUrl)) {
+                throw new \Exception("PROD_URL n'est pas défini dans le fichier .env");
             }
-        }
 
+            $response = $client->request('POST', $prodUrl, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                ],
+                'json' => [
+                    'phone' => $request->phone,
+                    'amount' => $this->totalPrice,
+                    'currency' => $request->currency,
+                    // 'event_id' => $request->event_id,
+                    'pay_method' => $request->type,
+                    /*"callbackUrl" => "https://https://b-tickets-app.com/approve/mobile",*/
+                    "callbackUrl" => "https://b924-81-177-186-13.ngrok-free.app/callback",
+                    "merchant" => "BEVENT",
+                    "reference" => $formattedNumber,
+                    "type" => "1",
+                ]
+            ]);
 
-
-
-        // Récupérer toutes les valeurs de la session
-        // dd($request);
-        // $token = env('CARD_API_PAYMENT');
-        // $billRef = 'Fact-'. now()->getTimestamp();
-        // $client = new Client();
-        // if ($request->has('type') && $request->type == 'mobile') {
-
-        //     $request->validate([
-        //         'phone' => 'required|string|min:10|max:12',
-        //         'montant' => 'required|min:0|numeric',
-        //         'currency' => 'required',
-        //         'event_id' => 'required|exists:events,id',
-        //         'type' => 'required',
-        //         'quantity' => 'required|numeric',
-        //         "total" => 'required|numeric',
-        //     ]);
-
-        //     $response = $client->request('POST', env('PROD_URL'), [
-        //         'headers' => [
-        //             'Authorization' => 'Bearer ' . $token,
-        //             'Accept' => 'application/json',
-        //         ],
-        //         'json' => [
-        //             'phone' => $request->phone,
-        //             'amount' => $request->total,
-        //             'currency' => $request->currency,
-        //             'event_id' => $request->event_id,
-        //             'pay_method' => $request->type,
-        //             "callbackUrl" => "https://b924-81-177-186-13.ngrok-free.app/callback",
-        //             "merchant" => "BEVENT",
-        //             "reference" => $billRef,
-        //             "type" => "1",
-        //         ]
-        //     ]);
-
-        //     $response = Http::withBasicAuth(env('ILLICO_USER'), env('ILLICO_PSW'))
-        //                 ->withHeaders([
-        //                     'LogInName'=> env('ILLICO_LOG'),
-        //                     'LogInPass'=> env('ILLICO_PASS'),
-        //                     'Content-Type' => 'application/json'
-        //                 ])
-        //                 ->post(env('ILLICO_URL') ,
-        //                 json_encode([
-        //                     "mobilenumber" => $request->phone,
-        //                     "amounttransaction" => $request->total,
-        //                     "trancurrency" => $request->currency,
-        //                     "invoiceid" => $billRef,
-        //                     "terminalid" => "BEVENT",
-        //                     "merchantid" => "002543",
-        //                 ]));
         //     $data = json_decode($response->getBody()->getContents());
 
-        //     if ($data->respcode == '00') {
-        //         $montant = $request->total/$request->quantity;
-        //         $result =  $this->addCommande($request->event_id, $montant, $request->currency, $request->quantity, $billRef);
-        //         if ($request->promoCode) {
-        //             BillPromo::create([
-        //                 'bill_id' => $result->id,
-        //                 'promo_id' => $request->promoCode,
-        //             ]);
+        //     if ($data->code == '0') {
+        //         sleep(20);
+        //         $check = $this->checkPayment($client, $data, $token);
+
+        //         /*dd($check);*/
+        //         if ($check == "2") {
+        //             sleep(20);
+        //             $checkonce = $this->checkPayment($client, $data, $token);
+        //             if ($checkonce == "2") {
+        //                 sleep(20);
+        //                 $checkonce = $this->checkPayment($client, $data, $token);
+        //                 if ($checkonce == "2") {
+        //                     $this->redirectIfFAiled($request->total, $request->quantity, $request->event_id, $request->currency, $request->quantity, $billRef, $request->promoCode);
+        //                     return redirect()->route('failed');
+        //                 } elseif ($checkonce == "1") {
+        //                     $this->redirectIfFAiled($request->total, $request->quantity, $request->event_id, $request->currency, $request->quantity, $billRef, $request->promoCode);
+        //                     return redirect()->route('failed');
+        //                 } elseif ($checkonce == "0") {
+        //                     $this->redirectIfApproved($request->total, $request->quantity, $request->event_id, $request->currency, $request->quantity, $billRef, $request->promoCode);
+        //                     return redirect()->route('decline');
+        //                 }
+        //             } elseif ($checkonce == "1") {
+        //                 $this->redirectIfFAiled($request->total, $request->quantity, $request->event_id, $request->currency, $request->quantity, $billRef, $request->promoCode);
+        //                 return redirect()->route('failed');
+        //             } elseif ($checkonce == "0") {
+        //                 $this->redirectIfApproved($request->total, $request->quantity, $request->event_id, $request->currency, $request->quantity, $billRef, $request->promoCode);
+        //                 return redirect()->route('decline');
+        //             }
+        //         } elseif ($check == "1") {
+        //             $this->redirectIfFAiled($request->total, $request->quantity, $request->event_id, $request->currency, $request->quantity, $billRef, $request->promoCode);
+
+        //             // dd("redirect");
+        //             return redirect()->route('failed');
+        //         } elseif ($check == "0") {
+        //             $this->redirectIfApproved($request->total, $request->quantity, $request->event_id, $request->currency, $request->quantity, $billRef, $request->promoCode);
+        //             return redirect()->route('decline');
         //         }
-
-        //         return view('payment.mobile', [
-        //             'resultat' => $result
-        //         ]);
-
-        //     } elseif($data->code == '1') {
-        //         return redirect()->back()->withErrors(['message' => 'Une erreur lors du paiement. Veuillez reessayer.']);
+        //     } elseif ($data->code == '1') {
+        //         $this->redirectIfFAiled($request->total, $request->quantity, $request->event_id, $request->currency, $request->quantity, $billRef, $request->promoCode);
+        //         /*return redirect()->back()->withErrors(['message' => 'Une erreur lors du paiement. Veuillez reessayer.']);*/
         //     }
-
-        // } else
-        if ($request->has('type') && $request->type == 'card') {
-
-            try {
-                // $this->validate($request, [
-                //     'montant' => 'numeric',
-                //     'currency' => 'required',
-                //     'event_id' => 'required|numeric',
-                //     'type' => 'required',
-                //     'quantity' => 'required|numeric',
-                //     "total" => 'required|numeric',
-                // ]);
-
-                $stripe = new \Stripe\StripeClient('sk_test_26PHem9AhJZvU623DfE1x4sd');
-
-                $lineItems = [];
-
-                foreach ($cart as $item) {
-                    // Créer un price pour chaque article
-                    $price = $stripe->prices->create([
-                        'currency' => 'usd', // Devise
-                        'unit_amount' => $item['price'] * 100, // Montant en cents
-                        'product_data' => [
-                            'name' => $item['name'], // Nom du produit
-                        ],
-                    ]);
-
-                    // Ajouter le price aux line_items
-                    $lineItems[] = [
-                        'price' => $price->id,
-                        'quantity' => $item['quantity'],
-                    ];
-                }
-
-                // Créer la session de paiement
-                $data = $stripe->checkout->sessions->create([
-                    'success_url' => route('approve') . '?session_id={CHECKOUT_SESSION_ID}',
-                    'cancel_url' => route('cancel'),
-                    'line_items' => $lineItems, // Utiliser les line_items préparés
-                    'mode' => 'payment',
-                ]);
-
-                if (isset($data->id) && $data->id != '') {
-                    // dd($data->id);
-                    $cmdRef = $data->id;
-                    $result = $this->addCommande($request->total, 'usd', $cmdRef);
-
-                    return redirect()->away($data->url);
-                } else {
-                    return redirect()->back()->withErrors(['message' => 'Une erreur lors du paiement. Veuillez reessayer.']);
-                }
-
-            } catch (ValidationException $e) {
-                $errors = $e->validator->errors()->getMessages();
-
-                return redirect()->back()->withErrors($errors);
-            }
-        } else {
-            return redirect()->back()->withErrors(['message' => "Une erreur s'est produite lors du choix du mode de paiement! "]);
         }
+        // // // } else if ($request->has('type') && $request->type == 'card') {
+
+        // //     try {
+        // //         // $this->validate($request, [
+        // //         //     'montant' => 'numeric',
+        // //         //     'currency' => 'required',
+        // //         //     'event_id' => 'required|numeric',
+        // //         //     'type' => 'required',
+        // //         //     'quantity' => 'required|numeric',
+        // //         //     "total" => 'required|numeric',
+        // //         // ]);
+
+        // //         $stripe = new \Stripe\StripeClient('sk_test_26PHem9AhJZvU623DfE1x4sd');
+
+        // //         $lineItems = [];
+
+        // //         foreach ($cart as $item) {
+        // //             // Créer un price pour chaque article
+        // //             $price = $stripe->prices->create([
+        // //                 'currency' => 'usd', // Devise
+        // //                 'unit_amount' => $item['price'] * 100, // Montant en cents
+        // //                 'product_data' => [
+        // //                     'name' => $item['name'], // Nom du produit
+        // //                 ],
+        // //             ]);
+
+        // //             // Ajouter le price aux line_items
+        // //             $lineItems[] = [
+        // //                 'price' => $price->id,
+        // //                 'quantity' => $item['quantity'],
+        // //             ];
+        // //         }
+
+        // //         // Créer la session de paiement
+        // //         $data = $stripe->checkout->sessions->create([
+        // //             'success_url' => route('approve') . '?session_id={CHECKOUT_SESSION_ID}',
+        // //             'cancel_url' => route('cancel'),
+        // //             'line_items' => $lineItems, // Utiliser les line_items préparés
+        // //             'mode' => 'payment',
+        // //         ]);
+
+        // //         if (isset($data->id) && $data->id != '') {
+        // //             // dd($data->id);
+        // //             $cmdRef = $data->id;
+        // //             $result = $this->addCommande($request->total, 'usd', $cmdRef);
+
+        // //             return redirect()->away($data->url);
+        // //         } else {
+        // //             return redirect()->back()->withErrors(['message' => 'Une erreur lors du paiement. Veuillez reessayer.']);
+        // //         }
+
+        // //     } catch (ValidationException $e) {
+        // //         $errors = $e->validator->errors()->getMessages();
+
+        // //         return redirect()->back()->withErrors($errors);
+        // //     }
+        // // }
+        // else {
+        //     return redirect()->back()->withErrors(['message' => "Une erreur s'est produite lors du choix du mode de paiement! "]);
+        // }
 
     }
 
     /**
-     * Create a bill and ticket to database
+     * Create a commande to database
      */
 
-    public function addCommande($amount, $currency, $cmdRef)
+    public function addCommande($currency, $cmdRef, $cart)
     {
 
-        $result = DB::transaction(function () use ($amount, $currency, $cmdRef) {
-            $cart = Session::all()['cart'];
+        $result = DB::transaction(function () use ($currency, $cmdRef, $cart) {
 
-            // Exemple de création d'une commande
+            // Créer la commande avec le numéro formaté
             $order = Order::create([
                 'user_id' => Auth::user()->id,
-                'number' => $cmdRef,
-                'total_price' => $amount,
+                'number' => '#' . $cmdRef,
+                'total_price' => $this->totalPrice,
                 'currency' => $currency,
-                'status' => 'pending',
+                'status' => 'paid',
+                'notes' => 'notes'
             ]);
 
+
             if ($order) {
-                foreach ($cart as $key => $item) {
-                    OrderItem::create([
+                foreach ($cart as $product) {
+                    // dd($product['price']);
+                    $quantity = (int) $product['quantity'];
+                    $orderItem = OrderItem::create([
                         'order_id' => $order->id,
-                        'product_id' => $key,
-                        'unit_price' => $item['price'],
-                        'qty' => $item['quantity'],
+                        'product_id' => $product['id'],
+                        'qty' => $quantity,
+                        'unit_price' => $product['price']
                     ]);
                 }
-
-                return $order;
-            } else {
-                return 'echec';
             }
 
         });
@@ -299,24 +282,24 @@ class PaiementController extends Controller
 
     }
 
-    public function handleApproved(Request $request)
-    {
-        // dd("jdjdjdj");
-        $stripe = new \Stripe\StripeClient('sk_test_26PHem9AhJZvU623DfE1x4sd');
-        $session = $stripe->checkout->sessions->retrieve($request->session_id);
-        return view('payment.approved');
+    // public function handleApproved(Request $request)
+    // {
+    //     // dd("jdjdjdj");
+    //     $stripe = new \Stripe\StripeClient('sk_test_26PHem9AhJZvU623DfE1x4sd');
+    //     $session = $stripe->checkout->sessions->retrieve($request->session_id);
+    //     return view('payment.approved');
 
-    }
+    // }
 
-    public function handleCanceled(Request $request)
-    {
-        return view('payment.canceled');
-    }
+    // public function handleCanceled(Request $request)
+    // {
+    //     return view('payment.canceled');
+    // }
 
-    public function handleDeclined(Request $request)
-    {
-        return view('payment.declined');
+    // public function handleDeclined(Request $request)
+    // {
+    //     return view('payment.declined');
 
-    }
+    // }
 
 }

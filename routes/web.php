@@ -59,6 +59,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/delete-product/{slug}', [ProductController::class, 'destroy'])->name('delete_product');
     Route::post('/create-product', [ProductController::class, 'store'])->name('create_product');
     Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
-    Route::post('/web/payTicket', [PaiementController::class, 'payTicket'])->name('tikect.pay');
+    Route::post('/web/payTicket', [PaiementController::class, 'payorder'])->name('order.pay');
 });
 

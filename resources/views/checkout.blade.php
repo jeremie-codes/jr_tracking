@@ -6,7 +6,7 @@
          <!-- Start Checkout Area  -->
          <div class="axil-checkout-area axil-section-gap">
              <div class="container">
-                 <form method="POST" action="{{ route('tikect.pay') }}">
+                 <form method="POST" action="{{ route('order.pay') }}">
                     @csrf
                     {{-- <input type="hidden" id="product_id" name="product_id" value="{{$price->event->id}}">
                     <input type="hidden" id="currency" name="currency" value="{{$price->currency}}">
@@ -181,6 +181,7 @@
                                 <div class="single-payment">
                                     <div class="input-group justify-content-between align-items-center">
                                         <input type="radio" id="radio4" name="type" value="mobile" required>
+                                        <input type="hidden" name="currency" value="usd" required>
                                         <label for="radio4">Mobile Money</label>
                                         <img src="{{ asset('/assets/images/others/mobile.png') }}" alt="Mobile Money">
                                     </div>
