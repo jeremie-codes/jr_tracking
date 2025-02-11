@@ -6,7 +6,7 @@
          <!-- Start Checkout Area  -->
          <div class="axil-checkout-area axil-section-gap">
              <div class="container">
-                 <form method="POST" action="{{ route('order.pay') }}">
+                 <form method="POST" class="form" action="{{ route('order.pay') }}">
                     @csrf
                     {{-- <input type="hidden" id="product_id" name="product_id" value="{{$price->event->id}}">
                     <input type="hidden" id="currency" name="currency" value="{{$price->currency}}">
@@ -32,7 +32,7 @@
                                         </div>
                                     </div> --}}
                                 </div>
-                                <div class=" form-group">
+                                <div class="form-group">
                                             <label>Pays / Région <span>*</span></label>
                                             <select id="Region" name="country">
                                                 <option value="1">France</option>
@@ -63,7 +63,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Téléphone <span>*</span></label>
-                                            <input type="tel" id="phone_number" name="phone" value="{{ $user->phone_number }}">
+                                            <input type="tel" id="phone_number" name="phone" class="phone" value="{{ $user->phone_number }}">
                                         </div>
                                         <div class="form-group">
                                             <label>Adresse e-mail <span>*</span></label>
@@ -180,7 +180,7 @@
                                 <!-- Mobile Money -->
                                 <div class="single-payment">
                                     <div class="input-group justify-content-between align-items-center">
-                                        <input type="radio" id="radio4" name="type" value="mobile" required>
+                                        <input type="radio" id="radio4" class="type" name="type" value="mobile" required>
                                         <input type="hidden" name="currency" value="usd" required>
                                         <label for="radio4">Mobile Money</label>
                                         <img src="{{ asset('/assets/images/others/mobile.png') }}" alt="Mobile Money">
@@ -216,6 +216,79 @@
              </div>
          </div>
          <!-- End Checkout Area  -->
+
+         <div class="modal fade alerteModal" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId"
+                aria-hidden="true"
+            >
+                <div
+                  class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md"
+                  role="document"
+                    >
+                      <div class="modal-content ">
+                        <div class="modal-header">
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                            onclick='hide()'
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                            <div
+                                class="alert alert-primary alert-dismissible fade show text-center"
+                                role="alert"
+                              >
+                                <strong>Paiement en cours</strong>... Veuillez vérifier votre télephone pour continuer la transaction !
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+            </div>
+
+         <script>
+
+            document.querySelector('.form').addEventListener('submit', (event)=> {
+                // event.preventDefault();
+                const type = document.querySelector('.type');
+                const phone = document.querySelector('.phone');
+                console.log(type.value)
+                if( type.value == 'mobile' && phone.value != "") {
+                    const body = document.querySelector('.sticky-header');
+                    const alertModal = document.querySelector('.alerteModal');
+
+                    body.classList.add('modal-open');
+                    body.style.overflow = "hidden";
+                    body.style.paddingRight = 0;
+
+                    alertModal.classList.add('show');
+                    alertModal.style.display = "block";
+
+                    const backdrop = document.createElement('div');
+                    backdrop.classList.add('modal-backdrop', 'fade', 'show');
+                    backdrop.setAttribute('onclick', 'hide()');
+                    document.body.appendChild(backdrop);
+                }
+            })
+
+            function hide() {
+                const body = document.querySelector('.sticky-header');
+                const alertModal = document.querySelector('.alerteModal');
+
+                body.classList.remove('modal-open');
+                body.style.overflow = "";
+                body.style.paddingRight = 0;
+
+                alertModal.classList.remove('show');
+                alertModal.style.display = "none";
+
+                const backdrop = document.querySelector('.modal-backdrop');
+                  if (backdrop) {
+                    backdrop.remove();
+                  }
+            }
+        </script>
 
      </main>
  @endsection

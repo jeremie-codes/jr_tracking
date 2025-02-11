@@ -87,49 +87,49 @@ class PaiementController extends Controller
                 ]
             ]);
 
-        //     $data = json_decode($response->getBody()->getContents());
+            $data = json_decode($response->getBody()->getContents());
 
-        //     if ($data->code == '0') {
-        //         sleep(20);
-        //         $check = $this->checkPayment($client, $data, $token);
+            if ($data->code == '0') {
+                sleep(20);
+                $check = $this->checkPayment($client, $data, $token);
 
-        //         /*dd($check);*/
-        //         if ($check == "2") {
-        //             sleep(20);
-        //             $checkonce = $this->checkPayment($client, $data, $token);
-        //             if ($checkonce == "2") {
-        //                 sleep(20);
-        //                 $checkonce = $this->checkPayment($client, $data, $token);
-        //                 if ($checkonce == "2") {
-        //                     $this->redirectIfFAiled($request->total, $request->quantity, $request->event_id, $request->currency, $request->quantity, $billRef, $request->promoCode);
-        //                     return redirect()->route('failed');
-        //                 } elseif ($checkonce == "1") {
-        //                     $this->redirectIfFAiled($request->total, $request->quantity, $request->event_id, $request->currency, $request->quantity, $billRef, $request->promoCode);
-        //                     return redirect()->route('failed');
-        //                 } elseif ($checkonce == "0") {
-        //                     $this->redirectIfApproved($request->total, $request->quantity, $request->event_id, $request->currency, $request->quantity, $billRef, $request->promoCode);
-        //                     return redirect()->route('decline');
-        //                 }
-        //             } elseif ($checkonce == "1") {
-        //                 $this->redirectIfFAiled($request->total, $request->quantity, $request->event_id, $request->currency, $request->quantity, $billRef, $request->promoCode);
-        //                 return redirect()->route('failed');
-        //             } elseif ($checkonce == "0") {
-        //                 $this->redirectIfApproved($request->total, $request->quantity, $request->event_id, $request->currency, $request->quantity, $billRef, $request->promoCode);
-        //                 return redirect()->route('decline');
-        //             }
-        //         } elseif ($check == "1") {
-        //             $this->redirectIfFAiled($request->total, $request->quantity, $request->event_id, $request->currency, $request->quantity, $billRef, $request->promoCode);
+                /*dd($check);*/
+                if ($check == "2") {
+                    sleep(20);
+                    $checkonce = $this->checkPayment($client, $data, $token);
+                    if ($checkonce == "2") {
+                        sleep(20);
+                        $checkonce = $this->checkPayment($client, $data, $token);
+                        if ($checkonce == "2") {
+                            $this->redirectIfFAiled($request->currency, $formattedNumber, $cart);
+                            return redirect()->route('failed');
+                        } elseif ($checkonce == "1") {
+                            $this->redirectIfFAiled($request->currency, $formattedNumber, $cart);
+                            return redirect()->route('failed');
+                        } elseif ($checkonce == "0") {
+                            $this->redirectIfApproved($request->currency, $formattedNumber, $cart);
+                            return redirect()->route('approve');
+                        }
+                    } elseif ($checkonce == "1") {
+                        $this->redirectIfFAiled($request->currency, $formattedNumber, $cart);
+                        return redirect()->route('failed');
+                    } elseif ($checkonce == "0") {
+                        $this->redirectIfApproved($request->currency, $formattedNumber, $cart);
+                        return redirect()->route('approve');
+                    }
+                } elseif ($check == "1") {
+                    $this->redirectIfFAiled($request->currency, $formattedNumber, $cart);
 
-        //             // dd("redirect");
-        //             return redirect()->route('failed');
-        //         } elseif ($check == "0") {
-        //             $this->redirectIfApproved($request->total, $request->quantity, $request->event_id, $request->currency, $request->quantity, $billRef, $request->promoCode);
-        //             return redirect()->route('decline');
-        //         }
-        //     } elseif ($data->code == '1') {
-        //         $this->redirectIfFAiled($request->total, $request->quantity, $request->event_id, $request->currency, $request->quantity, $billRef, $request->promoCode);
-        //         /*return redirect()->back()->withErrors(['message' => 'Une erreur lors du paiement. Veuillez reessayer.']);*/
-        //     }
+                    // dd("redirect");
+                    return redirect()->route('failed');
+                } elseif ($check == "0") {
+                    $this->redirectIfApproved($request->currency, $formattedNumber, $cart);
+                    return redirect()->route('approve');
+                }
+            } elseif ($data->code == '1') {
+                $this->redirectIfFAiled($request->currency, $formattedNumber, $cart);
+                /*return redirect()->back()->withErrors(['message' => 'Une erreur lors du paiement. Veuillez reessayer.']);*/
+            }
         }
         // // // } else if ($request->has('type') && $request->type == 'card') {
 
@@ -194,14 +194,51 @@ class PaiementController extends Controller
 
     }
 
+    protected function checkPayment($client, $data, $token)
+    {
+        $check = $client->request('GET', 'https://backend.flexpay.cd/api/rest/v1/check/' . $data->orderNumber, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $token, // Remplacez par votre jeton d'accès
+            ],
+        ]);
+
+        $response = json_decode($check->getBody()->getContents());
+
+        /*dd($response);*/
+
+        switch ($response->transaction->status) {
+            case "0":
+                return '0';
+                break;
+            case "1":
+                return '1';
+                break;
+            case "2":
+                return "2";
+                break;
+        }
+    }
+
+    protected function redirectIfApproved($currency, $cmdRef, $cart)
+    {
+        $result =  $this->addCommande($currency, $cmdRef, $cart, 'paid');
+        Session::forget('cart');
+    }
+
+    protected function redirectIfFAiled($currency, $cmdRef, $cart)
+    {
+        $result =  $this->addCommande($currency, $cmdRef, $cart, 'failed');
+        // Session::forget('cart');
+    }
+
     /**
      * Create a commande to database
      */
 
-    public function addCommande($currency, $cmdRef, $cart)
+    public function addCommande($currency, $cmdRef, $cart, $status)
     {
 
-        $result = DB::transaction(function () use ($currency, $cmdRef, $cart) {
+        $result = DB::transaction(function () use ($currency, $cmdRef, $cart, $status) {
 
             // Créer la commande avec le numéro formaté
             $order = Order::create([
@@ -209,10 +246,9 @@ class PaiementController extends Controller
                 'number' => '#' . $cmdRef,
                 'total_price' => $this->totalPrice,
                 'currency' => $currency,
-                'status' => 'paid',
-                'notes' => 'notes'
+                'status' => $status,
+                'notes' =>  '...'
             ]);
-
 
             if ($order) {
                 foreach ($cart as $product) {
@@ -282,24 +318,24 @@ class PaiementController extends Controller
 
     }
 
-    // public function handleApproved(Request $request)
-    // {
-    //     // dd("jdjdjdj");
-    //     $stripe = new \Stripe\StripeClient('sk_test_26PHem9AhJZvU623DfE1x4sd');
-    //     $session = $stripe->checkout->sessions->retrieve($request->session_id);
-    //     return view('payment.approved');
+    public function handleApproved(Request $request)
+    {
+        // dd("jdjdjdj");
+        // $stripe = new \Stripe\StripeClient('sk_test_26PHem9AhJZvU623DfE1x4sd');
+        // $session = $stripe->checkout->sessions->retrieve($request->session_id);
+        return view('payment.approved');
 
-    // }
+    }
 
-    // public function handleCanceled(Request $request)
-    // {
-    //     return view('payment.canceled');
-    // }
+    public function handleCanceled(Request $request)
+    {
+        return view('payment.canceled');
+    }
 
-    // public function handleDeclined(Request $request)
-    // {
-    //     return view('payment.declined');
+    public function handlefailed(Request $request)
+    {
+        return view('payment.declined');
 
-    // }
+    }
 
 }

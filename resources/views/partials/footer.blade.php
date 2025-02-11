@@ -109,8 +109,10 @@
                 <div class="col-xl-4 col-lg-12">
                     <div class="copyright-left d-flex flex-wrap justify-content-center">
                         <ul class="quick-link">
-                            <li>© 2025. E-Galeria | Made by <a target="_blank"
-                                    href="https://mastagate.com/">Mastagate</a>.</li>
+                            <li>© 2025. E-Galeria
+                                {{-- <a target="_blank"
+                                    href="https://mastagate.com/">Mastagate</a>. --}}
+                                </li>
                         </ul>
                     </div>
                 </div>

@@ -8,10 +8,10 @@
 <section class="error-page onepage-screen-area">
     <div class="container">
         <div class="row align-items-center">
-                <div class="col-lg-6">
+                <div class="col-lg-8">
                     <div class="content" data-sal="slide-up" data-sal-duration="800" data-sal-delay="400">
 
-                        <h1 class="title">Paiement Effectué</h1>
+                        <h1 class="title">Paiement Échoué <br> <span style="font-size: 18px; font-weight: normal;">Veuillez réesayez plus tard ou vérifier votre balance !</span></h1>
                         <a href="{{url('/')}}" class="axil-btn btn-bg-secondary right-icon">Back To Home <i class="fal fa-long-arrow-right"></i></a>
                     </div>
                 </div>

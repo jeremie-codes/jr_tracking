@@ -12,9 +12,9 @@ use App\Http\Controllers\Web\ShopController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/cancel', [PaiementController::class, 'handleCanceled'])->name('cancel');
-Route::get('/approve', [PaiementController::class, 'handleApproved'])->name('approve');
-Route::get('/decline', [PaiementController::class, 'handleDeclined'])->name('decline');
+Route::get('/order/cancel', [PaiementController::class, 'handleCanceled'])->name('cancel');
+Route::get('/order/approve', [PaiementController::class, 'handleApproved'])->name('approve');
+Route::get('/order/failed', [PaiementController::class, 'handlefailed'])->name('failed');
 
 Route::get('/articles', [ProductController::class, 'index'])->name('articles');
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
@@ -59,6 +59,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/delete-product/{slug}', [ProductController::class, 'destroy'])->name('delete_product');
     Route::post('/create-product', [ProductController::class, 'store'])->name('create_product');
     Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
-    Route::post('/web/payTicket', [PaiementController::class, 'payorder'])->name('order.pay');
+    Route::post('/Order/payment', [PaiementController::class, 'payorder'])->name('order.pay');
 });
 

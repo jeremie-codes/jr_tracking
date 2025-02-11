@@ -73,7 +73,8 @@
                     <div class="col-lg-4">
                         <div class="contact-location mb--40">
                             <h4 class="title mb--20">Contact</h4>
-                            <span class="phone">Téléphone : +243 994 853 896</span>
+                            <span class="phone">Téléphone : +243 987 543 586 / +243 910 178 673 </span>
+                            <span class="phone">Téléphone : +243 831 786 160 / +243 856 939 499 </span>
                             <span class="email">E-mail : info@e-galeria.com</span>
                         </div>
                     </div>

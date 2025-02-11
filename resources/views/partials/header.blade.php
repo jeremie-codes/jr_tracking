@@ -12,11 +12,28 @@ foreach ($cart as $item) {
 
 <style>
     /* Pour le menu déroulant mobile */
+    .VIpgJd-ZVi9od-l4eHX-hSRGPd {
+        display: none;
+    }
 
+    .traduction_site_web select {
+        width: 100px;
+    }
 
 </style>
 
+<script>
+function matraduction() {
+  new google.translate.TranslateElement({pageLanguage: 'fr'}, 'traduction_site_web');
+}
+</script>
+
+<script src="//translate.google.com/translate_a/element.js?cb=matraduction"></script>
+
 <header class="header axil-header header-style-5">
+    <div class="w-100 d-flex justify-content-end px-3 header-top" style="height: 50px; overflow-y: hidden;">
+        <div style="height: 0x" id="traduction_site_web" style="position: relative; z-index: 1"></div>
+    </div>
     <!-- Start Mainmenu Area -->
     <div class="axil-mainmenu">
         <div class="container">
