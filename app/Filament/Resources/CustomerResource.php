@@ -13,6 +13,9 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CustomerResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CustomerResource\RelationManagers;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
 
 class CustomerResource extends Resource
 {
@@ -42,7 +45,9 @@ class CustomerResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')->label('Nom'),
+                TextColumn::make('email'),
+                TextColumn::make('phone_number')->label('Téléphone'),
             ])
             ->filters([
                 //
