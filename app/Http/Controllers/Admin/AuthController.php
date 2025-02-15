@@ -159,7 +159,7 @@ class AuthController extends Controller
 
         $data = $request->except(['_method', '_token', 'old_password', 'new_password', 'password_confirmation', 'shop_name', 'image', 'slug']);
 
-        $request['slug'] = Str::slug('shop_name');
+        $request['slug'] = Str::slug($request['shop_name']);
 
         $shop = Shop::findOrFail($user->shop->id);
 
