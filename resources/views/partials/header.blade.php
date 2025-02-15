@@ -68,11 +68,11 @@ function matraduction() {
                 </div>
                 <div class="header-action">
                     <ul class="action-list">
-                        <li class="axil-search">
+                        {{-- <li class="axil-search">
                             <a href="javascript:void(0)" class="header-search-icon" title="Rechercher">
                                 <i class="flaticon-magnifying-glass text-white"></i>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="shopping-cart">
                             <a href="#" class="cart-dropdown-btn">
                                 <span class="cart-count" id="cart-count">{{ $totalItems }}</span>
