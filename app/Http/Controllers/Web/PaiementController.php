@@ -39,7 +39,7 @@ class PaiementController extends Controller
         // Déterminer le prochain numéro de commande
         if ($lastOrder) {
             // Extraire le numéro de la dernière commande (supposons que le numéro est stocké comme "Commande-0001")
-            $lastNumber = (int) substr($lastOrder->number, -4); // Extrait les 4 derniers chiffres
+            $lastNumber = (int) substr($lastOrder->number, - 4); // Extrait les 4 derniers chiffres
             $nextNumber = $lastNumber + 1; // Incrémente le numéro
         } else {
             // Si aucune commande n'existe, commencer à 1

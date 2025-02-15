@@ -63,7 +63,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Téléphone <span>*</span></label>
-                                            <input type="tel" id="phone_number" name="phone" class="phone" value="{{ $user->phone_number }}">
+                                            <input type="tel" id="phone_number" name="phone" value="{{ $user->phone_number }}">
                                         </div>
                                         <div class="form-group">
                                             <label>Adresse e-mail <span>*</span></label>
@@ -186,9 +186,9 @@
                                         <img src="{{ asset('/assets/images/others/mobile.png') }}" alt="Mobile Money">
                                     </div>
                                     <p>
-                                    <div class="form-group">
-                                        <label>Téléphone</label>
-                                        <input type="text" id="company-name" name="phone">
+                                        <div class="form-group">
+                                        <label>Téléphone (243......989)</label>
+                                        <input type="text" id="company-name" name="phone" class="phone">
                                         @error('phone')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
