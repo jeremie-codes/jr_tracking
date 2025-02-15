@@ -74,7 +74,7 @@ class AuthController extends Controller
             ]);
         }
 
-        $data['slug'] = Str::slug('shop_name');
+        $data['slug'] = Str::slug($request['shop_name']);
 
         $request['password'] = Hash::make($request['password']);
 
