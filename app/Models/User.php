@@ -7,17 +7,14 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Filament\Panel;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Notifications\Notifiable;
-use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class User
- * 
+ *
  * @property int $id
  * @property string|null $name
  * @property string|null $email
@@ -33,12 +30,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Carbon|null $date_of_birth
  * @property string|null $avatar
  * @property bool $is_active
- * 
+ *
  * @property Collection|Shop[] $shops
  *
  * @package App\Models
  */
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -46,7 +43,6 @@ class User extends Authenticatable implements FilamentUser
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'date_of_birth' => 'datetime',
         'is_active' => 'bool'
     ];
 
@@ -62,21 +58,7 @@ class User extends Authenticatable implements FilamentUser
         'password',
         'remember_token',
         'role',
-        'phone_number',
-        'address',
-        'gender',
-        'date_of_birth',
         'avatar',
         'is_active'
     ];
-
-    public function shop()
-    {
-        return $this->hasOne(Shop::class);
-    }
-
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return Auth::user()->role == 'admin';
-    }
 }

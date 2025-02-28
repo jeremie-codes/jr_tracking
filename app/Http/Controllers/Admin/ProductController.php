@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Shop;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
@@ -43,24 +42,16 @@ class ProductController extends Controller
 
         $products = $this->productContract->toGetAll();
         $categories = Category::all();
-        $shops = Shop::where('status', 1)->paginate(12);
-
 
         // dd( $products->links() );
 
-        return view('articles', data: [
+        return view('shop', data: [
             'products' => $products,
             'categories' => $categories,
             'cart' => $cart,
-            'shops' => $shops,
             'totalItems' => $totalItems,
             'subtotal' => $subtotal,
         ]);
-    }
-
-    public function shop()
-    {
-
     }
 
     /**
@@ -80,33 +71,27 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        // Récupérer le vendeur connecté
+        // dd($request->all());
         $seller = $this->userContract->toGetById(Auth::user()->id);
-        // dd($request['image2']->getClientOriginalName());
-
-        // Enregistrer l'image principale
         $imageName = $request['image']->getClientOriginalName();
-        $imagePath = $request->file('image')->storeAs('product-images', $imageName, 'public');
-        // Enregistrer l'image principale
-        $imageName2 = $request['image2']->getClientOriginalName();
-        $imagePath2 = $request->file('image2')->storeAs('product-images', $imageName2, 'public');
-        // Enregistrer l'image principale
-        $imageName3 = $request['image3']->getClientOriginalName();
-        $imagePath3 = $request->file('image3')->storeAs('product-images', $imageName3, 'public');
 
-        // Créer le produit avec l'image principale
         $product = Product::create([
             'shop_id' => $seller->shop->id,
             'category_id' => $request['category_id'],
             'name' => $request['name'],
             'slug' => Str::slug($request['name']),
             'description' => $request['description'],
-            'image' => $imagePath,
-            'image2' => $imagePath2,
-            'image3' => $imagePath3,
+            'image' => $request->file('image')->storeAs('product-images', $imageName, 'public'),
             'available' => $request['available'],
             'price' => $request['price']
         ]);
+
+        // $request['image'] = $request->file('image')->storeAs('product-images', $imageName);
+        // $request['shop_id'] = $seller->shop->id;
+        // $request['slug'] = Str::slug($request['name']);
+
+        // dd($request->file('image')->storeAs('product-images', $imageName));
+        // $product = $this->productContract->toAdd($request->all());
 
         // dd($product);
 
@@ -121,14 +106,8 @@ class ProductController extends Controller
         $product = Product::where('slug', $slug)->first();
         // dd($product);
 
-
-        // Récupérer l'utilisateur connecté
-        $user = Auth::user();
-        // dd($user->id);
-
         return view('detail-product', [
-            'product' => $product,
-            'user' => $user, // Passer l'utilisateur connecté à la vue
+            'product' => $product
         ]);
     }
 
@@ -138,9 +117,8 @@ class ProductController extends Controller
         $priceRange = $request['price_range'];
         $sort = $request['sort'];
 
-        $products = $this->productContract->getFilteredProducts($categoryId, $priceRange, $sort, $request->shop_id, $n = 20);
+        $products = $this->productContract->getFilteredProducts($categoryId, $priceRange, $sort, $n = 20);
         $categories = Category::all();
-        $shops = Shop::where('status', 1)->paginate(12);
 
         $cart = session('cart', []);
         $totalItems = 0;
@@ -154,9 +132,8 @@ class ProductController extends Controller
 
         // dd( $products->links() );
 
-        return view('articles', data: [
+        return view('shop', data: [
             'products' => $products,
-            'shops' => $shops,
             'categories' => $categories,
             'cart' => $cart,
             'totalItems' => $totalItems,
@@ -167,16 +144,9 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($slug)
+    public function edit(string $id)
     {
-        $product = Product::where('slug', $slug)->first();
-
-        $categories = Category::all();
-
-        return view('edit-product', [
-            'product' => $product,
-            'categories' => $categories,
-        ]);
+        //
     }
 
     /**
@@ -184,51 +154,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // Récupérer le produit à mettre à jour
-        $product = $this->productContract->toGetById($id);
-
-        // Récupérer le vendeur connecté
-        $seller = $this->userContract->toGetById(Auth::user()->id);
-
-        // Préparer les données de mise à jour
-        $updateData = [
-            'shop_id' => $seller->shop->id,
-            'category_id' => $request['category_id'],
-            'name' => $request['name'],
-            'slug' => Str::slug($request['name']),
-            'description' => $request['description'],
-            'available' => $request['available'],
-            'price' => $request['price'],
-        ];
-
-        // Gérer l'image principale (image)
-        if ($request->hasFile('image')) {
-            $imageName = $request->file('image')->getClientOriginalName();
-            $updateData['image'] = $request->file('image')->storeAs('product-images', $imageName, 'public');
-        } else {
-            $updateData['image'] = $product->image; // Conserver l'ancienne image
-        }
-
-        // Gérer l'image 2 (image2)
-        if ($request->hasFile('image2')) {
-            $imageName2 = $request->file('image2')->getClientOriginalName();
-            $updateData['image2'] = $request->file('image2')->storeAs('product-images', $imageName2, 'public');
-        } else {
-            $updateData['image2'] = $product->image2; // Conserver l'ancienne image
-        }
-
-        // Gérer l'image 3 (image3)
-        if ($request->hasFile('image3')) {
-            $imageName3 = $request->file('image3')->getClientOriginalName();
-            $updateData['image3'] = $request->file('image3')->storeAs('product-images', $imageName3, 'public');
-        } else {
-            $updateData['image3'] = $product->image3; // Conserver l'ancienne image
-        }
-
-        // Mettre à jour le produit
-        $product->update($updateData);
-
-        return redirect()->route('my_account')->with('success', 'Le produit a été mis à jour avec succès');
+        //
     }
 
     /**
@@ -236,8 +162,6 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->productContract->toDelete($id);
-
-        return redirect()->route('my_account')->withMessage('Le produit a été supprimé avec succès');
+        //
     }
 }

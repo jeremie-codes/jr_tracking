@@ -25,47 +25,43 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $cart = session('cart', []);
-        $totalItems = 0;
-        $subtotal = 0;
+        // $cart = session('cart', []);
+        // $totalItems = 0;
+        // $subtotal = 0;
 
-        // Calculer le nombre total d'articles et le sous-total
-        foreach ($cart as $item) {
-            $totalItems += $item['quantity'];
-            $subtotal += $item['price'] * $item['quantity'];
-        }
+        // // Calculer le nombre total d'articles et le sous-total
+        // foreach ($cart as $item) {
+        //     $totalItems += $item['quantity'];
+        //     $subtotal += $item['price'] * $item['quantity'];
+        // }
 
-        $products = $this->productContract->toGetAll();
-        $latestProducts = $this->productContract->latestProducts(5);
-        $productsByCategory = $this->productContract->toGetProductByCategory('Chaussure');
+        // $products = $this->productContract->toGetAll();
+        // $latestProducts = $this->productContract->toGetAll(5);
+        // $categories = Category::all();
 
-        $categories = Category::all();
+        return view('public.index');
+    }
 
-        // dd( $products);
+    /**
+     * Display a listing of the resource.
+     */
+    public function about()
+    {
+        // $cart = session('cart', []);
+        // $totalItems = 0;
+        // $subtotal = 0;
 
-        if (Auth::user()) {
-            $user = $this->userContract->toGetById(Auth::user()->id);
+        // // Calculer le nombre total d'articles et le sous-total
+        // foreach ($cart as $item) {
+        //     $totalItems += $item['quantity'];
+        //     $subtotal += $item['price'] * $item['quantity'];
+        // }
 
-            return view('home', [
-                'user' => Auth::user(),
-                'cart' => $cart,
-                'totalItems' => $totalItems,
-                'subtotal' => $subtotal,
-                'products' => $products,
-                'latestProducts' => $latestProducts,
-                'categories' => $categories,
-                'productsByCategory' => $productsByCategory
-            ]);
-        }
-        return view('home', [
-            'cart' => $cart,
-            'totalItems' => $totalItems,
-            'subtotal' => $subtotal,
-            'products' => $products,
-            'latestProducts' => $latestProducts,
-            'categories' => $categories,
-            'productsByCategory' => $productsByCategory
-        ]);
+        // $products = $this->productContract->toGetAll();
+        // $latestProducts = $this->productContract->toGetAll(5);
+        // $categories = Category::all();
+
+        return view('public.about');
     }
 
     /**

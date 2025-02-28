@@ -23,8 +23,6 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image3' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             // 'shop_id' => 'required|exists:shops,id',
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
@@ -41,32 +39,18 @@ class StoreProductRequest extends FormRequest
             'image.image' => 'Le fichier doit être une image.',
             'image.mimes' => 'L\'image doit être au format jpeg, png, jpg, gif, ou svg.',
             'image.max' => 'L\'image ne doit pas dépasser 2 Mo.',
-
-            'image2.image' => 'Le fichier doit être une image.',
-            'image2.mimes' => 'L\'image doit être au format jpeg, png, jpg, gif, ou svg.',
-            'image2.max' => 'L\'image ne doit pas dépasser 2 Mo.',
-
-            'image3.image' => 'Le fichier doit être une image.',
-            'image3.mimes' => 'L\'image doit être au format jpeg, png, jpg, gif, ou svg.',
-            'image3.max' => 'L\'image ne doit pas dépasser 2 Mo.',
-
             // 'shop_id.required' => 'La boutique est obligatoire.',
             // 'shop_id.exists' => 'La boutique sélectionnée n\'existe pas.',
-
             'name.required' => 'Le nom du produit est obligatoire.',
             'name.string' => 'Le nom du produit doit être une chaîne de caractères.',
             'name.max' => 'Le nom du produit ne doit pas dépasser 255 caractères.',
-
             'category_id.required' => 'La catégorie est obligatoire.',
             'category_id.exists' => 'La catégorie sélectionnée n\'existe pas.',
-
             'available.required' => 'La disponibilité est obligatoire.',
             'available.in' => 'La disponibilité doit être soit 0 (Inactif), soit 1 (Actif).',
-
             'price.required' => 'Le prix est obligatoire.',
             'price.numeric' => 'Le prix doit être un nombre.',
             'price.min' => 'Le prix doit être supérieur ou égal à 0.',
-
             'description.required' => 'La description est obligatoire.',
             'description.string' => 'La description doit être une chaîne de caractères.',
             'description.max' => 'La description ne doit pas dépasser 1000 caractères.',

@@ -6,16 +6,10 @@ use App\Models\Product;
 
 class ProductRepo implements ProductContract
 {
-    public function latestProducts($n)
-    {
-        return Product::orderBy('created_at', 'desc') // Trier par date de création décroissante
-            ->take($n) // Limiter le nombre de résultats à $n
-            ->get(); // Récupérer les résultats
-    }
 
-    public function toGetProductByCategory($category)
+    public function toGetProductByCategory($categoryId)
     {
-        $product = Product::where('name', $category)->get();
+        $product = Product::where('category_id', $categoryId)->get();
         return $product;
     }
 
@@ -30,9 +24,9 @@ class ProductRepo implements ProductContract
             ->get();
     }
 
-    public function toGetProductByShop($shopId, $n)
+    public function toGetProductByShop($shopId)
     {
-        return Product::where('shop_id', $shopId)->paginate($n);
+        return Product::where('shop_id', $shopId)->get();
     }
 
     public function toGetLatest($n)
@@ -54,7 +48,7 @@ class ProductRepo implements ProductContract
         return Product::whereBetween('price', [$minPrice, $maxPrice])->get();
     }
 
-    public function getFilteredProducts($categoryId = null, $priceRange = null, $sort = null, $shopId = null, $n)
+    public function getFilteredProducts($categoryId = null, $priceRange = null, $sort = null, $n)
     {
         // Commencer avec une requête de base
         $query = Product::query();
@@ -76,16 +70,6 @@ class ProductRepo implements ProductContract
             }
         }
 
-        // Filtrer par boutique si un `shopId` est fourni et différent de "all"
-        if (!is_null($shopId) && $shopId !== 'all') {
-            $query->where('shop_id', $shopId);
-        }
-
-        // Ajouter une condition pour inclure uniquement les produits liés à des boutiques actives
-        $query->whereHas('shop', function ($q) {
-            $q->where('status', 1);
-        });
-
         // Appliquer un tri si un `sort` est fourni
         if (!is_null($sort)) {
             switch ($sort) {
@@ -104,7 +88,6 @@ class ProductRepo implements ProductContract
             }
         }
 
-        // Retourner les résultats paginés
         return $query->paginate($n);
     }
 
@@ -154,15 +137,10 @@ class ProductRepo implements ProductContract
      */
     public function toGetAll($n = 20)
     {
-        $products = Product::with('category', 'shop')
-            ->whereHas('shop', function ($query) {
-                $query->where('status', 1);
-            })
+        $product = Product::with('category', 'shop')
             ->paginate($n);
-
-        return $products;
+        return $product;
     }
-
 
     /**
      *

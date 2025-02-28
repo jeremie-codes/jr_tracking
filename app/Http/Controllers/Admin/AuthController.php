@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Shop;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -51,30 +49,23 @@ class AuthController extends Controller
         if ($user) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/');
+            // return redirect()->intended('/');
+            return response()->json([
+                "message" => "Connexion reussie !",
+                "status" => 201,
+                "data" => $user,
+                "success" => true,
+            ]);
         }
-        return redirect()->back()->with('error', 'Utilisateur non trouvé');
+        return response()->json([
+            "message" => "Identifiant non trouvé !",
+            "status" => 404,
+            "success" => false
+        ]);
     }
     public function handleRegister(RegisterRequest $request)
     {
         $data = $request->all();
-
-        if (!$request['shop_name']) {
-            $request['shop_name'] = $request['name'];
-
-            $request->validate([
-                'shop_name' => [
-                    'required',
-                    'string',
-                    'max:255',
-                    'unique:shops,slug' // Assurez-vous que la colonne slug existe dans votre table shops
-                ],
-            ], [
-                'shop_name.unique' => 'Le nom de la boutique est déjà pris.',
-            ]);
-        }
-
-        $data['slug'] = Str::slug($request['shop_name']);
 
         $request['password'] = Hash::make($request['password']);
 
@@ -85,29 +76,18 @@ class AuthController extends Controller
             $user = $this->userContract->toAdd($request->except('avatar'));
         }
 
-        if ($request->file('image')) {
-            $shop = Shop::create([
-                'user_id' => $user->id,
-                'name' => $request['shop_name'],
-                'image' => $request->file('image')->store('shop-images', 'public'),
-                'slug' => $data['slug']
-            ]);
-        } else {
-            $shop = Shop::create([
-                'user_id' => $user->id,
-                'name' => $request['shop_name'],
-                'image' => '',
-                'slug' => $data['slug']
-            ]);
-        }
+        // $shop = Shop::create([
+        //     'user_id' => $user->id,
+        //     'name' => $request['shop_name'],
+        // ]);
 
-        if ($shop) {
-            Auth::login($user);
+        // if ($shop) {
+        //     Auth::login($user);
 
-            return redirect()->intended('/');
-        } else {
-            dd('shop non créé');
-        }
+        //     return redirect()->intended('/');
+        // } else {
+        //     dd('shop non créé');
+        // }
     }
 
     public function logout()
@@ -139,46 +119,9 @@ class AuthController extends Controller
     {
         // dd($request->all());
 
-        if (!$request['shop_name']) {
-            $request['shop_name'] = $request['name'];
-
-            $request->validate([
-                'shop_name' => [
-                    'required',
-                    'string',
-                    'max:255',
-                    'unique:shops,slug' // Assurez-vous que la colonne slug existe dans votre table shops
-                ],
-            ], [
-                'shop_name.unique' => 'Le nom de la boutique est déjà pris.',
-            ]);
-
-        }
-
         $user = $this->userContract->toGetById($id);
 
-        $data = $request->except(['_method', '_token', 'old_password', 'new_password', 'password_confirmation', 'shop_name', 'image', 'slug']);
-
-        $request['slug'] = Str::slug($request['shop_name']);
-
-        $shop = Shop::findOrFail($user->shop->id);
-
-
-        if ($request->file('image')) {
-            $shop->update([
-                'name' => $request['shop_name'],
-                'image' => $request->file('image')->store('shop-images', 'public'),
-                'slug' => $request['slug']
-            ]);
-        } else {
-            $shop->update([
-                'name' => $request['shop_name'],
-                'image' => '',
-                'slug' => $data['slug']
-            ]);
-        }
-
-        // dd($shop);
+        $data = $request->except(['_method', '_token', 'old_password', 'new_password', 'password_confirmation']);
 
         $user = $this->userContract->toUpdate($data, $id);
 
