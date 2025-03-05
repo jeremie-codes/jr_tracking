@@ -39,7 +39,7 @@ class HomeController extends Controller
         // $latestProducts = $this->productContract->toGetAll(5);
         // $categories = Category::all();
 
-        return view('public.index');
+        return view('index');
     }
 
     /**

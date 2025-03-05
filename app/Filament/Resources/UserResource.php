@@ -26,10 +26,11 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $label = 'Utilisateurs';
-    protected static ?string $pluralLabel = 'Utilisateurs';
+    protected static ?string $label = 'Profil';
+    protected static ?string $pluralLabel = 'Profil';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationGroup = 'Configurations';
 
     public static function form(Form $form): Form
     {
@@ -96,15 +97,6 @@ class UserResource extends Resource
                     ->label('Email')
                     ->searchable()
                     ->sortable(),
-                // TextColumn::make('phone_number')
-                //     ->label('Téléphone')
-                //     ->searchable()
-                //     ->sortable(),
-                // TextColumn::make('address')
-                //     ->label('Adresse')
-                //     ->limit(20)
-                //     ->searchable()
-                //     ->sortable(),
                 TextColumn::make('role')
                     ->searchable()
                     ->sortable(),

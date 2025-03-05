@@ -16,4 +16,9 @@ class Taux extends Model
         'achat',
         'vente',
     ];
+
+    public function devise() {
+        return $this->belongsTo(Devise::class);
+    }
+
 }

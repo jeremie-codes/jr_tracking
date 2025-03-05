@@ -6,6 +6,7 @@ use App\Filament\Clusters\Monaie;
 use App\Filament\Clusters\Monaie\Resources\TauxResource\Pages;
 use App\Filament\Clusters\Monaie\Resources\TauxResource\RelationManagers;
 use App\Models\Taux;
+use App\Models\Devise;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -34,12 +35,8 @@ class TauxResource extends Resource
             Section::make('Taux')
                 ->schema([
                     Select::make('devise_id')
-                        ->options([
-                            'C-Abonné'=> 'C-Abonné',
-                            'C-Agent'=> 'C-Agent',
-                            'Operateur'=> 'Operateur',
-                            'Admin'=> 'Administrateur',
-                        ])
+                        ->options(Devise::pluck('code', 'id')->toArray())
+                        ->required('Choisir')
                         ->required(),
                     TextInput::make('vente')
                         ->required()
