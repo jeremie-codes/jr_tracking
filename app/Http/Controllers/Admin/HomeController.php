@@ -47,29 +47,15 @@ class HomeController extends Controller
      */
     public function about()
     {
-        // $cart = session('cart', []);
-        // $totalItems = 0;
-        // $subtotal = 0;
-
-        // // Calculer le nombre total d'articles et le sous-total
-        // foreach ($cart as $item) {
-        //     $totalItems += $item['quantity'];
-        //     $subtotal += $item['price'] * $item['quantity'];
-        // }
-
-        // $products = $this->productContract->toGetAll();
-        // $latestProducts = $this->productContract->toGetAll(5);
-        // $categories = Category::all();
-
         return view('public.about');
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function real()
     {
-        //
+        return view('public.real');
     }
 
     /**
