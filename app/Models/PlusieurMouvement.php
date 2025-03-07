@@ -13,15 +13,14 @@ class PlusieurMouvement extends Model
 
     protected $fillable = [
         'user_id',
+        'auteur',
         'nature',
         'type',
         'montant',
         'devise_id',
-        'auteur',
         'article_id',
-        'motif',
-        'note',
         'date_ref',
+        'note',
     ];
 
 

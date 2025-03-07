@@ -40,7 +40,16 @@ class IndicateurResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('type')
+                    ->sortable()
+                    ->limit(10)
+                    ->searchable(),
+                TextColumn::make("montant")
+                ->label("Montant")
+                ->formatStateUsing(function ($record) {
+                    return $record->montant . ' ' . $record->devise->code;
+                }),
+                TextColumn::make('date_ref')->label("Date reference"),
             ])
             ->filters([
                 //

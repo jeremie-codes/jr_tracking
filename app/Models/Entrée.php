@@ -24,6 +24,21 @@ class Entrée extends Model
         'date_ref',
     ];
 
+    protected static function booted(): void
+    {
+        static::created(function ($entrée) {
+            if ($entrée->type === 'Paiement dette') {
+                Indicateur::create([
+                    'montant' => $entrée->montant,
+                    'type' => 'paiement',
+                    'date_ref' => $entrée->date_ref,
+                    'user_id' => $entrée->user_id,
+                    'devise_id' => $entrée->devise_id,
+                ]);
+            }
+        });
+    }
+
     public function user() {
         return $this->belongsTo(User::class);
     }

@@ -24,6 +24,21 @@ class Sortie extends Model
         'date_ref',
     ];
 
+    protected static function booted(): void
+    {
+        static::created(function ($entrée) {
+            if ($entrée->type === 'Dette') {
+                Indicateur::create([
+                    'montant' => $entrée->montant,
+                    'type' => 'dette',
+                    'date_ref' => $entrée->created_at,
+                    'user_id' => $entrée->user_id,
+                    'devise_id' => $entrée->devise_id,
+                ]);
+            }
+        });
+    }
+
 
     public function user() {
         return $this->belongsTo(User::class);

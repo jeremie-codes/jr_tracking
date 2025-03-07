@@ -48,105 +48,86 @@ class PlusieurMouvementResource extends Resource
         return $form
             ->schema([
                 Repeater::make('Plusieurs_Écritures')
-                ->schema([
-                    Section::make('')
                     ->schema([
-                        TextInput::make('user_id')
-                            ->label("Id Agent")
-                            ->default(auth::id())
-                            ->readOnly(),
-                        TextInput::make('auteur')
-                            ->label("Client/Operateur/Auteur/Libellé")
-                            ->required(),
-                        Select::make('type')
-                            ->required()
-                            ->placeholder('Choisir')
-                            ->reactive()
-                            ->options([
-                                'Consignation' => 'Consignation',
-                                'Paiement dette' => 'Paiement dette',
-                                'Manquant retrouvé' => 'Manquant retrouvé',
-                                'Paiement commission' => 'Paiement commission',
-                                'Approvisionnement' => 'Approvisionnement',
-                                'Autres' => 'Autres',
-                            ]),
-                        Select::make('nature')
-                            ->options([
-                                "entree" => "Entree",
-                                "sortie" => "Sortie",
-                            ])
-                            ->required()
-                            ->placeholder('Choisir'),
-                        ])->columns(2),
-                    Section::make('Détail')
-                        ->schema([
-                            TextInput::make('montant')
-                                ->numeric()
-                                ->default(0)
-                                ->required(),
-                            Select::make('devise_id')
-                                ->required()
-                                ->options(Devise::pluck('code', 'id')->toArray())
-                                ->placeholder('Choisir'),
-                            Select::make('article_id')
-                                ->label('Article')
-                                ->required()
-                                ->options(Article::pluck('name', 'id')->toArray())
-                                ->visible(fn ($get) => $get('type') === 'Paiement commission' || $get('type') === 'Approvisionnement')
-                                ->placeholder('Choisir'),
+                        Section::make('')
+                            ->schema([
+                                TextInput::make('user_id')
+                                    ->label("Id Agent")
+                                    ->default(auth::id())
+                                    ->readOnly(),
+                                TextInput::make('auteur')
+                                    ->label("Client/Operateur/Auteur/Libellé")
+                                    ->required(),
+                                Select::make('nature')
+                                    ->options([
+                                        "entree" => "Entree",
+                                        "sortie" => "Sortie",
+                                    ])
+                                    ->required()
+                                    ->reactive()
+                                    ->placeholder('Choisir'),
+                                Select::make('type')
+                                    ->required()
+                                    ->placeholder('Choisir')
+                                    ->options(function (callable $get) {
+                                        $nature = $get('nature');
+                                        if ($nature === 'entree') {
+                                            return [
+                                                'Consignation' => 'Consignation',
+                                                'Paiement dette' => 'Paiement dette',
+                                                'Manquant retrouvé' => 'Manquant retrouvé',
+                                                'Paiement commission' => 'Paiement commission',
+                                                'Approvisionnement' => 'Approvisionnement',
+                                                'Autres' => 'Autres',
+                                            ];
+                                        } else {
+                                            return [
+                                                'Cession de fond' => 'Cession de fond',
+                                                'Dette' => 'Dette',
+                                                'Remboursement' => 'Remboursement',
+                                                'Excédent retrouvé' => 'Excédent retrouvé',
+                                                'Dépenses' => 'Dépenses',
+                                                'Autres' => 'Autres',
+                                            ];
+                                        }
+                                    }),
+                            ])->columns(2),
+                        Section::make('Détail')
+                            ->schema([
+                                TextInput::make('montant')
+                                    ->numeric()
+                                    ->default(0)
+                                    ->required(),
+                                Select::make('devise_id')
+                                    ->required()
+                                    ->options(Devise::pluck('code', 'id')->toArray())
+                                    ->placeholder('Choisir'),
+                                Select::make('article_id')
+                                    ->label('Article')
+                                    ->required()
+                                    ->options(Article::pluck('name', 'id')->toArray())
+                                    ->visible(fn ($get) => $get('type') === 'Paiement commission' || $get('type') === 'Approvisionnement' || $get('type') === 'Cession de fond')
+                                    ->placeholder('Choisir'),
                                 DatePicker::make('date_ref')
-                                ->label("Date réference")
-                                ->visible(fn ($get) => $get('type') === 'Paiement dette' || $get('type') === 'Manquant retrouvé')
-                                ->required(),
-                        ])->columns(2),
-                    Section::make('')
-                        ->schema([
-                            Textarea::make("note")
-                                ->label("Motif/Raison/commentaire")
-                                ->rows(2)
-                                ->visible(fn ($get) => $get('type') === 'Autres'),
-                        ])  ->hidden(fn ($get) => $get('type') !== 'Autres'),
+                                    ->label("Date réference")
+                                    ->visible(fn ($get) => $get('type') === 'Paiement dette' || $get('type') === 'Manquant retrouvé' || $get('type') === 'Remboursement' || $get('type') === 'Excédent retrouvé')
+                                    ->required(),
+                            ])->columns(2),
+                        Section::make('')
+                            ->schema([
+                                Textarea::make("note")
+                                    ->label("Motif/Raison/commentaire")
+                                    ->rows(2)
+                                    ->visible(fn ($get) => $get('type') === 'Autres'),
+                            ])->hidden(fn ($get) => $get('type') !== 'Autres'),
                     ])
                     ->grid(2)
+                    ->defaultItems(2)
                     ->addActionLabel('Ajouter une ecriture'),
             ])
             ->columns(1);
     }
 
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                TextColumn::make('type')
-                    ->sortable()
-                    ->limit(10)
-                    ->searchable(),
-                TextColumn::make('auteur')
-                    ->sortable()
-                    ->label("Oper/Cli/Aut")
-                    ->searchable(),
-                TextColumn::make("article.name")->label("Article"),
-                TextColumn::make("montant")
-                ->label("Montant")
-                ->formatStateUsing(function ($record) {
-                    return $record->montant . ' ' . $record->devise->code;
-                }),
-                TextColumn::make('user.name')->label("Personnel"),
-                TextColumn::make('note')->limit(20),
-                // TextColumn::make("date_ref"),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make()->label("Modifier"),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
-    }
 
     public static function getRelations(): array
     {
@@ -164,18 +145,4 @@ class PlusieurMouvementResource extends Resource
         ];
     }
 
-    public static function beforeSave($record, $data)
-    {
-        DB::transaction(function () use ($record, $data) {
-            // Enregistrer les entrées
-            foreach ($data['entrees'] as $entree) {
-                $record->entrees()->create($entree);
-            }
-
-            // Enregistrer les sorties
-            foreach ($data['sorties'] as $sortie) {
-                $record->sorties()->create($sortie);
-            }
-        });
-    }
 }

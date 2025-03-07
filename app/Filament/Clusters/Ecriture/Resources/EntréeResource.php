@@ -7,6 +7,7 @@ use Filament\Tables;
 use App\Models\Devise;
 use App\Models\Entrée;
 use App\Models\Article;
+use App\Models\Indicateur;
 use Filament\Forms\Form;
 use Filament\Pages\Page;
 use Filament\Tables\Table;
@@ -46,7 +47,6 @@ class EntréeResource extends Resource
         return $form
             ->schema([
                 Section::make()
-                // ->color('white')
                 ->schema([
                     Section::make('')
                         ->schema([
@@ -90,7 +90,7 @@ class EntréeResource extends Resource
                                 ->options(Article::pluck('name', 'id')->toArray())
                                 ->visible(fn ($get) => $get('type') === 'Paiement commission' || $get('type') === 'Approvisionnement')
                                 ->placeholder('Choisir'),
-                                DatePicker::make('date_ref')
+                            DatePicker::make('date_ref')
                                 ->label("Date réference")
                                 ->visible(fn ($get) => $get('type') === 'Paiement dette' || $get('type') === 'Manquant retrouvé')
                                 ->required(),
@@ -101,11 +101,10 @@ class EntréeResource extends Resource
                                 ->label("Motif/Raison/commentaire")
                                 ->rows(2)
                                 ->visible(fn ($get) => $get('type') === 'Autres'),
-                        ])  ->hidden(fn ($get) => $get('type') !== 'Autres'),
-                    
+                        ])->hidden(fn ($get) => $get('type') !== 'Autres'),
                 ])->columns(2)
                 ->columnSpan(['lg' => fn (?Entrée $record) => $record === null ? 3 : 2]),
-                
+
                 Section::make()
                 ->schema([
                     Forms\Components\Placeholder::make('created_at')
@@ -120,7 +119,6 @@ class EntréeResource extends Resource
                 ->hidden(fn (?Entrée $record) => $record === null)
             ])->columns(3);
     }
-
 
     public static function table(Table $table): Table
     {
@@ -142,7 +140,6 @@ class EntréeResource extends Resource
                 }),
                 TextColumn::make('user.name')->label("Personnel"),
                 TextColumn::make('note')->limit(20),
-                // TextColumn::make("date_ref"),
             ])
             ->filters([
                 //
@@ -172,4 +169,5 @@ class EntréeResource extends Resource
             'edit' => Pages\EditEntrée::route('/{record}/edit'),
         ];
     }
+
 }

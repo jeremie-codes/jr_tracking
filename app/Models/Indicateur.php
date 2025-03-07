@@ -14,6 +14,7 @@ class Indicateur extends Model
         'user_id',
         'devise_id',
         'montant',
+        'date_ref',
     ];
 
 
