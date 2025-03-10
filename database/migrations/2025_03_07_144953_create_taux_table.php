@@ -18,7 +18,8 @@ class CreateTauxTable extends Migration
             $table->id();
             $table->unsignedBigInteger('devise_source_id');
             $table->unsignedBigInteger('devise_cible_id');
-            $table->decimal('taux', 10, 6);
+            $table->decimal('taux_vente', 10, 6);
+            $table->decimal('taux_achat', 10, 6);
             $table->timestamps();
 
             $table->foreign('devise_source_id')->references('id')->on('devises')->onDelete('cascade');

@@ -1,21 +1,19 @@
-@php
-    $devises = App\Models\Devise::all();
-@endphp
+
 
 <x-filament-widgets::widget>
     <x-filament::section>
-        <form method="post" action="#!" class="my-auto">
+        <form method="POST" action="{{ route('convertir') }}" class="my-auto">
             @csrf
 
             <div class="fs-italic card-header mb-2">
-                <h6>Convertisseur de monnaie</h6>
+                <h6><b>Convertisseur de monnaie</b></h6>
             </div>
 
             <div class="text-center items-center card-body flex justify-center gap-x-3 w-100 mb-0 pb-0">
                 <x-filament::input.wrapper>
-                    <x-filament::input.select wire:model="status" class="border p-1">
-                        @foreach($devises as $devise)
-                            <option value="{{ $devise->code }}">{{ $devise->code }}</option>
+                    <x-filament::input.select wire:model="deviseSource" name="deviseSource" class="border p-1">
+                        @foreach($this->devises as $devise)
+                            <option @if ($devise->code == 'USD') selected @endif value="{{ $devise->code }}">{{ $devise->code }}</option>
                         @endforeach
                     </x-filament::input.select>
                 </x-filament::input.wrapper>
@@ -36,27 +34,28 @@
                 </div>
 
                 <x-filament::input.wrapper>
-                    <x-filament::input.select wire:model="status" class="border p-1">
-                        @foreach($devises as $devise)
-                            <option value="{{ $devise->code }}">{{ $devise->code }}</option>
+                    <x-filament::input.select wire:model="deviseCible" name="deviseCible" class="border p-1">
+                        @foreach($this->devises as $devise)
+                            <option @if ($devise->code == 'CDF') selected @endif value="{{ $devise->code }}">{{ $devise->code }}</option>
                         @endforeach
                     </x-filament::input.select>
                 </x-filament::input.wrapper>
             </div>
 
+
             <div class="align-center flex justify-between mt-2 gap-x-1">
-                <x-filament::input.wrapper :valid="! $errors->has('name')">
+                <x-filament::input.wrapper :valid="! $errors->has('montant')">
                     <x-filament::input
                         type="numeric"
-                        wire:model="name"
+                        wire:model="montant"
+                        name="montant"
                     />
                 </x-filament::input.wrapper>
 
-                <x-filament::input.wrapper :valid="! $errors->has('name')">
+                <x-filament::input.wrapper :valid="! $errors->has('resultat')">
                     <x-filament::input
                         type="text"
-                        wire:model="name"
-                        value="0"
+                        wire:model="resultat"
                         disabled
                     />
                 </x-filament::input.wrapper>
@@ -64,15 +63,15 @@
             </div>
 
             <div class="mt-2 flex justify-center">
-                {{-- <button class="btn btn-info btn-sm">Convertir</button> --}}
+
                 <x-filament::button
                         color="primary"
                         tag="button"
-                        type="button"
+                        type="submit"
+                        wire:click.prevent="convertir"
                     >
                         {{ 'convertir' }}
-                    </x-filament::button>
-                </form>
+                </x-filament::button>
             </div>
         </form>
     </x-filament::section>

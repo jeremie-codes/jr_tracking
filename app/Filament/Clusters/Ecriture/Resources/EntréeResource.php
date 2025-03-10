@@ -139,7 +139,7 @@ class EntréeResource extends Resource
                     return $record->montant . ' ' . $record->devise->code;
                 }),
                 TextColumn::make('user.name')->label("Personnel"),
-                TextColumn::make('note')->limit(20),
+                // TextColumn::make('note')->limit(20),
             ])
             ->filters([
                 //

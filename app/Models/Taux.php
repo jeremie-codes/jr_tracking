@@ -12,13 +12,18 @@ class Taux extends Model
     protected $table = "taux";
 
     protected $fillable = [
-        'devise_id',
-        'achat',
-        'vente',
+        'devise_source_id',
+        'devise_cible_id',
+        'taux_vente',
+        'taux_achat',
     ];
 
-    public function devise() {
-        return $this->belongsTo(Devise::class);
+    public function devise_source() {
+        return $this->belongsTo(Devise::class, 'devise_source_id');
+    }
+
+    public function devise_cible() {
+        return $this->belongsTo(Devise::class, 'devise_cible_id');
     }
 
 }

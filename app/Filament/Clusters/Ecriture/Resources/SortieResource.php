@@ -71,7 +71,7 @@ class SortieResource extends Resource
                                 ->default("sortie")
                                 ->readOnly(),
                             ])->columns(2),
-                            
+
                         Section::make('Détail')
                             ->schema([
                                 TextInput::make('montant')
@@ -101,7 +101,7 @@ class SortieResource extends Resource
                                     ->rows(2)
                                     ->visible(fn ($get) => $get('type') === 'Autres'),
                             ])  ->hidden(fn ($get) => $get('type') !== 'Autres'),
-                    ]),
+                    ])->columnSpan(['lg' => 2]),
 
                     Section::make()
                     ->schema([
@@ -137,7 +137,7 @@ class SortieResource extends Resource
                     return $record->montant . ' ' . $record->devise->code;
                 }),
                 TextColumn::make('user.name')->label("Personnel"),
-                TextColumn::make('note')->limit(20),
+                // TextColumn::make('note')->limit(20),
                 // TextColumn::make("date_ref"),
             ])
             ->filters([

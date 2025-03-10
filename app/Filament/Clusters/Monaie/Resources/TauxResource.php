@@ -32,18 +32,32 @@ class TauxResource extends Resource
     {
         return $form
         ->schema([
-            Section::make('Taux')
+            Section::make('Devise')
                 ->schema([
-                    Select::make('devise_id')
+                    Select::make('devise_source_id')
+                        ->label('Source')
+                        ->prefix('1')
                         ->options(Devise::pluck('code', 'id')->toArray())
                         ->required('Choisir')
                         ->required(),
-                    TextInput::make('vente')
+                    Select::make('devise_cible_id')
+                        ->label('Cible')
+                        ->options(Devise::pluck('code', 'id')->toArray())
+                        ->required('Choisir')
+                        ->reactive()
                         ->required()
-                        ->numeric(),
-                        TextInput::make('achat')
+
+                ])->columns(2),
+            Section::make('Taux de Change')
+                ->schema([
+                    TextInput::make('taux_vente')
                         ->required()
-                        ->numeric(),
+                        ->numeric()
+                        ->prefix(fn ($get) => $get('devise_cible_id') > 0 ? Devise::select('code')->where('id', $get('devise_cible_id'))->get()->first()->code : ''),
+                        TextInput::make('taux_achat')
+                        ->required()
+                        ->numeric()
+                        ->prefix(fn ($get) => $get('devise_cible_id') > 0 ? Devise::select('code')->where('id', $get('devise_cible_id'))->get()->first()->code : ''),
 
                 ]),
         ]);
@@ -53,9 +67,14 @@ class TauxResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make("code"),
-                TextColumn::make("nom")
-                    ->label("Designation")
+                TextColumn::make("devise_source.code")
+                    ->label("Devise Source"),
+                TextColumn::make("devise_cible.code")
+                    ->label("Devise cible"),
+                TextColumn::make("taux_vente")
+                    ->label("Taux Vente"),
+                TextColumn::make("taux_achat")
+                    ->label("Taux Achat"),
             ])
             ->filters([
                 //

@@ -21,6 +21,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Split;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
@@ -39,6 +40,7 @@ class CommandeResource extends Resource
     {
         return $form
             ->schema([
+
                 Section::make()
                 ->schema([
                     Section::make()
@@ -46,7 +48,7 @@ class CommandeResource extends Resource
                             Select::make('user_id')
                                 ->label('Destinataire')
                                 ->placeholder('Choisir')
-                                ->options(User::pluck('name', 'id')->toArray())
+                                ->relationship('user', 'name')
                                 ->required(),
                             TextInput::make('numero')
                                 ->numeric()
@@ -63,14 +65,14 @@ class CommandeResource extends Resource
                             Select::make('article_id')
                                 ->label('Article')
                                 ->placeholder('Choisir')
-                                ->options(Article::pluck('name', 'id')->toArray())
+                                ->relationship('article', 'name')
                                 ->required(),
                             TextInput::make('montant')
                                 ->numeric()
                                 ->required(),
                             Select::make('devise_id')
                                 ->required()
-                                ->options(Devise::pluck('code', 'id')->toArray())
+                                ->relationship('devise', 'code')
                                 ->placeholder('Choisir'),
                         ])->columns(3),
 
