@@ -22,7 +22,10 @@ class CommandeObserver
             ->actions([
                 Action::make('Approuver')
                     ->button()
-                    ->color('success'),
+                    ->markAsRead()
+                    ->color('success')
+                    ->hidden()
+                    ->url(route('commandes.approuver', ['commande' => $commande->id, 'notification_id' => $notification->id])),
                 Action::make('Modifier')
                     ->button()
                     ->color('warning'),
