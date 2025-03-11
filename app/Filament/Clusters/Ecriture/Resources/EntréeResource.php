@@ -39,7 +39,7 @@ class EntréeResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return static::getModel()::query()->where('nature', 'entree');
+        return static::getModel()::query()->where('nature', 'entree')->where('user_id', Auth::user()->id);  
     }
 
     public static function form(Form $form): Form

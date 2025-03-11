@@ -65,24 +65,71 @@ class CommandeController extends Controller
         //
     }
 
-    public function approuver(Request $request, Commande $commande)
+    public function approuver(Request $request)
     {
-        // Supprimer la notification
-        $notification = $request->user()->notifications()->find($request->notification_id);
-        if ($notification) {
-            $notification->delete();
-        }
+
+        // Récupérer la commande à partir de l'ID
+        $commande = Commande::find($request->commande);
+
+        // dd($request->commande);
+
+        $commande->update([
+            'status' => 'approuvée',
+        ]);
 
         // Enregistrer les informations de la commande dans la table ecriture
-        PlusieurMouvement::create([
-            'commande_id' => $commande->id,
-            'user_id' => Auth::id(),
-            'montant' => $commande->montant,
-            'devise_id' => $commande->devise_id,
-            'article_id' => $commande->article_id,
-            'note' => $commande->note,
-            // Ajoutez d'autres champs nécessaires
-        ]);
+        if ($commande->type == 'demande approvisionnement')
+        {
+            PlusieurMouvement::create([
+                'auteur' => $commande->user->name,
+                'nature' => 'entree',
+                'type' => 'Approvisionnement',
+                'user_id' => $commande->person_id,
+                'montant' => $commande->montant,
+                'devise_id' => $commande->devise_id,
+                'article_id' => $commande->article_id,
+                'note' => $commande->note,
+                // Ajoutez d'autres champs nécessaires
+            ]);
+
+            PlusieurMouvement::create([
+                'auteur' => $commande->person->name,
+                'nature' => 'sortie',
+                'type' => 'Cession de fond',
+                'user_id' => Auth::id(),
+                'montant' => $commande->montant,
+                'devise_id' => $commande->devise_id,
+                'article_id' => $commande->article_id,
+                'note' => $commande->note,
+                // Ajoutez d'autres champs nécessaires
+            ]);
+        }
+        else
+        {
+            PlusieurMouvement::create([
+                'auteur' => $commande->person->name,
+                'nature' => 'entree',
+                'type' => 'Approvisionnement',
+                'user_id' => $commande->user_id,
+                'montant' => $commande->montant,
+                'devise_id' => $commande->devise_id,
+                'article_id' => $commande->article_id,
+                'note' => $commande->note,
+                // Ajoutez d'autres champs nécessaires
+            ]);
+
+            PlusieurMouvement::create([
+                'auteur' => $commande->user->name,
+                'nature' => 'sortie',
+                'type' => 'Cession de fond',
+                'user_id' => $commande->person_id,
+                'montant' => $commande->montant,
+                'devise_id' => $commande->devise_id,
+                'article_id' => $commande->article_id,
+                'note' => $commande->note,
+                // Ajoutez d'autres champs nécessaires
+            ]);
+        }
 
         return redirect()->back()->with('success', 'Commande approuvée et enregistrée dans le rapport.');
     }

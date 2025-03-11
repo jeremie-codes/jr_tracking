@@ -56,7 +56,7 @@ class CommandeResource extends Resource
                                 ->placeholder('Choisir')
                                 ->options([
                                     'demande approvisionnement'=> 'Demande approvisionnement',
-                                    'approvisionnement anticipé'=> 'Approvisionnement anticipé',
+                                    'cession de fond'=> 'cession de fond',
                                 ])
                                 ->required(),
                             Select::make('user_id')

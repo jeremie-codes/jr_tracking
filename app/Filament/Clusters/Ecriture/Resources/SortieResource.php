@@ -36,7 +36,7 @@ class SortieResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return static::getModel()::query()->where('nature', 'sortie');
+        return static::getModel()::query()->where('nature', 'sortie')->where('user_id', Auth::user()->id);
     }
 
     public static function form(Form $form): Form

@@ -29,9 +29,11 @@ class PlusieurMouvement extends Model
     {
         parent::boot();
 
-        // Définir operated_id automatiquement lors de la création
-        static::creating(function (Sortie $sortie) {
-            $sortie->user_id = Auth::id();
+        // Définir user_id automatiquement lors de la création si non défini
+        static::creating(function (PlusieurMouvement $mouvement) {
+            if (is_null($mouvement->user_id)) {
+                $mouvement->user_id = Auth::id();
+            }
         });
     }
 
