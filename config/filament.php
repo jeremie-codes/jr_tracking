@@ -88,7 +88,7 @@ return [
 
     'layout' => [
         'sidebar' => [
-            'is_collapsible_on_desktop' => true,
+            // 'background' => '#1f2937',
         ],
     ],
 
