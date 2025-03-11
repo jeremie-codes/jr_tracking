@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 
 class Sortie extends Model
 {
@@ -24,16 +25,29 @@ class Sortie extends Model
         'date_ref',
     ];
 
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Définir operated_id automatiquement lors de la création
+        static::creating(function (Sortie $sortie) {
+            $sortie->user_id = Auth::id();
+            $sortie->nature = 'sortie';
+        });
+    }
+
+
     protected static function booted(): void
     {
-        static::created(function ($entrée) {
-            if ($entrée->type === 'Dette') {
+        static::created(function ($sortie) {
+            if ($sortie->type === 'Dette') {
                 Indicateur::create([
-                    'montant' => $entrée->montant,
+                    'montant' => $sortie->montant,
                     'type' => 'dette',
-                    'date_ref' => $entrée->created_at,
-                    'user_id' => $entrée->user_id,
-                    'devise_id' => $entrée->devise_id,
+                    'date_ref' => $sortie->created_at,
+                    'user_id' => $sortie->user_id,
+                    'devise_id' => $sortie->devise_id,
                 ]);
             }
         });

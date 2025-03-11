@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 
 class PlusieurMouvement extends Model
 {
@@ -22,6 +23,43 @@ class PlusieurMouvement extends Model
         'date_ref',
         'note',
     ];
+
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Définir operated_id automatiquement lors de la création
+        static::creating(function (Sortie $sortie) {
+            $sortie->user_id = Auth::id();
+        });
+    }
+
+
+    protected static function booted(): void
+    {
+        static::created(function ($mouvement) {
+            if ($mouvement->type === 'Dette') {
+                Indicateur::create([
+                    'montant' => $mouvement->montant,
+                    'type' => 'dette',
+                    'date_ref' => $mouvement->created_at,
+                    'user_id' => $mouvement->user_id,
+                    'devise_id' => $mouvement->devise_id,
+                ]);
+            }
+
+            if ($mouvement->type === 'Paiement dette') {
+                Indicateur::create([
+                    'montant' => $mouvement->montant,
+                    'type' => 'paiement',
+                    'date_ref' => $mouvement->date_ref,
+                    'user_id' => $mouvement->user_id,
+                    'devise_id' => $mouvement->devise_id,
+                ]);
+            }
+        });
+    }
 
 
     public function user() {

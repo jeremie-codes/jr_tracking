@@ -51,10 +51,6 @@ class PlusieurMouvementResource extends Resource
                     ->schema([
                         Section::make('')
                             ->schema([
-                                TextInput::make('user_id')
-                                    ->label("Id Agent")
-                                    ->default(auth::id())
-                                    ->readOnly(),
                                 TextInput::make('auteur')
                                     ->label("Client/Operateur/Auteur/Libellé")
                                     ->required(),
@@ -91,7 +87,7 @@ class PlusieurMouvementResource extends Resource
                                             ];
                                         }
                                     }),
-                            ])->columns(2),
+                            ]),
                         Section::make('Détail')
                             ->schema([
                                 TextInput::make('montant')
@@ -99,6 +95,7 @@ class PlusieurMouvementResource extends Resource
                                     ->default(0)
                                     ->required(),
                                 Select::make('devise_id')
+                                    ->label('Devise')
                                     ->required()
                                     ->options(Devise::pluck('code', 'id')->toArray())
                                     ->placeholder('Choisir'),

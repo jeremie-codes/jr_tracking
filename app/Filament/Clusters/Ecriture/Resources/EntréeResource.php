@@ -66,14 +66,11 @@ class EntréeResource extends Resource
                                 ->label("Client/Operateur/Auteur/Libellé")
                                 ->required(),
 
-                            TextInput::make('user_id')
-                                ->label("Id Agent")
-                                ->default(auth::id())
-                                ->readOnly(),
-                            TextInput::make('nature')
-                                ->default("entree")
-                                ->readOnly(),
-                        ])->columns(2),
+                            // TextInput::make('user_id')
+                            //    dans  le model Entrée
+                            // TextInput::make('nature')
+                            //    dans  le model Entrée
+                        ]),
                     Section::make('Détail')
                         ->schema([
                             TextInput::make('montant')
@@ -102,8 +99,8 @@ class EntréeResource extends Resource
                                 ->rows(2)
                                 ->visible(fn ($get) => $get('type') === 'Autres'),
                         ])->hidden(fn ($get) => $get('type') !== 'Autres'),
-                ])->columns(2)
-                ->columnSpan(['lg' => fn (?Entrée $record) => $record === null ? 3 : 2]),
+                ])
+                ->columnSpan(['lg' => 2]),
 
                 Section::make()
                 ->schema([

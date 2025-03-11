@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 
 class Entrée extends Model
 {
@@ -23,6 +24,18 @@ class Entrée extends Model
         'note',
         'date_ref',
     ];
+
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Définir operated_id automatiquement lors de la création
+        static::creating(function (Entrée $entrée) {
+            $entrée->user_id = Auth::id();
+            $entrée->nature = 'entree';
+        });
+    }
 
     protected static function booted(): void
     {

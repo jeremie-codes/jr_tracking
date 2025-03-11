@@ -36,6 +36,12 @@ class CommandeResource extends Resource
     protected static ?string $navigationGroup = 'Options & Actions';
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
+
+    public static function getEloquentQuery(): Builder
+    {
+        return static::getModel()::query()->where('user_id', Auth::user()->id)->orWhere('person_id', Auth::user()->id);
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -45,6 +51,14 @@ class CommandeResource extends Resource
                 ->schema([
                     Section::make()
                         ->schema([
+                            Select::make('type')
+                                ->label('Type de commande')
+                                ->placeholder('Choisir')
+                                ->options([
+                                    'demande approvisionnement'=> 'Demande approvisionnement',
+                                    'approvisionnement anticipé'=> 'Approvisionnement anticipé',
+                                ])
+                                ->required(),
                             Select::make('user_id')
                                 ->label('Destinataire')
                                 ->placeholder('Choisir')
@@ -53,12 +67,9 @@ class CommandeResource extends Resource
                             TextInput::make('numero')
                                 ->numeric()
                                 ->required(),
-                            TextInput::make('person_id')
-                                ->label("Id Agent")
-                                ->default(auth::id())
-                                ->required()
-                                ->readOnly(),
                         ])->columns(3),
+
+                        //person_id est rempli automatiquement à partir du hook boot dans le Model Commande
 
                     Section::make()
                         ->schema([
@@ -116,6 +127,8 @@ class CommandeResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->label('Article'),
+                TextColumn::make('type')
+                    ->label('Type')->limit(19),
                 TextColumn::make('status')
                     ->color(function (Commande $record) {
                         return $record->status === 'attente' ? 'warning' : ($record->status === 'approuvée' ? 'success' : 'danger');
@@ -127,10 +140,11 @@ class CommandeResource extends Resource
                     })
                     ->badge()
                     ->sortable(),
-                TextColumn::make('person.name')
+                TextColumn::make('person_id')
+                    ->formatStateUsing(function (Commande $record) {
+                        return $record->person_id === Auth::user()->id ? 'Moi-mème' : $record->person->name;
+                    })
                     ->label('Initiateur'),
-                TextColumn::make('created_at')
-                    ->label('Date commandée'),
             ])
             ->filters([
                 //
