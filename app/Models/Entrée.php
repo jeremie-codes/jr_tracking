@@ -44,6 +44,7 @@ class Entrée extends Model
                 Indicateur::create([
                     'montant' => $entrée->montant,
                     'type' => 'paiement',
+                    'libelle' => $entrée->auteur,
                     'date_ref' => $entrée->date_ref,
                     'user_id' => $entrée->user_id,
                     'devise_id' => $entrée->devise_id,

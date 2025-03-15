@@ -28,8 +28,9 @@ class ArticleResource extends Resource
 {
     protected static ?string $model = Article::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
     protected static ?string $navigationGroup = 'Configurations';
+    protected static ?int $sort = 1;
 
     public static function form(Form $form): Form
     {

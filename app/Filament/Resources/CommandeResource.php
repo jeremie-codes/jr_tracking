@@ -28,6 +28,7 @@ use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Carbon;
 
 class CommandeResource extends Resource
 {
@@ -39,7 +40,13 @@ class CommandeResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return static::getModel()::query()->where('user_id', Auth::user()->id)->orWhere('person_id', Auth::user()->id);
+
+        if (Auth::user()->role == 'Admin') {
+            return static::getModel()::query()->orderBy('id', 'desc');
+        }
+
+        return static::getModel()::query()->where('user_id', Auth::user()->id)->orWhere('person_id', Auth::user()->id)
+            ->orderBy('id', 'desc');
     }
 
     public static function form(Form $form): Form
@@ -54,13 +61,15 @@ class CommandeResource extends Resource
                             Select::make('type')
                                 ->label('Type de commande')
                                 ->placeholder('Choisir')
+                                ->disabled(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord)
                                 ->options([
                                     'demande approvisionnement'=> 'Demande approvisionnement',
                                     'cession de fond'=> 'cession de fond',
-                                ])
+                                    ])
                                 ->required(),
                             Select::make('user_id')
                                 ->label('Destinataire')
+                                ->disabled(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord)
                                 ->placeholder('Choisir')
                                 ->relationship('user', 'name')
                                 ->required(),
@@ -147,7 +156,35 @@ class CommandeResource extends Resource
                     ->label('Initiateur'),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('created_at')
+                    ->form([
+                        Forms\Components\DatePicker::make('created_from')
+                            ->placeholder(fn ($state): string => 'Dec 18, ' . now()->subYear()->format('Y')),
+                        Forms\Components\DatePicker::make('created_until')
+                            ->placeholder(fn ($state): string => now()->format('M d, Y')),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'] ?? null,
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'] ?? null,
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    })
+                    ->indicateUsing(function (array $data): array {
+                        $indicators = [];
+                        if ($data['created_from'] ?? null) {
+                            $indicators['created_from'] = 'Order from ' . Carbon::parse($data['created_from'])->toFormattedDateString();
+                        }
+                        if ($data['created_until'] ?? null) {
+                            $indicators['created_until'] = 'Order until ' . Carbon::parse($data['created_until'])->toFormattedDateString();
+                        }
+
+                        return $indicators;
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->label('Editer'),
@@ -158,6 +195,11 @@ class CommandeResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function canDelete($record): bool
+    {
+        return Auth::user()->role === "Admin";
     }
 
     public static function getRelations(): array

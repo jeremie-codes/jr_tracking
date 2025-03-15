@@ -2,11 +2,13 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\Devise;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 use App\Models\PlusieurMouvement;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class etat_de_la_caisse extends BaseWidget
 {
@@ -25,7 +27,7 @@ class etat_de_la_caisse extends BaseWidget
             ->paginated(false)
             ->defaultPaginationPageOption(5)
             ->columns([
-                Tables\Columns\TextColumn::make('devise.code')
+                Tables\Columns\TextColumn::make('code')
                     ->label('Devise'),
                 Tables\Columns\TextColumn::make('balance')
                     ->label('Solde')
@@ -37,8 +39,10 @@ class etat_de_la_caisse extends BaseWidget
 
     protected function getBalanceQuery(): Builder
     {
-        return PlusieurMouvement::query()
-            ->selectRaw('devise_id, SUM(CASE WHEN nature = "entree" THEN montant ELSE -montant END) as balance, CONCAT(devise_id, "-", UUID()) as id')
-            ->groupBy('devise_id');
+        return Devise::query()
+            ->leftJoin('ecritures', 'devises.id', '=', 'ecritures.devise_id')
+            ->selectRaw('devises.id as devise_id, devises.code, COALESCE(SUM(CASE WHEN ecritures.nature = "entree" THEN ecritures.montant ELSE -ecritures.montant END), 0) as balance, CONCAT(devises.id, "-", UUID()) as id')
+            ->where('user_id', Auth::user()->id)->orWhere('auteur', Auth::user()->nom)
+            ->groupBy('devises.id', 'devises.code');
     }
 }

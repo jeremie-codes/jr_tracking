@@ -30,7 +30,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SortieResource extends Resource
 {
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-arrow-up-on-square-stack';
 
     protected static ?string $cluster = Ecriture::class;
 

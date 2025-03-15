@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Clusters\Personnel\Resources;
 
-use Filament\Forms;
+use App\Filament\Clusters\Personnel;
+use App\Filament\Clusters\Personnel\Resources\AgentResource\Pages;
+use App\Filament\Clusters\Personnel\Resources\AgentResource\RelationManagers;
 use App\Models\User;
-use Filament\Tables;
-use App\Models\Seller;
+use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Pages\Page;
-use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Select;
@@ -22,15 +23,19 @@ use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Pages\CreateRecord;
 
-class UserResource extends Resource
+class AgentResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $label = 'Profil';
-    protected static ?string $pluralLabel = 'Profil';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
-    protected static ?string $navigationGroup = 'Configurations';
+    protected static ?string $cluster = Personnel::class;
+
+    public static function getEloquentQuery(): Builder
+    {
+        return static::getModel()::query()->where('id', '!=', Auth::user()->id)->orWhere('role', '!=', 'Admin');
+    }
+
 
     public static function form(Form $form): Form
     {
@@ -44,7 +49,7 @@ class UserResource extends Resource
 
                     ]),
                 Section::make('Identité')
-                    ->columns(2)
+                    ->columns(3)
                     ->schema([
                         TextInput::make('name')
                             ->label('Nom complet')
@@ -56,29 +61,34 @@ class UserResource extends Resource
                             ->maxLength(255),
                         Select::make('role')
                             ->options([
-                                'C-Abonné'=> 'C-Abonné',
-                                'C-Agent'=> 'C-Agent',
-                                'Operateur'=> 'Operateur',
+                                'C-abonné'=> 'C-abonné',
+                                'C-agent'=> 'C-agent',
+                                'operateur'=> 'operateur',
+                                'T-Simple'=> 'T-Simple',
+                                'T-operateur'=> 'T-operateur',
+                                'T-controlleur'=> 'T-controlleur',
                                 'Admin'=> 'Administrateur',
                             ])
                             ->required(),
                     ]),
-                Section::make()
-                    ->schema([
-                        TextInput::make('password')
-                            ->password()
-                            ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord)
-                            ->minLength(8)
-                            ->same('password_confirmation')
-                            ->dehydrated(fn($state) => filled($state))
-                            ->dehydrateStateUsing(fn($state) => Hash::make($state)),
-                        TextInput::make('password_confirmation')
-                            ->label('Password confirmation')
-                            ->password()
-                            ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord)
-                            ->minLength(8)
-                            ->dehydrated(false)
-                    ])
+                    Section::make()
+                        ->schema([
+                            TextInput::make('password')
+                                ->password()
+                                // ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord)
+                                ->required(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord) // Rend obligatoire seulement lors de la création
+                                ->minLength(8)
+                                ->same('password_confirmation')
+                                ->dehydrated(fn($state) => filled($state))
+                                ->dehydrateStateUsing(fn($state) => Hash::make($state)),
+                            TextInput::make('password_confirmation')
+                                ->label('Password confirmation')
+                                ->password()
+                                // ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord)
+                                ->required(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord) // Rend obligatoire seulement lors de la création
+                                ->minLength(8)
+                                ->dehydrated(false)
+                        ])
             ]);
     }
 
@@ -125,9 +135,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => UserResource\Pages\ListUsers::route('/'),
-            'create' => UserResource\Pages\CreateUser::route('/create'),
-            'edit' => UserResource\Pages\EditUser::route('/{record}/edit'),
+            'index' => Pages\ListAgents::route('/'),
+            'create' => Pages\CreateAgent::route('/create'),
+            'edit' => Pages\EditAgent::route('/{record}/edit'),
         ];
     }
 }

@@ -39,6 +39,7 @@ class AdminPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
             ])
             ->databaseNotifications()
+            // ->databaseNotificationsPolling('5s')
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 // Widgets\AccountWidsget::class,
@@ -65,6 +66,18 @@ class AdminPanelProvider extends PanelProvider
 
     }
 
+    // public function boot()
+    // {
+    //     Filament::serving(function () {
+    //         Filament::registerUserMenuItems([
+    //             MenuItem::make()
+    //                 ->label('Notifications')
+    //                 ->icon('heroicon-o-bell')
+    //                 ->url(route('filament.notifications'))
+    //                 ->badge(auth()->user()->unreadNotifications->count()),
+    //         ]);
+    //     });
+    // }
 
 
 }

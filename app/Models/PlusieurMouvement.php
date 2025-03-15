@@ -44,6 +44,7 @@ class PlusieurMouvement extends Model
             if ($mouvement->type === 'Dette') {
                 Indicateur::create([
                     'montant' => $mouvement->montant,
+                    'libelle' => $mouvement->auteur,
                     'type' => 'dette',
                     'date_ref' => $mouvement->created_at,
                     'user_id' => $mouvement->user_id,
@@ -54,6 +55,7 @@ class PlusieurMouvement extends Model
             if ($mouvement->type === 'Paiement dette') {
                 Indicateur::create([
                     'montant' => $mouvement->montant,
+                    'libelle' => $mouvement->auteur,
                     'type' => 'paiement',
                     'date_ref' => $mouvement->date_ref,
                     'user_id' => $mouvement->user_id,

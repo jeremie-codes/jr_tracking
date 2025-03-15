@@ -35,7 +35,7 @@ class PlusieurMouvementResource extends Resource
 {
     protected static ?string $model = PlusieurMouvement::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-arrows-up-down';
 
     protected static ?string $cluster = Ecriture::class;
 
@@ -61,6 +61,7 @@ class PlusieurMouvementResource extends Resource
                                     ])
                                     ->required()
                                     ->reactive()
+                                    ->distinct()
                                     ->placeholder('Choisir'),
                                 Select::make('type')
                                     ->required()
@@ -120,7 +121,9 @@ class PlusieurMouvementResource extends Resource
                     ])
                     ->grid(2)
                     ->defaultItems(2)
-                    ->addActionLabel('Ajouter une ecriture'),
+                    ->disableItemCreation()
+                    ->disableItemDeletion()
+                    // ->addActionLabel('Ajouter une ecriture'),
             ])
             ->columns(1);
     }
@@ -136,8 +139,8 @@ class PlusieurMouvementResource extends Resource
     public static function getPages(): array
     {
         return [
-            // 'index' => Pages\ListPlusieurMouvements::route('/'),
-            'index' => Pages\CreatePlusieurMouvement::route('/create'),
+            'index' => Pages\ListPlusieurMouvements::route('/'),
+            'create' => Pages\CreatePlusieurMouvement::route('/create'),
             'edit' => Pages\EditPlusieurMouvement::route('/{record}/edit'),
         ];
     }

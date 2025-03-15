@@ -33,13 +33,13 @@ class EntréeResource extends Resource
 {
     protected static ?string $model = Entrée::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-arrow-down-on-square-stack';
 
     protected static ?string $cluster = Ecriture::class;
 
     public static function getEloquentQuery(): Builder
     {
-        return static::getModel()::query()->where('nature', 'entree')->where('user_id', Auth::user()->id);  
+        return static::getModel()::query()->where('nature', 'entree')->where('user_id', Auth::user()->id);
     }
 
     public static function form(Form $form): Form

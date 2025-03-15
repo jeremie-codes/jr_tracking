@@ -8,6 +8,7 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 use Filament\Widgets\Concerns\InteractsWithPageFilters;
 use Illuminate\Support\Number;
 use App\Models\Indicateur;
+use App\Models\Presence;
 use App\Models\Taux;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Devise;
@@ -85,8 +86,8 @@ class indicateur_qualitatif_mensuel extends BaseWidget
         // END - Récupérer les données de maquant par devise
 
         // START - Récupérer les données d'absence par mois
-        $absence = Indicateur::where('user_id', $userId)
-            ->where('type', 'absence')
+        $absence = Presence::where('user_id', $userId)
+            ->where('absent', true)
             ->whereMonth('created_at', Carbon::now()->month)
             ->selectRaw('COUNT(*) as total_absence')
             ->first();
@@ -94,8 +95,8 @@ class indicateur_qualitatif_mensuel extends BaseWidget
         // END - Récupérer les données d'absence par mois
 
         // START - Récupérer les données de retard par mois
-        $retard = Indicateur::where('user_id', $userId)
-            ->where('type','retard')
+        $retard = Presence::where('user_id', $userId)
+            ->where('retard', true)
             ->whereMonth('created_at', Carbon::now()->month)
             ->selectRaw('COUNT(*) as total_retard')
             ->first();
@@ -116,22 +117,22 @@ class indicateur_qualitatif_mensuel extends BaseWidget
 
         // Formater le résultat pour l'affichage
         $stats = [
-            Stat::make('Manquant', '$'. $formatNumber($totalMaquant))
+            Stat::make('Manquants', '$'. $formatNumber($totalMaquant))
                 ->description('Manquant trouvé converti en ' . $deviseDeReference)
                 ->descriptionIcon($totalMaquant > 0 ? 'heroicon-m-arrow-trending-down': 'heroicon-o-check')
                 ->chart([2, 3, 1, 2, 1, 3, 2, 1, 3])
                 ->color($totalMaquant > 0 ? 'danger' : 'success'),
-            Stat::make('Dette non payée', '$'. $formatNumber($totalDetteNonPayee))
+            Stat::make('Dettes non payées', '$'. $formatNumber($totalDetteNonPayee))
                 ->description('Total dette non payée convertie en ' . $deviseDeReference)
                 ->descriptionIcon($totalDetteNonPayee > 0 ? 'heroicon-m-arrow-trending-down': 'heroicon-o-check')
                 ->chart([2, 3, 1, 2, 1, 3, 2, 1, 3])
                 ->color($totalDetteNonPayee > 0 ? 'danger' : 'success'),
-            Stat::make('Absence', $absence->total_absence .' Jr')
+            Stat::make('Absences', $absence->total_absence .' Jr')
                 ->description('Nombre de jour d\'absence ce mois-ci')
                 ->descriptionIcon($absence->total_absence > 0 ? 'heroicon-m-arrow-trending-down': 'heroicon-o-check')
                 ->chart([2, 3, 1, 2, 1, 3, 2, 1, 3])
                 ->color($absence->total_absence > 0 ? 'danger' : 'success'),
-            Stat::make('Reatard', $retard->total_retard .' Jr')
+            Stat::make('Retards', $retard->total_retard .' Jr')
                 ->description('Nombre de jour de retard ce mois-ci')
                 ->descriptionIcon($retard->total_retard > 0 ? 'heroicon-m-arrow-trending-down': 'heroicon-o-check')
                 ->chart([2, 3, 1, 2, 1, 3, 2, 1, 3])

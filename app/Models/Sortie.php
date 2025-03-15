@@ -45,6 +45,7 @@ class Sortie extends Model
                 Indicateur::create([
                     'montant' => $sortie->montant,
                     'type' => 'dette',
+                    'libelle' => $sortie->auteur,
                     'date_ref' => $sortie->created_at,
                     'user_id' => $sortie->user_id,
                     'devise_id' => $sortie->devise_id,

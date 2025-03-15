@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use App\Observers\CommandeObserver;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use App\Filament\Resources\CommandeResource;
+use App\Models\Devise;
+use Filament\Notifications\Actions\Action;
+use Livewire\Livewire;
 
 #[ObservedBy([CommandeObserver::class])]
 class Commande extends Model

@@ -6,5 +6,7 @@ use Filament\Clusters\Cluster;
 
 class Personnel extends Cluster
 {
-    protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
+    protected static ?string $navigationGroup = 'Configurations';
+    protected static ?int $sort = 4;
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
 }
