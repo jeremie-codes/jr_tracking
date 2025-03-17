@@ -24,16 +24,20 @@ class ListIndicateurs extends ListRecords
             null => Tab::make('Tout'),
 
             Tab::make('dette')
-                ->label('dette')
+                ->label('dettes')
                 ->query(fn ($query) => $query->where('type', 'dette')),
 
             Tab::make('paiement')
-                ->label('paiement')
+                ->label('paiements')
                 ->query(fn ($query) => $query->where('type', 'paiement')),
 
             Tab::make('manquant')
-                ->label('manquant')
+                ->label('manquants')
                 ->query(fn ($query) => $query->where('type', 'manquant')),
+
+            Tab::make('excédent')
+                ->label('excédents')
+                ->query(fn ($query) => $query->where('type', 'excédent')),
         ];
     }
 }

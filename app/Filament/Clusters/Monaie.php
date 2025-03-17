@@ -8,6 +8,6 @@ class Monaie extends Cluster
 {
     protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
     protected static ?string $navigationGroup = 'Configurations';
-    protected static ?int $sort = 2;
+    protected static ?int $navigationSort = 1;
 
 }

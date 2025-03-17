@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('indicateurs', function (Blueprint $table) {
             $table->id();
             $table->string('libelle');
-            $table->enum('type', ['manquant', 'dette', 'paiement']);
+            $table->enum('type', ['manquant', 'dette', 'paiement', 'excédent']);
             $table->decimal('montant', 10,2)->default(0);
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('devise_id');

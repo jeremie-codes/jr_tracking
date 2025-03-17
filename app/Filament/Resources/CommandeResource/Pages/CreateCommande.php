@@ -10,9 +10,4 @@ class CreateCommande extends CreateRecord
 {
     protected static string $resource = CommandeResource::class;
 
-    // protected function afterCreate(): void
-    // {
-    //     $user = $this->record->user;
-    //     $user->notify(new CommandeNotification($this->record));
-    // }
 }

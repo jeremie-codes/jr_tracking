@@ -31,7 +31,7 @@ class PresenceResource extends Resource
 {
     protected static ?string $model = Presence::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-presentation-chart-line';
 
     protected static ?string $cluster = Personnel::class;
 
@@ -41,15 +41,18 @@ class PresenceResource extends Resource
     {
         return $form
             ->schema([
-                // Split::make('lg')
-                // ->columnSpan(['lg' => 1])
-                // ->schema([
+                Split::make([
                     Section::make('Personnel')
                         ->schema([
                             Select::make('user_id')
                                 ->label('Utilisateur')
                                 ->relationship('user', 'name')
                                 ->required(),
+                        ]),
+                    ])->from('md'),
+                Split::make([
+                    Section::make('Litiges')
+                        ->schema([
                             Forms\Components\Toggle::make('retard')
                                 ->reactive()
                                 ->afterStateUpdated(function ($state, callable $set) {
@@ -57,14 +60,15 @@ class PresenceResource extends Resource
                                         $set('absent', false);
                                     }
                                 }),
-                            Forms\Components\Toggle::make('absent')
+                                Forms\Components\Toggle::make('absent')
                                 ->reactive()
                                 ->afterStateUpdated(function ($state, callable $set) {
                                     if ($state) {
                                         $set('retard', false);
                                     }
                                 }),
-                        ])->collapsible(),
+                        ]),
+                    ])->from('md'),
                     Section::make('Détail')
                         ->schema([
                             TimePicker::make('arrived')
@@ -77,7 +81,6 @@ class PresenceResource extends Resource
                                 ->default(now()),
 
                         ]),
-                // ])
             ])->columns(2);
     }
 

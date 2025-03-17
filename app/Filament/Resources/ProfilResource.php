@@ -29,6 +29,7 @@ class ProfilResource extends Resource
     protected static ?string $pluralLabel = 'Profil';
     protected static ?string $navigationGroup = 'Configurations';
     protected static ?string $navigationIcon = 'heroicon-o-user';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {

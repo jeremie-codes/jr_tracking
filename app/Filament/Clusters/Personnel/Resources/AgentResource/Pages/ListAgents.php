@@ -13,7 +13,9 @@ class ListAgents extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+            ->label('Nouvel agent')
+            ->icon('heroicon-o-plus'),
         ];
     }
 }

@@ -44,7 +44,8 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'is_active' => 'bool'
+        'is_active' => 'bool',
+        'tasks'=> 'array',
     ];
 
     protected $hidden = [
@@ -60,6 +61,7 @@ class User extends Authenticatable
         'remember_token',
         'role',
         'avatar',
+        'tasks',
         'is_active'
     ];
 }

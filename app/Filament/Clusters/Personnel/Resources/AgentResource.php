@@ -27,13 +27,14 @@ class AgentResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $pluralLabel = 'Agents';
+    protected static ?string $pluralModelLabel = 'Agents';
     protected static ?string $cluster = Personnel::class;
 
     public static function getEloquentQuery(): Builder
     {
-        return static::getModel()::query()->where('id', '!=', Auth::user()->id)->orWhere('role', '!=', 'Admin');
+        return static::getModel()::query()->where('id', '!=', Auth::user()->id);
     }
 
 
@@ -49,7 +50,7 @@ class AgentResource extends Resource
 
                     ]),
                 Section::make('Identité')
-                    ->columns(3)
+                    ->columns(2)
                     ->schema([
                         TextInput::make('name')
                             ->label('Nom complet')
@@ -63,13 +64,26 @@ class AgentResource extends Resource
                             ->options([
                                 'C-abonné'=> 'C-abonné',
                                 'C-agent'=> 'C-agent',
-                                'operateur'=> 'operateur',
+                                'Operateur'=> 'Operateur',
                                 'T-Simple'=> 'T-Simple',
                                 'T-operateur'=> 'T-operateur',
                                 'T-controlleur'=> 'T-controlleur',
                                 'Admin'=> 'Administrateur',
                             ])
                             ->required(),
+                        Select::make('tasks')->label('Tâches')
+                            ->required()
+                            ->options([
+                                'm-pesa' => 'm-pesa',
+                                'orange-money' => 'orange-money',
+                                'airtel-money' => 'airtel-money',
+                                'afri-money' => 'afri-money',
+                                'e-money' => 'e-money',
+                                'cash' => 'cash',
+                                'tout' => 'tout',
+                            ])
+                            ->multiple()
+                            ->required()
                     ]),
                     Section::make()
                         ->schema([
@@ -110,13 +124,17 @@ class AgentResource extends Resource
                 TextColumn::make('role')
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('tasks')
+                    ->label('Tâches')
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->label('Modifier'),
-                Tables\Actions\DeleteAction::make()->label('Supprimer'),
+                // Tables\Actions\DeleteAction::make()->label('Supprimer'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

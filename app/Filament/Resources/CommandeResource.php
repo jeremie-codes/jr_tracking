@@ -121,6 +121,7 @@ class CommandeResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->emptyStateHeading('Aucune commande trouvée !')
             ->columns([
                 TextColumn::make('user.name')
                     ->searchable()
@@ -207,6 +208,11 @@ class CommandeResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function getCreatedNotificationMessage(): ?string
+    {
+        return 'Votre commande est passée succès ';
     }
 
     public static function getPages(): array

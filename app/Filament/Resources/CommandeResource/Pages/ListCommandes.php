@@ -18,7 +18,8 @@ class ListCommandes extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make()->label('Passer une commande'),
+            Actions\CreateAction::make()->label('Passer une commande')
+            ->icon('heroicon-o-plus'),
         ];
     }
 

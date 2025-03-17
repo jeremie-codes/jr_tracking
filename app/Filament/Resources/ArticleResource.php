@@ -30,7 +30,7 @@ class ArticleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
     protected static ?string $navigationGroup = 'Configurations';
-    protected static ?int $sort = 1;
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -50,6 +50,7 @@ class ArticleResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->emptyStateHeading('Aucun article trouvé !')
             ->columns([
                 TextColumn::make('name')->label("Article"),
                 TextColumn::make('note')

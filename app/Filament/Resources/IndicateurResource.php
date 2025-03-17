@@ -28,6 +28,7 @@ class IndicateurResource extends Resource
     protected static ?string $model = Indicateur::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-trending-up';
+    protected static ?string $navigationGroup = 'Rapports';
 
     public static function form(Form $form): Form
     {
@@ -40,6 +41,7 @@ class IndicateurResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->emptyStateHeading('Aucun indicateur trouvé !')
             ->columns([
                 TextColumn::make('type')
                     ->sortable()
@@ -59,29 +61,29 @@ class IndicateurResource extends Resource
             ->filters([
                 Tables\Filters\Filter::make('created_at')
                     ->form([
-                        Forms\Components\DatePicker::make('created_from')
+                        Forms\Components\DatePicker::make('Date_debut')
                             ->placeholder(fn ($state): string => 'Dec 18, ' . now()->subYear()->format('Y')),
-                        Forms\Components\DatePicker::make('created_until')
+                        Forms\Components\DatePicker::make('Date_fin')
                             ->placeholder(fn ($state): string => now()->format('M d, Y')),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
                             ->when(
-                                $data['created_from'] ?? null,
+                                $data['Date_debut'] ?? null,
                                 fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
                             )
                             ->when(
-                                $data['created_until'] ?? null,
+                                $data['Date_fin'] ?? null,
                                 fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
                     })
                     ->indicateUsing(function (array $data): array {
                         $indicators = [];
-                        if ($data['created_from'] ?? null) {
-                            $indicators['created_from'] = 'Order from ' . Carbon::parse($data['created_from'])->toFormattedDateString();
+                        if ($data['Date_debut'] ?? null) {
+                            $indicators['Date_debut'] = 'Order from ' . Carbon::parse($data['Date_debut'])->toFormattedDateString();
                         }
-                        if ($data['created_until'] ?? null) {
-                            $indicators['created_until'] = 'Order until ' . Carbon::parse($data['created_until'])->toFormattedDateString();
+                        if ($data['Date_fin'] ?? null) {
+                            $indicators['Date_fin'] = 'Order until ' . Carbon::parse($data['Date_fin'])->toFormattedDateString();
                         }
 
                         return $indicators;

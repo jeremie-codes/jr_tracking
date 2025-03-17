@@ -28,6 +28,7 @@ use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Clusters\Ecriture\Resources\EntréeResource\Pages;
 use App\Filament\Clusters\Ecriture\Resources\EntréeResource\RelationManagers;
+use Carbon\Carbon;
 
 class EntréeResource extends Resource
 {
@@ -120,6 +121,7 @@ class EntréeResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->emptyStateHeading('Aucune entrée trouvée !')
             ->columns([
                 TextColumn::make('type')
                     ->sortable()
@@ -139,7 +141,35 @@ class EntréeResource extends Resource
                 // TextColumn::make('note')->limit(20),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('created_at')
+                    ->form([
+                        Forms\Components\DatePicker::make('Date_debut')
+                            ->placeholder(fn ($state): string => 'Dec 18, ' . now()->subYear()->format('Y')),
+                        Forms\Components\DatePicker::make('Date_fin')
+                            ->placeholder(fn ($state): string => now()->format('M d, Y')),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['Date_debut'] ?? null,
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['Date_fin'] ?? null,
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    })
+                    ->indicateUsing(function (array $data): array {
+                        $indicators = [];
+                        if ($data['Date_debut'] ?? null) {
+                            $indicators['Date_debut'] = 'Order from ' . Carbon::parse($data['Date_debut'])->toFormattedDateString();
+                        }
+                        if ($data['Date_fin'] ?? null) {
+                            $indicators['Date_fin'] = 'Order until ' . Carbon::parse($data['Date_fin'])->toFormattedDateString();
+                        }
+
+                        return $indicators;
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->label("Modifier"),

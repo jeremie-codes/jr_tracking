@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('role')->nullable();
+            $table->json('tasks')->nullable();
             $table->string('avatar')->nullable();
             $table->boolean('is_active')->default(true);
             $table->rememberToken();

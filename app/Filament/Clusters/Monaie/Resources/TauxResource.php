@@ -24,7 +24,7 @@ class TauxResource extends Resource
     protected static ?string $label = 'Taux';
     protected static ?string $pluralLabel = 'Taux';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
 
     protected static ?string $cluster = Monaie::class;
 
