@@ -14,6 +14,7 @@ class taux extends BaseWidget
     {
 
         return $table
+            ->emptyStateHeading('Aucune devise trouvée !')
             ->query(TauxResource::getEloquentQuery())
             ->defaultSort('created_at', 'ASC')
             ->defaultPaginationPageOption(5)

@@ -22,6 +22,7 @@ class etat_de_la_caisse extends BaseWidget
     public function table(Table $table): Table
     {
         return $table
+            ->emptyStateHeading('Aucune écriture trouvée !')
             ->query($this->getBalanceQuery())
             ->defaultSort('devise_id', 'desc')
             ->paginated(false)

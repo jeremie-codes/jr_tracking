@@ -19,6 +19,7 @@ class recente extends BaseWidget
     {
         return $table
             ->query(PlusieurMouvementResource::getEloquentQuery())
+            ->emptyStateHeading('Aucune écriture trouvée !')
             ->defaultSort('created_at', 'desc')
             ->defaultPaginationPageOption(5)
             ->columns([

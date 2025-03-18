@@ -8,7 +8,7 @@
             <div class="flex items-center gap-x-3">
                 {{-- <x-filament-panels::avatar.user size="lg" :user="$user" /> --}}
                 <div>
-                    <div class="border-2 rounded-full p-1">
+                    <div class="border-2 dark:border-gray-600 rounded-full p-1">
                         @if ($user->avatar === null || $user->avatar === '')
                             <img src="{{ asset('assets/images/avatars/01.png') }}" class="rounded-full w-20" style="height: 80px" alt="Profile">
                         @else
