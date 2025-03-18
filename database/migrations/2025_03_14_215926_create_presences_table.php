@@ -17,6 +17,7 @@ return new class extends Migration
             $table->time('arrived');
             $table->time('departed');
             $table->boolean('retard')->default(0);
+            $table->boolean('absent')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
