@@ -41,6 +41,7 @@ class IndicateurResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('id', 'desc')
             ->emptyStateHeading('Aucun indicateur trouvé !')
             ->columns([
                 TextColumn::make('type')

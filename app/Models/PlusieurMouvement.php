@@ -22,6 +22,7 @@ class PlusieurMouvement extends Model
         'article_id',
         'date_ref',
         'note',
+        'id_ref',
     ];
 
 

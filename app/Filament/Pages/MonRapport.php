@@ -84,30 +84,30 @@ class MonRapport extends Page
             'CFA' => $total['entree_cfa'] - $total['sortie_cfa'],
         ];
 
-        // foreach ($balances as $deviseCode => $balance) {
-        //     if ($balance > 0) {
-        //         $deviseId = Devise::where('code', $deviseCode)->first()->id;
-        //         Indicateur::create([
-        //             'user_id' => Auth::user()->id,
-        //             'libelle' => Auth::user()->name,
-        //             'devise_id' => $deviseId,
-        //             'type' => 'manquant',
-        //             'montant'=> $balance,
-        //             'date_ref'=> today(),
-        //         ]);
-        //     }
-        //     elseif ($balance < 0) {
-        //         $deviseId = Devise::where('code', $deviseCode)->first()->id;
-        //         Indicateur::create([
-        //             'user_id' => Auth::user()->id,
-        //             'libelle' => Auth::user()->name,
-        //             'devise_id' => $deviseId,
-        //             'type' => 'excédent',
-        //             'montant'=> $balance,
-        //             'date_ref'=> today(),
-        //         ]);
-        //     }
-        // }
+        foreach ($balances as $deviseCode => $balance) {
+            if ($balance > 0) {
+                $deviseId = Devise::where('code', $deviseCode)->first()->id;
+                Indicateur::create([
+                    'user_id' => Auth::user()->id,
+                    'libelle' => Auth::user()->name,
+                    'devise_id' => $deviseId,
+                    'type' => 'manquant',
+                    'montant'=> $balance,
+                    'date_ref'=> today(),
+                ]);
+            }
+            elseif ($balance < 0) {
+                $deviseId = Devise::where('code', $deviseCode)->first()->id;
+                Indicateur::create([
+                    'user_id' => Auth::user()->id,
+                    'libelle' => Auth::user()->name,
+                    'devise_id' => $deviseId,
+                    'type' => 'excédent',
+                    'montant'=> $balance,
+                    'date_ref'=> today(),
+                ]);
+            }
+        }
 
         Notification::make()
             ->title('Votre rapport est envoyé avec succès !')

@@ -122,7 +122,8 @@ class SortieResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->emptyStateHeading('Aucune sortie trouvée !')
+            ->emptyStateHeading('Aucune sortie trouvée pour cette date!')
+            ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('type')
                     ->sortable()
@@ -139,39 +140,28 @@ class SortieResource extends Resource
                     return $record->montant . ' ' . $record->devise->code;
                 }),
                 TextColumn::make('user.name')->label("Personnel"),
-                // TextColumn::make('note')->limit(20),
-                // TextColumn::make("date_ref"),
             ])
             ->filters([
                 Tables\Filters\Filter::make('created_at')
                     ->form([
-                        Forms\Components\DatePicker::make('Date_debut')
-                            ->placeholder(fn ($state): string => 'Dec 18, ' . now()->subYear()->format('Y')),
-                        Forms\Components\DatePicker::make('Date_fin')
-                            ->placeholder(fn ($state): string => now()->format('M d, Y')),
+                        Forms\Components\DatePicker::make('ParDate')
+                            ->default(now()),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
                             ->when(
-                                $data['Date_debut'] ?? null,
+                                $data['ParDate'] ?? null,
                                 fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
-                            )
-                            ->when(
-                                $data['Date_fin'] ?? null,
-                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
                     })
                     ->indicateUsing(function (array $data): array {
                         $indicators = [];
-                        if ($data['Date_debut'] ?? null) {
-                            $indicators['Date_debut'] = 'Order from ' . Carbon::parse($data['Date_debut'])->toFormattedDateString();
-                        }
-                        if ($data['Date_fin'] ?? null) {
-                            $indicators['Date_fin'] = 'Order until ' . Carbon::parse($data['Date_fin'])->toFormattedDateString();
+                        if ($data['ParDate'] ?? null) {
+                            $indicators['ParDate'] = 'Order from ' . Carbon::parse($data['ParDate'])->toFormattedDateString();
                         }
 
                         return $indicators;
-                    }),
+                    })
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->label("Modifier"),

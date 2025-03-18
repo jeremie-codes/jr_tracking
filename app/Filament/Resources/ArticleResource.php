@@ -41,7 +41,7 @@ class ArticleResource extends Resource
                         TextInput::make('name')
                             ->required()
                             ->label("Nom de l'article"),
-                        Textarea::make('note (optionnel)')
+                        Textarea::make('note (optional)')
 
                 ]),
             ]);
@@ -50,6 +50,7 @@ class ArticleResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('id', 'desc')
             ->emptyStateHeading('Aucun article trouvé !')
             ->columns([
                 TextColumn::make('name')->label("Article"),

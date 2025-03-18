@@ -16,4 +16,5 @@ class EditProfil extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
 }

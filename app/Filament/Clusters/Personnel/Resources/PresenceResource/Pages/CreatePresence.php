@@ -9,4 +9,10 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePresence extends CreateRecord
 {
     protected static string $resource = PresenceResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        // Redirige vers la liste des utilisateurs après la création
+        return $this->getResource()::getUrl('index');
+    }
 }

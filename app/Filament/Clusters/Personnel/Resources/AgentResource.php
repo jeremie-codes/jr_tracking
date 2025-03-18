@@ -109,6 +109,7 @@ class AgentResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+        ->defaultSort('id', 'desc')
             ->columns([
                 ImageColumn::make('avatar')
                     ->label('Profil')

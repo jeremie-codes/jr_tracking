@@ -121,7 +121,7 @@ class CommandeResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->emptyStateHeading('Aucune commande trouvée !')
+            ->emptyStateHeading('Aucune commande trouvée pour cette date !')
             ->columns([
                 TextColumn::make('user.name')
                     ->searchable()
@@ -159,33 +159,24 @@ class CommandeResource extends Resource
             ->filters([
                 Tables\Filters\Filter::make('created_at')
                     ->form([
-                        Forms\Components\DatePicker::make('created_from')
-                            ->placeholder(fn ($state): string => 'Dec 18, ' . now()->subYear()->format('Y')),
-                        Forms\Components\DatePicker::make('created_until')
-                            ->placeholder(fn ($state): string => now()->format('M d, Y')),
+                        Forms\Components\DatePicker::make('ParDate')
+                            ->default(now()),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
                             ->when(
-                                $data['created_from'] ?? null,
+                                $data['ParDate'] ?? null,
                                 fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
-                            )
-                            ->when(
-                                $data['created_until'] ?? null,
-                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
                     })
                     ->indicateUsing(function (array $data): array {
                         $indicators = [];
-                        if ($data['created_from'] ?? null) {
-                            $indicators['created_from'] = 'Order from ' . Carbon::parse($data['created_from'])->toFormattedDateString();
-                        }
-                        if ($data['created_until'] ?? null) {
-                            $indicators['created_until'] = 'Order until ' . Carbon::parse($data['created_until'])->toFormattedDateString();
+                        if ($data['ParDate'] ?? null) {
+                            $indicators['ParDate'] = 'Order from ' . Carbon::parse($data['ParDate'])->toFormattedDateString();
                         }
 
                         return $indicators;
-                    }),
+                    })
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->label('Editer'),

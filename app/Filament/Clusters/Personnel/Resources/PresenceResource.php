@@ -6,6 +6,7 @@ use App\Filament\Clusters\Personnel;
 use App\Filament\Clusters\Personnel\Resources\PresenceResource\Pages;
 use App\Filament\Clusters\Personnel\Resources\PresenceResource\RelationManagers;
 use App\Models\Presence;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -87,8 +88,12 @@ class PresenceResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+        ->emptyStateHeading('Aucune présence trouvée aujourd\'hui !')
+        ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('user.name')->label('Agent'),
+                TextColumn::make('user.name')->label('Agent')
+                    ->searchable()
+                    ->sortable(),
                 IconColumn::make('retard')->icon(function ($record) {
                    return $record->retard ? 'heroicon-o-check-circle' : 'heroicon-o-x-circle';
                 })
@@ -106,7 +111,26 @@ class PresenceResource extends Resource
                 TextColumn::make('created_at')->label('Date')->limit(10),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('created_at')
+                    ->form([
+                        Forms\Components\DatePicker::make('ParDate')
+                            ->default(now()),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['ParDate'] ?? null,
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            );
+                    })
+                    ->indicateUsing(function (array $data): array {
+                        $indicators = [];
+                        if ($data['ParDate'] ?? null) {
+                            $indicators['ParDate'] = 'Order from ' . Carbon::parse($data['ParDate'])->toFormattedDateString();
+                        }
+
+                        return $indicators;
+                    })
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->label('Modifier'),

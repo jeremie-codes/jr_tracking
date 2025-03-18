@@ -16,4 +16,10 @@ class EditDevise extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function getRedirectUrl(): string
+    {
+        // Redirige vers la liste des utilisateurs après la création
+        return $this->getResource()::getUrl('index');
+    }
 }
