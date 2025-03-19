@@ -91,14 +91,15 @@ class CreateMouvement extends Page
                 // Détail de l'entrée
                 Section::make('Détail')
                     ->schema([
+                        Select::make('devise_id')
+                            ->label('Devise')
+                            ->required()
+                            ->options(Devise::pluck('code', 'id')->toArray())
+                            ->placeholder('Choisir'),
                         TextInput::make('montant')
                             ->numeric()
                             ->default(0)
                             ->required(),
-                        Select::make('devise_id')
-                            ->required()
-                            ->options(Devise::pluck('code', 'id')->toArray())
-                            ->placeholder('Choisir'),
                         Select::make('article_id')
                             ->label('Article')
                             ->required()
@@ -151,14 +152,14 @@ class CreateMouvement extends Page
             // Détail de la sortie
             Section::make('Détail')
                 ->schema([
-                    TextInput::make('montant_sortie')
-                        ->numeric()
-                        ->default(0)
-                        ->required(),
                     Select::make('devise_sortie')
                         ->required()
                         ->options(Devise::pluck('code', 'id')->toArray())
                         ->placeholder('Choisir'),
+                    TextInput::make('montant_sortie')
+                        ->numeric()
+                        ->default(0)
+                        ->required(),
                     Select::make('article_id2')
                         ->label('Article')
                         ->required()

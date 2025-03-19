@@ -64,7 +64,8 @@ class CommandeResource extends Resource
                                 ->disabled(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord)
                                 ->options([
                                     'demande approvisionnement'=> 'Demande approvisionnement',
-                                    'cession de fond'=> 'cession de fond',
+                                    'cession de fond'=> 'Cession de fond',
+                                    'autres'=> 'Autres',
                                     ])
                                 ->required(),
                             Select::make('user_id')
@@ -85,20 +86,26 @@ class CommandeResource extends Resource
                             Select::make('article_id')
                                 ->label('Article')
                                 ->placeholder('Choisir')
+                                ->reactive()
                                 ->relationship('article', 'name')
-                                ->required(),
-                            TextInput::make('montant')
-                                ->numeric()
                                 ->required(),
                             Select::make('devise_id')
                                 ->required()
                                 ->relationship('devise', 'code')
                                 ->placeholder('Choisir'),
+                            TextInput::make('montant')
+                                ->numeric()
+                                ->required(),
                         ])->columns(3),
 
                     Section::make()
                         ->schema([
+                            TextInput::make('libelle')
+                                ->label('Précisez le nom de l\'article')
+                                ->required()
+                                ->visible(fn ($get) => optional(Article::find($get('article_id')))->name === 'Autres'),
                             Textarea::make('note')
+                                ->label('Commentaire')
                                 ->placeholder('(Optional)'),
                         ]),
                 ])->columnSpan(['lg' => 2]),

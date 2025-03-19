@@ -19,7 +19,7 @@ class CommandeObserver
 
         if ($commande->status !== 'désapprouvée' && $commande->status !== 'approuvée') {
             Notification::make()
-                ->title($commande->type === 'cession de fond' ? 'Cession de fond initié par : ' . Auth::user()->name : 'Demande Approvisionnement par : ' . Auth::user()->name)
+                ->title($commande->type === 'cession de fond' ? 'Cession de fond initié par : ' . Auth::user()->name : ($commande->type === "autres" ? 'jsj' :'Demande Approvisionnement par : ' . Auth::user()->name))
                 ->body('Montant: ' . $commande->montant . ' ' . $devise->code . ' pour ' . $commande->article->name)
                 ->icon('heroicon-o-shopping-bag')
                 ->actions([

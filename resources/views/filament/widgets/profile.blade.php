@@ -50,9 +50,9 @@
             </div>
 
             <div class="mt-1 flex items-center gap-x-3">
-                <p class="text-center text-gray-600 dark:text-gray-400">
+                <p class="text-center text-gray-600 dark:text-white">
                     La patience paye, le bien mal acquis ne profite jamais et le salaire du péché c'est la mort.
-                <b class="dark:text-white"> Romain 6:32  <br> <span class="text-red-100">Que Dieu vous bénisse</span></b>.
+                <b style="color: #fbfb6e"> Romain 6:32  <br> <span class="text-red-100">Que Dieu vous bénisse</span></b>.
                 </p>
             </div>
         </div>

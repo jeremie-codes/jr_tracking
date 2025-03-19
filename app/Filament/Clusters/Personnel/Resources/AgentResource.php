@@ -37,7 +37,6 @@ class AgentResource extends Resource
         return static::getModel()::query()->where('id', '!=', Auth::user()->id);
     }
 
-
     public static function form(Form $form): Form
     {
         return $form
@@ -83,7 +82,6 @@ class AgentResource extends Resource
                                 'tout' => 'tout',
                             ])
                             ->multiple()
-                            ->required()
                     ]),
                     Section::make()
                         ->schema([

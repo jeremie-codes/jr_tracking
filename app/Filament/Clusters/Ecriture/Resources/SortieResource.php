@@ -75,14 +75,14 @@ class SortieResource extends Resource
 
                         Section::make('Détail')
                             ->schema([
-                                TextInput::make('montant')
-                                    ->numeric()
-                                    ->default(0)
-                                    ->required(),
                                 Select::make('devise_id')
                                     ->required()
                                     ->options(Devise::pluck('code', 'id')->toArray())
                                     ->placeholder('Choisir'),
+                                TextInput::make('montant')
+                                    ->numeric()
+                                    ->default(0)
+                                    ->required(),
                                 Select::make('article_id')
                                     ->label('Article')
                                     ->required()

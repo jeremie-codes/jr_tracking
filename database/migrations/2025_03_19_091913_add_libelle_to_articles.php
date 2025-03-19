@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('ecritures', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_ref')->nullable();
+        Schema::table('articles', function (Blueprint $table) {
+            $table->string('libelle')->default(null);
         });
     }
 
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('ecritures', function (Blueprint $table) {
+        Schema::table('articles', function (Blueprint $table) {
             //
         });
     }
