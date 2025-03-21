@@ -20,8 +20,11 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\ToggleButtons;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Pages\CreateRecord;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Split;
 
 class AgentResource extends Resource
 {
@@ -46,11 +49,11 @@ class AgentResource extends Resource
                         FileUpload::make('avatar')
                             ->imageEditor()
                             ->image()
-
                     ]),
-                Section::make('Identité')
-                    ->columns(2)
-                    ->schema([
+                Section::make('')
+                ->schema([
+                    Section::make()
+                        ->schema([
                         TextInput::make('name')
                             ->label('Nom complet')
                             ->required()
@@ -58,6 +61,7 @@ class AgentResource extends Resource
                         TextInput::make('email')
                             ->label('Email')
                             ->required()
+                            ->unique()
                             ->maxLength(255),
                         Select::make('role')
                             ->options([
@@ -70,39 +74,44 @@ class AgentResource extends Resource
                                 'Admin'=> 'Administrateur',
                             ])
                             ->required(),
-                        Select::make('tasks')->label('Tâches')
-                            ->required()
-                            ->multiple()
-                            ->searchable()
-                            ->options([
-                                'm-pesa' => 'm-pesa',
-                                'orange-money' => 'orange-money',
-                                'airtel-money' => 'airtel-money',
-                                'afri-money' => 'afri-money',
-                                'e-money' => 'e-money',
-                                'cash' => 'cash',
-                                'tout' => 'tout',
-                            ])
-                    ]),
+                    ])->columnSpan(['lg'=> 2]),
                     Section::make()
                         ->schema([
-                            TextInput::make('password')
-                                ->password()
-                                // ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord)
-                                ->required(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord) // Rend obligatoire seulement lors de la création
-                                ->minLength(8)
-                                ->same('password_confirmation')
-                                ->dehydrated(fn($state) => filled($state))
-                                ->dehydrateStateUsing(fn($state) => Hash::make($state)),
-                            TextInput::make('password_confirmation')
-                                ->label('Password confirmation')
-                                ->password()
-                                // ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord)
-                                ->required(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord) // Rend obligatoire seulement lors de la création
-                                ->minLength(8)
-                                ->dehydrated(false)
-                        ])
-            ]);
+                            ToggleButtons::make('tasks')->label('Tâches')
+                                ->required()
+                                ->multiple()
+                                ->columns(2)
+                                ->options([
+                                    'm-pesa' => 'm-pesa',
+                                    'orange-money' => 'orange-money',
+                                    'airtel-money' => 'airtel-money',
+                                    'afri-money' => 'afri-money',
+                                    'e-money' => 'e-money',
+                                    'cash' => 'cash',
+                                    'tout' => 'tout',
+                                ])
+                    ])->columnSpan(['lg'=> 1]),
+                ])->columns(3),
+
+                Section::make()
+                    ->schema([
+                        TextInput::make('password')
+                            ->password()
+                            // ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord)
+                            ->required(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord) // Rend obligatoire seulement lors de la création
+                            ->minLength(8)
+                            ->same('password_confirmation')
+                            ->dehydrated(fn($state) => filled($state))
+                            ->dehydrateStateUsing(fn($state) => Hash::make($state)),
+                        TextInput::make('password_confirmation')
+                            ->label('Password confirmation')
+                            ->password()
+                            // ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord)
+                            ->required(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord) // Rend obligatoire seulement lors de la création
+                            ->minLength(8)
+                            ->dehydrated(false)
+                    ])
+        ]);
     }
 
     public static function table(Table $table): Table
