@@ -63,6 +63,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->brandLogo(asset('assets/images/auth/shop-icon-b.png'))
             ->brandLogoHeight('60px')
+            // ->topNavigation()
             ->favicon(asset('assets/images/auth/shop-icon.png'))
             ->sidebarCollapsibleOnDesktop();
 

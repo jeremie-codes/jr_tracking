@@ -36,7 +36,19 @@ class CommandeResource extends Resource
 
     protected static ?string $navigationGroup = 'Options & Actions';
 
+    protected static ?int $navigationSort = 1;
+
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::query()->where('status','attente')->count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return static::getModel()::query()->where('status','attente')->count() > 0 ? 'warning' : 'primary';
+    }
 
     public static function getEloquentQuery(): Builder
     {
