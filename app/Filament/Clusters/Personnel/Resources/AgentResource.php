@@ -72,6 +72,8 @@ class AgentResource extends Resource
                             ->required(),
                         Select::make('tasks')->label('Tâches')
                             ->required()
+                            ->multiple()
+                            ->searchable()
                             ->options([
                                 'm-pesa' => 'm-pesa',
                                 'orange-money' => 'orange-money',
