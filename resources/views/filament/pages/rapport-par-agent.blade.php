@@ -62,10 +62,10 @@
                 <table class="table-auto rounded-lg overflow-x-scroll bg-white dark:bg-gray-900 border dark:border-gray-700 mt-2 mx-0" style="width: 100%">
                     <thead>
                         <tr class="bg-gray-200 dark:bg-gray-700">
-                            <th class="px-4 py-2 border dark:border-gray-700">Libelle</th>
-                            <th colspan="4" class="px-4 py-2 border dark:border-gray-700 text-center">Entrée</th>
-                            <th colspan="4" class="px-4 py-2 border dark:border-gray-700 text-center">Sortie</th>
-                            <th colspan="4" class="px-4 py-2 border dark:border-gray-700 text-center">Balance</th>
+                            <th class="px-4 py-2 border border-black dark:border-gray-800">Libelle</th>
+                            <th colspan="4" class="px-4 py-2 border border-black dark:border-gray-800 text-center">Entrée</th>
+                            <th colspan="4" class="px-4 py-2 border border-black dark:border-gray-800 text-center">Sortie</th>
+                            <th colspan="4" class="px-4 py-2 border border-black dark:border-gray-800 text-center">Balance</th>
                         </tr>
                         <tr class="">
                             <th class="px-4 py-2 border dark:border-gray-700"></th>
@@ -139,19 +139,19 @@
 
                         <!-- Ligne Total -->
                         <tr class="font-bold bg-gray-200 dark:bg-gray-700">
-                            <td class="px-4 py-2 border dark:border-gray-700">Total</td>
-                            <td class="px-4 py-2 border dark:border-gray-700">{{ $total['entree_cdf'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700">{{ $total['entree_usd'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700">{{ $total['entree_eur'] }}</td>
-                            <td class="px-4 py-2 border border-r-2 dark:border-gray-700">{{ $total['entree_cfa'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700">{{ $total['sortie_cdf'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700">{{ $total['sortie_usd'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700">{{ $total['sortie_eur'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700">{{ $total['sortie_cfa'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700">{{ $total['entree_cdf'] - $total['sortie_cdf'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700">{{ $total['entree_usd'] - $total['sortie_usd'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700">{{ $total['entree_eur'] - $total['sortie_eur'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700">{{ $total['entree_cfa'] - $total['sortie_cfa'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800">Total</td>
+                            <td class="px-4 py-2 border dark:border-gray-800">{{ $total['entree_cdf'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800">{{ $total['entree_usd'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800">{{ $total['entree_eur'] }}</td>
+                            <td class="px-4 py-2 border border-r-2 dark:border-gray-800">{{ $total['entree_cfa'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800">{{ $total['sortie_cdf'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800">{{ $total['sortie_usd'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800">{{ $total['sortie_eur'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800">{{ $total['sortie_cfa'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800">{{ $total['entree_cdf'] - $total['sortie_cdf'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800">{{ $total['entree_usd'] - $total['sortie_usd'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800">{{ $total['entree_eur'] - $total['sortie_eur'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800">{{ $total['entree_cfa'] - $total['sortie_cfa'] }}</td>
                         </tr>
                     </tbody>
 

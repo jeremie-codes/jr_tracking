@@ -42,10 +42,10 @@ class CommandeResource extends Resource
     {
 
         if (Auth::user()->role == 'Admin') {
-            return static::getModel()::query()->orderBy('id', 'desc');
+            return static::getModel()::query()->where('type','demande approvisionnement')->orderBy('id', 'desc');
         }
 
-        return static::getModel()::query()->where('user_id', Auth::user()->id)->orWhere('person_id', Auth::user()->id)
+        return static::getModel()::query()->where('type','demande approvisionnement')->where('user_id', Auth::user()->id)->orWhere('person_id', Auth::user()->id)
             ->orderBy('id', 'desc');
     }
 
@@ -65,7 +65,6 @@ class CommandeResource extends Resource
                                 ->options([
                                     'demande approvisionnement'=> 'Demande approvisionnement',
                                     'cession de fond'=> 'Cession de fond',
-                                    'autres'=> 'Autres',
                                     ])
                                 ->required(),
                             Select::make('user_id')
@@ -74,8 +73,11 @@ class CommandeResource extends Resource
                                 ->placeholder('Choisir')
                                 ->relationship('user', 'name')
                                 ->required(),
-                            TextInput::make('numero')
-                                ->numeric()
+                            Select::make('article_id')
+                                ->label('Article')
+                                ->placeholder('Choisir')
+                                ->reactive()
+                                ->relationship('article', 'name')
                                 ->required(),
                         ])->columns(3),
 
@@ -83,11 +85,8 @@ class CommandeResource extends Resource
 
                     Section::make()
                         ->schema([
-                            Select::make('article_id')
-                                ->label('Article')
-                                ->placeholder('Choisir')
-                                ->reactive()
-                                ->relationship('article', 'name')
+                            TextInput::make('numero')
+                                ->numeric()
                                 ->required(),
                             Select::make('devise_id')
                                 ->required()

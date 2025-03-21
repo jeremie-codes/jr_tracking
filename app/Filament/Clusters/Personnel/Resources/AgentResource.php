@@ -81,7 +81,6 @@ class AgentResource extends Resource
                                 'cash' => 'cash',
                                 'tout' => 'tout',
                             ])
-                            ->multiple()
                     ]),
                     Section::make()
                         ->schema([
