@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Split;
+use Filament\Forms\Components\TagsInput;
 
 class AgentResource extends Resource
 {
@@ -77,11 +78,10 @@ class AgentResource extends Resource
                     ])->columnSpan(['lg'=> 2]),
                     Section::make()
                         ->schema([
-                            ToggleButtons::make('tasks')->label('Tâches')
+                            TagsInput::make('tasks')->label('Tâches')
                                 ->required()
-                                ->multiple()
-                                ->columns(2)
-                                ->options([
+                                ->separator(',')
+                                ->suggestions([
                                     'm-pesa' => 'm-pesa',
                                     'orange-money' => 'orange-money',
                                     'airtel-money' => 'airtel-money',
