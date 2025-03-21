@@ -20,12 +20,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\ToggleButtons;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Pages\CreateRecord;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Split;
-use Filament\Forms\Components\TagsInput;
 
 class AgentResource extends Resource
 {
@@ -50,11 +46,11 @@ class AgentResource extends Resource
                         FileUpload::make('avatar')
                             ->imageEditor()
                             ->image()
+
                     ]),
-                Section::make('')
-                ->schema([
-                    Section::make()
-                        ->schema([
+                Section::make('Identité')
+                    ->columns(2)
+                    ->schema([
                         TextInput::make('name')
                             ->label('Nom complet')
                             ->required()
@@ -62,7 +58,6 @@ class AgentResource extends Resource
                         TextInput::make('email')
                             ->label('Email')
                             ->required()
-                            ->unique()
                             ->maxLength(255),
                         Select::make('role')
                             ->options([
@@ -75,43 +70,38 @@ class AgentResource extends Resource
                                 'Admin'=> 'Administrateur',
                             ])
                             ->required(),
-                    ])->columnSpan(['lg'=> 2]),
+                        Select::make('tasks')->label('Tâches')
+                            ->required()
+                            ->options([
+                                'm-pesa' => 'm-pesa',
+                                'orange-money' => 'orange-money',
+                                'airtel-money' => 'airtel-money',
+                                'afri-money' => 'afri-money',
+                                'e-money' => 'e-money',
+                                'cash' => 'cash',
+                                'tout' => 'tout',
+                            ])
+                            ->multiple()
+                    ]),
                     Section::make()
                         ->schema([
-                            TagsInput::make('tasks')->label('Tâches')
-                                ->required()
-                                ->separator(',')
-                                ->suggestions([
-                                    'm-pesa' => 'm-pesa',
-                                    'orange-money' => 'orange-money',
-                                    'airtel-money' => 'airtel-money',
-                                    'afri-money' => 'afri-money',
-                                    'e-money' => 'e-money',
-                                    'cash' => 'cash',
-                                    'tout' => 'tout',
-                                ])
-                    ])->columnSpan(['lg'=> 1]),
-                ])->columns(3),
-
-                Section::make()
-                    ->schema([
-                        TextInput::make('password')
-                            ->password()
-                            // ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord)
-                            ->required(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord) // Rend obligatoire seulement lors de la création
-                            ->minLength(8)
-                            ->same('password_confirmation')
-                            ->dehydrated(fn($state) => filled($state))
-                            ->dehydrateStateUsing(fn($state) => Hash::make($state)),
-                        TextInput::make('password_confirmation')
-                            ->label('Password confirmation')
-                            ->password()
-                            // ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord)
-                            ->required(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord) // Rend obligatoire seulement lors de la création
-                            ->minLength(8)
-                            ->dehydrated(false)
-                    ])
-        ]);
+                            TextInput::make('password')
+                                ->password()
+                                // ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord)
+                                ->required(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord) // Rend obligatoire seulement lors de la création
+                                ->minLength(8)
+                                ->same('password_confirmation')
+                                ->dehydrated(fn($state) => filled($state))
+                                ->dehydrateStateUsing(fn($state) => Hash::make($state)),
+                            TextInput::make('password_confirmation')
+                                ->label('Password confirmation')
+                                ->password()
+                                // ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord)
+                                ->required(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord) // Rend obligatoire seulement lors de la création
+                                ->minLength(8)
+                                ->dehydrated(false)
+                        ])
+            ]);
     }
 
     public static function table(Table $table): Table

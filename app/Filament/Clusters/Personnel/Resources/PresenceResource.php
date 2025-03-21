@@ -46,7 +46,7 @@ class PresenceResource extends Resource
                     Section::make('Personnel')
                         ->schema([
                             Select::make('user_id')
-                                ->label('Utilisateur')
+                                ->label('Nom de l\'agent')
                                 ->relationship('user', 'name')
                                 ->required(),
                         ]),
