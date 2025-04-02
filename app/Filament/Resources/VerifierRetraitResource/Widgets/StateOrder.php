@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\CommandeResource\Widgets;
+namespace App\Filament\Resources\VerifierRetraitResource\Widgets;
 
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -8,18 +8,18 @@ use App\Models\Commande;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Number;
 use Filament\Widgets\Concerns\InteractsWithPageTable;
-use App\Filament\Resources\CommandeResource\Pages\ListCommandes;
+use App\Filament\Resources\VerifierRetraitResource\Pages\ListVerifierRetraits;
 
 class StateOrder extends BaseWidget
 {
 
     use InteractsWithPageTable;
 
-    protected static ?string $pollingInterval = "2s";
+    protected static ?string $pollingInterval = '2s';
 
     protected function getTablePage(): string
     {
-        return ListCommandes::class;
+        return ListVerifierRetraits::class;
     }
 
     protected function getStats(): array
@@ -35,24 +35,11 @@ class StateOrder extends BaseWidget
         }
 
         $request = Commande::whereDate('created_at', $filterDate)
-            ->where(function ($query) {
-                $query->where('type','demande approvisionnement')
-                ->orWhere('type','depot')
-                ->orWhere('type','retrait');
-            })
+            ->where('type', 'retrait')
             ->where(function ($query) {
                 $query->where('user_id', Auth::user()->id)
                     ->orWhere('person_id', Auth::user()->id);
             })->get();
-
-        if (Auth::user()->role == 'Admin') {
-            $request = Commande::whereDate('created_at', $filterDate)
-            ->where(function ($query) {
-                $query->where('type','demande approvisionnement')
-                ->orWhere('type','depot')
-                ->orWhere('type','retrait');
-            })->get();
-        }
 
         $approved = $request->where('status', 'approuvée')->count();
         $attente = $request->where('status', 'attente')->count();

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\CommandeResource\Widgets;
+namespace App\Filament\Resources\ApprovisionnerAgentResource\Widgets;
 
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -8,7 +8,7 @@ use App\Models\Commande;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Number;
 use Filament\Widgets\Concerns\InteractsWithPageTable;
-use App\Filament\Resources\CommandeResource\Pages\ListCommandes;
+use App\Filament\Resources\ApprovisionnerAgentResource\Pages\ListApprovisionnerAgents;
 
 class StateOrder extends BaseWidget
 {
@@ -19,7 +19,7 @@ class StateOrder extends BaseWidget
 
     protected function getTablePage(): string
     {
-        return ListCommandes::class;
+        return ListApprovisionnerAgents::class;
     }
 
     protected function getStats(): array
@@ -36,9 +36,7 @@ class StateOrder extends BaseWidget
 
         $request = Commande::whereDate('created_at', $filterDate)
             ->where(function ($query) {
-                $query->where('type','demande approvisionnement')
-                ->orWhere('type','depot')
-                ->orWhere('type','retrait');
+                $query->where('type','approvisionnement');
             })
             ->where(function ($query) {
                 $query->where('user_id', Auth::user()->id)
@@ -48,9 +46,7 @@ class StateOrder extends BaseWidget
         if (Auth::user()->role == 'Admin') {
             $request = Commande::whereDate('created_at', $filterDate)
             ->where(function ($query) {
-                $query->where('type','demande approvisionnement')
-                ->orWhere('type','depot')
-                ->orWhere('type','retrait');
+                $query->where('type','approvisionnement');
             })->get();
         }
 

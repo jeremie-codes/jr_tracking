@@ -6,7 +6,8 @@ use App\Filament\Resources\IndicateurResource;
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\IndicatorExport;
 class ListIndicateurs extends ListRecords
 {
     protected static string $resource = IndicateurResource::class;
@@ -14,7 +15,12 @@ class ListIndicateurs extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            // Actions\CreateAction::make(),
+            Actions\Action::make('export')
+                ->label('Exporter en Excel')
+                ->action(function () {
+                    return Excel::download(new IndicatorExport(), 'indicateurs.xlsx');
+                })
+                ->icon('heroicon-o-document-arrow-up'),
         ];
     }
 

@@ -5,6 +5,7 @@ namespace App\Filament\Clusters\Ecriture\Resources\SortieResource\Pages;
 use App\Filament\Clusters\Ecriture\Resources\SortieResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use App\Filament\Pages\AllEcriture;
 
 class EditSortie extends EditRecord
 {
@@ -20,6 +21,6 @@ class EditSortie extends EditRecord
     protected function getRedirectUrl(): string
     {
         // Redirige vers la liste des utilisateurs après la création
-        return $this->getResource()::getUrl('index');
+        return AllEcriture::getUrl();
     }
 }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('montant', 10,2);
             $table->unsignedBigInteger('devise_id');
             $table->unsignedBigInteger('user_id');
-            $table->enum('status', ['approuvée', 'désapprouvée', 'attente'])->default('attente');
+            $table->enum('status', ['approuvée', 'annulée', 'attente'])->default('attente');
             $table->string('note')->nullable();
             $table->timestamps();
 

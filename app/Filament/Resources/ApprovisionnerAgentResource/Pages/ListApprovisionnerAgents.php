@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\ApprovisionnerAgentResource\Pages;
 
 use App\Filament\Resources\ApprovisionnerAgentResource;
-use App\Filament\Resources\CommandeResource\Widgets\StateOrder;
+use App\Filament\Resources\ApprovisionnerAgentResource\Widgets\StateOrder;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Components\Tab;

@@ -63,7 +63,7 @@ class AgentResource extends Resource
                             ->options([
                                 'C-abonné'=> 'C-abonné',
                                 'C-agent'=> 'C-agent',
-                                'Operateur'=> 'Operateur',
+                                'Operateur-e-money'=> 'Operateur-e-money',
                                 'T-Simple'=> 'T-Simple',
                                 'T-operateur'=> 'T-operateur',
                                 'T-controlleur'=> 'T-controlleur',

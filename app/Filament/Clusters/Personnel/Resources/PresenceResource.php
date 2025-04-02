@@ -120,7 +120,7 @@ class PresenceResource extends Resource
                         return $query
                             ->when(
                                 $data['ParDate'] ?? null,
-                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', $date),
                             );
                     })
                     ->indicateUsing(function (array $data): array {

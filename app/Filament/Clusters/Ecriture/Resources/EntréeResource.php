@@ -38,6 +38,9 @@ class EntréeResource extends Resource
 
     protected static ?string $cluster = Ecriture::class;
 
+    protected static bool $shouldRegisterNavigation = false;
+
+
     public static function getEloquentQuery(): Builder
     {
         return static::getModel()::query()->where('nature', 'entree')->where('user_id', Auth::user()->id);
@@ -118,67 +121,6 @@ class EntréeResource extends Resource
             ])->columns(3);
     }
 
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->defaultSort('id', 'desc')
-            ->emptyStateHeading('Aucune entrée trouvée pour cette date !')
-            ->columns([
-                TextColumn::make('type')
-                    ->sortable()
-                    ->limit(10)
-                    ->searchable(),
-                TextColumn::make('auteur')
-                    ->sortable()
-                    ->label("Oper/Cli/Aut")
-                    ->searchable(),
-                TextColumn::make("article.name")->label("Article"),
-                TextColumn::make("montant")
-                ->label("Montant")
-                ->formatStateUsing(function ($record) {
-                    return $record->montant . ' ' . $record->devise->code;
-                }),
-                TextColumn::make('user.name')->label("Personnel"),
-                // TextColumn::make('note')->limit(20),
-            ])
-            ->filters([
-                Tables\Filters\Filter::make('created_at')
-                    ->form([
-                        Forms\Components\DatePicker::make('ParDate')
-                            ->default(now()),
-                    ])
-                    ->query(function (Builder $query, array $data): Builder {
-                        return $query
-                            ->when(
-                                $data['ParDate'] ?? null,
-                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
-                            );
-                    })
-                    ->indicateUsing(function (array $data): array {
-                        $indicators = [];
-                        if ($data['ParDate'] ?? null) {
-                            $indicators['ParDate'] = 'Order from ' . Carbon::parse($data['ParDate'])->toFormattedDateString();
-                        }
-
-                        return $indicators;
-                    })
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make()->label("Modifier"),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
 
     public static function getPages(): array
     {

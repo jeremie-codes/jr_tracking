@@ -42,22 +42,36 @@ class CommandeResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::query()->where('status','attente')->count();
+        return static::getModel()::query()->where('see_id', Auth::id())->where('status','attente')->count();
     }
 
     public static function getNavigationBadgeColor(): ?string
     {
-        return static::getModel()::query()->where('status','attente')->count() > 0 ? 'warning' : 'primary';
+        return static::getModel()::query()->where('see_id', Auth::id())->where('status','attente')->count() > 0 ? 'danger' : 'primary';
     }
 
     public static function getEloquentQuery(): Builder
     {
-
-        if (Auth::user()->role == 'Admin') {
-            return static::getModel()::query()->where('type','demande approvisionnement')->orderBy('id', 'desc');
+        if (Auth::user()->role === 'Admin') {
+            return static::getModel()::query()
+                ->where(function ($query) {
+                    $query->where('type', 'demande approvisionnement')
+                        ->orWhere('type', 'depot')
+                        ->orWhere('type', 'retrait');
+                })
+                ->orderBy('id', 'desc');
         }
 
-        return static::getModel()::query()->where('type','demande approvisionnement')->where('user_id', Auth::user()->id)->orWhere('person_id', Auth::user()->id)
+        return static::getModel()::query()
+            ->where(function ($query) {
+                $query->where('user_id', Auth::user()->id)
+                    ->orWhere('person_id', Auth::user()->id);
+            })
+            ->where(function ($query) {
+                $query->where('type', 'demande approvisionnement')
+                    ->orWhere('type', 'depot')
+                    ->orWhere('type', 'retrait');
+            })
             ->orderBy('id', 'desc');
     }
 
@@ -70,14 +84,10 @@ class CommandeResource extends Resource
                 ->schema([
                     Section::make()
                         ->schema([
-                            Select::make('type')
+                            TextInput::make('type')
                                 ->label('Type de commande')
-                                ->placeholder('Choisir')
-                                ->disabled(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord)
-                                ->options([
-                                    'demande approvisionnement'=> 'Demande approvisionnement',
-                                    'cession de fond'=> 'Cession de fond',
-                                    ])
+                                ->default('demande approvisionnement')
+                                ->hidden()
                                 ->required(),
                             Select::make('user_id')
                                 ->label('Destinataire')
@@ -91,6 +101,10 @@ class CommandeResource extends Resource
                                 ->reactive()
                                 ->relationship('article', 'name')
                                 ->required(),
+                            TextInput::make('libelle')
+                                ->label('Précisez l\'article')
+                                ->required()
+                                ->visible(fn ($get) => optional(Article::find($get('article_id')))->name === 'Autres'),
                         ])->columns(3),
 
                         //person_id est rempli automatiquement à partir du hook boot dans le Model Commande
@@ -111,10 +125,6 @@ class CommandeResource extends Resource
 
                     Section::make()
                         ->schema([
-                            TextInput::make('libelle')
-                                ->label('Précisez le nom de l\'article')
-                                ->required()
-                                ->visible(fn ($get) => optional(Article::find($get('article_id')))->name === 'Autres'),
                             Textarea::make('note')
                                 ->label('Commentaire')
                                 ->placeholder('(Optional)'),
@@ -141,9 +151,19 @@ class CommandeResource extends Resource
         return $table
             ->emptyStateHeading('Aucune commande trouvée pour cette date !')
             ->columns([
+                TextColumn::make('person_id')
+                    ->formatStateUsing(function (Commande $record) {
+                        return $record->person_id === Auth::user()->id ? 'Moi-mème' : $record->person->name;
+                    })
+                    ->searchable()
+                    ->sortable()
+                    ->label('Initiateur'),
                 TextColumn::make('user.name')
                     ->searchable()
                     ->sortable()
+                    ->formatStateUsing(function (Commande $record) {
+                        return $record->user_id === Auth::user()->id ? 'Moi-mème' : $record->user->name;
+                    })
                     ->label('Déstinataire'),
                 TextColumn::make('montant')
                     ->searchable()
@@ -164,15 +184,10 @@ class CommandeResource extends Resource
                     ->icon(fn (string $state): string => match ($state) {
                         'attente' => 'heroicon-o-clock',
                         'approuvée' => 'heroicon-o-check-circle',
-                        'désapprouvée' => 'heroicon-o-x-mark',
+                        'annulée' => 'heroicon-o-x-mark',
                     })
                     ->badge()
                     ->sortable(),
-                TextColumn::make('person_id')
-                    ->formatStateUsing(function (Commande $record) {
-                        return $record->person_id === Auth::user()->id ? 'Moi-mème' : $record->person->name;
-                    })
-                    ->label('Initiateur'),
             ])
             ->filters([
                 Tables\Filters\Filter::make('created_at')
@@ -184,7 +199,7 @@ class CommandeResource extends Resource
                         return $query
                             ->when(
                                 $data['ParDate'] ?? null,
-                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', $date),
                             );
                     })
                     ->indicateUsing(function (array $data): array {
@@ -212,16 +227,9 @@ class CommandeResource extends Resource
         return Auth::user()->role === "Admin";
     }
 
-    public static function getRelations(): array
+    public static function canAccess(): bool
     {
-        return [
-            //
-        ];
-    }
-
-    public static function getCreatedNotificationMessage(): ?string
-    {
-        return 'Votre commande est passée succès ';
+        return Auth::user()->role !== 'C-agent';
     }
 
     public static function getPages(): array

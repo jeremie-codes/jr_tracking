@@ -10,9 +10,6 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
-use Filament\Support\Colors\Color;
-use Filament\Support\Facades\FilamentAsset;
-use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -20,6 +17,23 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Enums\ThemeMode;
+use Filament\Navigation\NavigationItem;
+use Filament\Navigation\NavigationBuilder;
+use Filament\Navigation\NavigationGroup;
+
+use App\Filament\Clusters\Monaie;
+use App\Filament\Clusters\Personnel;
+use App\Filament\Pages\MonRapport;
+use App\Filament\Pages\AllEcriture;
+use App\Filament\Pages\RapportParAgent;
+use App\Filament\Resources\ProfilResource;
+use App\Filament\Resources\ArticleResource;
+use App\Filament\Resources\CommandeResource;
+use App\Filament\Resources\IndicateurResource;
+use App\Filament\Resources\CommandeAgentResource;
+use App\Filament\Resources\ApprovisionnerAgentResource;
+use App\Filament\Resources\VerifierRetraitResource;
+use Illuminate\Support\Facades\Auth;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -40,13 +54,7 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->databaseNotifications()
-            // ->databaseNotificationsPolling('5s')
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            ->widgets([
-                // Widgets\AccountWidsget::class,
-                // Widgets\FilamentInfoWidget::class,
-            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -65,22 +73,59 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogoHeight('60px')
             // ->topNavigation()
             ->favicon(asset('assets/images/auth/shop-icon.png'))
-            ->sidebarCollapsibleOnDesktop();
+            // ->sidebarCollapsibleOnDesktopj()
+            ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
+                if(Auth::user()->role === 'C-agent')
+                {
+                    return $builder->groups([
+                        NavigationGroup::make('Accueil')
+                            ->items([
+                                ...Pages\Dashboard::getNavigationItems(),
+                            ]),
+                        NavigationGroup::make('Option & Actions')
+                            ->items([
+                                ...AllEcriture::getNavigationItems(),
+                                ...CommandeAgentResource::getNavigationItems(),
+                                ...VerifierRetraitResource::getNavigationItems(),
+                            ]),
+                        NavigationGroup::make('Rapports')
+                            ->items([
+                                ...MonRapport::getNavigationItems(),
+                            ]),
+                        NavigationGroup::make('Configurations')
+                            ->items([
+                                ...ProfilResource::getNavigationItems(),
+                            ]),
+                    ]);
+                } else {
+                    return $builder->groups([
+                        NavigationGroup::make('Accueil')
+                            ->items([
+                                ...Pages\Dashboard::getNavigationItems(),
+                            ]),
+                        NavigationGroup::make('Option & Actions')
+                            ->items([
+                                ...AllEcriture::getNavigationItems(),
+                                ...CommandeResource::getNavigationItems(),
+                                ...ApprovisionnerAgentResource::getNavigationItems(),
+                            ]),
+                        NavigationGroup::make('Rapports')
+                            ->items([
+                                ...MonRapport::getNavigationItems(),
+                                ...RapportParAgent::getNavigationItems(),
+                                ...IndicateurResource::getNavigationItems(),
+                            ]),
+                        NavigationGroup::make('Configurations')
+                            ->items([
+                                ...Monaie::getNavigationItems(),
+                                ...Personnel::getNavigationItems(),
+                                ...ArticleResource::getNavigationItems(),
+                                ...ProfilResource::getNavigationItems(),
+                            ]),
+                    ]);
+                }
+            });
 
     }
-
-    // public function boot()
-    // {
-    //     Filament::serving(function () {
-    //         Filament::registerUserMenuItems([
-    //             MenuItem::make()
-    //                 ->label('Notifications')
-    //                 ->icon('heroicon-o-bell')
-    //                 ->url(route('filament.notifications'))
-    //                 ->badge(auth()->user()->unreadNotifications->count()),
-    //         ]);
-    //     });
-    // }
-
 
 }

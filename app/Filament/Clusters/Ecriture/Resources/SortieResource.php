@@ -27,6 +27,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SortieResource extends Resource
@@ -119,66 +120,6 @@ class SortieResource extends Resource
                 ])->columns(3);
     }
 
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->emptyStateHeading('Aucune sortie trouvée pour cette date!')
-            ->defaultSort('id', 'desc')
-            ->columns([
-                TextColumn::make('type')
-                    ->sortable()
-                    ->limit(10)
-                    ->searchable(),
-                TextColumn::make('auteur')
-                    ->sortable()
-                    ->label("Oper/Cli/Aut")
-                    ->searchable(),
-                TextColumn::make("article.name")->label("Article"),
-                TextColumn::make("montant")
-                ->label("Montant")
-                ->formatStateUsing(function ($record) {
-                    return $record->montant . ' ' . $record->devise->code;
-                }),
-                TextColumn::make('user.name')->label("Personnel"),
-            ])
-            ->filters([
-                Tables\Filters\Filter::make('created_at')
-                    ->form([
-                        Forms\Components\DatePicker::make('ParDate')
-                            ->default(now()),
-                    ])
-                    ->query(function (Builder $query, array $data): Builder {
-                        return $query
-                            ->when(
-                                $data['ParDate'] ?? null,
-                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
-                            );
-                    })
-                    ->indicateUsing(function (array $data): array {
-                        $indicators = [];
-                        if ($data['ParDate'] ?? null) {
-                            $indicators['ParDate'] = 'Order from ' . Carbon::parse($data['ParDate'])->toFormattedDateString();
-                        }
-
-                        return $indicators;
-                    })
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make()->label("Modifier"),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
 
     public static function getPages(): array
     {

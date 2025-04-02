@@ -35,6 +35,7 @@ class CreateMouvement extends Page
     public $devise_id;
     public $article_id;
     public $date_ref;
+    public $note;
 
     public $auteur2;
     public $type_sortie;
@@ -42,6 +43,7 @@ class CreateMouvement extends Page
     public $devise_sortie;
     public $article_id2;
     public $date_ref2;
+    public $note2;
 
     protected function getFormSchema(): array
     {
@@ -57,6 +59,7 @@ class CreateMouvement extends Page
                 )->submitAction(new HtmlString(Blade::render(<<<BLADE
                     <x-filament::button
                         type="submit"
+                        color="warning"
                     >
                         Soumettre
                     </x-filament::button>
@@ -164,11 +167,11 @@ class CreateMouvement extends Page
                         ->label('Article')
                         ->required()
                         ->options(Article::pluck('name', 'id')->toArray())
-                        ->visible(fn ($get) => $get('type') === 'Cession de fond')
+                        ->visible(fn ($get) => $get('type_sortie') === 'Cession de fond')
                         ->placeholder('Choisir'),
                     DatePicker::make('date_ref2')
                         ->label("Date réference")
-                        ->visible(fn ($get) => $get('type') === 'Remboursement' || $get('type') === 'Excédent retrouvé')
+                        ->visible(fn ($get) => $get('type_sortie') === 'Remboursement' || $get('type_sortie') === 'Excédent retrouvé')
                         ->required(),
                 ])->columns(2),
 
@@ -178,8 +181,8 @@ class CreateMouvement extends Page
                     Textarea::make("note2")
                         ->label("Motif/Raison/commentaire")
                         ->rows(2)
-                        ->visible(fn ($get) => $get('type') === 'Autres'),
-                ])  ->hidden(fn ($get) => $get('type') !== 'Autres'),
+                        ->visible(fn ($get) => $get('type_sortie') === 'Autres'),
+                ])  ->hidden(fn ($get) => $get('type_sortie') !== 'Autres'),
             ]);
     }
 
@@ -195,6 +198,7 @@ class CreateMouvement extends Page
             'devise_id' => $this->devise_id,
             'article_id' => $this->article_id,
             'date_ref' => $this->date_ref,
+            'note' => $this->note,
             'id_ref' => 0, // On va le remplir après avoir créé le second enregistrement
         ];
 
@@ -207,6 +211,7 @@ class CreateMouvement extends Page
             'devise_id' => $this->devise_sortie,
             'article_id' => $this->article_id2,
             'date_ref' => $this->date_ref2,
+            'note' => $this->note2,
             'id_ref' => 0, // On va le remplir après avoir créé le premier enregistrement
         ];
 
@@ -221,10 +226,10 @@ class CreateMouvement extends Page
         $exit = PlusieurMouvement::create($data2);
 
         // Enfin, on met à jour l'entrée pour qu'elle pointe vers l'ID de la sortie
-        $entry->update(['id_ref' => $exit->id]);
+        // $entry->update(['id_ref' => $exit->id]);
 
         Notification::make()
-            ->title('Mouvenment créé avec succès !')
+            ->title('Mouvenment écrit avec succès !')
             ->color('success')
             ->duration(5000)
             ->success()

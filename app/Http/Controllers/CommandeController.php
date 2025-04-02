@@ -16,15 +16,10 @@ class CommandeController extends Controller
     public function approuver(Request $request)
     {
 
-        $notificationFind = Notification::where('data', 'like', $request->notification)->get();
-        // Supprimer chaque notification trouvée
-        foreach ($notificationFind as $notification) {
-            $notification->delete();
-        }
-
         // Récupérer la commande à partir de l'ID
         $commande = Commande::find($request->commande);
 
+        // dd($commande);
 
         // Enregistrer les informations de la commande dans la table ecriture
         if ($commande->status !== 'approuvée')
@@ -110,7 +105,7 @@ class CommandeController extends Controller
         if ($commande->status === 'attente')
         {
             $commande->update([
-                'status' => 'désapprouvée',
+                'status' => 'annulée',
             ]);
         }
 
@@ -121,8 +116,9 @@ class CommandeController extends Controller
         }
 
 
-        return redirect()->back()->with('success', 'Commande désapprouvée avec succès.');
+        return redirect()->back()->with('success', 'Commande annulée avec succès.');
     }
+    
     public function modifier(Request $request)
     {
 

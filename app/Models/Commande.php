@@ -20,6 +20,7 @@ class Commande extends Model
 
     protected $fillable = [
         'user_id',
+        'see_id',
         'person_id',
         'numero',
         'article_id',
@@ -53,6 +54,16 @@ class Commande extends Model
         // Définir operated_id automatiquement lors de la création
         static::creating(function (Commande $commande) {
             $commande->person_id = Auth::id();
+            $commande->see_id = $commande->user_id;
+        });
+
+        static::updating(function (Commande $commande) {
+            if ($commande->person_id == Auth::id()) {
+                $commande->see_id = $commande->user_id;
+            }
+            else {
+                $commande->see_id = $commande->person_id;
+            }
         });
     }
 
