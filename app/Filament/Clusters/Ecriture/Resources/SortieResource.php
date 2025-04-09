@@ -55,6 +55,7 @@ class SortieResource extends Resource
                                 ->placeholder('Choisir')
                                 ->reactive()
                                 ->options([
+                                    'Solde final' => 'Solde final',
                                     'Cession de fond' => 'Cession de fond',
                                     'Dette' => 'Dette',
                                     'Remboursement' => 'Remboursement',
@@ -65,25 +66,11 @@ class SortieResource extends Resource
                             TextInput::make('auteur')
                                 ->label("Client/Auteur/Libellé")
                                 ->required(),
-                            TextInput::make('user_id')
-                                ->label("Id Agent")
-                                ->default(auth::id())
-                                ->readOnly(),
-                            TextInput::make('nature')
-                                ->default("sortie")
-                                ->readOnly(),
-                            ])->columns(2),
+                            ]),
 
-                        Section::make('Détail')
+                        Section::make('')
+                            ->visible(fn ($get) => $get('type') === 'Remboursement' || $get('type') === 'Excédent retrouvé' || $get('type') === 'Cession de fond')
                             ->schema([
-                                Select::make('devise_id')
-                                    ->required()
-                                    ->options(Devise::pluck('code', 'id')->toArray())
-                                    ->placeholder('Choisir'),
-                                TextInput::make('montant')
-                                    ->numeric()
-                                    ->default(0)
-                                    ->required(),
                                 Select::make('article_id')
                                     ->label('Article')
                                     ->required()
@@ -98,11 +85,24 @@ class SortieResource extends Resource
 
                         Section::make('')
                             ->schema([
+                                Select::make('devise_id')
+                                    ->required()
+                                    ->label('Devise')
+                                    ->options(Devise::pluck('code', 'id')->toArray())
+                                    ->placeholder('Choisir'),
+                                TextInput::make('montant')
+                                    ->numeric()
+                                    ->default(0)
+                                    ->required(),
+                            ])->columns(2),
+
+                        Section::make('')
+                            ->schema([
                                 Textarea::make("note")
                                     ->label("Motif/Raison/commentaire")
                                     ->rows(2)
                                     ->visible(fn ($get) => $get('type') === 'Autres'),
-                            ])  ->hidden(fn ($get) => $get('type') !== 'Autres'),
+                            ])->hidden(fn ($get) => $get('type') !== 'Autres'),
                     ])->columnSpan(['lg' => 2]),
 
                     Section::make()
@@ -124,7 +124,7 @@ class SortieResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSorties::route('/'),
+            'index' => Pages\ListSorties::route('filament.admin.ecriture'),
             'create' => Pages\CreateSortie::route('/create'),
             'edit' => Pages\EditSortie::route('/{record}/edit'),
         ];

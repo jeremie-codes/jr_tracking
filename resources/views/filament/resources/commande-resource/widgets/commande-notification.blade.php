@@ -25,7 +25,7 @@
             }
         </style>
 
-        <div class="py-3 pt-0 md:flex flex-wrap" style=" padding-right: 5px; height: 210px; overflow-y: scroll; scrollbar-width: {{ count($this->getCommandes()) >= 3 ? '1px': 'none' }};">
+        <div class="py-5 pt-0 md:flex flex-wrap" style=" padding-right: 5px; height: 180px; overflow-y: scroll; scrollbar-width: {{ count($this->getCommandes()) >= 3 ? '1px': 'none' }};">
             @foreach ($this->getCommandes() as $notification)
                 <div class="note p-1 w-1/2">
                     <div class="p-4 bg-gray-500 dark:bg-gray-800 shadow rounded-lg w-full">
@@ -49,7 +49,7 @@
                             <span class="text-gray-700 dark:text-gray-400">Montant: <span>
                                 <span class="text-gray-700 dark:text-white">{{ $notification->montant }} {{ $notification->devise->code }}</span> <br>
                                 <span class="text-gray-700 dark:text-gray-400">Pour:<span>
-                            <span class="text-gray-700 dark:text-white">{{ $notification->article->name }} ({{ $notification->numero}})</span> <br>
+                            <span class="text-gray-700 dark:text-white">{{ $notification->article->name }} {{ $notification->libelle }} ({{ $notification->numero}})</span> <br>
                             <span class="text-gray-400">{{ $notification->created_at->locale('fr')->diffForHumans() }}</span>
                         </div>
                         <div class="flex justify-start gap-x-3 space-x-2 mt-4">

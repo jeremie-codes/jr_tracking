@@ -48,6 +48,7 @@ class indicateur_qualitatif_mensuel extends BaseWidget
                 'dette_non_payee' => $dette->total_dette - $total_paie,
             ];
         });
+
         // Convertir les dettes non payées dans la devise de référence
         $totalDetteNonPayee = $detteNonPayee->reduce(function ($carry, $item) use ($deviseDeReference) {
             $devise = Devise::find($item['devise_id']);
@@ -64,26 +65,28 @@ class indicateur_qualitatif_mensuel extends BaseWidget
 
         // END - Récupérer les données de dette et de paiement par devise
 
-        // START - Récupérer les données de maquant par devise
-        $tot_maquant = Indicateur::where('user_id', $userId)
-            ->where('type','maquant')
-            ->selectRaw('devise_id, SUM(montant) as total_maquant')
+        // START - Récupérer les données de manquant par devise
+        $tot_manquant = Indicateur::where('user_id', $userId)
+            ->where('type','manquant')
+            ->selectRaw('devise_id, SUM(montant) as total_manquant')
             ->groupBy('devise_id')
             ->get();
 
         // Convertir les marchandises dans la devise de référence
-        $totalMaquant = $tot_maquant->reduce(function ($carry, $item) use ($deviseDeReference) {
+        $totalMaquant = $tot_manquant->reduce(function ($carry, $item) use ($deviseDeReference) {
             $devise = Devise::find($item['devise_id']);
             if ($devise->code!== $deviseDeReference) {
                 $taux = Taux::where('devise_source_id', Devise::where('code', $deviseDeReference)->first()->id)
                     ->where('devise_cible_id', Devise::where('code', $devise->code)->first()->id)->first();
-                $montantConverti = $item['total_maquant'] * 1 / ($taux? $taux->taux_vente : 1);
+                $montantConverti = $item['total_manquant'] * 1 / ($taux? $taux->taux_vente : 1);
             } else {
-                $montantConverti = $item['total_maquant'];
+                $montantConverti = $item['total_manquant'];
             }
             return $carry + $montantConverti;
         }, 0);
-        // END - Récupérer les données de maquant par devise
+
+        // dd($tot_manquant);
+        // END - Récupérer les données de mnaquant par devise
 
         // START - Récupérer les données d'absence par mois
         $absence = Presence::where('user_id', $userId)
@@ -120,22 +123,22 @@ class indicateur_qualitatif_mensuel extends BaseWidget
             Stat::make('Manquants', '$'. $formatNumber($totalMaquant))
                 ->description('Manquant trouvé converti en ' . $deviseDeReference)
                 ->descriptionIcon($totalMaquant > 0 ? 'heroicon-m-arrow-trending-down': 'heroicon-o-check')
-                ->chart([2, 3, 1, 2, 1, 3, 2, 1, 3])
+                ->chart([2, 1, 3, 2,])
                 ->color($totalMaquant > 0 ? 'danger' : 'success'),
             Stat::make('Dettes non payées', '$'. $formatNumber($totalDetteNonPayee))
                 ->description('Total dette non payée convertie en ' . $deviseDeReference)
                 ->descriptionIcon($totalDetteNonPayee > 0 ? 'heroicon-m-arrow-trending-down': 'heroicon-o-check')
-                ->chart([2, 3, 1, 2, 1, 3, 2, 1, 3])
+                ->chart([2, 1, 3, 2,])
                 ->color($totalDetteNonPayee > 0 ? 'danger' : 'success'),
             Stat::make('Absences', $absence->total_absence .' Jr')
                 ->description('Nombre de jour d\'absence ce mois-ci')
                 ->descriptionIcon($absence->total_absence > 0 ? 'heroicon-m-arrow-trending-down': 'heroicon-o-check')
-                ->chart([2, 3, 1, 2, 1, 3, 2, 1, 3])
+                ->chart([2, 1, 3, 2,])
                 ->color($absence->total_absence > 0 ? 'danger' : 'success'),
             Stat::make('Retards', $retard->total_retard .' Jr')
                 ->description('Nombre de jour de retard ce mois-ci')
                 ->descriptionIcon($retard->total_retard > 0 ? 'heroicon-m-arrow-trending-down': 'heroicon-o-check')
-                ->chart([2, 3, 1, 2, 1, 3, 2, 1, 3])
+                ->chart([2, 1, 3, 2,])
                 ->color($retard->total_retard > 0 ? 'danger' : 'success'),
         ];
 

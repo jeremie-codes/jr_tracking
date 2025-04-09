@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CommandeAgentResource\Pages;
 use App\Filament\Resources\CommandeAgentResource\RelationManagers;
-use App\Models\Commande;
+use App\Models\Depot;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -29,8 +29,8 @@ use Illuminate\Support\Carbon;
 
 class CommandeAgentResource extends Resource
 {
-    protected static ?string $model = Commande::class;
-    protected static ?string $label = "Commande";
+    protected static ?string $model = Depot::class;
+    protected static ?string $label = "Commandes";
 
     protected static ?string $navigationGroup = 'Options & Actions';
 
@@ -67,13 +67,8 @@ class CommandeAgentResource extends Resource
                 ->schema([
                     Section::make()
                         ->schema([
-                            TextInput::make('type')
-                                ->label('Type de commande')
-                                ->default('depot')
-                                // ->hidden()
-                                ->required(),
                             Select::make('user_id')
-                                ->label('Destinataire')
+                                ->label('Opérateur')
                                 ->disabled(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord)
                                 ->placeholder('Choisir')
                                 ->relationship('user', 'name')
@@ -87,13 +82,17 @@ class CommandeAgentResource extends Resource
                             TextInput::make('libelle')
                                 ->label('Précisez l\'article')
                                 ->required()
-                                ->visible(fn ($get) => optional(Article::find($get('article_id')))->name === 'Autres'),
-                        ])->columns(3),
+                                ->columnSpan(2)
+                                ->visible(fn ($get) => strtolower(optional(Article::find($get('article_id')))->name) === 'autres'),
+                        ])->columns(2),
 
                         //person_id est rempli automatiquement à partir du hook boot dans le Model Commande
 
                     Section::make()
                         ->schema([
+                            TextInput::make('agent_name')
+                                ->label('Nom de l\'agent')
+                                ->required(),
                             TextInput::make('numero')
                                 ->numeric()
                                 ->required(),
@@ -104,7 +103,7 @@ class CommandeAgentResource extends Resource
                             TextInput::make('montant')
                                 ->numeric()
                                 ->required(),
-                        ])->columns(3),
+                        ])->columns(2),
 
                     Section::make()
                         ->schema([
@@ -118,14 +117,14 @@ class CommandeAgentResource extends Resource
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
                             ->label('Created at')
-                            ->content(fn (Commande $record): ?string => $record->created_at?->diffForHumans()),
+                            ->content(fn (Depot $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
                             ->label('Last modified at')
-                            ->content(fn (Commande $record): ?string => $record->updated_at?->diffForHumans()),
+                            ->content(fn (Depot $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
-                    ->hidden(fn (?Commande $record) => $record === null)
+                    ->hidden(fn (?Depot $record) => $record === null)
             ])->columns(3);
     }
 
@@ -134,6 +133,11 @@ class CommandeAgentResource extends Resource
         return $table
             ->emptyStateHeading('Aucune commande trouvée pour cette date !')
             ->columns([
+                TextColumn::make('agent_name')
+                    ->label('Nom AG')
+                    ->searchable()
+                    ->sortable()
+                    ->limit(12),
                 TextColumn::make('numero')
                     ->label('Téléphone')
                     ->searchable()
@@ -151,7 +155,7 @@ class CommandeAgentResource extends Resource
                 TextColumn::make('type')
                     ->label('Type')->limit(19),
                 TextColumn::make('status')
-                    ->color(function (Commande $record) {
+                    ->color(function (Depot $record) {
                         return $record->status === 'attente' ? 'warning' : ($record->status === 'approuvée' ? 'success' : 'danger');
                     })
                     ->icon(fn (string $state): string => match ($state) {
@@ -164,7 +168,7 @@ class CommandeAgentResource extends Resource
                 TextColumn::make('user.name')
                     ->searchable()
                     ->sortable()
-                    ->formatStateUsing(function (Commande $record) {
+                    ->formatStateUsing(function (Depot $record) {
                         return $record->user_id === Auth::user()->id ? 'Moi-mème' : $record->user->name;
                     })
                     ->label('opérateur'),
@@ -192,8 +196,8 @@ class CommandeAgentResource extends Resource
                     })
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->label('Editer'),
-                Tables\Actions\DeleteAction::make()->label('Supprimer'),
+                Tables\Actions\EditAction::make()->label('Modif.'),
+                Tables\Actions\DeleteAction::make()->label('Supp.'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

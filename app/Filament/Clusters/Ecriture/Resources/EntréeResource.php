@@ -59,6 +59,7 @@ class EntréeResource extends Resource
                                 ->placeholder('Choisir')
                                 ->reactive()
                                 ->options([
+                                    'Solde initial' => 'Solde initial',
                                     'Consignation' => 'Consignation',
                                     'Paiement dette' => 'Paiement dette',
                                     'Manquant retrouvé' => 'Manquant retrouvé',
@@ -75,16 +76,9 @@ class EntréeResource extends Resource
                             // TextInput::make('nature')
                             //    dans  le model Entrée
                         ]),
-                    Section::make('Détail')
+                    Section::make('')
+                        ->visible(fn ($get) => $get('type') === 'Paiement commission' || $get('type') === 'Approvisionnement' || $get('type') === 'Paiement dette' || $get('type') === 'Manquant retrouvé')
                         ->schema([
-                            Select::make('devise_id')
-                                ->required()
-                                ->options(Devise::pluck('code', 'id')->toArray())
-                                ->placeholder('Choisir'),
-                            TextInput::make('montant')
-                                ->numeric()
-                                ->default(0)
-                                ->required(),
                             Select::make('article_id')
                                 ->label('Article')
                                 ->required()
@@ -94,6 +88,17 @@ class EntréeResource extends Resource
                             DatePicker::make('date_ref')
                                 ->label("Date réference")
                                 ->visible(fn ($get) => $get('type') === 'Paiement dette' || $get('type') === 'Manquant retrouvé')
+                                ->required(),
+                        ])->columns(2),
+                    Section::make('')
+                        ->schema([
+                            Select::make('devise_id')
+                                ->required()
+                                ->options(Devise::pluck('code', 'id')->toArray())
+                                ->placeholder('Choisir'),
+                            TextInput::make('montant')
+                                ->numeric()
+                                ->default(0)
                                 ->required(),
                         ])->columns(2),
                     Section::make('')
@@ -125,7 +130,7 @@ class EntréeResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListEntrées::route('/'),
+            'index' => Pages\ListEntrées::route('filament.admin.ecriture'),
             'create' => Pages\CreateEntrée::route('/create'),
             'edit' => Pages\EditEntrée::route('/{record}/edit'),
         ];

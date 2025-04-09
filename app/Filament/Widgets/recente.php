@@ -9,6 +9,7 @@ use Filament\Widgets\TableWidget as BaseWidget;
 use App\Filament\Clusters\Ecriture\Resources\PlusieurMouvementResource;
 use App\Filament\Clusters\Ecriture\Resources\SortieResource;
 use App\Filament\Clusters\Ecriture\Resources\EntréeResource;
+use Illuminate\Support\Facades\Auth;
 
 class recente extends BaseWidget
 {
@@ -18,8 +19,8 @@ class recente extends BaseWidget
     public function table(Table $table): Table
     {
         return $table
-            ->query(PlusieurMouvementResource::getEloquentQuery())
-            ->emptyStateHeading('Aucune écriture trouvée !')
+            ->query(PlusieurMouvementResource::getEloquentQuery()->where('user_id', Auth::user()->id))
+            ->emptyStateHeading('Aucune écriture récente trouvée !')
             ->defaultSort('created_at', 'desc')
             ->defaultPaginationPageOption(5)
             ->columns([
@@ -32,7 +33,7 @@ class recente extends BaseWidget
                 ->formatStateUsing(function ($record) {
                     return $record->montant . ' ' . $record->devise->code;
                 }),
-                Tables\Columns\TextColumn::make('created_at')->label("Heure"),
+                Tables\Columns\TextColumn::make('created_at')->label("Heure")->time(),
             ])
             ->actions([
                 Tables\Actions\Action::make('Voir')

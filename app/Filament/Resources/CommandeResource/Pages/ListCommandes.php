@@ -55,7 +55,7 @@ class ListCommandes extends ListRecords
     public function getTabs(): array
     {
 
-        if (Auth::user()->role === 'Operateur-e-money') {
+        if (Auth::user()->role === 'Operateur-e-money' || Auth::user()->role === 'Admin') {
             return [
                 null => Tab::make('Tout'),
                 Tab::make('Approuvée')

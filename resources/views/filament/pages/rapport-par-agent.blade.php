@@ -46,7 +46,7 @@
                     <li>
                         <a href="?user={{ $user->id }}&name={{  $user->name  }}&date={{ request('date') }}"
                            class="block px-3 py-1 dark:text-gray-400 @if(request('user') == $user->id) border dark:border-gray-600 border-gray-200 rounded-lg bg-gray-200 dark:bg-gray-600 dark:text-white @endif">
-                            {{ Illuminate\Support\Str::limit($user->name, 8, '..') }}
+                            {{ ucfirst(Illuminate\Support\Str::limit($user->name, 9, '.')) }}
                         </a>
                     </li>
                 @endforeach
@@ -57,18 +57,17 @@
         <!-- Contenu des écritures -->
         <div class="rounded-md p-0" style="overflow-x: scroll">
             @if(request('user'))
-                <h3 class="text-lg font-semibold w-full">Rapport de #{{ request('name') }}</h3>
+                <h3 class="text-lg font-semibold w-full">Rapport de #<span style="color: #92c7ff">{{ request('name') }}</span></h3>
 
                 <table class="table-auto rounded-lg overflow-x-scroll bg-white dark:bg-gray-900 border dark:border-gray-700 mt-2 mx-0" style="width: 100%">
                     <thead>
                         <tr class="bg-gray-200 dark:bg-gray-700">
-                            <th class="px-4 py-2 border border-black dark:border-gray-800">Libelle</th>
-                            <th colspan="4" class="px-4 py-2 border border-black dark:border-gray-800 text-center">Entrée</th>
-                            <th colspan="4" class="px-4 py-2 border border-black dark:border-gray-800 text-center">Sortie</th>
-                            <th colspan="4" class="px-4 py-2 border border-black dark:border-gray-800 text-center">Balance</th>
+                            <th class="px-4 py-2 border border-black dark:border-gray-800" rowspan="2">Libellé</th>
+                            <th colspan="{{ count($this->devises) }}" class="px-4 py-2 border border-black dark:border-gray-800 text-center">Entrée</th>
+                            <th colspan="{{ count($this->devises) }}" class="px-4 py-2 border border-black dark:border-gray-800 text-center">Sortie</th>
+                            <th colspan="{{ count($this->devises) }}" class="px-4 py-2 border border-black dark:border-gray-800 text-center">Balance</th>
                         </tr>
                         <tr class="">
-                            <th class="px-4 py-2 border dark:border-gray-700"></th>
                             @foreach($this->devises as $devise)
                                 <th class="px-4 py-2 border dark:border-gray-700">{{ $devise }}</th>
                             @endforeach
@@ -120,17 +119,19 @@
                                         </svg>
                                     </td>
                                     <td rowspan="{{ count($ecritures) }}" class="px-4 py-2 border dark:border-gray-700"
-                                        style="display: {{ array_search('CDF', $this->devises) ? '': 'none' }}">
+                                        style="display: {{ array_search('USD', $this->devises) ? '': 'none' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0.5" stroke="currentColor" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25 12 21m0 0-3.75-3.75M12 21V3" />
                                         </svg>
                                     </td>
-                                    <td rowspan="{{ count($ecritures) }}" class="px-4 py-2 border dark:border-gray-700">
+                                    <td rowspan="{{ count($ecritures) }}" class="px-4 py-2 border dark:border-gray-700"
+                                        style="display: {{ array_search('EUR', $this->devises) ? '': 'none' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0.5" stroke="currentColor" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25 12 21m0 0-3.75-3.75M12 21V3" />
                                         </svg>
                                     </td>
-                                    <td rowspan="{{ count($ecritures) }}" class="px-4 py-2 border dark:border-gray-700">
+                                    <td rowspan="{{ count($ecritures) }}" class="px-4 py-2 border dark:border-gray-700"
+                                        style="display: {{ array_search('CFA', $this->devises) ? '': 'none' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0.5" stroke="currentColor" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25 12 21m0 0-3.75-3.75M12 21V3" />
                                         </svg>
@@ -140,20 +141,20 @@
                         @endforeach
 
                         <!-- Ligne Total -->
-                        <tr class="font-bold bg-gray-200 dark:bg-gray-700">
-                            <td class="px-4 py-2 border dark:border-gray-700">Total</td>
-                            <td class="px-4 py-2 border dark:border-gray-700" style="display: {{ array_search('CDF', $this->devises) ? '': 'none' }} ">{{ $total['entree_cdf'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700" style="display: {{ array_search('USD', $this->devises) ? '': 'none' }} ">{{ $total['entree_usd'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700" style="display: {{ array_search('EUR', $this->devises) ? '': 'none' }} ">{{ $total['entree_eur'] }}</td>
-                            <td class="px-4 py-2 border border-r-2 dark:border-gray-700" style="display: {{ array_search('CFA', $this->devises) ? '': 'none' }} ">{{ $total['entree_cfa'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700" style="display: {{ array_search('CDF', $this->devises) ? '': 'none' }} ">{{ $total['sortie_cdf'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700" style="display: {{ array_search('USD', $this->devises) ? '': 'none' }} ">{{ $total['sortie_usd'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700" style="display: {{ array_search('EUR', $this->devises) ? '': 'none' }} ">{{ $total['sortie_eur'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700" style="display: {{ array_search('CFA', $this->devises) ? '': 'none' }} ">{{ $total['sortie_cfa'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700" style="display: {{ array_search('CDF', $this->devises) ? '': 'none' }} ">{{ $total['entree_cdf'] - $total['sortie_cdf'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700" style="display: {{ array_search('USD', $this->devises) ? '': 'none' }} ">{{ $total['entree_usd'] - $total['sortie_usd'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700" style="display: {{ array_search('EUR', $this->devises) ? '': 'none' }} ">{{ $total['entree_eur'] - $total['sortie_eur'] }}</td>
-                            <td class="px-4 py-2 border dark:border-gray-700" style="display: {{ array_search('CFA', $this->devises) ? '': 'none' }} ">{{ $total['entree_cfa'] - $total['sortie_cfa'] }}</td>
+                        <tr class="font-bold bg-gray-200 dark:bg-gray-800">
+                            <td class="px-4 py-2 border dark:border-gray-800">Total</td>
+                            <td class="px-4 py-2 border dark:border-gray-800" style="display: {{ array_search('CDF', $this->devises) ? '': 'none' }} ">{{ $total['entree_cdf'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800" style="display: {{ array_search('USD', $this->devises) ? '': 'none' }} ">{{ $total['entree_usd'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800" style="display: {{ array_search('EUR', $this->devises) ? '': 'none' }} ">{{ $total['entree_eur'] }}</td>
+                            <td class="px-4 py-2 border border-r-2 dark:border-gray-800" style="display: {{ array_search('CFA', $this->devises) ? '': 'none' }} ">{{ $total['entree_cfa'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800" style="display: {{ array_search('CDF', $this->devises) ? '': 'none' }} ">{{ $total['sortie_cdf'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800" style="display: {{ array_search('USD', $this->devises) ? '': 'none' }} ">{{ $total['sortie_usd'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800" style="display: {{ array_search('EUR', $this->devises) ? '': 'none' }} ">{{ $total['sortie_eur'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800" style="display: {{ array_search('CFA', $this->devises) ? '': 'none' }} ">{{ $total['sortie_cfa'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800" style="display: {{ array_search('CDF', $this->devises) ? '': 'none' }} ">{{ $total['entree_cdf'] - $total['sortie_cdf'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800" style="display: {{ array_search('USD', $this->devises) ? '': 'none' }} ">{{ $total['entree_usd'] - $total['sortie_usd'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800" style="display: {{ array_search('EUR', $this->devises) ? '': 'none' }} ">{{ $total['entree_eur'] - $total['sortie_eur'] }}</td>
+                            <td class="px-4 py-2 border dark:border-gray-800" style="display: {{ array_search('CFA', $this->devises) ? '': 'none' }} ">{{ $total['entree_cfa'] - $total['sortie_cfa'] }}</td>
                         </tr>
                     </tbody>
 

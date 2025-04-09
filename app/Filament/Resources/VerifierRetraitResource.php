@@ -59,11 +59,6 @@ class VerifierRetraitResource extends Resource
                 ->schema([
                     Section::make()
                         ->schema([
-                            TextInput::make('type')
-                                ->label('Type de commande')
-                                ->default('depot')
-                                // ->hidden()
-                                ->required(),
                             Select::make('user_id')
                                 ->label('Destinataire')
                                 ->disabled(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord)
@@ -79,8 +74,9 @@ class VerifierRetraitResource extends Resource
                             TextInput::make('libelle')
                                 ->label('Précisez l\'article')
                                 ->required()
+                                ->columnSpan(2)
                                 ->visible(fn ($get) => optional(Article::find($get('article_id')))->name === 'Autres'),
-                        ])->columns(3),
+                        ])->columns(2),
 
                         //person_id est rempli automatiquement à partir du hook boot dans le Model Commande
 

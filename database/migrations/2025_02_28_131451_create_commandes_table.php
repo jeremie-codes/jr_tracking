@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
-            $table->string('destinataire');
+            // $table->string('destinataire');
             $table->string('numero');
             $table->unsignedBigInteger('article_id');
             $table->decimal('montant', 10,2);
@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string('note')->nullable();
             $table->timestamps();
 
-            $table->foreign('article_id')->references('id')->on('articles')->onDelete('restrict');
-            $table->foreign('devise_id')->references('id')->on('devises')->onDelete('restrict');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('article_id')->references('id')->on('articles');
+            $table->foreign('devise_id')->references('id')->on('devises');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

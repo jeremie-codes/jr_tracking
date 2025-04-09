@@ -22,8 +22,8 @@ class CreateTauxTable extends Migration
             $table->decimal('taux_achat', 10, 6);
             $table->timestamps();
 
-            $table->foreign('devise_source_id')->references('id')->on('devises')->onDelete('cascade');
-            $table->foreign('devise_cible_id')->references('id')->on('devises')->onDelete('cascade');
+            $table->foreign('devise_source_id')->references('id')->on('devises');
+            $table->foreign('devise_cible_id')->references('id')->on('devises');
         });
     }
 

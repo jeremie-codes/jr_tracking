@@ -82,6 +82,7 @@ class CreateMouvement extends Page
                             ->placeholder('Choisir')
                             ->reactive()
                             ->options([
+                                'Solde initial' => 'Solde initial',
                                 'Consignation' => 'Consignation',
                                 'Paiement dette' => 'Paiement dette',
                                 'Manquant retrouvé' => 'Manquant retrouvé',
@@ -143,6 +144,7 @@ class CreateMouvement extends Page
                         ->placeholder('Choisir')
                         ->reactive()
                         ->options([
+                            'Solde final' => 'Solde final',
                             'Cession de fond' => 'Cession de fond',
                             'Dette' => 'Dette',
                             'Remboursement' => 'Remboursement',
@@ -192,7 +194,7 @@ class CreateMouvement extends Page
         // Premier tableau : données pour l'entrée
         $data1 = [
             'auteur' => $this->auteur,
-            'nature' => 'entrée',
+            'nature' => 'entree',
             'type' => $this->type,
             'montant' => $this->montant,
             'devise_id' => $this->devise_id,

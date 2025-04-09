@@ -5,7 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ApprovisionnerAgentResource\Pages;
 use App\Filament\Resources\ApprovisionnerAgentResource\RelationManagers;
 use App\Models\Article;
-use App\Models\Commande;
+use App\Models\Approvision;
 use App\Models\Devise;
 use App\Models\User;
 use Filament\Forms;
@@ -25,7 +25,7 @@ use Illuminate\Support\Carbon;
 
 class ApprovisionnerAgentResource extends Resource
 {
-    protected static ?string $model = Commande::class;
+    protected static ?string $model = Approvision::class;
 
     protected static ?string $label = "Approvisionner Caisse";
 
@@ -38,32 +38,23 @@ class ApprovisionnerAgentResource extends Resource
     public static function getEloquentQuery(): Builder
     {
 
-        if (Auth::user()->role == 'Admin') {
+        if (Auth::user()->role === 'Admin') {
             return static::getModel()::query()->where('type','approvisionnement')->orderBy('id', 'desc');
         }
 
-        return static::getModel()::query()->where('type','approvisionnement')->where('user_id', Auth::user()->id)->orWhere('person_id', Auth::user()->id)
-            ->orderBy('id', 'desc');
+        return static::getModel()::query()->where('type','approvisionnement')->where(function ($query) {
+            $query->where('user_id', Auth::user()->id)->orWhere('person_id', Auth::user()->id);
+        })->orderBy('id', 'desc');
     }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-
                 Section::make()
                 ->schema([
                     Section::make()
                         ->schema([
-                            Select::make('type')
-                                ->label('Type de commande')
-                                ->placeholder('Choisir')
-                                ->disabled(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord)
-                                ->options([
-                                    'demande approvisionnement'=> 'Demande approvisionnement',
-                                    'cession de fond'=> 'Cession de fond',
-                                    ])
-                                ->required(),
                             Select::make('user_id')
                                 ->label('Destinataire')
                                 ->disabled(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord)
@@ -76,9 +67,14 @@ class ApprovisionnerAgentResource extends Resource
                                 ->reactive()
                                 ->relationship('article', 'name')
                                 ->required(),
-                        ])->columns(3),
+                            TextInput::make('libelle')
+                                ->label('Précisez l\'article')
+                                ->required()
+                                ->columnSpan(2)
+                                ->visible(fn ($get) => strtolower(optional(Article::find($get('article_id')))->name) === 'autres'),
+                        ])->columns(2),
 
-                        //person_id est rempli automatiquement à partir du hook boot dans le Model Commande
+                        //person_id est rempli automatiquement à partir du hook boot dans le Model Approvision
 
                     Section::make()
                         ->schema([
@@ -96,10 +92,6 @@ class ApprovisionnerAgentResource extends Resource
 
                     Section::make()
                         ->schema([
-                            TextInput::make('libelle')
-                                ->label('Précisez le nom de l\'article')
-                                ->required()
-                                ->visible(fn ($get) => optional(Article::find($get('article_id')))->name === 'Autres'),
                             Textarea::make('note')
                                 ->label('Commentaire')
                                 ->placeholder('(Optional)'),
@@ -110,14 +102,14 @@ class ApprovisionnerAgentResource extends Resource
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
                             ->label('Created at')
-                            ->content(fn (Commande $record): ?string => $record->created_at?->diffForHumans()),
+                            ->content(fn (Approvision $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
                             ->label('Last modified at')
-                            ->content(fn (Commande $record): ?string => $record->updated_at?->diffForHumans()),
+                            ->content(fn (Approvision $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
-                    ->hidden(fn (?Commande $record) => $record === null)
+                    ->hidden(fn (?Approvision $record) => $record === null)
             ])->columns(3);
     }
 
@@ -143,18 +135,18 @@ class ApprovisionnerAgentResource extends Resource
                 TextColumn::make('type')
                     ->label('Type')->limit(19),
                 TextColumn::make('status')
-                    ->color(function (Commande $record) {
+                    ->color(function (Approvision $record) {
                         return $record->status === 'attente' ? 'warning' : ($record->status === 'approuvée' ? 'success' : 'danger');
                     })
                     ->icon(fn (string $state): string => match ($state) {
                         'attente' => 'heroicon-o-clock',
                         'approuvée' => 'heroicon-o-check-circle',
-                        'désapprouvée' => 'heroicon-o-x-mark',
+                        'annulée' => 'heroicon-o-x-mark',
                     })
                     ->badge()
                     ->sortable(),
                 TextColumn::make('person_id')
-                    ->formatStateUsing(function (Commande $record) {
+                    ->formatStateUsing(function (Approvision $record) {
                         return $record->person_id === Auth::user()->id ? 'Moi-mème' : $record->person->name;
                     })
                     ->label('Initiateur'),
@@ -183,7 +175,7 @@ class ApprovisionnerAgentResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->label('Editer'),
-                Tables\Actions\DeleteAction::make()->label('Supprimer'),
+                // Tables\Actions\DeleteAction::make()->label('Supprimer'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
-use App\Observers\CommandeObserver;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
-use App\Filament\Resources\CommandeResource;
 use App\Models\Devise;
 
-class Commande extends Model
+class Approvision extends Model
 {
     use HasFactory, Notifiable;
+
+    protected $table = 'commandes';
 
     protected $fillable = [
         'user_id',
@@ -27,7 +27,6 @@ class Commande extends Model
         'type',
         'note',
         'libelle',
-        'agent_name',
     ];
 
     public function person() {
@@ -51,13 +50,13 @@ class Commande extends Model
         parent::boot();
 
         // Définir operated_id automatiquement lors de la création
-        static::creating(function (Commande $commande) {
+        static::creating(function (Approvision $commande) {
             $commande->person_id = Auth::id();
-            $commande->type = 'demande approvisionnement';
+            $commande->type = 'approvisionnement';
             $commande->see_id = $commande->user_id;
         });
 
-        static::updating(function (Commande $commande) {
+        static::updating(function (Approvision $commande) {
             if ($commande->person_id == Auth::id()) {
                 $commande->see_id = $commande->user_id;
             }

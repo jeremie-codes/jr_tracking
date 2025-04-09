@@ -20,8 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger('devise_id');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
-            $table->foreign('devise_id')->references('id')->on('devises')->onDelete('restrict');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('devise_id')->references('id')->on('devises');
         });
     }
 

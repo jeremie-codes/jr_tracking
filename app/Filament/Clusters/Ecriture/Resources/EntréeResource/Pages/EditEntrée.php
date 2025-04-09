@@ -14,13 +14,12 @@ class EditEntrée extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()->label('Supprimer')
         ];
     }
 
     protected function getRedirectUrl(): string
     {
-        // Redirige vers la liste des utilisateurs après la création
         return AllEcriture::getUrl();
     }
 }

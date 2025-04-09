@@ -87,7 +87,7 @@ class EcritureExport implements FromCollection, WithStyles
             // $total['entree_cfa'] - $total['sortie_cfa'],
         ];
 
-        dd(collect($data));
+        // dd(collect($data));
         return collect($data);
     }
 

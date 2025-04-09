@@ -120,23 +120,23 @@ class IndicatorExport implements FromCollection, WithHeadings, WithStyles
         $sheet->mergeCells("E4:H4");
         $sheet->getStyle('E4')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-        $sheet->getStyle("A1:H$rowCount")->applyFromArray([
-            'borders' => [
-                'allBorders' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                    'color' => ['argb' => '000000'],
-                ],
-            ],
-        ]);
+        // $sheet->getStyle("A1:H$rowCount")->applyFromArray([
+        //     'borders' => [
+        //         'allBorders' => [
+        //             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+        //             'color' => ['argb' => '000000'],
+        //         ],
+        //     ],
+        // ]);
 
-        $sheet->getStyle("A2:H$rowCount")->applyFromArray([
-            'borders' => [
-                'allBorders' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                    'color' => ['argb' => '000000'],
-                ],
-            ],
-        ]);
+        // $sheet->getStyle("A2:H$rowCount")->applyFromArray([
+        //     'borders' => [
+        //         'allBorders' => [
+        //             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+        //             'color' => ['argb' => '000000'],
+        //         ],
+        //     ],
+        // ]);
 
         $sheet->getStyle("A4:H$rowCount")->applyFromArray([
             'borders' => [

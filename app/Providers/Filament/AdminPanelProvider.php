@@ -24,7 +24,9 @@ use Filament\Navigation\NavigationGroup;
 use App\Filament\Clusters\Monaie;
 use App\Filament\Clusters\Personnel;
 use App\Filament\Pages\MonRapport;
+use App\Filament\Pages\ChiffreAffaire;
 use App\Filament\Pages\AllEcriture;
+use App\Filament\Pages\RapportDeTransactions;
 use App\Filament\Pages\RapportParAgent;
 use App\Filament\Resources\ProfilResource;
 use App\Filament\Resources\ArticleResource;
@@ -75,14 +77,43 @@ class AdminPanelProvider extends PanelProvider
             ->favicon(asset('assets/images/auth/shop-icon.png'))
             // ->sidebarCollapsibleOnDesktopj()
             ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
-                if(Auth::user()->role === 'C-agent')
+                if(Auth::user()->role === 'Admin')
                 {
                     return $builder->groups([
                         NavigationGroup::make('Accueil')
                             ->items([
                                 ...Pages\Dashboard::getNavigationItems(),
                             ]),
-                        NavigationGroup::make('Option & Actions')
+                        NavigationGroup::make('Options & Actions')
+                            ->items([
+                                ...AllEcriture::getNavigationItems(),
+                                ...CommandeResource::getNavigationItems(),
+                                ...ApprovisionnerAgentResource::getNavigationItems(),
+                            ]),
+                        NavigationGroup::make('Rapports')
+                            ->items([
+                                ...MonRapport::getNavigationItems(),
+                                ...RapportParAgent::getNavigationItems(),
+                                ...RapportDeTransactions::getNavigationItems(),
+                                ...IndicateurResource::getNavigationItems(),
+                                ...ChiffreAffaire::getNavigationItems(),
+                            ]),
+                        NavigationGroup::make('Configurations')
+                            ->items([
+                                ...Monaie::getNavigationItems(),
+                                ...Personnel::getNavigationItems(),
+                                ...ArticleResource::getNavigationItems(),
+                                ...ProfilResource::getNavigationItems(),
+                            ]),
+                    ]);
+                } else if(Auth::user()->role === 'C-agent')
+                {
+                    return $builder->groups([
+                        NavigationGroup::make('Accueil')
+                            ->items([
+                                ...Pages\Dashboard::getNavigationItems(),
+                            ]),
+                        NavigationGroup::make('Options & Actions')
                             ->items([
                                 ...AllEcriture::getNavigationItems(),
                                 ...CommandeAgentResource::getNavigationItems(),
@@ -91,6 +122,30 @@ class AdminPanelProvider extends PanelProvider
                         NavigationGroup::make('Rapports')
                             ->items([
                                 ...MonRapport::getNavigationItems(),
+                                ...RapportDeTransactions::getNavigationItems(),
+                            ]),
+                        NavigationGroup::make('Configurations')
+                            ->items([
+                                ...ProfilResource::getNavigationItems(),
+                            ]),
+                    ]);
+                } else if(Auth::user()->role === 'Operateur-e-money') // À personnaliser !!!!!
+                {
+                    return $builder->groups([
+                        NavigationGroup::make('Accueil')
+                            ->items([
+                                ...Pages\Dashboard::getNavigationItems(),
+                            ]),
+                        NavigationGroup::make('Options & Actions')
+                            ->items([
+                                ...AllEcriture::getNavigationItems(),
+                                ...CommandeAgentResource::getNavigationItems(),
+                                ...VerifierRetraitResource::getNavigationItems(),
+                            ]),
+                        NavigationGroup::make('Rapports')
+                            ->items([
+                                ...MonRapport::getNavigationItems(),
+                                ...RapportDeTransactions::getNavigationItems(),
                             ]),
                         NavigationGroup::make('Configurations')
                             ->items([
@@ -103,7 +158,7 @@ class AdminPanelProvider extends PanelProvider
                             ->items([
                                 ...Pages\Dashboard::getNavigationItems(),
                             ]),
-                        NavigationGroup::make('Option & Actions')
+                        NavigationGroup::make('Options & Actions')
                             ->items([
                                 ...AllEcriture::getNavigationItems(),
                                 ...CommandeResource::getNavigationItems(),
@@ -112,14 +167,9 @@ class AdminPanelProvider extends PanelProvider
                         NavigationGroup::make('Rapports')
                             ->items([
                                 ...MonRapport::getNavigationItems(),
-                                ...RapportParAgent::getNavigationItems(),
-                                ...IndicateurResource::getNavigationItems(),
                             ]),
                         NavigationGroup::make('Configurations')
                             ->items([
-                                ...Monaie::getNavigationItems(),
-                                ...Personnel::getNavigationItems(),
-                                ...ArticleResource::getNavigationItems(),
                                 ...ProfilResource::getNavigationItems(),
                             ]),
                     ]);

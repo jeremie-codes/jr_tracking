@@ -7,6 +7,7 @@ use App\Models\Commande;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PlusieurMouvement;
 use App\Filament\Resources\CommandeAgentResource;
+use Filament\Notifications\Notification;
 
 class CommandeNotification extends Widget
 {
@@ -44,7 +45,7 @@ class CommandeNotification extends Widget
                         'montant' => $commande->montant,
                         'devise_id' => $commande->devise_id,
                         'article_id' => $commande->article_id,
-                        'note' => $commande->note,
+                        'note' => $commande->note . ' ' . $commande->libele,
                         // Ajoutez d'autres champs nécessaires
                     ]);
 
@@ -56,36 +57,43 @@ class CommandeNotification extends Widget
                         'montant' => $commande->montant,
                         'devise_id' => $commande->devise_id,
                         'article_id' => $commande->article_id,
-                        'note' => $commande->note,
+                        'note' => $commande->note . ' ' . $commande->libele,
                         // Ajoutez d'autres champs nécessaires
                     ]);
                 }
                 else
                 {
-                    PlusieurMouvement::create([
-                        'auteur' => $commande->person->name,
-                        'nature' => 'entree',
-                        'type' => 'Approvisionnement',
-                        'user_id' => $commande->user_id,
-                        'montant' => $commande->montant,
-                        'devise_id' => $commande->devise_id,
-                        'article_id' => $commande->article_id,
-                        'note' => $commande->note,
-                        // Ajoutez d'autres champs nécessaires
-                    ]);
+                    if ($commande->type !== 'depot' || $commande->type !== 'retrait'){
+                        PlusieurMouvement::create([
+                            'auteur' => $commande->person->name,
+                            'nature' => 'entree',
+                            'type' => 'Approvisionnement',
+                            'user_id' => $commande->user_id,
+                            'montant' => $commande->montant,
+                            'devise_id' => $commande->devise_id,
+                            'article_id' => $commande->article_id,
+                            'note' => $commande->note . ' ' . $commande->libele,
+                        ]);
 
-                    PlusieurMouvement::create([
-                        'auteur' => $commande->user->name,
-                        'nature' => 'sortie',
-                        'type' => 'Cession de fond',
-                        'user_id' => $commande->person_id,
-                        'montant' => $commande->montant,
-                        'devise_id' => $commande->devise_id,
-                        'article_id' => $commande->article_id,
-                        'note' => $commande->note,
-                        // Ajoutez d'autres champs nécessaires
-                    ]);
+                        PlusieurMouvement::create([
+                            'auteur' => $commande->user->name,
+                            'nature' => 'sortie',
+                            'type' => 'Cession de fond',
+                            'user_id' => $commande->person_id,
+                            'montant' => $commande->montant,
+                            'devise_id' => $commande->devise_id,
+                            'article_id' => $commande->article_id,
+                            'note' => $commande->note . ' ' . $commande->libele,
+                        ]);
+                    }
                 }
+
+                Notification::make()
+                    ->title('Commande approuvée avec succès !')
+                    ->color('success')
+                    ->duration(5000)
+                    ->success()
+                    ->send();
             }
 
         }
@@ -106,6 +114,13 @@ class CommandeNotification extends Widget
             $commande->update([
                 'status' => 'annulée',
             ]);
+
+            Notification::make()
+                ->title('Commande annulée avec succès !')
+                ->color('success')
+                ->duration(5000)
+                ->success()
+                ->send();
         }
     }
 }

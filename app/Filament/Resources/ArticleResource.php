@@ -40,6 +40,7 @@ class ArticleResource extends Resource
                     ->schema([
                         TextInput::make('name')
                             ->required()
+                            ->unique()
                             ->label("Nom de l'article"),
                         Textarea::make('note (optional)')
 

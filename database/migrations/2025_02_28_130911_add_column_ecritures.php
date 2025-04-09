@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('article_id');
 
-            $table->foreign('article_id')->references('id')->on('articles')->onDelete('restrict');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('article_id')->references('id')->on('articles');
+            $table->foreign('user_id')->references('id')->on('users');
 
         });
     }
@@ -31,5 +31,5 @@ return new class extends Migration
             $table->dropColumn('article');
             $table->dropColumn('motif');
         });
-    } 
+    }
 };

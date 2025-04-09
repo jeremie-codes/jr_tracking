@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('articles', function (Blueprint $table) {
+        Schema::table('commandes', function (Blueprint $table) {
             $table->string('libelle')->default(null);
         });
     }

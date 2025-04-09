@@ -70,6 +70,14 @@ class ListCommandeAgents extends ListRecords
             Tab::make('Annulée')
                 ->label('Annulée')
                 ->query(fn ($query) => $query->where('status', 'annulée')),
+
+            // Tab::make('Dépôt')
+            //     ->label('Dépôt')
+            //     ->query(fn ($query) => $query->where('type', 'depot')),
+
+            // Tab::make('Retrait')
+            //     ->label('Retrait')
+            //     ->query(fn ($query) => $query->where('type', 'retrait')),
         ];
     }
 }

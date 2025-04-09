@@ -22,16 +22,21 @@ class RapportParAgent extends Page
 
     public $devises = array();
 
-    public function getUsersWithEcritures()
-    {
-        return User::whereIn('id', PlusieurMouvement::pluck('user_id'))->get();
-    }
-
     public function __construct() {
         $this->devises['cdf'] = Devise::where('code', 'CDF')->get()->first()->code ?? null;
         $this->devises['usd'] = Devise::where('code', 'USD')->get()->first()->code ?? null;
         $this->devises['eur'] = Devise::where('code', 'EUR')->get()->first()->code ?? null;
         $this->devises['cfa'] = Devise::where('code', 'CFA')->get()->first()->code ?? null;
+
+         // Filtrage des éléments avec valeur non nulle
+        $this->devises = array_filter($this->devises, function($value) {
+            return !is_null($value); // Ne garde que les éléments non nuls
+        });
+    }
+
+    public function getUsersWithEcritures()
+    {
+        return User::whereIn('id', PlusieurMouvement::pluck('user_id'))->get();
     }
 
     public function getEcrituresForTable($userId, $selectedDate = null)
@@ -49,13 +54,9 @@ class RapportParAgent extends Page
             // Vérifiez si une ligne avec le même id_ref existe déjà
             $existingRowKey = array_search($item->id_ref, array_column($tableData, 'id'));
 
-            // dd($existingRowKey);
-
-            // $tableData[] = $existingRowKey;
-
             if ($existingRowKey !== false) {
                 // Si une ligne avec le même id_ref existe, mettez à jour les colonnes correspondantes
-                $tableData[$existingRowKey]['type'] += $item->note;
+                $tableData[$existingRowKey]['entree_cdf'] += $item->nature === 'entree' && $item->devise->code === 'CDF' ? $item->montant : 0;
                 $tableData[$existingRowKey]['entree_usd'] += $item->nature === 'entree' && $item->devise->code === 'USD' ? $item->montant : 0;
                 $tableData[$existingRowKey]['entree_eur'] += $item->nature === 'entree' && $item->devise->code === 'EUR' ? $item->montant : 0;
                 $tableData[$existingRowKey]['entree_cfa'] += $item->nature === 'entree' && $item->devise->code === 'CFA' ? $item->montant : 0;

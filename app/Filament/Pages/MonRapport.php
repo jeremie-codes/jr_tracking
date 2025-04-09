@@ -27,10 +27,16 @@ class MonRapport extends Page
         $this->devises['usd'] = Devise::where('code', 'USD')->get()->first()->code ?? null;
         $this->devises['eur'] = Devise::where('code', 'EUR')->get()->first()->code ?? null;
         $this->devises['cfa'] = Devise::where('code', 'CFA')->get()->first()->code ?? null;
+
+         // Filtrage des éléments avec valeur non nulle
+        $this->devises = array_filter($this->devises, function($value) {
+            return !is_null($value); // Ne garde que les éléments non nuls
+        });
     }
 
     public function getEcrituresForTable($selectedDate = null)
     {
+        // dd($this->devises);
         $date = $selectedDate ? $selectedDate : now()->toDateString(); // Utilise la date sélectionnée ou celle d'aujourd'hui
 
         $query = PlusieurMouvement::where('user_id', Auth::user()->id)
@@ -43,10 +49,6 @@ class MonRapport extends Page
         foreach ($query as $item) {
             // Vérifiez si une ligne avec le même id_ref existe déjà
             $existingRowKey = array_search($item->id_ref, array_column($tableData, 'id'));
-
-            // dd($existingRowKey);
-
-            // $tableData[] = $existingRowKey;
 
             if ($existingRowKey !== false) {
                 // Si une ligne avec le même id_ref existe, mettez à jour les colonnes correspondantes
@@ -123,6 +125,7 @@ class MonRapport extends Page
         ];
 
         foreach ($balances as $deviseCode => $balance) {
+            // dd(Auth::user()->name);
             if ($balance > 0) {
                 $deviseId = Devise::where('code', $deviseCode)->first()->id;
                 Indicateur::create([

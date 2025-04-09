@@ -14,17 +14,17 @@ return new class extends Migration
         Schema::create('ecritures', function (Blueprint $table) {
             $table->id();
             $table->string('auteur');
-            $table->string('article')->nullable();
+            // $table->string('article')->nullable();
             $table->string('nature');
             $table->string('type');
             $table->decimal('montant', 15, 2);
-            $table->unsignedBigInteger('devise_id');
+            $table->unsignedBigInteger('devise_id')->nullable();
             $table->string('motif')->nullable();
             $table->string('note')->nullable();
             $table->date('date_ref')->nullable();
             $table->timestamps();
 
-            $table->foreign('devise_id')->references('id')->on('devises')->onDelete('restrict');
+            $table->foreign('devise_id')->references('id')->on('devises');
         });
     }
 

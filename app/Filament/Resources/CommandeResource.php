@@ -84,11 +84,6 @@ class CommandeResource extends Resource
                 ->schema([
                     Section::make()
                         ->schema([
-                            TextInput::make('type')
-                                ->label('Type de commande')
-                                ->default('demande approvisionnement')
-                                ->hidden()
-                                ->required(),
                             Select::make('user_id')
                                 ->label('Destinataire')
                                 ->disabled(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord)
@@ -104,8 +99,9 @@ class CommandeResource extends Resource
                             TextInput::make('libelle')
                                 ->label('Précisez l\'article')
                                 ->required()
-                                ->visible(fn ($get) => optional(Article::find($get('article_id')))->name === 'Autres'),
-                        ])->columns(3),
+                                ->columnSpan(2)
+                                ->visible(fn ($get) => strtolower(optional(Article::find($get('article_id')))->name) === 'autres'),
+                        ])->columns(2),
 
                         //person_id est rempli automatiquement à partir du hook boot dans le Model Commande
 
@@ -176,7 +172,11 @@ class CommandeResource extends Resource
                     ->sortable()
                     ->label('Article'),
                 TextColumn::make('type')
-                    ->label('Type')->limit(19),
+                    ->label('Type')->limit(15),
+                TextColumn::make('agent_name')
+                    ->label('Bénéficiaire')
+                    ->visible(fn () => Auth::user()->role === 'Admin' || Auth::user()->role === 'Operateur-e-money')
+                    ->limit(15),
                 TextColumn::make('status')
                     ->color(function (Commande $record) {
                         return $record->status === 'attente' ? 'warning' : ($record->status === 'approuvée' ? 'success' : 'danger');
@@ -212,8 +212,8 @@ class CommandeResource extends Resource
                     })
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->label('Editer'),
-                Tables\Actions\DeleteAction::make()->label('Supprimer'),
+                Tables\Actions\EditAction::make()->label('Modif.'),
+                Tables\Actions\DeleteAction::make()->label('Supp.'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
