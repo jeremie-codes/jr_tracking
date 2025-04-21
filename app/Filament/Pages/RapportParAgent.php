@@ -5,12 +5,13 @@ namespace App\Filament\Pages;
 use App\Models\User;
 use Filament\Tables;
 use App\Models\Devise;
+use App\Models\Article;
 use Filament\Pages\Page;
-use App\Models\PlusieurMouvement;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\EcritureExport;
 use App\Models\Indicateur;
+use App\Exports\EcritureExport;
+use App\Models\PlusieurMouvement;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Filament\Notifications\Notification;
 
 class RapportParAgent extends Page
@@ -65,12 +66,14 @@ class RapportParAgent extends Page
                 $tableData[$existingRowKey]['sortie_eur'] += $item->nature === 'sortie' && $item->devise->code === 'EUR' ? $item->montant : 0;
                 $tableData[$existingRowKey]['sortie_cfa'] += $item->nature === 'sortie' && $item->devise->code === 'CFA' ? $item->montant : 0;
             } else {
+
+                $article = Article::where('id', $item->article_id)->first();
                 // Sinon, ajoutez une nouvelle ligne
                 $tableData[] = [
                     'id' => $item->id,
                     'ref' => $item->id_ref,
                     // 'type' => $item->type. ': '. $item->note,
-                    'type' => $item->type == 'Cession de fond' ? 'Appro '. $item->article_id . ', ' . $item->auteur : $item->type . ' '. $item->article_id . ', ' . $item->auteur,
+                    'type' => $item->type == 'Cession de fond' ? 'Appro '. $article->name . ', ' . $item->auteur : $item->type . ' '. $article->name . ', ' . $item->auteur,
                     'entree_cdf' => $item->nature === 'entree' && $item->devise->code === 'CDF' ? $item->montant : 0,
                     'entree_usd' => $item->nature === 'entree' && $item->devise->code === 'USD' ? $item->montant : 0,
                     'entree_eur' => $item->nature === 'entree' && $item->devise->code === 'EUR' ? $item->montant : 0,

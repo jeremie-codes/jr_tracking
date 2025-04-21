@@ -5,12 +5,13 @@ namespace App\Filament\Pages;
 use App\Models\User;
 use Filament\Tables;
 use App\Models\Devise;
+use App\Models\Article;
 use Filament\Pages\Page;
-use App\Models\PlusieurMouvement;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\EcritureExport;
 use App\Models\Indicateur;
+use App\Exports\EcritureExport;
+use App\Models\PlusieurMouvement;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Filament\Notifications\Notification;
 
 class MonRapport extends Page
@@ -49,6 +50,7 @@ class MonRapport extends Page
         foreach ($query as $item) {
             // Vérifiez si une ligne avec le même id_ref existe déjà
             $existingRowKey = array_search($item->id_ref, array_column($tableData, 'id'));
+            $article = Article::where('id', $item->article_id)->first();
 
             if ($existingRowKey !== false) {
                 // Si une ligne avec le même id_ref existe, mettez à jour les colonnes correspondantes
@@ -65,7 +67,7 @@ class MonRapport extends Page
                 $tableData[] = [
                     'id' => $item->id,
                     'ref' => $item->id_ref,
-                    'type' => $item->type == 'Cession de fond' ? 'Appro '. $item->article_id . ', ' . $item->auteur : $item->type . ' '. $item->article_id . ', ' . $item->auteur,
+                    'type' => $item->type == 'Cession de fond' ? 'Appro '. $article->name  . ', ' . $item->auteur : $item->type . ' '. $article->name . ', ' . $item->auteur,
                     'auteur' => $item->user->name,
                     'entree_cdf' => $item->nature === 'entree' && $item->devise->code === 'CDF' ? $item->montant : 0,
                     'entree_usd' => $item->nature === 'entree' && $item->devise->code === 'USD' ? $item->montant : 0,
