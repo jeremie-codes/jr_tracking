@@ -44,6 +44,7 @@ class AgentResource extends Resource
                 Section::make('Profil')
                     ->schema([
                         FileUpload::make('avatar')
+                            ->label('Image de profil')
                             ->imageEditor()
                             ->image()
 
