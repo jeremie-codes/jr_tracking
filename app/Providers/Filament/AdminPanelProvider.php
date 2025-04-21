@@ -106,6 +106,27 @@ class AdminPanelProvider extends PanelProvider
                                 ...ProfilResource::getNavigationItems(),
                             ]),
                     ]);
+                } else if(Auth::user()->role === 'C-abonné')
+                {
+                    return $builder->groups([
+                        NavigationGroup::make('Accueil')
+                            ->items([
+                                ...Pages\Dashboard::getNavigationItems(),
+                            ]),
+                        NavigationGroup::make('Options & Actions')
+                            ->items([
+                                ...AllEcriture::getNavigationItems(),
+                                ...CommandeResource::getNavigationItems(),
+                            ]),
+                        NavigationGroup::make('Rapports')
+                            ->items([
+                                ...MonRapport::getNavigationItems(),
+                            ]),
+                        NavigationGroup::make('Configurations')
+                            ->items([
+                                ...ProfilResource::getNavigationItems(),
+                            ]),
+                    ]);
                 } else if(Auth::user()->role === 'C-agent')
                 {
                     return $builder->groups([
