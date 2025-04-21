@@ -36,7 +36,7 @@
                     wire:click="getCreatePlusieursMouvementsPage()"
                     color="info"
                 >
-                    Plusieurs écritures
+                    Plusieurs mouvement
                 </x-filament::button>
 
             </div>
