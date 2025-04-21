@@ -28,8 +28,11 @@ class ListCommandes extends ListRecords
 
     protected function getHeaderWidgets(): array
     {
-        $commandeCount = Commande::where('user_id', Auth::id())
-            ->where('see_id', Auth::id())->where('status', 'attente')
+        $commandeCount = Commande::where('see_id', Auth::id())->where('status', 'attente')
+            ->where(function ($query) {
+                $query->where('user_id', Auth::id())
+                    ->orWhere('person_id', 'retrait');
+            })
             ->orderBy('created_at', 'desc')->get()->count();
 
         if ($commandeCount > 0) {
