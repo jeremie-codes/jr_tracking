@@ -65,7 +65,7 @@ class MonRapport extends Page
                 $tableData[] = [
                     'id' => $item->id,
                     'ref' => $item->id_ref,
-                    'type' => $item->type == 'Cession de fond' ? 'Appro '. $item->article_id ?? '' . ', ' . $item->auteur : $item->type . ' '. $item->article->name . ', ' . $item->auteur,
+                    'type' => $item->type == 'Cession de fond' ? 'Appro '. $item->article_id . ', ' . $item->auteur : $item->type . ' '. $item->article_id . ', ' . $item->auteur,
                     'auteur' => $item->user->name,
                     'entree_cdf' => $item->nature === 'entree' && $item->devise->code === 'CDF' ? $item->montant : 0,
                     'entree_usd' => $item->nature === 'entree' && $item->devise->code === 'USD' ? $item->montant : 0,
