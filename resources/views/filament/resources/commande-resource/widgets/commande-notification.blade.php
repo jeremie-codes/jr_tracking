@@ -62,7 +62,7 @@
                                 {{ $notification->type !== 'retrait' && $notification->type !== 'depot' ? 'Approuver': 'Confirmer' }}
                             </x-filament::button>
 
-                            @if ($notification->type !== 'retrait' && $notification->type !== 'depot' && $notification->person_id !== $notification->see_id)
+                            @if ($notification->type !== 'retrait' && $notification->type !== 'depot' && $notification->person_id !== $notification->see_id && $notification->type !== 'approvisionnement')
                                 <x-filament::button
                                     color="primary"
                                     tag="button"
