@@ -100,6 +100,7 @@ class SortieResource extends Resource
                             ->schema([
                                 Textarea::make("note")
                                     ->label("Motif/Raison/commentaire")
+                                    // ->required()
                                     ->rows(2)
                                     ->visible(fn ($get) => $get('type') === 'Autres'),
                             ])->hidden(fn ($get) => $get('type') !== 'Autres'),

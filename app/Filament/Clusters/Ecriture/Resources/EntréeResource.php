@@ -105,6 +105,7 @@ class EntréeResource extends Resource
                         ->schema([
                             Textarea::make("note")
                                 ->label("Motif ou commentaire")
+                                ->required(fn ($get) => $get('type') === 'Autres' || $get('type') === 'Consignation')
                                 ->rows(2)
                                 ->visible(fn ($get) => $get('type') === 'Autres' || $get('type') === 'Consignation'),
                         ])->hidden(fn ($get) => $get('type') !== 'Autres' && $get('type') !== 'Consignation'),
