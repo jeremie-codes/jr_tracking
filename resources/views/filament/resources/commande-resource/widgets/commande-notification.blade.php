@@ -31,7 +31,7 @@
                     <div class="p-4 bg-gray-500 dark:bg-gray-800 shadow rounded-lg w-full">
                         <div class="text-sm text-gray-700 dark:text-white">
                             @if ($notification->type === 'approvisionnement')
-                                <span class="text-gray-700 dark:text-white">{{ $notification->person->name }}</span>
+                                <span class="text-gray-700 dark:text-white">{{ $notification->person_id !== $notification->see_id ? $notification->person->name : $notification->user->name }}</span>
                                 <span class="text-gray-700 dark:text-white">veut vous approvisionner</span>
                             @elseif ($notification->type === 'retrait')
                                 <span class="text-gray-700 dark:text-white">{{ $notification->person->name }}</span>
