@@ -32,7 +32,7 @@
                         <div class="text-sm text-gray-700 dark:text-white">
                             @if ($notification->type === 'approvisionnement')
                                 <span class="text-gray-700 dark:text-white">{{ $notification->person_id !== $notification->see_id ? $notification->person->name : $notification->user->name }}</span>
-                                <span class="text-gray-700 dark:text-white">{{ $notification->person_id !== $notification->see_id ? 'veut vous approvisionner': 'à modifier la demande' }}</span>
+                                <span class="text-gray-700 dark:text-white">{{ $notification->person_id !== $notification->see_id ? 'veut vous approvisionner': 'à modifier votre demande' }}</span>
                             @elseif ($notification->type === 'retrait')
                                 <span class="text-gray-700 dark:text-white">{{ $notification->person->name }}</span>
                                 <span class="text-gray-700 dark:text-white"> veut la confirmation sur un retrait de:</span>
@@ -41,7 +41,7 @@
                                 <span class="text-gray-700 dark:text-white">a demandé un dépot de:</span>
                             @else
                                 <span class="text-gray-700 dark:text-white">{{ $notification->person_id !== $notification->see_id ? $notification->person->name : $notification->user->name }}</span>
-                                <span class="text-gray-700 dark:text-white">{{ $notification->person_id !== $notification->see_id ? 'a demandé un approvisionnement de:': 'à modifier la demande' }}</span>
+                                <span class="text-gray-700 dark:text-white">{{ $notification->person_id !== $notification->see_id ? 'a demandé un approvisionnement de:': 'à modifier votre demande' }}</span>
                             @endif
 
                             <br>
