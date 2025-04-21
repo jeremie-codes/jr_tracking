@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PlusieurMouvement extends Model
 {
@@ -42,6 +43,8 @@ class PlusieurMouvement extends Model
     protected static function booted(): void
     {
         static::created(function ($mouvement) {
+
+            // Création de l'indicateur si c'est une dette
             if ($mouvement->type === 'Dette') {
                 Indicateur::create([
                     'montant' => $mouvement->montant,
@@ -63,9 +66,44 @@ class PlusieurMouvement extends Model
                     'devise_id' => $mouvement->devise_id,
                 ]);
             }
+
+        });
+
+        static::updated(function ($mouvement) {
+            if ($mouvement->type === 'Paiement dette' && $mouvement->isDirty('montant')) {
+                DB::transaction(function () use ($mouvement) {
+                    $existedIndicateur = Indicateur::where('libelle', $mouvement->auteur)
+                        ->whereDate('created_at', $mouvement->created_at->toDateString())
+                        ->first();
+
+                    if ($existedIndicateur) {
+                        $existedIndicateur->update([
+                            'montant' => $existedIndicateur->montant - $mouvement->getOriginal('montant') + $mouvement->montant,
+                        ]);
+                    }
+                });
+            }
+
+            if ($mouvement->type === 'Dette' && $mouvement->isDirty('montant')) {
+                DB::transaction(function () use ($mouvement) {
+                    $originalMontant = $mouvement->getOriginal('montant');
+                    $newMontant = $mouvement->montant;
+                    $difference = $newMontant - $originalMontant;
+
+                    // Mise à jour de l’indicateur lié (filtrage plus strict possible si besoin)
+                    $existedIndicateur = Indicateur::where('libelle', $mouvement->auteur)
+                        ->whereDate('created_at', $mouvement->created_at->toDateString())
+                        ->first();
+
+                    if ($existedIndicateur) {
+                        $existedIndicateur->update([
+                            'montant' => $existedIndicateur->montant + $difference,
+                        ]);
+                    }
+                });
+            }
         });
     }
-
 
     public function user() {
         return $this->belongsTo(User::class);

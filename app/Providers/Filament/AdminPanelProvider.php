@@ -139,9 +139,8 @@ class AdminPanelProvider extends PanelProvider
                         NavigationGroup::make('Options & Actions')
                             ->items([
                                 ...AllEcriture::getNavigationItems(),
-                                ...CommandeAgentResource::getNavigationItems(),
-                                ...VerifierRetraitResource::getNavigationItems(),
-                            ]),
+                                ...CommandeResource::getNavigationItems(),
+                                ...ApprovisionnerAgentResource::getNavigationItems(),                            ]),
                         NavigationGroup::make('Rapports')
                             ->items([
                                 ...MonRapport::getNavigationItems(),

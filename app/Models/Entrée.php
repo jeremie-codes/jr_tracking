@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Entrée extends Model
 {
@@ -49,6 +50,22 @@ class Entrée extends Model
                     'user_id' => $entrée->user_id,
                     'devise_id' => $entrée->devise_id,
                 ]);
+            }
+        });
+
+        static::updated(function ($entrée) {
+            if ($entrée->type === 'Paiement dette' && $entrée->isDirty('montant')) {
+                DB::transaction(function () use ($entrée) {
+                    $existedIndicateur = Indicateur::where('libelle', $entrée->auteur)
+                        ->whereDate('created_at', $entrée->created_at->toDateString())
+                        ->first();
+
+                    if ($existedIndicateur) {
+                        $existedIndicateur->update([
+                            'montant' => $existedIndicateur->montant - $entrée->getOriginal('montant') + $entrée->montant,
+                        ]);
+                    }
+                });
             }
         });
     }

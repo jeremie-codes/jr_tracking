@@ -125,28 +125,50 @@ class MonRapport extends Page
         ];
 
         foreach ($balances as $deviseCode => $balance) {
-            // dd(Auth::user()->name);
+
+            $existedManquant = Indicateur::where('date_ref', $date ?? now()->toDateString())->where('type', 'manquant')->exists();
+            $existedExcedent = Indicateur::where('date_ref', $date ?? now()->toDateString())->where('type', 'excédent')->exists();
+
             if ($balance > 0) {
                 $deviseId = Devise::where('code', $deviseCode)->first()->id;
-                Indicateur::create([
-                    'user_id' => Auth::user()->id,
-                    'libelle' => Auth::user()->name,
-                    'devise_id' => $deviseId,
-                    'type' => 'manquant',
-                    'montant'=> $balance,
-                    'date_ref'=> today(),
-                ]);
+
+                if ($existedManquant) {
+                    $indicateur = Indicateur::where('date_ref', $date ?? now()->toDateString())->where('type', 'manquant')->first();
+                    $indicateur->update([
+                        'montant' => abs($balance),
+                    ]);
+                } else{
+
+                    Indicateur::create([
+                        'user_id' => Auth::user()->id,
+                        'libelle' => Auth::user()->name,
+                        'devise_id' => $deviseId,
+                        'type' => 'manquant',
+                        'montant'=> abs($balance),
+                        'date_ref'=> $date ?? now()->toDateString(),
+                    ]);
+                }
             }
             elseif ($balance < 0) {
                 $deviseId = Devise::where('code', $deviseCode)->first()->id;
-                Indicateur::create([
-                    'user_id' => Auth::user()->id,
-                    'libelle' => Auth::user()->name,
-                    'devise_id' => $deviseId,
-                    'type' => 'excédent',
-                    'montant'=> $balance,
-                    'date_ref'=> today(),
-                ]);
+
+                if ($existedExcedent) {
+                    $indicateur = Indicateur::where('date_ref', $date ?? now()->toDateString())->where('type', 'excédent')->first();
+                    $indicateur->update([
+                        'montant' => abs($balance),
+                    ]);
+                }
+                else {
+                    Indicateur::create([
+                        'user_id' => Auth::user()->id,
+                        'libelle' => Auth::user()->name,
+                        'devise_id' => $deviseId,
+                        'type' => 'excédent',
+                        'montant'=> abs($balance),
+                        'date_ref'=> $date ?? now()->toDateString(),
+                    ]);
+                }
+
             }
         }
 

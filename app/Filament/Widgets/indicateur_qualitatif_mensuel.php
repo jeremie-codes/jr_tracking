@@ -115,7 +115,7 @@ class indicateur_qualitatif_mensuel extends BaseWidget
                 return Number::format($number / 1000, 2) . 'k';
             }
 
-            return Number::format($number / 1000000, 2) . 'm';
+            return Number::format($number / 1000000, 2) . 'M';
         };
 
         // Formater le résultat pour l'affichage
@@ -141,6 +141,10 @@ class indicateur_qualitatif_mensuel extends BaseWidget
                 ->chart([2, 1, 3, 2,])
                 ->color($retard->total_retard > 0 ? 'danger' : 'success'),
         ];
+
+        if (Auth::user()->role === "Admin") {
+            return [];
+        }
 
         return $stats;
     }
