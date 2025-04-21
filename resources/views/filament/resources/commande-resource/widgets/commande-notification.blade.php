@@ -61,7 +61,8 @@
                             >
                                 {{ $notification->type !== 'retrait' && $notification->type !== 'depot' ? 'Approuver': 'Confirmer' }}
                             </x-filament::button>
-                            @if ($notification->type !== 'retrait' && $notification->type !== 'depot')
+
+                            @if ($notification->type !== 'retrait' && $notification->type !== 'depot' && $notification->person_id !== $notification->see_id)
                                 <x-filament::button
                                     color="primary"
                                     tag="button"
@@ -69,6 +70,7 @@
                                     wire:click.prevent="modifyCommande({{ $notification->id }})"
                                 >
                                     {{ 'Modifier' }}
+
                                 </x-filament::button>
                             @endif
                             <x-filament::button
