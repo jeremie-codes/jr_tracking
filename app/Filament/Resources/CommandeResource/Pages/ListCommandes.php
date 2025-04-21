@@ -31,7 +31,7 @@ class ListCommandes extends ListRecords
         $commandeCount = Commande::where('see_id', Auth::id())->where('status', 'attente')
             ->where(function ($query) {
                 $query->where('user_id', Auth::id())
-                    ->orWhere('person_id', 'retrait');
+                    ->orWhere('person_id', Auth::id());
             })
             ->orderBy('created_at', 'desc')->get()->count();
 
