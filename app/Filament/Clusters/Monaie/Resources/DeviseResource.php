@@ -22,7 +22,7 @@ class DeviseResource extends Resource
 {
     protected static ?string $model = Devise::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-currency-euro';
+    protected static ?string $navigationIcon = 'heroicon-s-currency-dollar';
 
     protected static ?string $cluster = Monaie::class;
 
