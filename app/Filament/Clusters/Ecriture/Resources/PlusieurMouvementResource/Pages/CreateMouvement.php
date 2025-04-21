@@ -21,6 +21,8 @@ use Filament\Forms\Components\Wizard;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
+use App\Filament\Pages\AllEcriture;
+
 
 class CreateMouvement extends Page
 {
@@ -37,7 +39,7 @@ class CreateMouvement extends Page
     public $date_ref;
     public $note;
 
-    public $auteur2;
+    // public $auteur;
     public $type_sortie;
     public $montant_sortie;
     public $devise_sortie;
@@ -74,7 +76,7 @@ class CreateMouvement extends Page
                 Section::make('')
                     ->schema([
                         TextInput::make('auteur')
-                            ->label("Client/Operateur/Auteur/Libellé")
+                            ->label("Nom du client")
                             ->required()
                             ->reactive(),
                         Select::make('type')
@@ -120,7 +122,7 @@ class CreateMouvement extends Page
                 Section::make('')
                     ->schema([
                         Textarea::make("note")
-                            ->label("Motif/Raison/commentaire")
+                            ->label("Motif ou commentaire")
                             ->rows(2)
                             ->visible(fn ($get) => $get('type') === 'Autres'),
                     ])->hidden(fn ($get) => $get('type') !== 'Autres'),
@@ -134,8 +136,8 @@ class CreateMouvement extends Page
                 // Champ Auteur pour Sortie
                 Section::make('')
                 ->schema([
-                    TextInput::make('auteur2')
-                        ->label("Client/Operateur/Auteur/Libellé")
+                    TextInput::make('auteur')
+                        ->label("Nom du client")
                         ->required()
                         ->reactive()
                         ->default(fn ($get) => $get('nature') === 'sortie' ? '' : null),
@@ -181,7 +183,7 @@ class CreateMouvement extends Page
             Section::make('')
                 ->schema([
                     Textarea::make("note2")
-                        ->label("Motif/Raison/commentaire")
+                    ->label("Motif ou commentaire")
                         ->rows(2)
                         ->visible(fn ($get) => $get('type_sortie') === 'Autres'),
                 ])  ->hidden(fn ($get) => $get('type_sortie') !== 'Autres'),
@@ -206,7 +208,7 @@ class CreateMouvement extends Page
 
         // Deuxième tableau : données pour la sortie
         $data2 = [
-            'auteur' => $this->auteur2,
+            'auteur' => $this->auteur,
             'nature' => 'sortie',
             'type' => $this->type_sortie,
             'montant' => $this->montant_sortie,
@@ -237,7 +239,7 @@ class CreateMouvement extends Page
             ->success()
             ->send();
 
-        return redirect(EntréeResource::getUrl('index'));
+        return redirect(AllEcriture::getUrl());
 
     }
 

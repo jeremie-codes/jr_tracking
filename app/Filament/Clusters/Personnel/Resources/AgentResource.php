@@ -81,7 +81,7 @@ class AgentResource extends Resource
                             })
                             ->multiple()
                     ]),
-                    Section::make()
+                    Section::make(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord ? 'Changer le Mot de passe': '')
                         ->schema([
                             TextInput::make('password')
                                 ->password()
