@@ -68,7 +68,7 @@ class EntréeResource extends Resource
                                     'Autres' => 'Autres',
                                 ]),
                             TextInput::make('auteur')
-                                ->label("Client/Operateur/Auteur/Libellé")
+                                ->label("Client ou Libellé")
                                 ->required(),
 
                             // TextInput::make('user_id')
@@ -104,10 +104,10 @@ class EntréeResource extends Resource
                     Section::make('')
                         ->schema([
                             Textarea::make("note")
-                                ->label("Motif/Raison/commentaire")
+                                ->label("Motif ou commentaire")
                                 ->rows(2)
-                                ->visible(fn ($get) => $get('type') === 'Autres'),
-                        ])->hidden(fn ($get) => $get('type') !== 'Autres'),
+                                ->visible(fn ($get) => $get('type') === 'Autres' || $get('type') === 'Consignation'),
+                        ])->hidden(fn ($get) => $get('type') !== 'Autres' || $get('type') !== 'Consignation'),
                 ])
                 ->columnSpan(['lg' => 2]),
 
