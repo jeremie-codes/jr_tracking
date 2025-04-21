@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('budgets', function (Blueprint $table) {
             $table->id();
-            $table->decimal('rep_init', 12, 0)->default(0);
-            $table->decimal('reel_final', 12, 0)->default(0);
-            $table->decimal('rep_final', 12, 0)->default(0);
+            $table->decimal('rep_init', 12, 2)->default(0);
+            $table->decimal('reel_final', 12, 2)->default(0);
+            $table->decimal('rep_final', 12, 2)->default(0);
             $table->timestamps();
         });
     }
