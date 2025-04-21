@@ -76,4 +76,9 @@ class User extends Authenticatable implements FilamentUser
         return true;
     }
 
+    public function tasks()
+    {
+        return $this->hasMany(Article::class);
+    }
+
 }

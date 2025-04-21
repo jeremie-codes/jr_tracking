@@ -39,7 +39,7 @@ class RapportDeTransactions extends Page
         $tasks = User::where('id', Auth::user()->id)->pluck('tasks')[0];
 
         if(Auth::user()->role === "Admin") {
-            return Article::where('name', '!=', 'autres')->get();
+            return Article::where('name', '!=', 'Autres')->get();
         }
         return Article::whereIn('name', $tasks)->get();
     }
@@ -134,7 +134,6 @@ class RapportDeTransactions extends Page
             'retrait_usd' => $retraitUsd->sum('montant') ?? 0,
         ];
 
-        // dd($tableData);
 
         return $tableData;
     }

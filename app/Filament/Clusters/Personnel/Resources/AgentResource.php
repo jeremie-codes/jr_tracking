@@ -22,6 +22,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Pages\CreateRecord;
+use App\Models\Article; // Assure-toi d'importer ton modèle Article
 
 class AgentResource extends Resource
 {
@@ -72,16 +73,12 @@ class AgentResource extends Resource
                             ])
                             ->required(),
                         Select::make('tasks')->label('Tâches')
+                            ->searchable(false)
                             ->required()
-                            ->options([
-                                'm-pesa' => 'm-pesa',
-                                'orange-money' => 'orange-money',
-                                'airtel-money' => 'airtel-money',
-                                'afri-money' => 'afri-money',
-                                'e-money' => 'e-money',
-                                'cash' => 'cash',
-                                'tout' => 'tout',
-                            ])
+                            ->options(function () {
+                                return Article::where('name', '!=', 'Autres')
+                                    ->pluck('name', 'id'); // Assurez-vous d'utiliser 'id' comme clé
+                            })
                             ->multiple()
                     ]),
                     Section::make()
