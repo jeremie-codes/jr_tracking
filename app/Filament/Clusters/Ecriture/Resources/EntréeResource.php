@@ -106,8 +106,8 @@ class EntréeResource extends Resource
                             Textarea::make("note")
                                 ->label("Motif ou commentaire")
                                 ->rows(2)
-                                ->visible(fn ($get) => $get('type') === 'Autres' || $get('type') === 'Consignation'),
-                        ])->hidden(fn ($get) => $get('type') !== 'Autres' || $get('type') !== 'Consignation'),
+                                ->visible(fn ($get) => $get('type') === 'Autres' && $get('type') === 'Consignation'),
+                        ])->hidden(fn ($get) => $get('type') !== 'Autres' && $get('type') !== 'Consignation'),
                 ])
                 ->columnSpan(['lg' => 2]),
 
