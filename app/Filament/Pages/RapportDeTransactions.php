@@ -39,7 +39,7 @@ class RapportDeTransactions extends Page
         $tasks = User::where('id', Auth::user()->id)->pluck('tasks')[0];
 
         if(Auth::user()->role === "Admin") {
-            return Article::where('name', '!=', 'Autres')->get();
+            return Article::where('name', '!=', 'Autres')->where('name', '!=', 'Cash')->get();
         }
         return Article::whereIn('name', $tasks)->get();
     }

@@ -70,7 +70,6 @@
                                     wire:click.prevent="modifyCommande({{ $notification->id }})"
                                 >
                                     {{ 'Modifier' }}
-
                                 </x-filament::button>
                             @endif
                             <x-filament::button

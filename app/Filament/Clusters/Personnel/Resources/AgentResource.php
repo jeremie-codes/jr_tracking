@@ -76,7 +76,7 @@ class AgentResource extends Resource
                             ->searchable(false)
                             ->required()
                             ->options(function () {
-                                return Article::where('name', '!=', 'Autres')
+                                return Article::where('name', '!=', 'Autres')->where('name', '!=', 'Cash')
                                     ->pluck('name', 'id'); // Assurez-vous d'utiliser 'id' comme clé
                             })
                             ->multiple()
