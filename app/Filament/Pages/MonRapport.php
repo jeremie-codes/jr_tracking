@@ -50,7 +50,7 @@ class MonRapport extends Page
         foreach ($query as $item) {
             // Vérifiez si une ligne avec le même id_ref existe déjà
             $existingRowKey = array_search($item->id_ref, array_column($tableData, 'id'));
-            $article = Article::where('id', $item->article_id)->first();
+            $article = Article::where('id', $item->article_id)->first()->name ?? '';
 
             if ($existingRowKey !== false) {
                 // Si une ligne avec le même id_ref existe, mettez à jour les colonnes correspondantes
@@ -67,7 +67,7 @@ class MonRapport extends Page
                 $tableData[] = [
                     'id' => $item->id,
                     'ref' => $item->id_ref,
-                    'type' => $item->type == 'Cession de fond' ? 'Appro '. $article->name  . ', ' . $item->auteur : $item->type . ' '. $article->name . ', ' . $item->auteur,
+                    'type' => $item->type == 'Cession de fond' && $item->by_command == true ? 'Appro '. $article  . ', ' . $item->auteur : $item->type . ' '. $article . ', ' . $item->auteur,
                     'auteur' => $item->user->name,
                     'entree_cdf' => $item->nature === 'entree' && $item->devise->code === 'CDF' ? $item->montant : 0,
                     'entree_usd' => $item->nature === 'entree' && $item->devise->code === 'USD' ? $item->montant : 0,

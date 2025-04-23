@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('commandes', function (Blueprint $table) {
-            $table->string('libelle')->default(null);
+            $table->string('libelle')->nullable()->default(null);
         });
     }
 

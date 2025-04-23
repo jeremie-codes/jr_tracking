@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('devises', function (Blueprint $table) {
             $table->id();
             $table->string('code', 10)->unique();  // Code de la devise (par exemple EUR, USD)
-            $table->string('nom', 100);
+            $table->string('nom', 100)->nullable()->default(null); // Nom de la devise (par exemple Euro, Dollar)
             $table->timestamps();
         });
     }

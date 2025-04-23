@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('ecritures', function (Blueprint $table) {
             $table->id();
             $table->string('auteur');
-            // $table->string('article')->nullable();
             $table->string('nature');
             $table->string('type');
             $table->decimal('montant', 15, 2);

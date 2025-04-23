@@ -66,14 +66,14 @@ class RapportParAgent extends Page
                 $tableData[$existingRowKey]['sortie_eur'] += $item->nature === 'sortie' && $item->devise->code === 'EUR' ? $item->montant : 0;
                 $tableData[$existingRowKey]['sortie_cfa'] += $item->nature === 'sortie' && $item->devise->code === 'CFA' ? $item->montant : 0;
             } else {
+                $article = Article::where('id', $item->article_id)->first()->name ?? '';
 
-                $article = Article::where('id', $item->article_id)->first();
                 // Sinon, ajoutez une nouvelle ligne
                 $tableData[] = [
                     'id' => $item->id,
                     'ref' => $item->id_ref,
                     // 'type' => $item->type. ': '. $item->note,
-                    'type' => $item->type == 'Cession de fond' ? 'Appro '. $article->name . ', ' . $item->auteur : $item->type . ' '. $article->name . ', ' . $item->auteur,
+                    'type' => $item->type == 'Cession de fond' && $item->by_command == true ? 'Appro '. $article  . ', ' . $item->auteur : $item->type . ' '. $article . ', ' . $item->auteur,
                     'entree_cdf' => $item->nature === 'entree' && $item->devise->code === 'CDF' ? $item->montant : 0,
                     'entree_usd' => $item->nature === 'entree' && $item->devise->code === 'USD' ? $item->montant : 0,
                     'entree_eur' => $item->nature === 'entree' && $item->devise->code === 'EUR' ? $item->montant : 0,

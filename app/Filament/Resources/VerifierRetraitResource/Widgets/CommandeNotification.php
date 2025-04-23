@@ -57,7 +57,7 @@ class CommandeNotification extends Widget
                         'devise_id' => $commande->devise_id,
                         'article_id' => $commande->article_id,
                         'note' => $commande->note,
-                        // Ajoutez d'autres champs nécessaires
+                        'by_command' => true,
                     ]);
                 }
                 else
@@ -83,7 +83,7 @@ class CommandeNotification extends Widget
                         'devise_id' => $commande->devise_id,
                         'article_id' => $commande->article_id,
                         'note' => $commande->note,
-                        // Ajoutez d'autres champs nécessaires
+                        'by_command' => true,
                     ]);
                 }
             }
