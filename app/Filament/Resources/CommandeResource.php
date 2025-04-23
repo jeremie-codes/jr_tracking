@@ -88,7 +88,22 @@ class CommandeResource extends Resource
                                 ->label('Destinataire')
                                 ->disabled(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord)
                                 ->placeholder('Choisir')
-                                ->relationship('user', 'name')
+                                ->options(function () {
+                                    // Vérifiez le rôle de l'utilisateur connecté
+                                    if (Auth::user()->role === 'C-abonné' || Auth::user()->role === 'C-agent') {
+                                        // Retournez uniquement les utilisateurs ayant le rôle 'Operateur-e-money'
+                                        return \App\Models\User::where('role', 'Operateur-e-money')->pluck('name', 'id');
+                                    }
+                                    if (Auth::user()->role === 'Operateur-e-money') {
+                                        // Retournez uniquement les utilisateurs ayant le rôle 'Operateur-e-money'
+                                        return \App\Models\User::where('role', 'C-abonné')
+                                            ->orWhere('role', 'C-agent')
+                                            ->pluck('name', 'id');
+                                    }
+
+                                    // Par défaut, retournez tous les utilisateurs
+                                    return \App\Models\User::pluck('name', 'id');
+                                })
                                 ->required(),
                             Select::make('article_id')
                                 ->label('Article')
